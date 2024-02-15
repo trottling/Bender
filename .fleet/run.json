@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        {
+            "type": "python",
+            "name": "Запустить",
+            "file": "main.py",
+            "arguments": [
+                "-d"
+            ],
+        },
+    ]
+}
