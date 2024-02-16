@@ -1,6 +1,6 @@
 import sys
 
-from PySide6.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication
 
 from OnAppStart.setup_logger import Setup_logger
 from OnAppStart.setup_args import Setup_args
@@ -19,5 +19,5 @@ CheckUserOs(logger)
 if __name__ == '__main__':
     # Run GUI
     app = QApplication(sys.argv)
-    window = User_UI(app_version, logger)
-    app.exec()
+    User_UI(app_version, logger)
+    sys.exit(app.exec())

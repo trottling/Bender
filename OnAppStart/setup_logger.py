@@ -21,9 +21,9 @@ def Setup_logger(app_version, config):
         except Exception as e:
             logger.error(f"Unable to create log file for debug : {config['debug_file']} : {e}")
 
-    logger.info(f"Python {sys.version}")
-    logger.info(f"Application version: {app_version}")
-    logger.info(f"Run args : {config}")
-    logger.info(f"Run as Admin : {IsUserAdmin(logger)}")
+    logger.debug(f"Python {sys.version}")
+    logger.debug(f"Application version: {app_version}")
+    logger.debug(f"Run args : {config}")
+    logger.debug(f"Run as Admin : {IsUserAdmin(logger)}")
 
     return logger
