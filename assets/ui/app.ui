@@ -51,7 +51,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;@trottling&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/trottling/Windows-Vulnerability-Scanner&quot;&gt;&lt;span style=&quot; font-size:12pt; color:#a9b7c6;&quot;&gt;@trottling&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="openExternalLinks">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="app_ver">
@@ -77,7 +80,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -256,42 +259,11 @@ connected devices</string>
        </property>
       </item>
      </widget>
-     <widget class="QFontComboBox" name="fontComboBox">
-      <property name="geometry">
-       <rect>
-        <x>786</x>
-        <y>427</y>
-        <width>221</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="frame">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="font_label">
-      <property name="geometry">
-       <rect>
-        <x>600</x>
-        <y>427</y>
-        <width>126</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Font&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="qss_label">
       <property name="geometry">
        <rect>
         <x>600</x>
-        <y>477</y>
+        <y>427</y>
         <width>126</width>
         <height>31</height>
        </rect>
@@ -305,37 +277,11 @@ connected devices</string>
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;QSS Theme&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="select_qss_pushButton">
-      <property name="geometry">
-       <rect>
-        <x>1075</x>
-        <y>473</y>
-        <width>35</width>
-        <height>35</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
      <widget class="QPushButton" name="reset_qss_pushButton">
       <property name="geometry">
        <rect>
-        <x>1125</x>
-        <y>473</y>
-        <width>35</width>
-        <height>35</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="reset_font_pushButton">
-      <property name="geometry">
-       <rect>
         <x>1075</x>
-        <y>425</y>
+        <y>423</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -370,24 +316,11 @@ connected devices</string>
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;Settings&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="font_apply_pushButton">
-      <property name="geometry">
-       <rect>
-        <x>1025</x>
-        <y>425</y>
-        <width>35</width>
-        <height>35</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
      <widget class="QPushButton" name="qss_apply_pushButton">
       <property name="geometry">
        <rect>
-        <x>1025</x>
-        <y>473</y>
+        <x>1023</x>
+        <y>423</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -399,7 +332,7 @@ connected devices</string>
      <widget class="QPushButton" name="lang_apply_pushButton">
       <property name="geometry">
        <rect>
-        <x>1025</x>
+        <x>1023</x>
         <y>375</y>
         <width>35</width>
         <height>35</height>
@@ -413,7 +346,7 @@ connected devices</string>
       <property name="geometry">
        <rect>
         <x>786</x>
-        <y>475</y>
+        <y>425</y>
         <width>221</width>
         <height>31</height>
        </rect>
@@ -428,12 +361,17 @@ connected devices</string>
         <string>Default (Light)</string>
        </property>
       </item>
+      <item>
+       <property name="text">
+        <string>Custom</string>
+       </property>
+      </item>
      </widget>
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="label_list_thanks">
       <property name="geometry">
        <rect>
         <x>625</x>
-        <y>575</y>
+        <y>525</y>
         <width>351</width>
         <height>126</height>
        </rect>
@@ -449,17 +387,124 @@ p, li { white-space: pre-wrap; }
 &lt;p align=&quot;center&quot; style=&quot; margin-top:6px; margin-bottom:6px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;App idea - my smoky head&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_3">
+     <widget class="QLabel" name="label_thanks">
       <property name="geometry">
        <rect>
         <x>675</x>
-        <y>525</y>
+        <y>475</y>
         <width>251</width>
         <height>50</height>
        </rect>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;Thanks for&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="qss_label_2">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>475</y>
+        <width>126</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;QSS Path&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="qss_lineEdit">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>786</x>
+        <y>475</y>
+        <width>221</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="qss_file_pushButton">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>1075</x>
+        <y>473</y>
+        <width>35</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="qss_apply_file_pushButton">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>1023</x>
+        <y>473</y>
+        <width>35</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>qss_apply_file_pushButton</zorder>
+     <zorder>qss_label_2</zorder>
+     <zorder>qss_file_pushButton</zorder>
+     <zorder>qss_lineEdit</zorder>
+     <zorder>logo_2</zorder>
+     <zorder>lang_label</zorder>
+     <zorder>lang_comboBox</zorder>
+     <zorder>qss_label</zorder>
+     <zorder>reset_qss_pushButton</zorder>
+     <zorder>back_button</zorder>
+     <zorder>label</zorder>
+     <zorder>qss_apply_pushButton</zorder>
+     <zorder>lang_apply_pushButton</zorder>
+     <zorder>qss_comboBox</zorder>
+     <zorder>label_list_thanks</zorder>
+     <zorder>label_thanks</zorder>
+    </widget>
+    <widget class="QWidget" name="page_errors">
+     <widget class="QPlainTextEdit" name="errors_log">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>25</y>
+        <width>1551</width>
+        <height>726</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="plainText">
+       <string>There have been some errors:
+
+</string>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
       </property>
      </widget>
     </widget>
