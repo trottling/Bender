@@ -2,7 +2,6 @@ import ctypes
 import logging
 import platform
 import sys
-import time
 from logging import StreamHandler, Formatter
 
 
