@@ -1,3 +1,5 @@
+import sys
+
 import darkdetect
 import ctypes
 import platform
@@ -13,21 +15,23 @@ def GetWindowsTheme(self) -> str:
 
 
 def CheckUserOs(self):
-    if platform.system() != "Windows":
-        self.logger.debug("Unsupported operating system")
-        self.stackedWidget.setCurrentIndex(4)
-        self.logger.debug("CheckUserOs : self.stackedWidget.setCurrentIndex(0)")
-        self.ui.page_errors.append(f"Unsupported operating system : {platform.system()}\n")
+    if sys.platform != "win32" or not platform.release().isdigit() or int(platform.release()) < 7:
+        Report_Error(self, f"Unsupported operating system : {platform.system()} {platform.release()}")
+
     if not IsUserAdmin(self):
-        self.logger.debug("CheckUserOs : self.stackedWidget.setCurrentIndex(0)")
-        self.ui.page_errors.append(f"App run without Admin privileges\n")
+        Report_Error(self, "App run without Admin privileges")
 
 
 def IsUserAdmin(self):
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
     except Exception as e:
-        self.stackedWidget.setCurrentIndex(4)
-        self.ui.page_errors.append(f"App run Admin check failed, assuming not an admin : {e}\n")
-        self.logger.debug(f"IsUserAdmin() : Admin check failed, assuming not an admin : {e}")
+        Report_Error(self, f"Admin check failed, assuming not an Admin : {e}\n")
         return False
+
+
+def Report_Error(self, error):
+    self.ui.stackedWidget.setCurrentIndex(4)
+    self.logger.debug("CheckUserOs : self.stackedWidget.setCurrentIndex(0)")
+    self.ui.errors_log.appendPlainText(error + "\n")
+    self.logger.debug(f"Report_Error : {error}")

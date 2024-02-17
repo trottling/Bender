@@ -4,13 +4,13 @@ import platform
 import sys
 import time
 from logging import StreamHandler
-from logging.handlers import RotatingFileHandler
 
 
-def Setup_logger(app_version):
+def Setup_logger(app_version, file_handler):
     logger = logging.getLogger(__name__)
     std_handler = StreamHandler(sys.stdout)
     logger.addHandler(std_handler)
+    logger.addHandler(file_handler)
     logger.setLevel(logging.DEBUG)
 
     logger.debug(time.strftime("%Y-%m-%d | %H:%M:%S", time.localtime()))

@@ -8,13 +8,13 @@ from ui.user_interface import User_UI
 
 app_version = "1.0.0"
 
-# Setup logger
-logger = Setup_logger(app_version)
 # Check App folder
-appdir = CheckAppDir(logger)
+appdir, file_handler = CheckAppDir()
+# Setup logger
+logger = Setup_logger(app_version, file_handler)
 
 if __name__ == '__main__':
     # Run GUI
     app = QApplication(sys.argv)
-    User_UI(app_version, logger)
+    User_UI(app_version, logger, appdir)
     sys.exit(app.exec())

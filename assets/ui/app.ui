@@ -66,6 +66,12 @@
       <height>50</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;ver 0.0.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
@@ -80,7 +86,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -97,9 +103,12 @@
       </property>
      </widget>
      <widget class="QPushButton" name="CWC_btn">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>625</x>
+        <x>1200</x>
         <y>525</y>
         <width>351</width>
         <height>211</height>
@@ -112,14 +121,13 @@
        </font>
       </property>
       <property name="text">
-       <string>Check
-Windows components</string>
+       <string>In Development</string>
       </property>
      </widget>
      <widget class="QPushButton" name="CCD_btn">
       <property name="geometry">
        <rect>
-        <x>1200</x>
+        <x>625</x>
         <y>525</y>
         <width>351</width>
         <height>211</height>
@@ -201,7 +209,66 @@ connected devices</string>
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="page_work"/>
+    <widget class="QWidget" name="page_work">
+     <widget class="QProgressBar" name="progressBar">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>625</y>
+        <width>1501</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="value">
+       <number>0</number>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="work_status_label">
+      <property name="geometry">
+       <rect>
+        <x>625</x>
+        <y>700</y>
+        <width>351</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Example Some Long Text&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="work_log">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>25</y>
+        <width>1551</width>
+        <height>576</height>
+       </rect>
+      </property>
+      <property name="acceptDrops">
+       <bool>false</bool>
+      </property>
+      <property name="lineWidth">
+       <number>0</number>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+      <property name="plainText">
+       <string/>
+      </property>
+     </widget>
+    </widget>
     <widget class="QWidget" name="page_result"/>
     <widget class="QWidget" name="page_settings">
      <widget class="QFrame" name="logo_2">
@@ -227,8 +294,8 @@ connected devices</string>
       <property name="geometry">
        <rect>
         <x>600</x>
-        <y>377</y>
-        <width>126</width>
+        <y>404</y>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -245,7 +312,7 @@ connected devices</string>
       <property name="geometry">
        <rect>
         <x>786</x>
-        <y>377</y>
+        <y>404</y>
         <width>221</width>
         <height>31</height>
        </rect>
@@ -263,8 +330,8 @@ connected devices</string>
       <property name="geometry">
        <rect>
         <x>600</x>
-        <y>427</y>
-        <width>126</width>
+        <y>454</y>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -281,7 +348,7 @@ connected devices</string>
       <property name="geometry">
        <rect>
         <x>1075</x>
-        <y>423</y>
+        <y>450</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -306,9 +373,9 @@ connected devices</string>
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>688</x>
-        <y>300</y>
-        <width>226</width>
+        <x>673</x>
+        <y>325</y>
+        <width>251</width>
         <height>50</height>
        </rect>
       </property>
@@ -320,7 +387,7 @@ connected devices</string>
       <property name="geometry">
        <rect>
         <x>1023</x>
-        <y>423</y>
+        <y>450</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -333,7 +400,7 @@ connected devices</string>
       <property name="geometry">
        <rect>
         <x>1023</x>
-        <y>375</y>
+        <y>402</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -346,7 +413,7 @@ connected devices</string>
       <property name="geometry">
        <rect>
         <x>786</x>
-        <y>425</y>
+        <y>452</y>
         <width>221</width>
         <height>31</height>
        </rect>
@@ -370,9 +437,9 @@ connected devices</string>
      <widget class="QLabel" name="label_list_thanks">
       <property name="geometry">
        <rect>
-        <x>625</x>
-        <y>525</y>
-        <width>351</width>
+        <x>1150</x>
+        <y>425</y>
+        <width>401</width>
         <height>126</height>
        </rect>
       </property>
@@ -390,11 +457,16 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="label_thanks">
       <property name="geometry">
        <rect>
-        <x>675</x>
-        <y>475</y>
+        <x>1225</x>
+        <y>350</y>
         <width>251</width>
         <height>50</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;Thanks for&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -407,8 +479,8 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>600</x>
-        <y>475</y>
-        <width>126</width>
+        <y>502</y>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -418,7 +490,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;QSS Path&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;QSS theme path&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="qss_lineEdit">
@@ -428,7 +500,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>786</x>
-        <y>475</y>
+        <y>502</y>
         <width>221</width>
         <height>31</height>
        </rect>
@@ -441,7 +513,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>1075</x>
-        <y>473</y>
+        <y>500</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -457,13 +529,97 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>1023</x>
-        <y>473</y>
+        <y>500</y>
         <width>35</width>
         <height>35</height>
        </rect>
       </property>
       <property name="text">
        <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="save_log_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>786</x>
+        <y>550</y>
+        <width>221</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Click</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="save_log_label">
+      <property name="geometry">
+       <rect>
+        <x>598</x>
+        <y>550</y>
+        <width>151</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Save debug log&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="python_version">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>725</y>
+        <width>776</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Python 0.00.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_list_concept">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>425</y>
+        <width>401</width>
+        <height>126</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Microsoft YaHei UI'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Icons - icons8.com&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:6px; margin-bottom:6px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;GUI - PyQT6&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:6px; margin-bottom:6px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Network - httpx&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:6px; margin-bottom:6px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;App idea - my smoky head&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_concept">
+      <property name="geometry">
+       <rect>
+        <x>125</x>
+        <y>350</y>
+        <width>251</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;App concept&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <zorder>qss_apply_file_pushButton</zorder>
@@ -482,6 +638,11 @@ p, li { white-space: pre-wrap; }
      <zorder>qss_comboBox</zorder>
      <zorder>label_list_thanks</zorder>
      <zorder>label_thanks</zorder>
+     <zorder>save_log_pushButton</zorder>
+     <zorder>save_log_label</zorder>
+     <zorder>python_version</zorder>
+     <zorder>label_list_concept</zorder>
+     <zorder>label_concept</zorder>
     </widget>
     <widget class="QWidget" name="page_errors">
      <widget class="QPlainTextEdit" name="errors_log">
@@ -490,7 +651,7 @@ p, li { white-space: pre-wrap; }
         <x>25</x>
         <y>25</y>
         <width>1551</width>
-        <height>726</height>
+        <height>651</height>
        </rect>
       </property>
       <property name="font">
@@ -505,6 +666,39 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="textInteractionFlags">
        <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="save_log_label_2">
+      <property name="geometry">
+       <rect>
+        <x>625</x>
+        <y>700</y>
+        <width>126</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Save log&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="save_log_pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>750</x>
+        <y>700</y>
+        <width>221</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Click</string>
       </property>
      </widget>
     </widget>

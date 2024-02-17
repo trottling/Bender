@@ -8,10 +8,11 @@ from ui.tools import CheckUserOs
 
 
 class User_UI(QMainWindow):
-    def __init__(self, app_version: str, logger) -> None:
+    def __init__(self, app_version, logger, appdir) -> None:
         super().__init__()
         self.app_version = app_version
         self.logger = logger
+        self.appdir = appdir
         self.ui = None
         Start_App(self)
         CheckUserOs(self)

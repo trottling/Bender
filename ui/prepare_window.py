@@ -1,3 +1,5 @@
+import sys
+
 from PyQt6 import uic, QtGui
 
 
@@ -16,9 +18,12 @@ def Prepare_Window(self):
     self.ui.setWindowTitle("Windows Vulnerability Scanner")
     self.logger.debug(f"Prepare_Window : Title seted")
 
-    # App version
-    self.ui.app_ver.setText(f"ver {self.app_version}")
-    self.logger.debug(f"Prepare_Window : App version seted")
+    # Set version
+    self.ui.app_ver.setText(
+        f"<html><head/><body><p align=\"right\"><span style=\" font-size:12pt;\">ver {self.app_version}</span></p></body></html>")
+    self.ui.python_version.setText(
+        f"<html><head/><body><p align=\"right\"><span style=\" font-size:12pt;\">Python {sys.version}</span></p></body></html>")
+    self.logger.debug(f"Prepare_Window : Versions seted")
 
     # Hide elements
     self.ui.qss_label_2.hide()

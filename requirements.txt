@@ -1,5 +1,5 @@
-logging>=0.4.9.6
-PyQt6~=6.6.1
-pip~=23.3
-setuptools~=68.2.2
-darkdetect~=0.8.0
+logging
+PyQt6
+pip
+setuptools
+darkdetect
