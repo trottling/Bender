@@ -1,8 +1,9 @@
 import os
 
 from PyQt6.QtWidgets import QFileDialog
-from checkers.Check_Connected_Devices import RunCCD
-from checkers.Check_Installed_Apps import RunCIA
+from checkers.run_checker import Run_Checker
+from ui.styles import Load_Styles
+from pathlib import Path
 
 
 def Connect_Buttons(self):
@@ -12,24 +13,23 @@ def Connect_Buttons(self):
     self.ui.back_button.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(0), self.logger.debug(
         "setting_btn : self.stackedWidget.setCurrentIndex(0)")))
 
-    self.ui.qss_apply_pushButton.clicked.connect(lambda: (
-        self.ui.setStyleSheet(open(
-            f"assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss",
-            mode="r").read()), self.logger.debug(
-            f"qss_apply_pushButton : assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss : Styles loaded")))
+    self.ui.qss_apply_pushButton.clicked.connect(lambda: ApplyQSSTheme(self))
 
     self.ui.qss_comboBox.currentIndexChanged.connect(lambda:
                                                      ChangeShowQSSInput(self))
 
     self.ui.qss_file_pushButton.clicked.connect(lambda: OpenQSSFile(self))
 
-    self.ui.qss_apply_file_pushButton.clicked.connect(lambda: ApplyQSSTheme(self))
+    self.ui.qss_apply_file_pushButton.clicked.connect(lambda: ApplyCustomQSSTheme(self))
+
+    self.ui.reset_qss_pushButton.clicked.connect(lambda: Load_Styles(self))
 
     self.ui.save_log_pushButton.clicked.connect(lambda: SaveDebugLog(self))
+
     self.ui.save_log_pushButton_2.clicked.connect(lambda: SaveDebugLog(self))
 
-    self.ui.CCD_btn.clicked.connect(lambda: RunCCD(self))
-    self.ui.CIA_btn.clicked.connect(lambda: RunCIA(self))
+    self.ui.CCD_btn.clicked.connect(lambda: Run_Checker(self, "RunCCD"))
+    self.ui.CIA_btn.clicked.connect(lambda: Run_Checker(self, "RunCIA"))
 
     self.logger.debug(f"Connect_Buttons : Buttons connected")
 
@@ -80,17 +80,20 @@ def OpenQSSFile(self):
         self.logger.debug(f"OpenQSSFile : qss_lineEdit set Text {str(qss_file[0])}")
 
 
-def ApplyQSSTheme(self):
+def ApplyCustomQSSTheme(self):
     path = self.ui.qss_lineEdit.text()
 
-    self.logger.debug(f"ApplyQSSTheme : Apply Styles {path}")
+    self.logger.debug(f"ApplyCustomQSSTheme : Apply Styles {path}")
 
     if not os.path.isfile(path):
         return
 
     self.ui.setStyleSheet(open(file=path, mode="r").read())
     self.ui.show()
-    self.logger.debug(f"ApplyQSSTheme : {path} : Styles loaded")
+    self.logger.debug(f"ApplyCustomQSSTheme : {path} : Styles loaded")
+    open(file=f"{self.appdir}\\saved_qss\\{Path(path).name}", mode="w").write(open(file=path, mode="r").read())
+    self.ui.qss_comboBox.addItem(Path(path).name)
+    self.logger.debug(f"ApplyCustomQSSTheme : {self.appdir}\\saved_qss\\{Path(path).name} : Theme saved")
 
 
 def SaveDebugLog(self):
@@ -115,3 +118,23 @@ def SaveDebugLog(self):
         self.logger.debug(f"SaveDebugLog : error {e}")
         return
     self.logger.debug(f"SaveDebugLog : Log writed")
+
+
+def ApplyQSSTheme(self):
+    if self.ui.qss_comboBox.currentText() == 'Default (Light)' or self.ui.qss_comboBox.currentText() == 'Default (Dark)':
+        self.ui.setStyleSheet(open(
+            f"assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss",
+            mode="r").read())
+        self.logger.debug(
+            f"AppleQSSTheme : assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss : Default Styles loaded")
+
+    elif self.ui.qss_comboBox.currentText() != "Custom":
+        try:
+            self.ui.setStyleSheet(open(
+                f"{self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()}",
+                mode="r").read())
+            self.logger.debug(
+                f"AppleQSSTheme : {self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()} : User Styles loaded")
+        except Exception as e:
+            self.logger.debug(
+                f"AppleQSSTheme : {self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()} : User Styles not loaded : {e}")

@@ -14,6 +14,7 @@ class User_UI(QMainWindow):
         self.logger = logger
         self.appdir = appdir
         self.ui = None
+        self.check_thread = None
         Start_App(self)
         CheckUserOs(self)
 
