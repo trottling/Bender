@@ -37,6 +37,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="dockNestingEnabled">
+   <bool>false</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
     <string notr="true"/>
@@ -253,7 +256,7 @@ connected devices</string>
       <property name="geometry">
        <rect>
         <x>625</x>
-        <y>700</y>
+        <y>710</y>
         <width>351</width>
         <height>26</height>
        </rect>
@@ -295,6 +298,19 @@ connected devices</string>
        <bool>true</bool>
       </property>
       <property name="plainText">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="next_result_button">
+      <property name="geometry">
+       <rect>
+        <x>1500</x>
+        <y>695</y>
+        <width>51</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
        <string/>
       </property>
      </widget>
@@ -696,7 +712,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="plainText">
-       <string>There have been some errors, please report to developer:
+       <string>Some errors were received, please report it to the developer, if it is not related to your system:
 
 </string>
       </property>
@@ -714,13 +730,13 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Save log&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Save Full Log&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QPushButton" name="save_log_pushButton_2">
       <property name="geometry">
        <rect>
-        <x>750</x>
+        <x>775</x>
         <y>700</y>
         <width>221</width>
         <height>31</height>
