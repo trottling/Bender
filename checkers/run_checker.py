@@ -18,7 +18,7 @@ class CheckerThread(QThread):
         self.logger = logger
 
     def run(self):
-        self.logger.debug(f"CheckerThread : {self.checker}")
+        self.logger.debug(f"CheckerThread : Run checker : {self.checker}")
         if self.checker == "RunCCD":
             RunCCD(self)
         elif self.checker == "RunCIA":
@@ -36,5 +36,6 @@ def Run_Checker(self, checker):
         self.checker_thread.err_signal.connect(lambda err: (Report_Error(self, err), self.checker_thread.stop()))
         self.checker_thread.pbar_signal.connect(lambda num: self.ui.progressBar.setValue(num))
         self.checker_thread.start()
+        self.logger.debug("Run_Checker : Thread started")
     except Exception as e:
         Report_Error(self, f"Run_Checker : {e}")
