@@ -5,6 +5,7 @@ from ui.styles import Load_Styles
 from pathlib import Path
 
 from ui.tools import Save_Settings, Check_Vulners_Key_Request
+from checkers.run_checker import Stop_Checker
 
 
 def Connect_Buttons(self):
@@ -12,13 +13,14 @@ def Connect_Buttons(self):
         "setting_btn : self.stackedWidget.setCurrentIndex(3)")))
 
     self.ui.setting_back_button.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(0), self.logger.debug(
-        "setting_btn : self.stackedWidget.setCurrentIndex(0)")))
+        "setting_back_button : self.stackedWidget.setCurrentIndex(0)")))
 
     self.ui.back_work_button.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(0), self.logger.debug(
-        "setting_btn : self.stackedWidget.setCurrentIndex(0)")))
+        "back_work_button : self.stackedWidget.setCurrentIndex(0)"), Stop_Checker(self), self.logger.debug(
+        "back_work_button : Checker stopped")))
 
     self.ui.next_work_button.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(2), self.logger.debug(
-        "setting_btn : self.stackedWidget.setCurrentIndex(2)")))
+        "next_work_button : self.stackedWidget.setCurrentIndex(2)")))
 
     self.ui.qss_apply_pushButton.clicked.connect(lambda: ApplyQSSTheme(self))
 
