@@ -26,11 +26,3 @@ def Prepare_Window(self):
         f"<html><head/><body><p align=\"right\"><span style=\" font-size:12pt;\">Python {sys.version}</span></p"
         f"></body></html>")
     self.logger.debug(f"Prepare_Window : Versions seted")
-
-    # Hide elements
-    self.ui.qss_label_2.hide()
-    self.ui.qss_lineEdit.hide()
-    self.ui.qss_apply_file_pushButton.hide()
-    self.ui.qss_file_pushButton.hide()
-    self.ui.alert_msg.hide()
-    self.logger.debug("Prepare_Window : Elements Hided")

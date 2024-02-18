@@ -7,6 +7,7 @@ from ui.prepare_window import Prepare_Window
 from ui.images import Load_Images_And_Icons
 from ui.styles import Load_Styles
 from ui.tools import CheckUserOs, Load_Settings
+from ui.hide_elements import Hide_Elements
 
 
 class User_UI(QMainWindow):
@@ -31,6 +32,9 @@ def Start_App(self) -> None:
 
     # Load settings
     Load_Settings(self)
+
+    # Hide elements
+    Hide_Elements(self)
 
     # Connect buttons
     Connect_Buttons(self)

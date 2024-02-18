@@ -104,7 +104,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -326,10 +326,23 @@ by drivers</string>
        <string/>
       </property>
      </widget>
-     <widget class="QPushButton" name="next_result_button">
+     <widget class="QPushButton" name="next_work_button">
       <property name="geometry">
        <rect>
         <x>1500</x>
+        <y>695</y>
+        <width>51</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="back_work_button">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
         <y>695</y>
         <width>51</width>
         <height>51</height>
@@ -428,7 +441,7 @@ by drivers</string>
        <string/>
       </property>
      </widget>
-     <widget class="QPushButton" name="back_button">
+     <widget class="QPushButton" name="setting_back_button">
       <property name="geometry">
        <rect>
         <x>1500</x>
@@ -798,7 +811,7 @@ p, li { white-space: pre-wrap; }
      <zorder>lang_comboBox</zorder>
      <zorder>qss_label</zorder>
      <zorder>reset_qss_pushButton</zorder>
-     <zorder>back_button</zorder>
+     <zorder>setting_back_button</zorder>
      <zorder>label_settings</zorder>
      <zorder>qss_apply_pushButton</zorder>
      <zorder>lang_apply_pushButton</zorder>

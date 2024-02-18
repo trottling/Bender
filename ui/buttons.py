@@ -1,19 +1,24 @@
 import os
-import httpx
 from PyQt6.QtWidgets import QFileDialog
 from checkers.run_checker import Run_Checker
 from ui.styles import Load_Styles
 from pathlib import Path
 
-from ui.tools import Save_Settings
+from ui.tools import Save_Settings, Check_Vulners_Key_Request
 
 
 def Connect_Buttons(self):
     self.ui.setting_btn.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(3), self.logger.debug(
         "setting_btn : self.stackedWidget.setCurrentIndex(3)")))
 
-    self.ui.back_button.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(0), self.logger.debug(
+    self.ui.setting_back_button.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(0), self.logger.debug(
         "setting_btn : self.stackedWidget.setCurrentIndex(0)")))
+
+    self.ui.back_work_button.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(0), self.logger.debug(
+        "setting_btn : self.stackedWidget.setCurrentIndex(0)")))
+
+    self.ui.next_work_button.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(2), self.logger.debug(
+        "setting_btn : self.stackedWidget.setCurrentIndex(2)")))
 
     self.ui.qss_apply_pushButton.clicked.connect(lambda: ApplyQSSTheme(self))
 
@@ -156,22 +161,3 @@ def Check_Vulners_Key(self):
             r".QFrame {image: url('assets//images//apply.png')}")
     else:
         self.ui.vulners_check_result.setStyleSheet(r".QFrame {image: url('assets//images//fail.png')}")
-
-
-def Check_Vulners_Key_Request(self):
-    try:
-        resp = httpx.post(url=f"https://vulners.com/api/v3/apiKey/valid/?keyID={self.ui.api_key.text().strip()}")
-        if resp.status_code != 200:
-            self.logger.debug(f"Check_Vulners_Key_Req : resp.status_code {resp.status_code}")
-            return False
-        if resp.json() == {'result': 'OK', 'data': {'valid': True}}:  # TODO Replace
-            self.logger.debug(f"Check_Vulners_Key_Req : key valid")
-            self.isVulnersKeyValid = True
-            return True
-        else:
-            self.logger.debug(f"Check_Vulners_Key_Req : key invalid : {resp.json()}")
-            self.isVulnersKeyValid = False
-            return False
-    except Exception as e:
-        self.logger.error(f"Check_Vulners_Key_Req : {e}")
-        return False

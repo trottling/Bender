@@ -5,6 +5,8 @@ import darkdetect
 import ctypes
 import platform
 
+import httpx
+
 
 def GetWindowsTheme(self) -> str:
     if darkdetect.isDark():
@@ -65,10 +67,12 @@ def Load_Settings(self):
             if self.config.get("main", "cve_db") not in (None, ""):
                 self.ui.db_comboBox.setCurrentText(self.config.get("main", "cve_db"))
 
-            self.logger.debug(f"Load_Settings : vulners_api_key : {self.config.get('main', "vulners_api_key")}")
             if self.config.get("main", "vulners_api_key") not in (None, ""):
-                self.ui.vulners_api_key.setText(str(self.config.get('main', "vulners_api_key")))
-
+                self.logger.debug(f"Load_Settings : vulners_api_key : is Not empty")
+                self.ui.api_key.setText(str(self.config.get('main', "vulners_api_key")))
+                if Check_Vulners_Key_Request(self):
+                    self.ui.vulners_check_result.setStyleSheet(
+                        r".QFrame {image: url('assets//images//apply.png')}")
             self.logger.debug("Load_Settings : Settings loaded")
 
         except Exception as e:
@@ -90,3 +94,22 @@ def CheckConfigFile(self):
     else:
         self.logger.debug(f"CheckConfigFile :  {self.config_path} : config exist")
         return True
+
+
+def Check_Vulners_Key_Request(self):
+    try:
+        resp = httpx.post(url=f"https://vulners.com/api/v3/apiKey/valid/?keyID={self.ui.api_key.text().strip()}")
+        if resp.status_code != 200:
+            self.logger.debug(f"Check_Vulners_Key_Req : resp.status_code {resp.status_code}")
+            return False
+        if resp.json() == {'result': 'OK', 'data': {'valid': True}}:  # TODO Replace
+            self.logger.debug(f"Check_Vulners_Key_Req : key valid")
+            self.isVulnersKeyValid = True
+            return True
+        else:
+            self.logger.debug(f"Check_Vulners_Key_Req : key invalid : {resp.json()}")
+            self.isVulnersKeyValid = False
+            return False
+    except Exception as e:
+        self.logger.error(f"Check_Vulners_Key_Req : {e}")
+        return False
