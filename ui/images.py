@@ -13,4 +13,5 @@ def Load_Images_And_Icons(self):
     self.ui.reset_qss_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//reset.png')}")
     self.ui.qss_apply_file_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//apply.png')}")
     self.ui.qss_file_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//qss-file.png')}")
+    self.ui.check_key_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//check.png')}")
     self.logger.debug(f"Load_Images_And_Icons : Buttons icons seted")

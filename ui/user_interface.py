@@ -1,10 +1,12 @@
+from configparser import ConfigParser
+
 from PyQt6.QtWidgets import QMainWindow
 
 from ui.buttons import Connect_Buttons
 from ui.prepare_window import Prepare_Window
 from ui.images import Load_Images_And_Icons
 from ui.styles import Load_Styles
-from ui.tools import CheckUserOs
+from ui.tools import CheckUserOs, Load_Settings
 
 
 class User_UI(QMainWindow):
@@ -14,7 +16,11 @@ class User_UI(QMainWindow):
         self.logger = logger
         self.appdir = appdir
         self.ui = None
+        self.app_theme = None
         self.check_thread = None
+        self.config_path = self.appdir + "\\" + "config.ini"
+        self.config = ConfigParser()
+        self.isVulnersKeyValid = False
         Start_App(self)
         CheckUserOs(self)
 
@@ -22,6 +28,9 @@ class User_UI(QMainWindow):
 def Start_App(self) -> None:
     # Anywhere shit
     Prepare_Window(self)
+
+    # Load settings
+    Load_Settings(self)
 
     # Connect buttons
     Connect_Buttons(self)

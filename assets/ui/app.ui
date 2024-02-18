@@ -104,7 +104,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -159,7 +159,8 @@
       </property>
       <property name="text">
        <string>Check
-connected devices</string>
+connected devices
+by drivers</string>
       </property>
      </widget>
      <widget class="QLabel" name="app_name">
@@ -224,6 +225,30 @@ connected devices</string>
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="alert_msg">
+      <property name="geometry">
+       <rect>
+        <x>475</x>
+        <y>458</y>
+        <width>651</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(211, 52, 24);</string>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </widget>
@@ -339,8 +364,8 @@ connected devices</string>
      <widget class="QLabel" name="lang_label">
       <property name="geometry">
        <rect>
-        <x>600</x>
-        <y>404</y>
+        <x>590</x>
+        <y>479</y>
         <width>151</width>
         <height>31</height>
        </rect>
@@ -358,8 +383,8 @@ connected devices</string>
       <property name="geometry">
        <rect>
         <x>786</x>
-        <y>404</y>
-        <width>221</width>
+        <y>479</y>
+        <width>246</width>
         <height>31</height>
        </rect>
       </property>
@@ -375,8 +400,8 @@ connected devices</string>
      <widget class="QLabel" name="qss_label">
       <property name="geometry">
        <rect>
-        <x>600</x>
-        <y>454</y>
+        <x>590</x>
+        <y>529</y>
         <width>151</width>
         <height>31</height>
        </rect>
@@ -393,8 +418,8 @@ connected devices</string>
      <widget class="QPushButton" name="reset_qss_pushButton">
       <property name="geometry">
        <rect>
-        <x>1075</x>
-        <y>450</y>
+        <x>1102</x>
+        <y>525</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -416,7 +441,7 @@ connected devices</string>
        <string/>
       </property>
      </widget>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="label_settings">
       <property name="geometry">
        <rect>
         <x>673</x>
@@ -432,8 +457,8 @@ connected devices</string>
      <widget class="QPushButton" name="qss_apply_pushButton">
       <property name="geometry">
        <rect>
-        <x>1023</x>
-        <y>450</y>
+        <x>1050</x>
+        <y>525</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -445,8 +470,8 @@ connected devices</string>
      <widget class="QPushButton" name="lang_apply_pushButton">
       <property name="geometry">
        <rect>
-        <x>1023</x>
-        <y>402</y>
+        <x>1050</x>
+        <y>477</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -459,8 +484,8 @@ connected devices</string>
       <property name="geometry">
        <rect>
         <x>786</x>
-        <y>452</y>
-        <width>221</width>
+        <y>527</y>
+        <width>246</width>
         <height>31</height>
        </rect>
       </property>
@@ -526,8 +551,8 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="geometry">
        <rect>
-        <x>600</x>
-        <y>502</y>
+        <x>590</x>
+        <y>577</y>
         <width>151</width>
         <height>31</height>
        </rect>
@@ -548,8 +573,8 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>786</x>
-        <y>502</y>
-        <width>221</width>
+        <y>577</y>
+        <width>246</width>
         <height>31</height>
        </rect>
       </property>
@@ -560,8 +585,8 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="geometry">
        <rect>
-        <x>1075</x>
-        <y>500</y>
+        <x>1102</x>
+        <y>575</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -576,8 +601,8 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="geometry">
        <rect>
-        <x>1023</x>
-        <y>500</y>
+        <x>1050</x>
+        <y>575</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -590,8 +615,8 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>786</x>
-        <y>550</y>
-        <width>221</width>
+        <y>625</y>
+        <width>246</width>
         <height>31</height>
        </rect>
       </property>
@@ -609,8 +634,8 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="save_log_label">
       <property name="geometry">
        <rect>
-        <x>598</x>
-        <y>550</y>
+        <x>590</x>
+        <y>625</y>
         <width>151</width>
         <height>31</height>
        </rect>
@@ -674,6 +699,96 @@ p, li { white-space: pre-wrap; }
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;App concept&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
+     <widget class="QLineEdit" name="api_key">
+      <property name="geometry">
+       <rect>
+        <x>786</x>
+        <y>432</y>
+        <width>246</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="check_key_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>1050</x>
+        <y>431</y>
+        <width>35</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_vulners_key">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>432</y>
+        <width>183</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Vulners.com API key</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="check_method">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>388</y>
+        <width>183</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>CVE Database</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="db_comboBox">
+      <property name="geometry">
+       <rect>
+        <x>786</x>
+        <y>388</y>
+        <width>246</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>vulners.com (Recommended)</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QFrame" name="vulners_check_result">
+      <property name="geometry">
+       <rect>
+        <x>1102</x>
+        <y>432</y>
+        <width>35</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
      <zorder>qss_apply_file_pushButton</zorder>
      <zorder>qss_label_2</zorder>
      <zorder>qss_file_pushButton</zorder>
@@ -684,7 +799,7 @@ p, li { white-space: pre-wrap; }
      <zorder>qss_label</zorder>
      <zorder>reset_qss_pushButton</zorder>
      <zorder>back_button</zorder>
-     <zorder>label</zorder>
+     <zorder>label_settings</zorder>
      <zorder>qss_apply_pushButton</zorder>
      <zorder>lang_apply_pushButton</zorder>
      <zorder>qss_comboBox</zorder>
@@ -695,6 +810,12 @@ p, li { white-space: pre-wrap; }
      <zorder>python_version</zorder>
      <zorder>label_list_concept</zorder>
      <zorder>label_concept</zorder>
+     <zorder>api_key</zorder>
+     <zorder>check_key_pushButton</zorder>
+     <zorder>label_vulners_key</zorder>
+     <zorder>check_method</zorder>
+     <zorder>db_comboBox</zorder>
+     <zorder>vulners_check_result</zorder>
     </widget>
     <widget class="QWidget" name="page_errors">
      <widget class="QPlainTextEdit" name="errors_log">

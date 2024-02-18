@@ -1,3 +1,4 @@
+import os
 import sys
 
 import darkdetect
@@ -32,6 +33,60 @@ def IsUserAdmin(self):
 
 def Report_Error(self, error):
     self.ui.stackedWidget.setCurrentIndex(4)
-    self.logger.debug("CheckUserOs : self.stackedWidget.setCurrentIndex(0)")
+    self.logger.debug("CheckUserOs : self.stackedWidget.setCurrentIndex(4)")
     self.ui.errors_log.appendPlainText(str(error) + "\n")
     self.logger.error(f"Report_Error : {str(error)}")
+
+
+def Save_Settings(self):
+    CheckConfigFile(self)
+    try:
+
+        self.config.set('main', "app_theme", self.ui.qss_comboBox.currentText())
+        self.config.set('main', "cve_db", self.ui.db_comboBox.currentText())
+        self.config.set('main', "vulners_api_key", self.ui.api_key.text().strip())
+
+        with open(self.config_path, 'w') as f:
+            self.config.write(f)
+            self.logger.debug("Save_Settings : Settings saved")
+    except Exception as e:
+        self.logger.error(f"Save_Settings : {e}")
+
+
+def Load_Settings(self):
+    if CheckConfigFile(self):
+        try:
+            self.config.read(self.config_path)
+
+            self.logger.debug(f"Load_Settings : app_theme : {self.config.get('main', "app_theme")}")
+            self.app_theme = self.config.get('main', "app_theme")
+
+            self.logger.debug(f"Load_Settings : cve_db : {self.config.get('main', "cve_db")}")
+            if self.config.get("main", "cve_db") not in (None, ""):
+                self.ui.db_comboBox.setCurrentText(self.config.get("main", "cve_db"))
+
+            self.logger.debug(f"Load_Settings : vulners_api_key : {self.config.get('main', "vulners_api_key")}")
+            if self.config.get("main", "vulners_api_key") not in (None, ""):
+                self.ui.vulners_api_key.setText(str(self.config.get('main', "vulners_api_key")))
+
+            self.logger.debug("Load_Settings : Settings loaded")
+
+        except Exception as e:
+            self.logger.error(f"Load_Settings : {e}")
+    else:
+        open(self.config_path, "w").close()
+        self.logger.debug("Load_Settings : config empty")
+
+
+def CheckConfigFile(self):
+    if not os.path.isfile(self.config_path) or open(self.config_path, "r").read() == "" or open(self.config_path,
+                                                                                                "r").read() is None:
+        open(self.config_path, "w").close()
+        self.logger.debug(f"CheckConfigFile : {self.config_path} : config created")
+        self.config.read(self.config_path)
+        self.config.add_section('main')
+        self.logger.debug(f"CheckConfigFile : main : add section")
+        return False
+    else:
+        self.logger.debug(f"CheckConfigFile :  {self.config_path} : config exist")
+        return True

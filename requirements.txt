@@ -1,5 +1,7 @@
-logging
-PyQt6
+logging~=0.4.9.6
+PyQt6~=6.6.1
 pip
 setuptools
-darkdetect
+darkdetect~=0.8.0
+httpx~=0.26.0
+vulners~=2.1.5

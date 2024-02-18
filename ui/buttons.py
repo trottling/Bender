@@ -1,9 +1,11 @@
 import os
-
+import httpx
 from PyQt6.QtWidgets import QFileDialog
 from checkers.run_checker import Run_Checker
 from ui.styles import Load_Styles
 from pathlib import Path
+
+from ui.tools import Save_Settings
 
 
 def Connect_Buttons(self):
@@ -27,6 +29,8 @@ def Connect_Buttons(self):
     self.ui.save_log_pushButton.clicked.connect(lambda: SaveDebugLog(self))
 
     self.ui.save_log_pushButton_2.clicked.connect(lambda: SaveDebugLog(self))
+
+    self.ui.check_key_pushButton.clicked.connect(lambda: Check_Vulners_Key(self))
 
     self.ui.CCD_btn.clicked.connect(lambda: Run_Checker(self, "RunCCD"))
     self.ui.CIA_btn.clicked.connect(lambda: Run_Checker(self, "RunCIA"))
@@ -67,8 +71,8 @@ def OpenQSSFile(self):
     try:
         qss_file = QFileDialog.getOpenFileName(self, caption='Open file', directory='./',
                                                filter="QSS Style files (*.qss)")
-    except:
-        pass
+    except Exception as e:
+        self.logger.debug(f"OpenQSSFile : {e}")
 
     self.logger.debug(f"OpenQSSFile : File {qss_file}")
 
@@ -81,6 +85,7 @@ def OpenQSSFile(self):
 
 
 def ApplyCustomQSSTheme(self):
+    Save_Settings(self)
     path = self.ui.qss_lineEdit.text()
 
     self.logger.debug(f"ApplyCustomQSSTheme : Apply Styles {path}")
@@ -102,8 +107,8 @@ def SaveDebugLog(self):
         log_file = QFileDialog.getSaveFileName(self, caption='Save log file (.log)', directory="./",
                                                filter=".log",
                                                initialFilter=".log")
-    except:
-        pass
+    except Exception as e:
+        self.logger.debug(f"SaveDebugLog : {e}")
 
     if log_file == "":
         return
@@ -115,12 +120,13 @@ def SaveDebugLog(self):
     try:
         open(log_file, "x").write(open(self.appdir + "/" + "debug_log.txt", "r").read())
     except Exception as e:
-        self.logger.debug(f"SaveDebugLog : error {e}")
+        self.logger.error(f"SaveDebugLog : error {e}")
         return
     self.logger.debug(f"SaveDebugLog : Log writed")
 
 
 def ApplyQSSTheme(self):
+    Save_Settings(self)
     if self.ui.qss_comboBox.currentText() == 'Default (Light)' or self.ui.qss_comboBox.currentText() == 'Default (Dark)':
         self.ui.setStyleSheet(open(
             f"assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss",
@@ -136,5 +142,36 @@ def ApplyQSSTheme(self):
             self.logger.debug(
                 f"AppleQSSTheme : {self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()} : User Styles loaded")
         except Exception as e:
-            self.logger.debug(
+            self.logger.error(
                 f"AppleQSSTheme : {self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()} : User Styles not loaded : {e}")
+
+
+def Check_Vulners_Key(self):
+    Save_Settings(self)
+    if self.ui.api_key.text().strip() == "":
+        self.logger.debug("Check_Vulners_Key : api key empty")
+        return
+    if Check_Vulners_Key_Request(self):
+        self.ui.vulners_check_result.setStyleSheet(
+            r".QFrame {image: url('assets//images//apply.png')}")
+    else:
+        self.ui.vulners_check_result.setStyleSheet(r".QFrame {image: url('assets//images//fail.png')}")
+
+
+def Check_Vulners_Key_Request(self):
+    try:
+        resp = httpx.post(url=f"https://vulners.com/api/v3/apiKey/valid/?keyID={self.ui.api_key.text().strip()}")
+        if resp.status_code != 200:
+            self.logger.debug(f"Check_Vulners_Key_Req : resp.status_code {resp.status_code}")
+            return False
+        if resp.json() == {'result': 'OK', 'data': {'valid': True}}:  # TODO Replace
+            self.logger.debug(f"Check_Vulners_Key_Req : key valid")
+            self.isVulnersKeyValid = True
+            return True
+        else:
+            self.logger.debug(f"Check_Vulners_Key_Req : key invalid : {resp.json()}")
+            self.isVulnersKeyValid = False
+            return False
+    except Exception as e:
+        self.logger.error(f"Check_Vulners_Key_Req : {e}")
+        return False
