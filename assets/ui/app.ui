@@ -37,6 +37,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="documentMode">
+   <bool>true</bool>
+  </property>
   <property name="dockNestingEnabled">
    <bool>false</bool>
   </property>
@@ -104,7 +107,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -256,9 +259,9 @@ by drivers</string>
      <widget class="QProgressBar" name="progressBar">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>625</y>
-        <width>1501</width>
+        <x>125</x>
+        <y>675</y>
+        <width>1351</width>
         <height>51</height>
        </rect>
       </property>
@@ -277,38 +280,19 @@ by drivers</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="work_status_label">
-      <property name="geometry">
-       <rect>
-        <x>625</x>
-        <y>710</y>
-        <width>351</width>
-        <height>26</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Segoe UI Variable Small Semibol</family>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Example Some Long Text&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
      <widget class="QPlainTextEdit" name="work_log">
       <property name="geometry">
        <rect>
         <x>25</x>
         <y>25</y>
         <width>1551</width>
-        <height>576</height>
+        <height>626</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Segoe UI Variable Small Semibol</family>
+        <pointsize>16</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -330,7 +314,7 @@ by drivers</string>
       <property name="geometry">
        <rect>
         <x>1500</x>
-        <y>695</y>
+        <y>675</y>
         <width>51</width>
         <height>51</height>
        </rect>
@@ -343,7 +327,7 @@ by drivers</string>
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>695</y>
+        <y>675</y>
         <width>51</width>
         <height>51</height>
        </rect>
@@ -353,7 +337,154 @@ by drivers</string>
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="page_result"/>
+    <widget class="QWidget" name="page_result">
+     <widget class="QLabel" name="label_result">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>25</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Scanning results:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_result_desc">
+      <property name="geometry">
+       <rect>
+        <x>1100</x>
+        <y>25</y>
+        <width>476</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;Click to &lt;/span&gt;&lt;span style=&quot; font-size:20pt; color:#0d4e87;&quot;&gt;Item&lt;/span&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt; to view full info&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QTableView" name="tableView">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>75</y>
+        <width>1551</width>
+        <height>576</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>-1</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QTableView {
+    color: #a9b7c6;
+	background-color: #393743;
+    gridline-color: white;
+    border-radius: 10px;
+	border-style: solid;
+	border-width: 1px;
+    font: 14px;
+}
+QHeaderView::section {
+    background-color: #393743;
+    color: #a9b7c6;
+    height: 35px;
+    font: 14px;
+}
+QTableView::item:focus{
+    border: 2px solid rgb(242, 128, 133);
+    background-color: rgb(255, 254, 229);
+}
+QScrollBar:vertical {
+    background: rgb(188, 224, 235);
+}
+ QScrollBar::handle:vertical {
+    background: rgb(71, 153, 176);
+ }
+QScrollBar:horizontal {
+    background: rgb(188, 224, 235);
+}
+ QScrollBar::handle:horizontal {
+    background: rgb(71, 153, 176);
+ }</string>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>310</number>
+      </attribute>
+      <attribute name="horizontalHeaderMinimumSectionSize">
+       <number>310</number>
+      </attribute>
+     </widget>
+     <widget class="QPushButton" name="next_result_button">
+      <property name="geometry">
+       <rect>
+        <x>1500</x>
+        <y>675</y>
+        <width>51</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="back_result_button">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>675</y>
+        <width>51</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="save_report_btn">
+      <property name="geometry">
+       <rect>
+        <x>625</x>
+        <y>675</y>
+        <width>326</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Save full report</string>
+      </property>
+     </widget>
+    </widget>
     <widget class="QWidget" name="page_settings">
      <widget class="QFrame" name="logo_2">
       <property name="geometry">
@@ -377,7 +508,7 @@ by drivers</string>
      <widget class="QLabel" name="lang_label">
       <property name="geometry">
        <rect>
-        <x>590</x>
+        <x>563</x>
         <y>479</y>
         <width>151</width>
         <height>31</height>
@@ -395,7 +526,7 @@ by drivers</string>
      <widget class="QComboBox" name="lang_comboBox">
       <property name="geometry">
        <rect>
-        <x>786</x>
+        <x>759</x>
         <y>479</y>
         <width>246</width>
         <height>31</height>
@@ -413,7 +544,7 @@ by drivers</string>
      <widget class="QLabel" name="qss_label">
       <property name="geometry">
        <rect>
-        <x>590</x>
+        <x>563</x>
         <y>529</y>
         <width>151</width>
         <height>31</height>
@@ -431,7 +562,7 @@ by drivers</string>
      <widget class="QPushButton" name="reset_qss_pushButton">
       <property name="geometry">
        <rect>
-        <x>1102</x>
+        <x>1075</x>
         <y>525</y>
         <width>35</width>
         <height>35</height>
@@ -470,7 +601,7 @@ by drivers</string>
      <widget class="QPushButton" name="qss_apply_pushButton">
       <property name="geometry">
        <rect>
-        <x>1050</x>
+        <x>1023</x>
         <y>525</y>
         <width>35</width>
         <height>35</height>
@@ -483,7 +614,7 @@ by drivers</string>
      <widget class="QPushButton" name="lang_apply_pushButton">
       <property name="geometry">
        <rect>
-        <x>1050</x>
+        <x>1023</x>
         <y>477</y>
         <width>35</width>
         <height>35</height>
@@ -496,7 +627,7 @@ by drivers</string>
      <widget class="QComboBox" name="qss_comboBox">
       <property name="geometry">
        <rect>
-        <x>786</x>
+        <x>759</x>
         <y>527</y>
         <width>246</width>
         <height>31</height>
@@ -564,7 +695,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="geometry">
        <rect>
-        <x>590</x>
+        <x>563</x>
         <y>577</y>
         <width>151</width>
         <height>31</height>
@@ -585,7 +716,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="geometry">
        <rect>
-        <x>786</x>
+        <x>759</x>
         <y>577</y>
         <width>246</width>
         <height>31</height>
@@ -598,7 +729,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="geometry">
        <rect>
-        <x>1102</x>
+        <x>1075</x>
         <y>575</y>
         <width>35</width>
         <height>35</height>
@@ -614,7 +745,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="geometry">
        <rect>
-        <x>1050</x>
+        <x>1023</x>
         <y>575</y>
         <width>35</width>
         <height>35</height>
@@ -627,7 +758,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QPushButton" name="save_log_pushButton">
       <property name="geometry">
        <rect>
-        <x>786</x>
+        <x>759</x>
         <y>625</y>
         <width>246</width>
         <height>31</height>
@@ -647,7 +778,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="save_log_label">
       <property name="geometry">
        <rect>
-        <x>590</x>
+        <x>563</x>
         <y>625</y>
         <width>151</width>
         <height>31</height>
@@ -715,7 +846,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QLineEdit" name="api_key">
       <property name="geometry">
        <rect>
-        <x>786</x>
+        <x>759</x>
         <y>432</y>
         <width>246</width>
         <height>31</height>
@@ -725,7 +856,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QPushButton" name="check_key_pushButton">
       <property name="geometry">
        <rect>
-        <x>1050</x>
+        <x>1023</x>
         <y>431</y>
         <width>35</width>
         <height>35</height>
@@ -738,7 +869,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="label_vulners_key">
       <property name="geometry">
        <rect>
-        <x>590</x>
+        <x>563</x>
         <y>432</y>
         <width>183</width>
         <height>31</height>
@@ -756,7 +887,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="check_method">
       <property name="geometry">
        <rect>
-        <x>590</x>
+        <x>563</x>
         <y>388</y>
         <width>183</width>
         <height>31</height>
@@ -774,7 +905,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QComboBox" name="db_comboBox">
       <property name="geometry">
        <rect>
-        <x>786</x>
+        <x>759</x>
         <y>388</y>
         <width>246</width>
         <height>31</height>
@@ -789,7 +920,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QFrame" name="vulners_check_result">
       <property name="geometry">
        <rect>
-        <x>1102</x>
+        <x>1075</x>
         <y>432</y>
         <width>35</width>
         <height>35</height>
@@ -885,6 +1016,220 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="text">
        <string>Click</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_vuln_info">
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>10</y>
+        <width>1551</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Type: Exploit    CVE-0000-000    webkit2gtk - security update</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="plainTextEdit">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>75</y>
+        <width>1551</width>
+        <height>276</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>1551</width>
+        <height>276</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>1551</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="sizeIncrement">
+       <size>
+        <width>1551</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>1551</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+      <property name="plainText">
+       <string>\nThe following vulnerabilities have been discovered in the WebKitGTK\nweb engine:\n\n\n* [CVE-2022-32792](https://security-tracker.debian.org/tracker/CVE-2022-32792)\nManfred Paul discovered that processing maliciously crafted web\n content may lead to arbitrary code execution.\n* [CVE-2022-32816](https://security-tracker.debian.org/tracker/CVE-2022-32816)\nDohyun Lee discovered that visiting a website that frames\n malicious content may lead to UI spoofing.\n\n\nFor Debian 10 buster, these problems have been fixed in version\n2.36.6-1~deb10u1.\n\n\nWe recommend that you upgrade your webkit2gtk packages.\n\n\nFor the detailed security status of webkit2gtk please refer to\nits security tracker page at:\n&lt;https://security-tracker.debian.org/tracker/webkit2gtk&gt;\n\n\nFurther information about Debian LTS security advisories, how to apply\nthese updates to your system and frequently asked questions can be\nfound at: &lt;https://wiki.debian.org/LTS&gt;\n\n\n</string>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>375</y>
+        <width>351</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Published: 2022-08-17T00:00:00</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>425</y>
+        <width>1526</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>CVE list: CVE-2022-32816 CVE-2022-32792</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>475</y>
+        <width>401</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Affected versions:    Installed .2.2.2</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="plainTextEdit_2">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>525</y>
+        <width>376</width>
+        <height>226</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>825</x>
+        <y>375</y>
+        <width>526</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>CVSS      score: 0 vector: None</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>825</x>
+        <y>400</y>
+        <width>526</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>CVSS2    No info</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>825</x>
+        <y>425</y>
+        <width>151</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>CVSS3:</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="plainTextEdit_3">
+      <property name="geometry">
+       <rect>
+        <x>825</x>
+        <y>475</y>
+        <width>576</width>
+        <height>276</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="plainText">
+       <string>vectorString: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H
+attackVector: NETWORK
+attackComplexity: LOW
+privilegesRequired: NONE
+userInteraction: REQUIRED
+scope: UNCHANGED
+confidentialityImpact: HIGH
+integrityImpact: HIGH
+availabilityImpact: HIGH
+baseScore: 8.8
+baseSeverity: HIGH</string>
       </property>
      </widget>
     </widget>
