@@ -34,6 +34,9 @@ class CheckerThread(QThread):
 
 
 def Run_Checker(self, checker):
+    # Clear log widget
+    self.ui.work_log.setPlainText("")
+
     if Validate_before_check(self):
         return
     try:
