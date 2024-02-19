@@ -5,4 +5,5 @@ def Hide_Elements(self):
     self.ui.qss_file_pushButton.hide()
     self.ui.alert_msg.hide()
     self.ui.next_work_button.hide()
+    self.ui.delete_qss_pushButton.hide()
     self.logger.debug("Hide_Elements : Elements Hided")
