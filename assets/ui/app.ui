@@ -107,7 +107,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -188,8 +188,13 @@ by drivers</string>
         <height>26</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Search CVE vulnerabilities in your Windows system&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Search &lt;span style=&quot; color:#0d4e87;&quot;&gt;vulnerabilities&lt;/span&gt; in your Windows system&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QPushButton" name="CIA_btn">
@@ -378,72 +383,6 @@ color: rgb(255, 255, 255);</string>
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;Click to &lt;/span&gt;&lt;span style=&quot; font-size:20pt; color:#0d4e87;&quot;&gt;Item&lt;/span&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt; to view full info&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QTableView" name="tableView">
-      <property name="geometry">
-       <rect>
-        <x>25</x>
-        <y>75</y>
-        <width>1551</width>
-        <height>576</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>-1</pointsize>
-        <weight>50</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QTableView {
-    color: #a9b7c6;
-	background-color: #393743;
-    gridline-color: white;
-    border-radius: 10px;
-	border-style: solid;
-	border-width: 1px;
-    font: 14px;
-}
-QHeaderView::section {
-    background-color: #393743;
-    color: #a9b7c6;
-    height: 35px;
-    font: 14px;
-}
-QTableView::item:focus{
-    border: 2px solid rgb(242, 128, 133);
-    background-color: rgb(255, 254, 229);
-}
-QScrollBar:vertical {
-    background: rgb(188, 224, 235);
-}
- QScrollBar::handle:vertical {
-    background: rgb(71, 153, 176);
- }
-QScrollBar:horizontal {
-    background: rgb(188, 224, 235);
-}
- QScrollBar::handle:horizontal {
-    background: rgb(71, 153, 176);
- }</string>
-      </property>
-      <property name="horizontalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
-      </property>
-      <property name="sortingEnabled">
-       <bool>true</bool>
-      </property>
-      <attribute name="horizontalHeaderCascadingSectionResizes">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>310</number>
-      </attribute>
-      <attribute name="horizontalHeaderMinimumSectionSize">
-       <number>310</number>
-      </attribute>
-     </widget>
      <widget class="QPushButton" name="next_result_button">
       <property name="geometry">
        <rect>
@@ -486,6 +425,27 @@ QScrollBar:horizontal {
       </property>
       <property name="text">
        <string>Save full report</string>
+      </property>
+     </widget>
+     <widget class="QListView" name="result_listView">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>75</y>
+        <width>1551</width>
+        <height>576</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI Variable Small Semibol</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="showDropIndicator" stdset="0">
+       <bool>false</bool>
       </property>
      </widget>
     </widget>
@@ -656,9 +616,9 @@ QScrollBar:horizontal {
      <widget class="QLabel" name="label_list_thanks">
       <property name="geometry">
        <rect>
-        <x>1150</x>
+        <x>1175</x>
         <y>400</y>
-        <width>401</width>
+        <width>351</width>
         <height>176</height>
        </rect>
       </property>
@@ -937,6 +897,19 @@ p, li { white-space: pre-wrap; }
        <enum>QFrame::Raised</enum>
       </property>
      </widget>
+     <widget class="QPushButton" name="delete_qss_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>1125</x>
+        <y>525</y>
+        <width>35</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
      <zorder>qss_apply_file_pushButton</zorder>
      <zorder>qss_label_2</zorder>
      <zorder>qss_file_pushButton</zorder>
@@ -964,6 +937,7 @@ p, li { white-space: pre-wrap; }
      <zorder>check_method</zorder>
      <zorder>db_comboBox</zorder>
      <zorder>vulners_check_result</zorder>
+     <zorder>delete_qss_pushButton</zorder>
     </widget>
     <widget class="QWidget" name="page_errors">
      <widget class="QPlainTextEdit" name="errors_log">

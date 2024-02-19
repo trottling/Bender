@@ -33,6 +33,8 @@ def Connect_Buttons(self):
 
     self.ui.qss_comboBox.currentIndexChanged.connect(lambda:
                                                      ChangeShowQSSInput(self))
+    self.ui.qss_comboBox.currentIndexChanged.connect(lambda:
+                                                     ChangeQSSDeleteBtn(self))
 
     self.ui.qss_file_pushButton.clicked.connect(lambda: OpenQSSFile(self))
 
@@ -45,6 +47,8 @@ def Connect_Buttons(self):
     self.ui.save_log_pushButton_2.clicked.connect(lambda: SaveDebugLog(self))
 
     self.ui.check_key_pushButton.clicked.connect(lambda: Check_Vulners_Key(self))
+
+    self.ui.delete_qss_pushButton.clicked.connect(lambda: DeleteQSSTheme(self))
 
     self.ui.CCD_btn.clicked.connect(lambda: Run_Checker(self, "RunCCD"))
     self.ui.CIA_btn.clicked.connect(lambda: Run_Checker(self, "RunCIA"))
@@ -66,6 +70,7 @@ def ChangeShowQSSInput(self):
 def HideQSSInput(self):
     self.ui.qss_label_2.hide()
     self.ui.qss_lineEdit.hide()
+    self.ui.delete_qss_pushButton.hide()
     self.ui.qss_apply_file_pushButton.hide()
     self.ui.qss_file_pushButton.hide()
     self.logger.debug("HideQSSInput : Hided")
@@ -99,9 +104,10 @@ def OpenQSSFile(self):
 
 
 def ApplyCustomQSSTheme(self):
-    Save_Settings(self)
     path = self.ui.qss_lineEdit.text()
-
+    if path.strip() is "":
+        return
+    Save_Settings(self)
     self.logger.debug(f"ApplyCustomQSSTheme : Apply Styles {path}")
 
     if not os.path.isfile(path):
@@ -112,6 +118,7 @@ def ApplyCustomQSSTheme(self):
     self.logger.debug(f"ApplyCustomQSSTheme : {path} : Styles loaded")
     open(file=f"{self.appdir}\\saved_qss\\{Path(path).name}", mode="w").write(open(file=path, mode="r").read())
     self.ui.qss_comboBox.addItem(Path(path).name)
+    self.ui.qss_comboBox.setCurrentText(Path(path).name)
     self.logger.debug(f"ApplyCustomQSSTheme : {self.appdir}\\saved_qss\\{Path(path).name} : Theme saved")
 
 
@@ -174,3 +181,26 @@ def Check_Vulners_Key(self):
         self.ui.vulners_check_result.setStyleSheet(r".QFrame {image: url('assets//images//fail.png')}")
 
     self.ui.vulners_check_result.show()
+
+
+def DeleteQSSTheme(self):
+    themeToDelete = self.ui.qss_comboBox.currentText()
+    self.logger.debug(f"DeleteQSSTheme : theme To Delete : {themeToDelete}")
+    if themeToDelete in ("Custom", "Default (Light)", "Default (Dark)"):
+        return
+    try:
+        os.remove(f"{self.user_themes_path}{themeToDelete}")
+        self.ui.qss_comboBox.removeItem(self.ui.qss_comboBox.currentIndex())
+        self.ui.qss_comboBox.setCurrentText(self.default_theme)
+        ApplyQSSTheme(self)
+    except Exception as e:
+        self.logger.error(f"DeleteQSSTheme : {themeToDelete} : {e}")
+
+
+def ChangeQSSDeleteBtn(self):
+    if self.ui.qss_comboBox.currentText() not in ("Custom", "Default (Light)", "Default (Dark)"):
+        self.ui.delete_qss_pushButton.show()
+        self.logger.debug("ChangeQSSDeleteBtn : show")
+    else:
+        self.ui.delete_qss_pushButton.hide()
+        self.logger.debug("ChangeQSSDeleteBtn : hide")

@@ -13,9 +13,10 @@ def Load_Images_And_Icons(self):
     self.ui.lang_apply_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//apply.png')}")
     self.ui.qss_apply_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//apply.png')}")
     self.ui.reset_qss_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//reset.png')}")
-    self.ui.qss_apply_file_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//apply.png')}")
+    self.ui.qss_apply_file_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//add.png')}")
     self.ui.qss_file_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//qss-file.png')}")
     self.ui.check_key_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//check.png')}")
+    self.ui.delete_qss_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//delete.png')}")
 
     # Pages
 
