@@ -12,8 +12,9 @@ def Connect_Buttons(self):
     self.ui.setting_btn.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(3), self.logger.debug(
         "setting_btn : self.stackedWidget.setCurrentIndex(3)")))
 
-    self.ui.setting_back_button.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(0), self.logger.debug(
-        "setting_back_button : self.stackedWidget.setCurrentIndex(0)")))
+    self.ui.setting_back_button.clicked.connect(
+        lambda: (Save_Settings(self), self.stackedWidget.setCurrentIndex(0), self.logger.debug(
+            "setting_back_button : self.stackedWidget.setCurrentIndex(0)")))
 
     self.ui.back_work_button.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(0), self.logger.debug(
         "back_work_button : self.stackedWidget.setCurrentIndex(0)"), Stop_Checker(self), self.logger.debug(
@@ -154,12 +155,16 @@ def ApplyQSSTheme(self):
 
 
 def Check_Vulners_Key(self):
+    self.ui.vulners_check_result.hide()
     Save_Settings(self)
     if self.ui.api_key.text().strip() == "":
         self.logger.debug("Check_Vulners_Key : api key empty")
+        self.ui.vulners_check_result.setStyleSheet(r".QFrame {image: url('assets//images//fail.png')}")
+        self.ui.vulners_check_result.show()
         return
     if Check_Vulners_Key_Request(self):
-        self.ui.vulners_check_result.setStyleSheet(
-            r".QFrame {image: url('assets//images//apply.png')}")
+        self.ui.vulners_check_result.setStyleSheet(r".QFrame {image: url('assets//images//apply.png')}")
     else:
         self.ui.vulners_check_result.setStyleSheet(r".QFrame {image: url('assets//images//fail.png')}")
+
+    self.ui.vulners_check_result.show()
