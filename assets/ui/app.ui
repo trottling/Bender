@@ -107,7 +107,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -241,11 +241,15 @@ by drivers</string>
       </property>
       <property name="font">
        <font>
-        <pointsize>14</pointsize>
+        <family>Segoe UI Variable Text Semibold</family>
+        <pointsize>16</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(211, 52, 24);</string>
+       <string notr="true">background-color: rgb(211, 52, 24);
+color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>TextLabel</string>
