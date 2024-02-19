@@ -1,4 +1,6 @@
 import os
+import sys
+
 from PyQt6.QtWidgets import QFileDialog
 from checkers.run_checker import Run_Checker
 from ui.styles import Load_Styles
@@ -45,6 +47,8 @@ def Connect_Buttons(self):
     self.ui.save_log_pushButton.clicked.connect(lambda: SaveDebugLog(self))
 
     self.ui.save_log_pushButton_2.clicked.connect(lambda: SaveDebugLog(self))
+
+    self.ui.errors_exit.clicked.connect(lambda: sys.exit(-1))
 
     self.ui.check_key_pushButton.clicked.connect(lambda: Check_Vulners_Key(self))
 

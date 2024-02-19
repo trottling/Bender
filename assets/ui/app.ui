@@ -107,7 +107,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -963,37 +963,44 @@ p, li { white-space: pre-wrap; }
        <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
       </property>
      </widget>
-     <widget class="QLabel" name="save_log_label_2">
-      <property name="geometry">
-       <rect>
-        <x>625</x>
-        <y>700</y>
-        <width>126</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Save Full Log&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="save_log_pushButton_2">
       <property name="geometry">
        <rect>
-        <x>775</x>
+        <x>75</x>
         <y>700</y>
         <width>221</width>
-        <height>31</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>14</pointsize>
+        <pointsize>16</pointsize>
         <weight>50</weight>
         <bold>false</bold>
        </font>
       </property>
       <property name="text">
-       <string>Click</string>
+       <string>Save Full Log</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="errors_exit">
+      <property name="geometry">
+       <rect>
+        <x>1306</x>
+        <y>700</y>
+        <width>221</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Exit</string>
       </property>
      </widget>
     </widget>

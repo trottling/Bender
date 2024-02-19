@@ -35,7 +35,6 @@ def IsUserAdmin(self):
 
 def Report_Error(self, error):
     self.ui.stackedWidget.setCurrentIndex(4)
-    self.logger.debug("CheckUserOs : self.stackedWidget.setCurrentIndex(4)")
     self.ui.errors_log.appendPlainText(str(error) + "\n")
     self.logger.error(f"Report_Error : {str(error)}")
 
