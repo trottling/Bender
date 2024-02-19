@@ -8,7 +8,7 @@ from ui.show_report import Show_Report
 
 class CheckerThread(QThread):
     log_signal = pyqtSignal(str)
-    result_signal = pyqtSignal(object)
+    result_signal = pyqtSignal(str)
     pbar_signal = pyqtSignal(int)
     err_signal = pyqtSignal(str)
 
@@ -46,7 +46,7 @@ def Run_Checker(self, checker):
         self.checker_thread.log_signal.connect(lambda log: self.ui.work_log.appendPlainText(log))
         self.checker_thread.err_signal.connect(lambda err: (Report_Error(self, err), self.checker_thread.stop()))
         self.checker_thread.pbar_signal.connect(lambda num: self.ui.progressBar.setValue(num))
-        self.checker_thread.result_signal.connect(lambda rep: (Stop_Checker(self), Show_Report(self)))
+        self.checker_thread.result_signal.connect(lambda rep: (Stop_Checker(self), Show_Report(self, rep)))
         self.checker_thread.start()
         self.logger.debug("Run_Checker : Thread started")
     except Exception as e:
