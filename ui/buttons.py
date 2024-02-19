@@ -23,6 +23,12 @@ def Connect_Buttons(self):
     self.ui.next_work_button.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(2), self.logger.debug(
         "next_work_button : self.stackedWidget.setCurrentIndex(2)")))
 
+    self.ui.back_result_button.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(1), self.logger.debug(
+        "back_result_button : self.stackedWidget.setCurrentIndex(1)")))
+
+    self.ui.next_result_button.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(0), self.logger.debug(
+        "next_result_button : self.stackedWidget.setCurrentIndex(0)")))
+
     self.ui.qss_apply_pushButton.clicked.connect(lambda: ApplyQSSTheme(self))
 
     self.ui.qss_comboBox.currentIndexChanged.connect(lambda:
