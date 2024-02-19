@@ -102,7 +102,7 @@ def Check_Vulners_Key_Request(self):
         if resp.status_code != 200:
             self.logger.debug(f"Check_Vulners_Key_Req : resp.status_code {resp.status_code}")
             return False
-        if resp.json() == {'result': 'OK', 'data': {'valid': True}}:  # TODO Replace
+        if resp.json()['data']['valid']:
             self.logger.debug(f"Check_Vulners_Key_Req : key valid")
             self.isVulnersKeyValid = True
             return True
