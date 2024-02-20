@@ -1,5 +1,6 @@
 from configparser import ConfigParser
 
+from PyQt6 import QtCore
 from PyQt6.QtWidgets import QMainWindow
 
 from ui.animations import App_Open_Anim
@@ -20,11 +21,28 @@ class User_UI(QMainWindow):
         self.ui = None
         self.app_theme = None
         self.check_thread = None
+        self.offset = None
         self.config_path = self.appdir + "\\" + "config.ini"
         self.config = ConfigParser()
         self.isVulnersKeyValid = False
         Start_App(self)
         CheckUserOs(self)
+
+    def mousePressEvent(self, event):
+        if event.button() == QtCore.Qt.MouseButton.LeftButton:
+            self.offset = event.pos()
+        else:
+            super().mousePressEvent(event)
+
+    def mouseMoveEvent(self, event):
+        if self.offset is not None and event.buttons() == QtCore.Qt.MouseButton.LeftButton:
+            self.move(self.pos() + event.pos() - self.offset)
+        else:
+            super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        self.offset = None
+        super().mouseReleaseEvent(event)
 
 
 def Start_App(self) -> None:

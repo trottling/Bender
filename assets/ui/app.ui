@@ -107,7 +107,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -446,6 +446,9 @@ color: rgb(255, 255, 255);</string>
       </property>
       <property name="styleSheet">
        <string notr="true"/>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
       </property>
       <property name="showDropIndicator" stdset="0">
        <bool>false</bool>
@@ -1250,10 +1253,10 @@ baseSeverity: HIGH</string>
    <widget class="QPushButton" name="pushButton_app_exit">
     <property name="geometry">
      <rect>
-      <x>1560</x>
+      <x>1565</x>
       <y>0</y>
-      <width>40</width>
-      <height>40</height>
+      <width>35</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="text">
@@ -1265,7 +1268,7 @@ baseSeverity: HIGH</string>
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1501</width>
+      <width>326</width>
       <height>40</height>
      </rect>
     </property>
@@ -1284,10 +1287,10 @@ baseSeverity: HIGH</string>
    <widget class="QPushButton" name="pushButton_app_hide">
     <property name="geometry">
      <rect>
-      <x>1520</x>
+      <x>1530</x>
       <y>0</y>
-      <width>40</width>
-      <height>40</height>
+      <width>35</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="text">

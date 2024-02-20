@@ -1,6 +1,7 @@
 import os
 import sys
 
+from PyQt6 import QtCore
 from PyQt6.QtWidgets import QFileDialog
 from checkers.run_checker import Run_Checker
 from ui.animations import App_Exit_Anim
