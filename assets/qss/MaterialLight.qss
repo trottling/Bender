@@ -417,3 +417,33 @@ QSlider::sub-page:horizontal {
 QSlider::sub-page:vertical {
     background: #0d4e87;
 }
+QListView {
+    show-decoration-selected: 1;
+	color: #a9b7c6;
+	background-color:#393743;
+    border-radius: 10px;
+}
+
+QListView::item:alternate {
+    background: #0d4e87;
+}
+
+QListView::item:selected {
+    border: 1px solid #0d4e87;
+    border-radius: 4px;
+}
+
+QListView::item:selected:!active {
+    background: #0d4e87;
+    border-radius: 4px;
+}
+
+QListView::item:selected:active {
+    background: #0d4e87;
+    border-radius: 4px;
+}
+
+QListView::item:hover {
+    border-radius: 4px;
+    background: #163147;
+}
