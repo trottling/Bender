@@ -447,3 +447,142 @@ QListView::item:hover {
     border-radius: 4px;
     background: #163147;
 }
+
+
+
+QPushButton #pushButton_app_hide:hover{
+	border-style: solid;
+	border-top-color: transparent;
+	border-radius: 10px 0 0 10px;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	border-bottom-color: transparent;
+	border-style: solid;
+	color: #FFFFFF;
+	padding-bottom: 0px;
+	background-color: #393743;
+}
+QPushButton#pushButton_app_hide:pressed{
+	border-style: solid;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	border-radius: 10px 0 0 10px;
+	border-bottom-color: transparent;
+	border-width: 0px;
+	border-style: solid;
+	color: #FFFFFF;
+	padding-bottom: 0px;
+	background-color: #5f5c70
+}
+QPushButton#pushButton_app_hide:disabled{
+	border-style: solid;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-radius: 10px 0 0 10px;
+	border-left-color: transparent;
+	border-bottom-color: #808086;
+	border-bottom-width: 0px;
+	border-style: solid;
+	color: #FFFFFF;
+	padding-bottom: 1px;
+	background-color: #1e1d23;
+}
+QPushButton#pushButton_app_hide{
+	border-style: solid;
+	border-radius: 10px 0 0 10px;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	border-bottom-color: transparent;
+	border-width: 0px;
+	border-style: solid;
+	color: #FFFFFF;
+	padding: 0px;
+	background-color: #1e1d23;
+}
+QPushButton#pushButton_app_hide:default{
+	border-style: solid;
+	border-radius: 10px 0 0 10px;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	border-bottom-color: #0d4e87;
+	border-width: 0px;
+	color: #FFFFFF;
+	padding: 0px;
+	background-color: #1e1d23;
+}
+
+
+
+
+
+QPushButton #pushButton_app_exit:hover{
+	border-style: solid;
+	border-top-color: transparent;
+	border-radius: 0 0 0 0;
+	border-top-right-radius: 10px;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	border-bottom-color: transparent;
+	border-style: solid;
+	color: #FFFFFF;
+	padding-bottom: 0px;
+	background-color: #c83336;
+}
+QPushButton#pushButton_app_exit:pressed{
+	border-style: solid;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	border-radius: 0 0 0 0;
+	border-top-right-radius: 10px;
+	border-bottom-color: transparent;
+	border-width: 0px;
+	border-style: solid;
+	color: #FFFFFF;
+	padding-bottom: 0px;
+	background-color: #f13d43
+}
+QPushButton#pushButton_app_exit:disabled{
+	border-style: solid;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-radius: 0 0 0 0;
+	border-top-right-radius: 10px;
+	border-left-color: transparent;
+	border-bottom-color: #808086;
+	border-bottom-width: 0px;
+	border-style: solid;
+	color: #FFFFFF;
+	padding-bottom: 1px;
+	background-color: #1e1d23;
+}
+QPushButton#pushButton_app_exit{
+	border-style: solid;
+	border-radius: 0 0 0 0;
+	border-top-right-radius: 10px;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	border-bottom-color: transparent;
+	border-width: 0px;
+	border-style: solid;
+	color: #FFFFFF;
+	padding: 0px;
+	background-color: #a2292d;
+}
+QPushButton#pushButton_app_exit:default{
+	border-style: solid;
+	border-radius: 0 0 0 0;
+	border-top-right-radius: 10px;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	border-bottom-color: #0d4e87;
+	border-width: 0px;
+	color: #FFFFFF;
+	padding: 0px;
+	background-color: #1e1d23;
+}

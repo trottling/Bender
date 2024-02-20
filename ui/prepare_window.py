@@ -1,6 +1,7 @@
 import sys
 
-from PyQt6 import uic, QtGui
+from PyQt6 import uic, QtGui, QtCore
+from PyQt6.QtCore import Qt
 
 
 def Prepare_Window(self):
@@ -26,3 +27,6 @@ def Prepare_Window(self):
         f"<html><head/><body><p align=\"right\"><span style=\" font-size:12pt;\">Python {sys.version}</span></p"
         f"></body></html>")
     self.logger.debug(f"Prepare_Window : Versions seted")
+
+    # Window settings
+    self.setWindowFlags(Qt.WindowType.FramelessWindowHint)

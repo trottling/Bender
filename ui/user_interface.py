@@ -2,6 +2,7 @@ from configparser import ConfigParser
 
 from PyQt6.QtWidgets import QMainWindow
 
+from ui.animations import App_Open_Anim
 from ui.buttons import Connect_Buttons
 from ui.prepare_window import Prepare_Window
 from ui.images import Load_Images_And_Icons
@@ -46,6 +47,4 @@ def Start_App(self) -> None:
     Load_Styles(self)
 
     # Show UI
-    self.stackedWidget.setCurrentIndex(0)
-    self.ui.show()
-    self.logger.debug(f"Load_UI : UI showed")
+    App_Open_Anim(self)

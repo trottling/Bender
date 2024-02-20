@@ -7,6 +7,10 @@ def Load_Images_And_Icons(self):
 
     # Buttons icons
 
+    # Toolbar
+    self.ui.pushButton_app_exit.setStyleSheet(r".QPushButton {image: url('assets//images//exit.png')}")
+    self.ui.pushButton_app_hide.setStyleSheet(r".QPushButton {image: url('assets//images//minimize.png')}")
+
     # Settings
     self.ui.setting_btn.setStyleSheet(r".QPushButton {image: url('assets//images//settings.png')}")
     self.ui.setting_back_button.setStyleSheet(r".QPushButton {image: url('assets//images//back.png')}")
