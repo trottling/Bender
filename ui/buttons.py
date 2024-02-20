@@ -3,6 +3,7 @@ import sys
 
 from PyQt6.QtWidgets import QFileDialog
 from checkers.run_checker import Run_Checker
+from ui.animations import App_Exit_Anim
 from ui.styles import Load_Styles
 from pathlib import Path
 
@@ -53,6 +54,11 @@ def Connect_Buttons(self):
     self.ui.check_key_pushButton.clicked.connect(lambda: Check_Vulners_Key(self))
 
     self.ui.delete_qss_pushButton.clicked.connect(lambda: DeleteQSSTheme(self))
+
+    self.ui.pushButton_app_exit.clicked.connect(lambda: (App_Exit_Anim(self)))
+
+    self.ui.pushButton_app_hide.clicked.connect(lambda: (self.ui.showMinimized(), self.logger.debug(
+        "pushButton_app_hide : Minimized")))
 
     self.ui.CCD_btn.clicked.connect(lambda: Run_Checker(self, "RunCCD"))
     self.ui.CIA_btn.clicked.connect(lambda: Run_Checker(self, "RunCIA"))
