@@ -1,6 +1,7 @@
 from PyQt6.QtCore import QThread, pyqtSignal
 from checkers.Check_Connected_Devices import RunCCD
 from checkers.Check_Installed_Apps import RunCIA
+from ui.animations import ChangePBarValue
 from ui.tools import Report_Error
 from checkers.validate import Validate_before_check
 from ui.show_report import Show_Report
@@ -45,7 +46,7 @@ def Run_Checker(self, checker):
                                             self.ui.api_key.text())
         self.checker_thread.log_signal.connect(lambda log: self.ui.work_log.appendPlainText(log))
         self.checker_thread.err_signal.connect(lambda err: (Report_Error(self, err), self.checker_thread.stop()))
-        self.checker_thread.pbar_signal.connect(lambda num: self.ui.progressBar.setValue(num))
+        self.checker_thread.pbar_signal.connect(lambda value: ChangePBarValue(self, value))
         self.checker_thread.result_signal.connect(lambda rep: (Stop_Checker(self), Show_Report(self, rep)))
         self.checker_thread.start()
         self.logger.debug("Run_Checker : Thread started")
