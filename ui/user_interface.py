@@ -1,7 +1,8 @@
 from configparser import ConfigParser
 
 from PyQt6 import QtCore
-from PyQt6.QtWidgets import QMainWindow
+from PyQt6.QtCore import QSequentialAnimationGroup
+from PyQt6.QtWidgets import QMainWindow, QGraphicsOpacityEffect
 
 from ui.animations import App_Open_Anim
 from ui.buttons import Connect_Buttons
@@ -25,6 +26,7 @@ class User_UI(QMainWindow):
         self.config_path = self.appdir + "\\" + "config.ini"
         self.config = ConfigParser()
         self.isVulnersKeyValid = False
+        self.opacity_effect = QGraphicsOpacityEffect()
         Start_App(self)
         CheckUserOs(self)
 

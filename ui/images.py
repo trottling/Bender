@@ -11,6 +11,7 @@ def Load_Images_And_Icons(self):
     # Toolbar
     self.ui.pushButton_app_exit.setStyleSheet(r".QPushButton {image: url('assets//images//exit.png')}")
     self.ui.pushButton_app_hide.setStyleSheet(r".QPushButton {image: url('assets//images//minimize.png')}")
+    self.ui.app_icon.setStyleSheet(r".QFrame {image: url('assets//images//bender-small.png')}")
 
     # Settings
     self.ui.setting_back_button.setStyleSheet(r".QPushButton {image: url('assets//images//back.png')}")
