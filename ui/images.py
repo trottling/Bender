@@ -2,6 +2,7 @@ def Load_Images_And_Icons(self):
     # Logo
     self.ui.logo.setStyleSheet(r".QFrame {border-image: url('assets//images//bender.png')}")
     self.ui.logo_2.setStyleSheet(r".QFrame {border-image: url('assets//images//bender.png')}")
+    self.ui.logo_3.setStyleSheet(r".QFrame {border-image: url('assets//images//bender.png')}")
     self.ui.git_frame.setStyleSheet(r".QFrame {image: url('assets//images//github.png')}")
     self.logger.debug(f"Load_Images_And_Icons : Logos seted")
 
@@ -12,7 +13,6 @@ def Load_Images_And_Icons(self):
     self.ui.pushButton_app_hide.setStyleSheet(r".QPushButton {image: url('assets//images//minimize.png')}")
 
     # Settings
-    self.ui.setting_btn.setStyleSheet(r".QPushButton {image: url('assets//images//settings.png')}")
     self.ui.setting_back_button.setStyleSheet(r".QPushButton {image: url('assets//images//back.png')}")
     self.ui.lang_apply_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//apply.png')}")
     self.ui.qss_apply_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//apply.png')}")
@@ -24,6 +24,10 @@ def Load_Images_And_Icons(self):
 
     # Pages
 
+    # Start page
+    self.ui.setting_btn.setStyleSheet(r".QPushButton {image: url('assets//images//settings.png')}")
+    self.ui.info_btn.setStyleSheet(r".QPushButton {image: url('assets//images//info.png')}")
+
     # Work log page
     self.ui.back_work_button.setStyleSheet(r".QPushButton {image: url('assets//images//back.png')}")
     self.ui.next_work_button.setStyleSheet(r".QPushButton {image: url('assets//images//next.png')}")
@@ -31,5 +35,8 @@ def Load_Images_And_Icons(self):
     # Work result page
     self.ui.back_result_button.setStyleSheet(r".QPushButton {image: url('assets//images//back.png')}")
     self.ui.next_result_button.setStyleSheet(r".QPushButton {image: url('assets//images//next.png')}")
+
+    # Info page
+    self.ui.info_back_button.setStyleSheet(r".QPushButton {image: url('assets//images//back.png')}")
 
     self.logger.debug(f"Load_Images_And_Icons : Buttons icons seted")

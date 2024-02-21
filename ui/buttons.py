@@ -16,9 +16,15 @@ def Connect_Buttons(self):
     self.ui.setting_btn.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(3), self.logger.debug(
         "setting_btn : self.stackedWidget.setCurrentIndex(3)")))
 
+    self.ui.info_btn.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(6), self.logger.debug(
+        "info_btn : self.stackedWidget.setCurrentIndex(6)")))
+
     self.ui.setting_back_button.clicked.connect(
         lambda: (Save_Settings(self), self.stackedWidget.setCurrentIndex(0), self.logger.debug(
             "setting_back_button : self.stackedWidget.setCurrentIndex(0)")))
+
+    self.ui.info_back_button.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(0), self.logger.debug(
+        "info_back_button : self.stackedWidget.setCurrentIndex(0)")))
 
     self.ui.back_work_button.clicked.connect(lambda: (self.stackedWidget.setCurrentIndex(0), self.logger.debug(
         "back_work_button : self.stackedWidget.setCurrentIndex(0)"), Stop_Checker(self), self.logger.debug(

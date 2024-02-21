@@ -450,7 +450,7 @@ QListView::item:hover {
 }
 
 
-QPushButton #pushButton_app_hide:hover{
+QPushButton#pushButton_app_hide:hover{
 	border-style: solid;
 	border-top-color: transparent;
 	border-radius: 10px 0 0 10px;
@@ -460,7 +460,7 @@ QPushButton #pushButton_app_hide:hover{
 	border-style: solid;
 	color: #FFFFFF;
 	padding-bottom: 0px;
-	background-color: #393743;
+	background-color: #5f5c70;
 }
 QPushButton#pushButton_app_hide:pressed{
 	border-style: solid;
@@ -518,17 +518,18 @@ QPushButton#pushButton_app_hide:default{
 
 
 
-QPushButton #pushButton_app_exit:hover{
+QPushButton#pushButton_app_exit:hover{
 	border-style: solid;
 	border-top-color: transparent;
-	border-radius: 0 0 0 0;
 	border-right-color: transparent;
 	border-left-color: transparent;
+	border-radius: 0 0 0 0;
 	border-bottom-color: transparent;
+	border-width: 0px;
 	border-style: solid;
 	color: #FFFFFF;
 	padding-bottom: 0px;
-	background-color: #c83336;
+	background-color: #f13d43;
 }
 QPushButton#pushButton_app_exit:pressed{
 	border-style: solid;
@@ -541,7 +542,7 @@ QPushButton#pushButton_app_exit:pressed{
 	border-style: solid;
 	color: #FFFFFF;
 	padding-bottom: 0px;
-	background-color: #f13d43
+	background-color: #f13d43;
 }
 QPushButton#pushButton_app_exit:disabled{
 	border-style: solid;
@@ -567,7 +568,7 @@ QPushButton#pushButton_app_exit{
 	border-style: solid;
 	color: #FFFFFF;
 	padding: 0px;
-	background-color: #a2292d;
+	background-color: #1e1d23;
 }
 QPushButton#pushButton_app_exit:default{
 	border-style: solid;
