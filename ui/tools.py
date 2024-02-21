@@ -67,7 +67,7 @@ def Load_Settings(self):
                 self.ui.db_comboBox.setCurrentText(self.config.get("main", "cve_db"))
 
             if self.config.get("main", "vulners_api_key") not in (None, ""):
-                self.logger.debug(f"Load_Settings : vulners_api_key : is Not empty")
+                self.logger.debug(f"Load_Settings : vulners_api_key : * IS NOT EMPTY *")
                 self.ui.api_key.setText(str(self.config.get('main', "vulners_api_key")))
                 if Check_Vulners_Key_Request(self):
                     self.ui.vulners_check_result.setStyleSheet(

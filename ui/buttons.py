@@ -116,7 +116,7 @@ def OpenQSSFile(self):
 
 def ApplyCustomQSSTheme(self):
     path = self.ui.qss_lineEdit.text()
-    if path.strip() is "":
+    if path.strip() == "":
         return
     Save_Settings(self)
     self.logger.debug(f"ApplyCustomQSSTheme : Apply Styles {path}")
@@ -210,15 +210,15 @@ def DeleteQSSTheme(self):
 
 def ChangeQSSDeleteBtn(self):
     if self.ui.qss_comboBox.currentText() not in ("Custom", "Default (Light)", "Default (Dark)"):
-        self.ui.delete_qss_pushButton.show()
+        ElemShowAnim(self, self.ui.delete_qss_pushButton)
     else:
-        self.ui.delete_qss_pushButton.hide()
+        ElemHideAnim(self, self.ui.delete_qss_pushButton)
 
 
 def ChangeTitle(self):
     if self.ui.stackedWidget.currentIndex() != 0:
-        self.ui.label_windows_title.show()
-        self.ui.app_icon.show()
+        ElemShowAnim(self, self.ui.label_windows_title)
+        ElemShowAnim(self, self.ui.app_icon)
     else:
-        self.ui.label_windows_title.hide()
-        self.ui.app_icon.hide()
+        ElemHideAnim(self, self.ui.label_windows_title)
+        ElemHideAnim(self, self.ui.app_icon)
