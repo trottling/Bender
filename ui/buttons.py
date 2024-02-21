@@ -217,8 +217,9 @@ def ChangeQSSDeleteBtn(self):
 
 def ChangeTitle(self):
     if self.ui.stackedWidget.currentIndex() != 0:
-        ElemShowAnim(self, self.ui.label_windows_title)
-        ElemShowAnim(self, self.ui.app_icon)
+        if not self.ui.label_windows_title.isVisible():
+            ElemShowAnim(self, self.ui.label_windows_title)
+            ElemShowAnim(self, self.ui.app_icon)
     else:
         ElemHideAnim(self, self.ui.label_windows_title)
         ElemHideAnim(self, self.ui.app_icon)

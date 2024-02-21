@@ -107,7 +107,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -485,9 +485,9 @@ color: rgb(255, 255, 255);</string>
      <widget class="QLabel" name="label_result_info">
       <property name="geometry">
        <rect>
-        <x>25</x>
+        <x>30</x>
         <y>60</y>
-        <width>1551</width>
+        <width>1546</width>
         <height>25</height>
        </rect>
       </property>
