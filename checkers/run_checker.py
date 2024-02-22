@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QThread, pyqtSignal
 from checkers.Check_Connected_Devices import RunCCD
 from checkers.Check_Installed_Apps import RunCIA
-from ui.animations import ChangePBarValue
+from ui.animations import ChangePBarValue, StackedWidgetChangePage
 from ui.tools import Report_Error
 from checkers.validate import Validate_before_check
 from ui.show_report import Show_Report
@@ -35,13 +35,14 @@ class CheckerThread(QThread):
 
 
 def Run_Checker(self, checker):
-    # Clear log widget
+    # Clear log widget and set pbar to 0
     self.ui.work_log.setPlainText("")
+    self.ui.progressBar.setValue(0)
 
     if Validate_before_check(self):
         return
     try:
-        self.ui.stackedWidget.setCurrentIndex(1)
+        StackedWidgetChangePage(self, 1)
         self.checker_thread = CheckerThread(checker, self.logger, self.ui.db_comboBox.currentText(),
                                             self.ui.api_key.text())
         self.checker_thread.log_signal.connect(lambda log: self.ui.work_log.appendPlainText(log))

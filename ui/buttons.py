@@ -233,9 +233,9 @@ def ChangeTitle(self):
 
 
 def ClearCVEInfoPage(self):
-    self.ui.cve_desc_plainTextEdit.clear()
-    self.ui.plainTextEdit_references.clear()
-    self.ui.plainTextEdit_cvss_3.clear()
+    QTimer.singleShot(250, lambda: (self.ui.cve_desc_plainTextEdit.clear(),
+                                    self.ui.plainTextEdit_references.clear(),
+                                    self.ui.plainTextEdit_cvss_3.clear()))
 
 
 def SaveReport(self):
