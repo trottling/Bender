@@ -107,7 +107,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -118,6 +118,9 @@
         <width>51</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string/>
@@ -141,6 +144,9 @@
         <pointsize>17</pointsize>
        </font>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="text">
        <string>In Development</string>
       </property>
@@ -160,10 +166,11 @@
         <pointsize>17</pointsize>
        </font>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="text">
-       <string>Check
-connected devices
-by drivers</string>
+       <string>Check installed drivers</string>
       </property>
      </widget>
      <widget class="QLabel" name="app_name">
@@ -211,6 +218,9 @@ by drivers</string>
         <family>Segoe UI Variable Small Semibol</family>
         <pointsize>17</pointsize>
        </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string>Check installed apps</string>
@@ -272,6 +282,9 @@ color: rgb(255, 255, 255);</string>
         <height>51</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -300,6 +313,12 @@ color: rgb(255, 255, 255);</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="textVisible">
+       <bool>true</bool>
+      </property>
+      <property name="format">
+       <string notr="true">%p%</string>
       </property>
      </widget>
      <widget class="QPlainTextEdit" name="work_log">
@@ -341,6 +360,9 @@ color: rgb(255, 255, 255);</string>
         <height>51</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -353,6 +375,9 @@ color: rgb(255, 255, 255);</string>
         <width>51</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string/>
@@ -405,6 +430,9 @@ color: rgb(255, 255, 255);</string>
         <height>51</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -417,6 +445,9 @@ color: rgb(255, 255, 255);</string>
         <width>51</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string/>
@@ -435,6 +466,9 @@ color: rgb(255, 255, 255);</string>
        <font>
         <pointsize>16</pointsize>
        </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string>Save full report</string>
@@ -456,6 +490,9 @@ color: rgb(255, 255, 255);</string>
         <weight>75</weight>
         <bold>true</bold>
        </font>
+      </property>
+      <property name="cursor" stdset="0">
+       <cursorShape>ArrowCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true"/>
@@ -561,6 +598,9 @@ color: rgb(255, 255, 255);</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="maxVisibleItems">
        <number>15</number>
       </property>
@@ -597,6 +637,9 @@ color: rgb(255, 255, 255);</string>
         <height>35</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -609,6 +652,9 @@ color: rgb(255, 255, 255);</string>
         <width>51</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string/>
@@ -636,6 +682,9 @@ color: rgb(255, 255, 255);</string>
         <height>35</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -649,6 +698,9 @@ color: rgb(255, 255, 255);</string>
         <height>35</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -661,6 +713,9 @@ color: rgb(255, 255, 255);</string>
         <width>246</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <item>
        <property name="text">
@@ -724,6 +779,9 @@ color: rgb(255, 255, 255);</string>
         <height>35</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -739,6 +797,9 @@ color: rgb(255, 255, 255);</string>
         <width>35</width>
         <height>35</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string/>
@@ -759,6 +820,9 @@ color: rgb(255, 255, 255);</string>
         <weight>50</weight>
         <bold>false</bold>
        </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string>Save debug log</string>
@@ -786,6 +850,9 @@ color: rgb(255, 255, 255);</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
      </widget>
      <widget class="QPushButton" name="check_key_pushButton">
       <property name="geometry">
@@ -795,6 +862,9 @@ color: rgb(255, 255, 255);</string>
         <width>35</width>
         <height>35</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string/>
@@ -845,6 +915,9 @@ color: rgb(255, 255, 255);</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <item>
        <property name="text">
         <string>vulners.com (Recommended)</string>
@@ -859,6 +932,9 @@ color: rgb(255, 255, 255);</string>
         <width>35</width>
         <height>35</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>ArrowCursor</cursorShape>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -875,6 +951,9 @@ color: rgb(255, 255, 255);</string>
         <width>35</width>
         <height>35</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string/>
@@ -924,6 +1003,9 @@ color: rgb(255, 255, 255);</string>
         <width>246</width>
         <height>25</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="minimum">
        <number>10</number>
@@ -1052,6 +1134,9 @@ color: rgb(255, 255, 255);</string>
         <bold>false</bold>
        </font>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="text">
        <string>Save Full Log</string>
       </property>
@@ -1071,6 +1156,9 @@ color: rgb(255, 255, 255);</string>
         <weight>50</weight>
         <bold>false</bold>
        </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string>Exit</string>
@@ -1206,6 +1294,9 @@ color: rgb(255, 255, 255);</string>
         <width>51</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string/>
@@ -1368,6 +1459,9 @@ p, li { white-space: pre-wrap; }
         <width>51</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string/>
