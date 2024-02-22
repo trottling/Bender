@@ -70,6 +70,7 @@ def Load_Settings(self):
             self.logger.debug(f"Load_Settings : net_workers : {self.config.get('main', "net_workers")}")
             if self.config.get("main", "net_workers") not in (None, ""):
                 self.ui.horizontalSlider_network_threads.setValue(int(self.config.get("main", "net_workers")))
+                self.ui.label_network_threads_value.setText(self.config.get("main", "net_workers"))
 
             if self.config.get("main", "vulners_api_key") not in (None, ""):
                 self.logger.debug(f"Load_Settings : vulners_api_key : * IS NOT EMPTY *")
