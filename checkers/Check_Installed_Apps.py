@@ -1,10 +1,9 @@
+import concurrent.futures
 import json
 
 import httpx
-from windows_tools.installed_software import get_installed_software
 import vulners
-import concurrent.futures
-from checkers.rep import rep
+from windows_tools.installed_software import get_installed_software
 
 
 def RunCIA(self):
@@ -70,6 +69,7 @@ def Check_By_Vulners(self):
     except Exception as e:
         self.err_signal.emit("RunCIA : Failed to get Vulners report : " + str(e))
         return
+
     #
     # Log results
     #
@@ -124,7 +124,7 @@ def Check_By_Vulners(self):
 
     self.log_signal.emit("Getting more info about CVEs\n")
     try:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=self.net_threads) as executor:
             futures = []
             for item in self.report["cve_list"]:
                 futures.append(executor.submit(CIA_Get_CVE_Info, self=self, item=item))
@@ -177,8 +177,6 @@ def CIA_Get_CVE_Info(self, item):
             item["references"] = resp["containers"]["cna"]["references"]
         else:
             "No references"
-
-        print(item)
     except Exception as e:
         self.log_signal.emit(f"RunCIA : {cve_id} : Failed to get more info : {str(e)}")
         self.logger.error(f"RunCIA : {cve_id} : Failed to get more info : {str(e)}")

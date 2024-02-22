@@ -1,6 +1,7 @@
 import os
 import platform
 import sys
+import time
 from pathlib import Path
 
 from PyQt6.QtCore import QTimer
@@ -273,11 +274,10 @@ def SaveReport(self):
             f.write(f"Bender - Windows Vulnerability Scanner\n")
             f.write(f"Search vulnerabilities in your Windows system\n")
             f.write(f"Autor - @trottling\n")
-            f.write("\n\n\n")
             f.write(f"Github - github.com/trottling/Bender\n")
-            f.write(f"Python {sys.version}\n")
-            f.write(f"Python {sys.version}\n")
-            f.write(f"Python {sys.version}\n")
+            f.write("\n\n\n")
+            f.write(f"Time: {time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())}\n")
+            f.write(f"Python: {sys.version}\n")
             f.write(f"Application version: {self.app_version}\n")
             f.write(f"Run as Admin : {Check_Admin(self.logger)}\n")
             f.write("OS Name: {platform.system()}\n")

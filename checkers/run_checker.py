@@ -1,10 +1,10 @@
 from PyQt6.QtCore import QThread, pyqtSignal
-from checkers.Check_Connected_Devices import RunCCD
-from checkers.Check_Installed_Apps import RunCIA
+from checkers.check_drivers import RunCCD
+from checkers.check_installed_apps import RunCIA
 from ui.animations import ChangePBarValue, StackedWidgetChangePage
 from ui.tools import Report_Error
 from checkers.validate import Validate_before_check
-from ui.show_report import Show_Report
+from ui.show_report import Show_Report_CIA
 
 
 class CheckerThread(QThread):
@@ -13,13 +13,14 @@ class CheckerThread(QThread):
     pbar_signal = pyqtSignal(int)
     err_signal = pyqtSignal(str)
 
-    def __init__(self, checker, logger, db, api_key):
+    def __init__(self, checker, logger, db, api_key, net_threads):
         QThread.__init__(self)
         super().__init__()
         self.checker = checker
         self.logger = logger
         self.db = db
         self.api_key = api_key
+        self.net_threads = net_threads
         self.report = None
 
     def run(self):
@@ -44,11 +45,11 @@ def Run_Checker(self, checker):
     try:
         StackedWidgetChangePage(self, 1)
         self.checker_thread = CheckerThread(checker, self.logger, self.ui.db_comboBox.currentText(),
-                                            self.ui.api_key.text())
+                                            self.ui.api_key.text(), self.ui.horizontalSlider_network_threads.value())
         self.checker_thread.log_signal.connect(lambda log: self.ui.work_log.appendPlainText(log))
         self.checker_thread.err_signal.connect(lambda err: (Report_Error(self, err), self.checker_thread.stop()))
         self.checker_thread.pbar_signal.connect(lambda value: ChangePBarValue(self, value))
-        self.checker_thread.result_signal.connect(lambda rep: (Stop_Checker(self), Show_Report(self, rep)))
+        self.checker_thread.result_signal.connect(lambda rep: ShowReport(self, rep, checker))
         self.checker_thread.start()
         self.logger.debug("Run_Checker : Thread started")
     except Exception as e:
@@ -57,4 +58,14 @@ def Run_Checker(self, checker):
 
 def Stop_Checker(self):
     self.checker_thread.stop()
-    self.logger.debug("Stop_Checker : checker_thread : Thread stopped")
+    self.logger.debug("Stop_Checker : Thread stopped")
+
+
+def ShowReport(self, rep, checker):
+    Stop_Checker(self)
+
+    match checker:
+        case "RunCCD":
+            RunCCD(self)
+        case "RunCIA":
+            Show_Report_CIA(self, rep)

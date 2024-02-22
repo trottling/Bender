@@ -1,4 +1,5 @@
 import json
+import re
 
 from PyQt6 import QtGui
 
@@ -81,10 +82,15 @@ def ShowCVEInfo_CIA(self, index):
 
         if "cvssV3_1" in cve_info["cvss_metrics"]:
             for item in cve_info["cvss_metrics"]["cvssV3_1"]:
-                self.ui.plainTextEdit_cvss_3.appendPlainText(f"{item}: {cve_info["cvss_metrics"]["cvssV3_1"][item]}")
+                self.ui.plainTextEdit_cvss_3.appendPlainText(
+                    f"{Split_by_uppercase(item)}: {cve_info["cvss_metrics"]["cvssV3_1"][item]}")
         else:
             self.ui.plainTextEdit_cvss_3.appendPlainText("No info")
 
         StackedWidgetChangePage(self, 5)
     except Exception as e:
         Report_Error(self, e)
+
+
+def Split_by_uppercase(word):
+    return re.sub(r"([a-z])([A-Z])", r"\1 \2", word).strip().capitalize()
