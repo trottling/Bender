@@ -64,7 +64,7 @@
      </font>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/trottling/Windows-Vulnerability-Scanner&quot;&gt;&lt;span style=&quot; font-size:12pt; color:#a9b7c6;&quot;&gt;@trottling&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/trottling/Bender&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#a9b7c6;&quot;&gt;@trottling&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="openExternalLinks">
      <bool>true</bool>
@@ -107,7 +107,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -393,7 +393,7 @@ color: rgb(255, 255, 255);</string>
        </font>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;Click to &lt;/span&gt;&lt;span style=&quot; font-size:20pt; color:#0d4e87;&quot;&gt;Item&lt;/span&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt; to view full info&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;Double click to &lt;/span&gt;&lt;span style=&quot; font-size:20pt; color:#0d4e87;&quot;&gt;Item&lt;/span&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt; to view full info&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QPushButton" name="next_result_button">
@@ -464,7 +464,7 @@ color: rgb(255, 255, 255);</string>
        <enum>Qt::ScrollBarAlwaysOff</enum>
       </property>
       <property name="editTriggers">
-       <set>QAbstractItemView::DoubleClicked</set>
+       <set>QAbstractItemView::NoEditTriggers</set>
       </property>
       <property name="showDropIndicator" stdset="0">
        <bool>false</bool>
@@ -498,6 +498,19 @@ color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>TextLabel</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_no_cve">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>350</y>
+        <width>500</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;Where is my CVE :(&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </widget>
@@ -820,7 +833,7 @@ color: rgb(255, 255, 255);</string>
        </font>
       </property>
       <property name="text">
-       <string>App CVE Database</string>
+       <string>Soft CVE Database</string>
       </property>
      </widget>
      <widget class="QComboBox" name="db_comboBox">
@@ -885,7 +898,7 @@ color: rgb(255, 255, 255);</string>
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Check installed apps&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_settings_cia_2">
+     <widget class="QLabel" name="label_user_interface">
       <property name="geometry">
        <rect>
         <x>1100</x>
@@ -901,6 +914,73 @@ color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;User interface&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QSlider" name="horizontalSlider_network_threads">
+      <property name="geometry">
+       <rect>
+        <x>284</x>
+        <y>424</y>
+        <width>246</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>10</number>
+      </property>
+      <property name="maximum">
+       <number>200</number>
+      </property>
+      <property name="singleStep">
+       <number>10</number>
+      </property>
+      <property name="value">
+       <number>50</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickInterval">
+       <number>10</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_network_threads">
+      <property name="geometry">
+       <rect>
+        <x>88</x>
+        <y>418</y>
+        <width>187</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Max network threads</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_network_threads_value">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>424</y>
+        <width>32</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>20</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
       </property>
      </widget>
      <zorder>qss_apply_file_pushButton</zorder>
@@ -927,7 +1007,10 @@ color: rgb(255, 255, 255);</string>
      <zorder>vulners_check_result</zorder>
      <zorder>delete_qss_pushButton</zorder>
      <zorder>label_settings_cia</zorder>
-     <zorder>label_settings_cia_2</zorder>
+     <zorder>label_user_interface</zorder>
+     <zorder>horizontalSlider_network_threads</zorder>
+     <zorder>label_network_threads</zorder>
+     <zorder>label_network_threads_value</zorder>
     </widget>
     <widget class="QWidget" name="page_errors">
      <widget class="QPlainTextEdit" name="errors_log">
@@ -994,13 +1077,13 @@ color: rgb(255, 255, 255);</string>
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="page_vuln_info">
-     <widget class="QLabel" name="label_3">
+    <widget class="QWidget" name="page_cve_info">
+     <widget class="QLabel" name="label_cve_head">
       <property name="geometry">
        <rect>
         <x>25</x>
         <y>10</y>
-        <width>1551</width>
+        <width>1451</width>
         <height>51</height>
        </rect>
       </property>
@@ -1010,10 +1093,10 @@ color: rgb(255, 255, 255);</string>
        </font>
       </property>
       <property name="text">
-       <string>CVE-0000-000    webkit2gtk - security update</string>
+       <string>CVE-0000-000 - Your Ass - 1337</string>
       </property>
      </widget>
-     <widget class="QPlainTextEdit" name="plainTextEdit">
+     <widget class="QPlainTextEdit" name="cve_desc_plainTextEdit">
       <property name="geometry">
        <rect>
         <x>25</x>
@@ -1055,13 +1138,13 @@ color: rgb(255, 255, 255);</string>
        <bool>true</bool>
       </property>
       <property name="plainText">
-       <string>\nThe following vulnerabilities have been discovered in the WebKitGTK\nweb engine:\n\n\n* [CVE-2022-32792](https://security-tracker.debian.org/tracker/CVE-2022-32792)\nManfred Paul discovered that processing maliciously crafted web\n content may lead to arbitrary code execution.\n* [CVE-2022-32816](https://security-tracker.debian.org/tracker/CVE-2022-32816)\nDohyun Lee discovered that visiting a website that frames\n malicious content may lead to UI spoofing.\n\n\nFor Debian 10 buster, these problems have been fixed in version\n2.36.6-1~deb10u1.\n\n\nWe recommend that you upgrade your webkit2gtk packages.\n\n\nFor the detailed security status of webkit2gtk please refer to\nits security tracker page at:\n&lt;https://security-tracker.debian.org/tracker/webkit2gtk&gt;\n\n\nFurther information about Debian LTS security advisories, how to apply\nthese updates to your system and frequently asked questions can be\nfound at: &lt;https://wiki.debian.org/LTS&gt;\n\n\n</string>
+       <string>I FUCKING HATE PYTHON</string>
       </property>
       <property name="textInteractionFlags">
        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
       </property>
      </widget>
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="label_published">
       <property name="geometry">
        <rect>
         <x>25</x>
@@ -1076,64 +1159,10 @@ color: rgb(255, 255, 255);</string>
        </font>
       </property>
       <property name="text">
-       <string>Published: 2022-08-17T00:00:00</string>
+       <string>Published: 2000-00-00T00:00:00</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_5">
-      <property name="geometry">
-       <rect>
-        <x>25</x>
-        <y>425</y>
-        <width>401</width>
-        <height>26</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Affected versions:    Installed .2.2.2</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_6">
-      <property name="geometry">
-       <rect>
-        <x>825</x>
-        <y>375</y>
-        <width>526</width>
-        <height>26</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>CVSS      score: 0 vector: None</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_7">
-      <property name="geometry">
-       <rect>
-        <x>825</x>
-        <y>400</y>
-        <width>526</width>
-        <height>26</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>CVSS2    No info</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_9">
+     <widget class="QLabel" name="label_cvss3">
       <property name="geometry">
        <rect>
         <x>825</x>
@@ -1148,15 +1177,15 @@ color: rgb(255, 255, 255);</string>
        </font>
       </property>
       <property name="text">
-       <string>CVSS3:</string>
+       <string>CVSS3</string>
       </property>
      </widget>
-     <widget class="QPlainTextEdit" name="plainTextEdit_3">
+     <widget class="QPlainTextEdit" name="plainTextEdit_cvss_3">
       <property name="geometry">
        <rect>
         <x>825</x>
-        <y>475</y>
-        <width>576</width>
+        <y>450</y>
+        <width>626</width>
         <height>276</height>
        </rect>
       </property>
@@ -1166,17 +1195,74 @@ color: rgb(255, 255, 255);</string>
        </font>
       </property>
       <property name="plainText">
-       <string>vectorString: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H
-attackVector: NETWORK
-attackComplexity: LOW
-privilegesRequired: NONE
-userInteraction: REQUIRED
-scope: UNCHANGED
-confidentialityImpact: HIGH
-integrityImpact: HIGH
-availabilityImpact: HIGH
-baseScore: 8.8
-baseSeverity: HIGH</string>
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="cve_info_back_button">
+      <property name="geometry">
+       <rect>
+        <x>1525</x>
+        <y>10</y>
+        <width>51</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_cve_versions_2">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>425</y>
+        <width>201</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>References</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="plainTextEdit_references">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>450</y>
+        <width>626</width>
+        <height>276</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::TextBrowserInteraction</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_shortname">
+      <property name="geometry">
+       <rect>
+        <x>825</x>
+        <y>375</y>
+        <width>351</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Shortname: Monkey</string>
       </property>
      </widget>
     </widget>
@@ -1184,10 +1270,10 @@ baseSeverity: HIGH</string>
      <widget class="QLabel" name="label_list_concept">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>175</x>
         <y>325</y>
-        <width>351</width>
-        <height>201</height>
+        <width>501</width>
+        <height>326</height>
        </rect>
       </property>
       <property name="text">
@@ -1204,14 +1290,17 @@ p, li { white-space: pre-wrap; }
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Microsoft YaHei UI'; font-size:14pt; font-weight:400;&quot;&gt;This app can fix that.&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Microsoft YaHei UI'; font-size:14pt; font-weight:400;&quot;&gt;At least it should be.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
      </widget>
      <widget class="QLabel" name="label_list_thanks">
       <property name="geometry">
        <rect>
-        <x>1000</x>
+        <x>925</x>
         <y>325</y>
-        <width>351</width>
-        <height>251</height>
+        <width>501</width>
+        <height>326</height>
        </rect>
       </property>
       <property name="text">
@@ -1221,13 +1310,18 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI Variable Small Semibol'; font-size:11pt; font-weight:600; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Microsoft YaHei UI'; font-size:14pt;&quot;&gt;App idea - my smoky head&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Microsoft YaHei UI'; font-size:14pt; font-weight:400;&quot;&gt;Pretty Icons - icons8.com&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Microsoft YaHei UI'; font-size:14pt; font-weight:400;&quot;&gt;Materail StyleSheets - github.com/GTRONICK/QSS&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Microsoft YaHei UI'; font-size:14pt; font-weight:400;&quot;&gt;CVE Info DB Api - cveawg.mitre.org&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Microsoft YaHei UI'; font-size:14pt; font-weight:400;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Microsoft YaHei UI'; font-size:14pt; font-weight:400;&quot;&gt;GUI - PyQT6&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Microsoft YaHei UI'; font-size:14pt; font-weight:400;&quot;&gt;Dark theme detect&lt;/span&gt;&lt;span style=&quot; font-family:'Microsoft YaHei UI'; font-size:14pt;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Microsoft YaHei UI'; font-size:14pt; font-weight:400;&quot;&gt;-&lt;/span&gt;&lt;span style=&quot; font-family:'Microsoft YaHei UI'; font-size:14pt;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Microsoft YaHei UI'; font-size:14pt; font-weight:400;&quot;&gt;darkdetect&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Microsoft YaHei UI'; font-size:14pt; font-weight:400;&quot;&gt;Network - httpx&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Microsoft YaHei UI'; font-size:14pt; font-weight:400;&quot;&gt;Scan Windows apps - windows_tools&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Microsoft YaHei UI'; font-weight:400;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
       </property>
      </widget>
      <widget class="QLabel" name="label_concept">
@@ -1282,7 +1376,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QFrame" name="logo_3">
       <property name="geometry">
        <rect>
-        <x>700</x>
+        <x>680</x>
         <y>250</y>
         <width>240</width>
         <height>240</height>
