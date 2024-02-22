@@ -65,6 +65,8 @@ def Connect_Buttons(self):
 
     self.ui.stackedWidget.currentChanged.connect(lambda: ChangeTitle(self))
 
+    self.ui.save_report_btn.clicked.connect(lambda: SaveReport(self))
+
     self.ui.pushButton_app_hide.clicked.connect(lambda: (self.ui.showMinimized(), self.logger.debug(
         "pushButton_app_hide : Minimized")))
 
@@ -238,6 +240,18 @@ def ClearCVEInfoPage(self):
                                     self.ui.plainTextEdit_cvss_3.clear()))
 
 
+def MaxNetWorkersChanged(self):
+    value = str(self.ui.horizontalSlider_network_threads.value())
+    self.ui.label_network_threads_value.setText(value)
+    if not self.isSliderTimerStart:
+        self.isSliderTimerStart = True
+        QTimer.singleShot(2500, lambda: (Save_Settings(self), ChangeSliderLock(self)))
+
+
+def ChangeSliderLock(self):
+    self.isSliderTimerStart = False
+
+
 def SaveReport(self):
     report_file = None
     try:
@@ -256,47 +270,32 @@ def SaveReport(self):
 
     try:
         with open(report_file, "w") as f:
-            f.write(r"""
-              ____                    _                       __          __ _             _                       __      __      _                           _      _  _  _  _             _____
-             |  _ \                  | |                      \ \        / /(_)           | |                      \ \    / /     | |                         | |    (_)| |(_)| |           / ____|
-             | |_) |  ___  _ __    __| |  ___  _ __   ______   \ \  /\  / /  _  _ __    __| |  ___ __      __ ___   \ \  / /_   _ | | _ __    ___  _ __  __ _ | |__   _ | | _ | |_  _   _  | (___    ___  __ _  _ __   _ __    ___  _ __
-             |  _ <  / _ \| '_ \  / _` | / _ \| '__| |______|   \ \/  \/ /  | || '_ \  / _` | / _ \\ \ /\ / // __|   \ \/ /| | | || || '_ \  / _ \| '__|/ _` || '_ \ | || || || __|| | | |  \___ \  / __|/ _` || '_ \ | '_ \  / _ \| '__|
-             | |_) ||  __/| | | || (_| ||  __/| |                \  /\  /   | || | | || (_| || (_) |\ V  V / \__ \    \  / | |_| || || | | ||  __/| |  | (_| || |_) || || || || |_ | |_| |  ____) || (__| (_| || | | || | | ||  __/| |
-             |____/  \___||_| |_| \__,_| \___||_|                 \/  \/    |_||_| |_| \__,_| \___/  \_/\_/  |___/     \/   \__,_||_||_| |_| \___||_|   \__,_||_.__/ |_||_||_| \__| \__, | |_____/  \___|\__,_||_| |_||_| |_| \___||_|
-                                                                                                                                                                         __/ |
-                                                                                                                                                                        |___/
-
-            Autor - @trottling
-            Github - github.com/trottling/Bender
-            """)
-            f.write(f"Python {sys.version}")
-            f.write(f"Application version: {self.app_version}")
-            f.write(f"Run as Admin : {Check_Admin(self.logger)}")
-            f.write("OS Name: " + platform.system())
-            f.write("OS Release: " + platform.release())
-            f.write("OS Version: " + platform.version())
-            f.write("\n\n\n\n\n")
+            f.write(f"Bender - Windows Vulnerability Scanner\n")
+            f.write(f"Search vulnerabilities in your Windows system\n")
+            f.write(f"Autor - @trottling\n")
+            f.write("\n\n\n")
+            f.write(f"Github - github.com/trottling/Bender\n")
+            f.write(f"Python {sys.version}\n")
+            f.write(f"Python {sys.version}\n")
+            f.write(f"Python {sys.version}\n")
+            f.write(f"Application version: {self.app_version}\n")
+            f.write(f"Run as Admin : {Check_Admin(self.logger)}\n")
+            f.write("OS Name: {platform.system()}\n")
+            f.write("OS Release: {platform.release()}\n")
+            f.write("OS Version: {platform.version()}\n")
+            f.write("\n\n\n")
 
             for item in self.report["cve_list"]:
-                f.write("cve: " + item["cve"])
-                f.write("package: " + item["package"])
-                f.write("version: " + item["version"])
-                f.write("score: " + item["score"])
-                f.write("desc: " + item["desc"])
-                f.write("published: " + item["datePublished"])
-                f.write("shortName: " + item["shortName"])
-                f.write("references: " + item["references"])
-                f.write("\n\n\n\n\n")
+                f.write(f"cve: {item["cve"]}\n")
+                f.write(f"package: {item["package"]}\n")
+                f.write(f"version: {item["version"]}\n")
+                f.write(f"score: {item["score"]}\n")
+                f.write(f"desc: {item["desc"]}\n")
+                f.write(f"published: {item["datePublished"]}\n")
+                f.write(f"shortName: {item["shortName"]}\n")
+                f.write(f"references: {item["references"]}\n")
+                f.write("\n\n\n")
     except Exception as e:
-        self.logger.error(f"SaveReport : error {e}")
+        self.logger.error(f"SaveReport : {e}")
         return
     self.logger.debug(f"SaveReport : Report writed")
-
-
-def MaxNetWorkersChanged(self):
-    value = str(self.ui.horizontalSlider_network_threads.value())
-    self.ui.label_network_threads_value.setText(value)
-    if not self.isSliderTimerStart:
-        self.isSliderTimerStart = True
-        QTimer.singleShot(2500, lambda: (Save_Settings(self)))
-        self.isSliderTimerStart = False

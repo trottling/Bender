@@ -6,7 +6,7 @@ from ui.animations import StackedWidgetChangePage, ElemShowAnim
 from ui.tools import Report_Error
 
 
-def Show_Report(self, rep):
+def Show_Report_CIA(self, rep):
     try:
         self.logger.debug("Show_Report : loading report")
         self.report = json.loads(rep)
@@ -54,13 +54,13 @@ def Show_Report(self, rep):
 
             self.result_list_model.appendRow(list_item)
 
-        self.ui.result_listView.doubleClicked.connect(lambda index: ShowCVEInfo(self, index))
+        self.ui.result_listView.doubleClicked.connect(lambda index: ShowCVEInfo_CIA(self, index))
         self.logger.debug("Show_Report : List maked")
     except Exception as e:
         Report_Error(self, e)
 
 
-def ShowCVEInfo(self, index):
+def ShowCVEInfo_CIA(self, index):
     try:
         item_index = index.row()
         self.logger.debug(f"ShowCVEInfo : item index {str(item_index).strip()} ")
