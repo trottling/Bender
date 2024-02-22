@@ -1,6 +1,6 @@
 import sys
 
-from PyQt6 import uic, QtGui, QtCore
+from PyQt6 import uic, QtGui
 from PyQt6.QtCore import Qt
 
 

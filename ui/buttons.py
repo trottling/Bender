@@ -1,35 +1,41 @@
 import os
+import platform
 import sys
 from pathlib import Path
 
+from PyQt6.QtCore import QTimer
 from PyQt6.QtWidgets import QFileDialog
 
+from OnAppStart.setup_logger import Check_Admin
 from checkers.run_checker import Run_Checker
 from checkers.run_checker import Stop_Checker
-from ui.animations import App_Exit_Anim, StackedWidgetAnimationtOpacity, ElemShowAnim, ElemHideAnim
+from ui.animations import App_Exit_Anim, StackedWidgetChangePage, ElemShowAnim, ElemHideAnim
 from ui.styles import Load_Styles
 from ui.tools import Save_Settings, Check_Vulners_Key_Request
 
 
 def Connect_Buttons(self):
-    self.ui.setting_btn.clicked.connect(lambda: (StackedWidgetAnimationtOpacity(self, 3)))
+    self.ui.setting_btn.clicked.connect(lambda: (StackedWidgetChangePage(self, 3)))
 
-    self.ui.info_btn.clicked.connect(lambda: (StackedWidgetAnimationtOpacity(self, 6)))
+    self.ui.info_btn.clicked.connect(lambda: (StackedWidgetChangePage(self, 6)))
+
+    self.ui.cve_info_back_button.clicked.connect(lambda: (StackedWidgetChangePage(self, 2), ClearCVEInfoPage(self)))
 
     self.ui.setting_back_button.clicked.connect(
-        lambda: (Save_Settings(self), (StackedWidgetAnimationtOpacity(self, 0))))
+        lambda: (Save_Settings(self), (StackedWidgetChangePage(self, 0))))
 
-    self.ui.info_back_button.clicked.connect(lambda: StackedWidgetAnimationtOpacity(self, 0))
+    self.ui.info_back_button.clicked.connect(lambda: StackedWidgetChangePage(self, 0))
 
     self.ui.back_work_button.clicked.connect(
-        lambda: (StackedWidgetAnimationtOpacity(self, 0), Stop_Checker(self), self.logger.debug(
-            "back_work_button : Checker stopped")))
+        lambda: (StackedWidgetChangePage(self, 0), Stop_Checker(self)))
 
-    self.ui.next_work_button.clicked.connect(lambda: StackedWidgetAnimationtOpacity(self, 2))
+    self.ui.next_work_button.clicked.connect(lambda: StackedWidgetChangePage(self, 2))
 
-    self.ui.back_result_button.clicked.connect(lambda: StackedWidgetAnimationtOpacity(self, 1))
+    self.ui.back_result_button.clicked.connect(lambda: StackedWidgetChangePage(self, 1))
 
-    self.ui.next_result_button.clicked.connect(lambda: StackedWidgetAnimationtOpacity(self, 0))
+    self.ui.next_result_button.clicked.connect(lambda: StackedWidgetChangePage(self, 0))
+
+    self.ui.horizontalSlider_network_threads.valueChanged.connect(lambda: MaxNetWorkersChanged(self))
 
     self.ui.qss_apply_pushButton.clicked.connect(lambda: ApplyQSSTheme(self))
 
@@ -48,7 +54,8 @@ def Connect_Buttons(self):
 
     self.ui.save_log_pushButton_2.clicked.connect(lambda: SaveDebugLog(self))
 
-    self.ui.errors_exit.clicked.connect(lambda: sys.exit(-1))
+    self.ui.errors_exit.clicked.connect(lambda: (self.logger.debug(
+        "errors_exit : EXIT"), sys.exit(-1)))
 
     self.ui.check_key_pushButton.clicked.connect(lambda: Check_Vulners_Key(self))
 
@@ -223,3 +230,73 @@ def ChangeTitle(self):
     else:
         ElemHideAnim(self, self.ui.label_windows_title)
         ElemHideAnim(self, self.ui.app_icon)
+
+
+def ClearCVEInfoPage(self):
+    self.ui.cve_desc_plainTextEdit.clear()
+    self.ui.plainTextEdit_references.clear()
+    self.ui.plainTextEdit_cvss_3.clear()
+
+
+def SaveReport(self):
+    report_file = None
+    try:
+        report_file = QFileDialog.getSaveFileName(self, caption='Save log file (.txt)', directory="./",
+                                                  filter=".txt",
+                                                  initialFilter=".txt")
+    except Exception as e:
+        self.logger.debug(f"SaveReport : {e}")
+
+    if report_file == "":
+        return
+
+    report_file = report_file[0] + report_file[1]
+
+    self.logger.debug(f"SaveReport : Open file {report_file}")
+
+    try:
+        with open(report_file, "w") as f:
+            f.write(r"""
+              ____                    _                       __          __ _             _                       __      __      _                           _      _  _  _  _             _____
+             |  _ \                  | |                      \ \        / /(_)           | |                      \ \    / /     | |                         | |    (_)| |(_)| |           / ____|
+             | |_) |  ___  _ __    __| |  ___  _ __   ______   \ \  /\  / /  _  _ __    __| |  ___ __      __ ___   \ \  / /_   _ | | _ __    ___  _ __  __ _ | |__   _ | | _ | |_  _   _  | (___    ___  __ _  _ __   _ __    ___  _ __
+             |  _ <  / _ \| '_ \  / _` | / _ \| '__| |______|   \ \/  \/ /  | || '_ \  / _` | / _ \\ \ /\ / // __|   \ \/ /| | | || || '_ \  / _ \| '__|/ _` || '_ \ | || || || __|| | | |  \___ \  / __|/ _` || '_ \ | '_ \  / _ \| '__|
+             | |_) ||  __/| | | || (_| ||  __/| |                \  /\  /   | || | | || (_| || (_) |\ V  V / \__ \    \  / | |_| || || | | ||  __/| |  | (_| || |_) || || || || |_ | |_| |  ____) || (__| (_| || | | || | | ||  __/| |
+             |____/  \___||_| |_| \__,_| \___||_|                 \/  \/    |_||_| |_| \__,_| \___/  \_/\_/  |___/     \/   \__,_||_||_| |_| \___||_|   \__,_||_.__/ |_||_||_| \__| \__, | |_____/  \___|\__,_||_| |_||_| |_| \___||_|
+                                                                                                                                                                         __/ |
+                                                                                                                                                                        |___/
+
+            Autor - @trottling
+            Github - github.com/trottling/Bender
+            """)
+            f.write(f"Python {sys.version}")
+            f.write(f"Application version: {self.app_version}")
+            f.write(f"Run as Admin : {Check_Admin(self.logger)}")
+            f.write("OS Name: " + platform.system())
+            f.write("OS Release: " + platform.release())
+            f.write("OS Version: " + platform.version())
+            f.write("\n\n\n\n\n")
+
+            for item in self.report["cve_list"]:
+                f.write("cve: " + item["cve"])
+                f.write("package: " + item["package"])
+                f.write("version: " + item["version"])
+                f.write("score: " + item["score"])
+                f.write("desc: " + item["desc"])
+                f.write("published: " + item["datePublished"])
+                f.write("shortName: " + item["shortName"])
+                f.write("references: " + item["references"])
+                f.write("\n\n\n\n\n")
+    except Exception as e:
+        self.logger.error(f"SaveReport : error {e}")
+        return
+    self.logger.debug(f"SaveReport : Report writed")
+
+
+def MaxNetWorkersChanged(self):
+    value = str(self.ui.horizontalSlider_network_threads.value())
+    self.ui.label_network_threads_value.setText(value)
+    if not self.isSliderTimerStart:
+        self.isSliderTimerStart = True
+        QTimer.singleShot(2500, lambda: (Save_Settings(self)))
+        self.isSliderTimerStart = False

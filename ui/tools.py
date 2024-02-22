@@ -46,6 +46,7 @@ def Save_Settings(self):
         self.config.set('main', "app_theme", self.ui.qss_comboBox.currentText())
         self.config.set('main', "cve_db", self.ui.db_comboBox.currentText())
         self.config.set('main', "vulners_api_key", self.ui.api_key.text().strip())
+        self.config.set('main', "net_workers", str(self.ui.horizontalSlider_network_threads.value()))
 
         with open(self.config_path, 'w') as f:
             self.config.write(f)
@@ -65,6 +66,10 @@ def Load_Settings(self):
             self.logger.debug(f"Load_Settings : cve_db : {self.config.get('main', "cve_db")}")
             if self.config.get("main", "cve_db") not in (None, ""):
                 self.ui.db_comboBox.setCurrentText(self.config.get("main", "cve_db"))
+
+            self.logger.debug(f"Load_Settings : net_workers : {self.config.get('main', "net_workers")}")
+            if self.config.get("main", "net_workers") not in (None, ""):
+                self.ui.horizontalSlider_network_threads.setValue(int(self.config.get("main", "net_workers")))
 
             if self.config.get("main", "vulners_api_key") not in (None, ""):
                 self.logger.debug(f"Load_Settings : vulners_api_key : * IS NOT EMPTY *")

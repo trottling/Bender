@@ -8,4 +8,5 @@ def Hide_Elements(self):
     self.ui.delete_qss_pushButton.hide()
     self.ui.label_windows_title.hide()
     self.ui.app_icon.hide()
+    self.ui.label_no_cve.hide()
     self.logger.debug("Hide_Elements : Elements Hided")

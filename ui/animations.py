@@ -1,3 +1,5 @@
+import sys
+
 from PyQt6.QtCore import QPropertyAnimation, QEasingCurve
 from PyQt6.QtWidgets import QGraphicsOpacityEffect
 
@@ -21,7 +23,8 @@ def App_Exit_Anim(self):
     self.logger.debug(f"App_Close_Anim : Animation")
 
     animation = QPropertyAnimation(self.ui, b'windowOpacity', self)
-    animation.finished.connect(self.close)
+    animation.finished.connect(lambda: ((self.logger.debug(
+        "App_Exit_Anim : ******* EXIT *******"), sys.exit(0))))
     animation.setDuration(500)
     animation.setStartValue(1.0)
     animation.setEndValue(0.0)
@@ -29,7 +32,7 @@ def App_Exit_Anim(self):
 
 
 def ChangePBarValue(self, val: int):
-    self.logger.debug(f"ChangePBarValue : Animation from {self.ui.progressBar.value()} to {val}")
+    self.logger.debug(f"ChangePBarValue : Animation to {val}%")
     animation = QPropertyAnimation(self.ui.progressBar, b"value", self)
     animation.setDuration(1000)
     animation.setStartValue(self.ui.progressBar.value())
@@ -37,7 +40,7 @@ def ChangePBarValue(self, val: int):
     animation.start()
 
 
-def StackedWidgetAnimationtOpacity(self, page_to: int):
+def StackedWidgetChangePage(self, page_to: int):
     self.logger.debug(f"StackedWidgetAnimation : move to {page_to}")
     current_widget = self.ui.stackedWidget.currentWidget()
 

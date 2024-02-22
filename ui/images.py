@@ -35,9 +35,12 @@ def Load_Images_And_Icons(self):
 
     # Work result page
     self.ui.back_result_button.setStyleSheet(r".QPushButton {image: url('assets//images//back.png')}")
-    self.ui.next_result_button.setStyleSheet(r".QPushButton {image: url('assets//images//next.png')}")
+    self.ui.next_result_button.setStyleSheet(r".QPushButton {image: url('assets//images//fail.png')}")
 
     # Info page
     self.ui.info_back_button.setStyleSheet(r".QPushButton {image: url('assets//images//back.png')}")
+
+    # CVE info page
+    self.ui.cve_info_back_button.setStyleSheet(r".QPushButton {image: url('assets//images//back.png')}")
 
     self.logger.debug(f"Load_Images_And_Icons : Buttons icons seted")

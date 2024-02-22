@@ -26,7 +26,7 @@ class User_UI(QMainWindow):
         self.config_path = self.appdir + "\\" + "config.ini"
         self.config = ConfigParser()
         self.isVulnersKeyValid = False
-        self.opacity_effect = QGraphicsOpacityEffect()
+        self.isSliderTimerStart = False
         Start_App(self)
         CheckUserOs(self)
 
