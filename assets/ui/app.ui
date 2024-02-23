@@ -107,7 +107,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>6</number>
+     <number>5</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -1258,7 +1258,7 @@ color: rgb(255, 255, 255);</string>
      <widget class="QLabel" name="label_cvss3">
       <property name="geometry">
        <rect>
-        <x>825</x>
+        <x>950</x>
         <y>425</y>
         <width>151</width>
         <height>26</height>
@@ -1276,7 +1276,7 @@ color: rgb(255, 255, 255);</string>
      <widget class="QPlainTextEdit" name="plainTextEdit_cvss_3">
       <property name="geometry">
        <rect>
-        <x>825</x>
+        <x>950</x>
         <y>450</y>
         <width>626</width>
         <height>276</height>
@@ -1346,7 +1346,7 @@ color: rgb(255, 255, 255);</string>
      <widget class="QLabel" name="label_shortname">
       <property name="geometry">
        <rect>
-        <x>825</x>
+        <x>950</x>
         <y>375</y>
         <width>351</width>
         <height>26</height>
