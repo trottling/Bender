@@ -74,7 +74,6 @@ def RunCCD(self):
     #  Inspection drivers in database and add to report
     #
 
-    self.drivers_list_hashed.append(["4710acca9c4a61e2fc6daafb09d72e11b603ef8cd732e12a84274ea9ad6d43be", ""])
     self.log_signal.emit(f"Inspection drivers in database\n")
     vuln_list = []
     for drv_hash in self.drivers_list_hashed:
