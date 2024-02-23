@@ -9,15 +9,15 @@ from ui.tools import Report_Error
 
 def Show_Report_CIA(self, rep):
     try:
-        self.logger.debug("Show_Report : loading report")
+        self.logger.debug("Show_Report_CIA : loading report")
         self.report = json.loads(rep)
     except Exception as e:
-        Report_Error(self, "Failed to convert Vulners report to JSON format : " + str(e))
+        Report_Error(self, "Failed to convert report to JSON format : " + str(e))
 
     self.ui.next_work_button.show()
-    self.logger.debug("Show_Report : next_work_button : show")
+    self.logger.debug("Show_Report_CIA : next_work_button : show")
 
-    self.logger.debug(f"Show_Report : {len(self.report["cve_list"])} CVEs in list")
+    self.logger.debug(f"Show_Report_CIA : {len(self.report["cve_list"])} CVEs in list")
     if len(self.report["cve_list"]) == 0:
         ElemShowAnim(self, self.ui.label_no_cve)
         return
@@ -30,7 +30,7 @@ def Show_Report_CIA(self, rep):
         package_max = max(len(item["package"]) for item in self.report["cve_list"]) + 8
         version_max = max(len(item["version"]) for item in self.report["cve_list"]) + 8
         self.logger.debug(
-            f"Show_Report : cve_max {cve_max} : score_max {score_max} : package_max {package_max} : version_max {version_max}")
+            f"Show_Report_CIA : cve_max {cve_max} : score_max {score_max} : package_max {package_max} : version_max {version_max}")
 
         # Header alignment
         header = f"     {'CVE'.ljust(cve_max)}{'Score'.ljust(score_max)}{'App'.ljust(package_max)}{'Version'.ljust(version_max)}Desc"
@@ -56,15 +56,15 @@ def Show_Report_CIA(self, rep):
             self.result_list_model.appendRow(list_item)
 
         self.ui.result_listView.doubleClicked.connect(lambda index: ShowCVEInfo_CIA(self, index))
-        self.logger.debug("Show_Report : List maked")
+        self.logger.debug("Show_Report_CIA : List maked")
     except Exception as e:
-        Report_Error(self, e)
+        Report_Error(self, f"Show_Report_CIA : {e}")
 
 
 def ShowCVEInfo_CIA(self, index):
     try:
         item_index = index.row()
-        self.logger.debug(f"ShowCVEInfo : item index {str(item_index).strip()} ")
+        self.logger.debug(f"ShowCVEInfo_CIA : item index {str(item_index).strip()} ")
         cve_info = self.report["cve_list"][item_index]
 
         self.ui.label_cve_head.setText(
@@ -72,7 +72,7 @@ def ShowCVEInfo_CIA(self, index):
 
         self.ui.label_published.setText(
             f"Published: {cve_info["datePublished"]}" if "datePublished" in cve_info and cve_info[
-                "datePublished"].strip is not "" else "Published: No date")
+                "datePublished"].strip != "" else "Published: No date")
         self.ui.cve_desc_plainTextEdit.setPlainText(cve_info["desc"].capitalize())
 
         self.ui.label_shortname.setText(f"Shortname: {cve_info["shortName"].capitalize()}")
@@ -83,14 +83,96 @@ def ShowCVEInfo_CIA(self, index):
         if "cvssV3_1" in cve_info["cvss_metrics"]:
             for item in cve_info["cvss_metrics"]["cvssV3_1"]:
                 self.ui.plainTextEdit_cvss_3.appendPlainText(
-                    f"{Split_by_uppercase(item)}: {cve_info["cvss_metrics"]["cvssV3_1"][item]}")
+                    f"{Split_by_uppercase(self, item)}: {cve_info["cvss_metrics"]["cvssV3_1"][item]}")
         else:
             self.ui.plainTextEdit_cvss_3.appendPlainText("No info")
 
         StackedWidgetChangePage(self, 5)
     except Exception as e:
-        Report_Error(self, e)
+        Report_Error(self, f"ShowCVEInfo_CIA : {e}")
 
 
-def Split_by_uppercase(word):
-    return re.sub(r"([a-z])([A-Z])", r"\1 \2", word).strip().capitalize()
+def Show_Report_CCD(self, rep):
+    try:
+        self.logger.debug("Show_Report_CCD : loading report")
+        self.report = json.loads(rep)
+    except Exception as e:
+        Report_Error(self, "Failed to convert report to JSON format : " + str(e))
+
+    self.ui.next_work_button.show()
+    self.logger.debug("Show_Report_CCD : next_work_button : show")
+
+    self.logger.debug(f"Show_Report_CCD : {len(self.report["driver_list"])} drivers in list")
+    if len(self.report["driver_list"]) == 0:
+        ElemShowAnim(self, self.ui.label_no_cve)
+        return
+
+    try:
+        # Calculate alignment
+        str_max = 126
+        shortName_max = max(len(item["shortName"]) for item in self.report["driver_list"]) + 8
+        version_max = max(len(item["version"]) for item in self.report["driver_list"]) + 8
+        self.logger.debug(
+            f"Show_Report_CCD : cve_max {shortName_max} : version_max {version_max}")
+
+        # Header alignment
+        header = f"     {'Name'.ljust(shortName_max)}{'Version'.ljust(version_max)}Desc"
+        self.ui.label_result_info.setText(header)
+
+        # Setup list
+        self.result_list_model = QtGui.QStandardItemModel()
+        self.ui.result_listView.setModel(self.result_list_model)
+
+        # Items alignment
+        for item in self.report["driver_list"]:
+            string = f"  {item['shortName'].ljust(shortName_max)}{str(item['version']).ljust(version_max)}"
+
+            if len(string + item["desc"]) > str_max:
+                desc = f"{item['desc'][:120 - len(string)]}..."
+            else:
+                desc = item["desc"]
+
+            list_item = QtGui.QStandardItem()
+            list_item.setText(string + desc)
+            list_item.setIcon(QtGui.QIcon(r"assets\images\risk.png"))
+
+            self.result_list_model.appendRow(list_item)
+
+        self.ui.result_listView.doubleClicked.connect(lambda index: ShowCVEInfo_CCD(self, index))
+        self.logger.debug("Show_Report_CCD : List maked")
+    except Exception as e:
+        Report_Error(self, f"Show_Report_CCD : {e}")
+
+
+def ShowCVEInfo_CCD(self, index):
+    try:
+        item_index = index.row()
+        self.logger.debug(f"ShowCVEInfo_CCD : item index {str(item_index).strip()}")
+        cve_info = self.report["driver_list"][item_index]
+
+        self.ui.label_cve_head.setText(
+            f"{cve_info["shortName"].capitalize()} - {cve_info["version"]}")
+
+        self.ui.label_published.setText(
+            f"Published: {cve_info["datePublished"]}" if "datePublished" in cve_info and cve_info[
+                "datePublished"].strip != "" else "Published: No date")
+        self.ui.cve_desc_plainTextEdit.setPlainText(cve_info["desc"].capitalize())
+
+        self.ui.label_cvss3.setText("Imported Functions")
+        for func in cve_info["ImportedFunctions"]:
+            self.ui.plainTextEdit_cvss_3.appendHtml(func)
+
+        self.ui.label_cve_versions_2.setText("Other informations")
+        self.ui.plainTextEdit_references.appendPlainText(cve_info["hash"])
+        for item in cve_info["other"]:
+            self.ui.plainTextEdit_references.appendPlainText(item)
+
+        StackedWidgetChangePage(self, 5)
+    except Exception as e:
+        Report_Error(self, f"ShowCVEInfo_CCD : {e}")
+
+
+def Split_by_uppercase(self, word):
+    result = re.sub(r"([a-z])([A-Z])", r"\1 \2", word).strip().capitalize()
+    self.logger.debug(f"Split_by_uppercase : {word} --> {result}")
+    return result

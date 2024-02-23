@@ -4,7 +4,7 @@ from checkers.check_installed_apps import RunCIA
 from ui.animations import ChangePBarValue, StackedWidgetChangePage
 from ui.tools import Report_Error
 from checkers.validate import Validate_before_check
-from ui.show_report import Show_Report_CIA
+from ui.show_report import Show_Report_CIA, Show_Report_CCD
 
 
 class CheckerThread(QThread):
@@ -66,6 +66,6 @@ def ShowReport(self, rep, checker):
 
     match checker:
         case "RunCCD":
-            RunCCD(self)
+            Show_Report_CCD(self, rep)
         case "RunCIA":
             Show_Report_CIA(self, rep)

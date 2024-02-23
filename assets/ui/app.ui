@@ -1260,7 +1260,7 @@ color: rgb(255, 255, 255);</string>
        <rect>
         <x>950</x>
         <y>425</y>
-        <width>151</width>
+        <width>451</width>
         <height>26</height>
        </rect>
       </property>
@@ -1312,7 +1312,7 @@ color: rgb(255, 255, 255);</string>
        <rect>
         <x>25</x>
         <y>425</y>
-        <width>201</width>
+        <width>401</width>
         <height>26</height>
        </rect>
       </property>
@@ -1348,7 +1348,7 @@ color: rgb(255, 255, 255);</string>
        <rect>
         <x>950</x>
         <y>375</y>
-        <width>351</width>
+        <width>626</width>
         <height>26</height>
        </rect>
       </property>

@@ -47,14 +47,14 @@ def Check_By_Vulners(self):
         self.log_signal.emit(f"Software list is too bigger : {len(self.soft_list)} : Cut lenght to 500\n")
         self.logger.debug(f"Software list is too bigger : {len(self.soft_list)} : Cut lenght to 500\n")
 
-    self.log_signal.emit(f"Transforming softwares list to vulners format\n")
+    self.log_signal.emit(f"Transforming softwares list to vulners.com format\n")
     for software in self.soft_list:
         if self.db == "vulners.com (Recommended)":
             self.soft_list_vulners.append(dict({"software": software['name'], "version": software['version']}))
 
     self.pbar_signal.emit(30)
 
-    self.log_signal.emit(f"Connecting to vulners API\n")
+    self.log_signal.emit(f"Connecting to vulners.com API\n")
     try:
         self.vulners_api = vulners.VulnersApi(api_key=self.api_key)
         self.pbar_signal.emit(45)
@@ -62,12 +62,12 @@ def Check_By_Vulners(self):
         self.err_signal.emit("RunCIA : Failed to connect Vulners Api : " + str(e))
         return
 
-    self.log_signal.emit(f"Sending softwares list to vulners\n")
+    self.log_signal.emit(f"Sending softwares list to vulners.com\n")
     try:
         self.report = self.vulners_api.software_audit(os="", version="", packages=self.soft_list_vulners)
         self.pbar_signal.emit(60)
     except Exception as e:
-        self.err_signal.emit("RunCIA : Failed to get Vulners report : " + str(e))
+        self.err_signal.emit("RunCIA : Failed to get vulners.com report : " + str(e))
         return
 
     #
@@ -81,7 +81,7 @@ def Check_By_Vulners(self):
             f"RunCIA : Found {len([vuln for vuln in self.report['vulnerabilities'] if vuln['id']])} CVEs : {self.report}")
         self.pbar_signal.emit(75)
     except Exception as e:
-        self.err_signal.emit("RunCIA : Failed read Vulners report : " + str(e))
+        self.err_signal.emit("RunCIA : Failed read vulners.com report : " + str(e))
         return
 
     #

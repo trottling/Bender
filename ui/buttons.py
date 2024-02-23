@@ -238,7 +238,8 @@ def ChangeTitle(self):
 def ClearCVEInfoPage(self):
     QTimer.singleShot(250, lambda: (self.ui.cve_desc_plainTextEdit.clear(),
                                     self.ui.plainTextEdit_references.clear(),
-                                    self.ui.plainTextEdit_cvss_3.clear()))
+                                    self.ui.plainTextEdit_cvss_3.clear(),
+                                    ))
 
 
 def MaxNetWorkersChanged(self):
