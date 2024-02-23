@@ -2,6 +2,7 @@ import os
 import platform
 import sys
 import time
+import webbrowser
 from pathlib import Path
 
 from PyQt6.QtCore import QTimer
@@ -67,6 +68,8 @@ def Connect_Buttons(self):
     self.ui.stackedWidget.currentChanged.connect(lambda: ChangeTitle(self))
 
     self.ui.save_report_btn.clicked.connect(lambda: SaveReport(self))
+
+    self.ui.vulners_key_help.clicked.connect(lambda: webbrowser.open("https://vulners.com/docs/apikey/"))
 
     self.ui.pushButton_app_hide.clicked.connect(lambda: (self.ui.showMinimized(), self.logger.debug(
         "pushButton_app_hide : Minimized")))

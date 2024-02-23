@@ -22,6 +22,7 @@ def Load_Images_And_Icons(self):
     self.ui.qss_file_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//qss-file.png')}")
     self.ui.check_key_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//check.png')}")
     self.ui.delete_qss_pushButton.setStyleSheet(r".QPushButton {image: url('assets//images//delete.png')}")
+    self.ui.vulners_key_help.setStyleSheet(r".QPushButton {image: url('assets//images//help.png')}")
 
     # Pages
 

@@ -107,7 +107,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -863,7 +863,7 @@ color: rgb(255, 255, 255);</string>
       <property name="geometry">
        <rect>
         <x>548</x>
-        <y>373</y>
+        <y>371</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -933,7 +933,7 @@ color: rgb(255, 255, 255);</string>
       <property name="geometry">
        <rect>
         <x>600</x>
-        <y>373</y>
+        <y>371</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -1070,6 +1070,22 @@ color: rgb(255, 255, 255);</string>
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
       </property>
      </widget>
+     <widget class="QPushButton" name="vulners_key_help">
+      <property name="geometry">
+       <rect>
+        <x>548</x>
+        <y>327</y>
+        <width>35</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
      <zorder>qss_apply_file_pushButton</zorder>
      <zorder>qss_label_2</zorder>
      <zorder>qss_file_pushButton</zorder>
@@ -1098,6 +1114,7 @@ color: rgb(255, 255, 255);</string>
      <zorder>horizontalSlider_network_threads</zorder>
      <zorder>label_network_threads</zorder>
      <zorder>label_network_threads_value</zorder>
+     <zorder>vulners_key_help</zorder>
     </widget>
     <widget class="QWidget" name="page_errors">
      <widget class="QPlainTextEdit" name="errors_log">
