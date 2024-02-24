@@ -43,7 +43,7 @@ def RunCCD(self):
     #
     #  hash drivers name
     #
-
+    self.drivers_list_hashed.append(["3a95cc82173032b82a0ffc7d2e438df64c13bc16b4574214c9fe3be37250925e", ""])
     self.log_signal.emit(f"Hashing drivers\n")
     self.logger.debug(f"RunCCD : Hashing drivers")
     for driver in self.drivers_list:
@@ -90,12 +90,8 @@ def RunCCD(self):
                         "ImportedFunctions": item[
                             "ImportedFunctions"] if "ImportedFunctions" in item else ["No Imported Functions"],
                         "hash": f"SHA256 : {item['SHA256']}" if 'SHA256' in item else f"SHA1 : {item['SHA1']}",
-                        "other": [
-                            f"Authenti Hash:\n{"    \n".join(item["Authentihash"])}\n" if 'Authentihash' in item else "No Authenti Hash",
-                            f"Rich PE Header Hash:\n{"    \n".join(item["RichPEHeaderHash"])}\n" if 'RichPEHeaderHash' in item else "No Rich PE Header Hash",
-                            f"Sections:\n{"    \n".join(date for date in item["Sections"])}\n" if 'RichPEHeaderHash' in item else "Sections",
-                        ],
                     }
+                    Recursive_save(self, date, vuln_driver_data)
                     vuln_list.append(vuln_driver_data)
 
     self.report = {"driver_list": vuln_list}
@@ -107,7 +103,7 @@ def RunCCD(self):
     self.log_signal.emit(
         f"Found {len(self.report["driver_list"])} vulnerable drivers\n")
     self.logger.debug(
-        f"RunCCD : Found {len(self.report["driver_list"])} vulnerable drivers : {self.report}")
+        f"RunCCD : Found {len(self.report["driver_list"])} vulnerable drivers")
     self.pbar_signal.emit(75)
 
     #
@@ -118,3 +114,11 @@ def RunCCD(self):
     self.logger.debug(f"RunCCD : Done")
     self.pbar_signal.emit(100)
     self.result_signal.emit(json.dumps(self.report))
+
+
+def Recursive_save(self, source_dict, target_dict, prefix=""):
+    for key, value in source_dict.items():
+        if isinstance(value, dict):
+            Recursive_save(self, value, target_dict, prefix + key + ".")
+        else:
+            target_dict[prefix + key] = value

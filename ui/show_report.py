@@ -2,6 +2,7 @@ import json
 import re
 
 from PyQt6 import QtGui
+from PyQt6.QtGui import QFileSystemModel, QStandardItemModel, QStandardItem
 
 from ui.animations import StackedWidgetChangePage, ElemShowAnim
 from ui.tools import Report_Error
@@ -83,7 +84,7 @@ def ShowCVEInfo_CIA(self, index):
         if "cvssV3_1" in cve_info["cvss_metrics"]:
             for item in cve_info["cvss_metrics"]["cvssV3_1"]:
                 self.ui.plainTextEdit_cvss_3.appendPlainText(
-                    f"{Split_by_uppercase(self, item)}: {cve_info["cvss_metrics"]["cvssV3_1"][item]}")
+                    f"{Split_by_Uppercase(self, item)}: {cve_info["cvss_metrics"]["cvssV3_1"][item]}")
         else:
             self.ui.plainTextEdit_cvss_3.appendPlainText("No info")
 
@@ -147,32 +148,38 @@ def Show_Report_CCD(self, rep):
 def ShowCVEInfo_CCD(self, index):
     try:
         item_index = index.row()
-        self.logger.debug(f"ShowCVEInfo_CCD : item index {str(item_index).strip()}")
-        cve_info = self.report["driver_list"][item_index]
+        self.logger.debug(f"ShowCVEInfo_CIA : item index {str(item_index).strip()} ")
+        driver_info = self.report["driver_list"][item_index]
+        self.ui.label_vuln_head.setText(f"{driver_info["shortName"]} - {driver_info["version"]}")
 
-        self.ui.label_cve_head.setText(
-            f"{cve_info["shortName"].capitalize()} - {cve_info["version"]}")
+        # Create and set model
+        self.model = QStandardItemModel()
+        self.ui.treeView_vuln.setModel(self.model)
+        Load_json_to_tree(self, driver_info)
 
-        self.ui.label_published.setText(
-            f"Published: {cve_info["datePublished"]}" if "datePublished" in cve_info and cve_info[
-                "datePublished"].strip != "" else "Published: No date")
-        self.ui.cve_desc_plainTextEdit.setPlainText(cve_info["desc"].capitalize())
-
-        self.ui.label_cvss3.setText("Imported Functions")
-        for func in cve_info["ImportedFunctions"]:
-            self.ui.plainTextEdit_cvss_3.appendHtml(func)
-
-        self.ui.label_cve_versions_2.setText("Other informations")
-        self.ui.plainTextEdit_references.appendPlainText(cve_info["hash"])
-        for item in cve_info["other"]:
-            self.ui.plainTextEdit_references.appendPlainText(item)
-
-        StackedWidgetChangePage(self, 5)
+        StackedWidgetChangePage(self, 7)
     except Exception as e:
         Report_Error(self, f"ShowCVEInfo_CCD : {e}")
 
 
-def Split_by_uppercase(self, word):
+def Load_json_to_tree(self, json_data, parent=None):
+    if isinstance(json_data, dict):
+        for key, value in json_data.items():
+            item = QStandardItem(str(key))
+            if isinstance(value, (dict, list)):
+                Load_json_to_tree(self, value, item)
+            else:
+                item.appendRow(QStandardItem(str(value)))
+                if parent is None:
+                    self.model.appendRow(item)
+                else:
+                    parent.appendRow(item)
+    elif isinstance(json_data, list):
+        for item_data in json_data:
+            Load_json_to_tree(self, item_data, parent)
+
+
+def Split_by_Uppercase(self, word):
     result = re.sub(r"([a-z])([A-Z])", r"\1 \2", word).strip().capitalize()
     self.logger.debug(f"Split_by_uppercase : {word} --> {result}")
     return result

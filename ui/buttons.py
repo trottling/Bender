@@ -35,7 +35,9 @@ def Connect_Buttons(self):
 
     self.ui.back_result_button.clicked.connect(lambda: StackedWidgetChangePage(self, 1))
 
-    self.ui.next_result_button.clicked.connect(lambda: StackedWidgetChangePage(self, 0))
+    self.ui.next_result_button.clicked.connect(lambda: StackedWidgetChangePage(self, 2))
+
+    self.ui.vuln_info_back_button.clicked.connect(lambda: StackedWidgetChangePage(self, 0))
 
     self.ui.horizontalSlider_network_threads.valueChanged.connect(lambda: MaxNetWorkersChanged(self))
 
@@ -154,6 +156,7 @@ def SaveDebugLog(self):
                                                initialFilter=".log")
     except Exception as e:
         self.logger.debug(f"SaveDebugLog : {e}")
+        return
 
     if log_file == "":
         return
@@ -284,9 +287,9 @@ def SaveReport(self):
             f.write(f"Python: {sys.version}\n")
             f.write(f"Application version: {self.app_version}\n")
             f.write(f"Run as Admin : {Check_Admin(self.logger)}\n")
-            f.write("OS Name: {platform.system()}\n")
-            f.write("OS Release: {platform.release()}\n")
-            f.write("OS Version: {platform.version()}\n")
+            f.write(f"OS Name: {platform.system()}\n")
+            f.write(f"OS Release: {platform.release()}\n")
+            f.write(f"OS Version: {platform.version()}\n")
             f.write("\n\n\n")
 
             for item in self.report["cve_list"]:

@@ -419,7 +419,7 @@ QSlider::sub-page:vertical {
 QListView {
     show-decoration-selected: 1;
 	color: #a9b7c6;
-	background-color:#393743;
+	background-color:#f4f2fa;
     border-radius: 10px;
 }
 
@@ -580,4 +580,39 @@ QPushButton#pushButton_app_exit:default{
 	color: #FFFFFF;
 	padding: 0px;
 	background-color: #f4f2fa;
+}
+
+QTreeView {
+    show-decoration-selected: 1;
+	color: #a9b7c6;
+	background-color:#f4f2fa;
+    border-radius: 10px;
+
+}
+
+QTreeView::item {
+     border: 1px solid #d9d9d9;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+
+QTreeView::item:hover {
+    border-radius: 4px;
+    background: #163147;
+}
+
+QTreeView::item:selected {
+    border: 1px solid #0d4e87;
+    border-radius: 4px;
+
+}
+
+QTreeView::item:selected:active{
+    background: #0d4e87;
+    border-radius: 4px;
+}
+
+QTreeView::item:selected:!active {
+    background: #0d4e87;
+    border-radius: 4px;
 }

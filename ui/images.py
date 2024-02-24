@@ -44,4 +44,7 @@ def Load_Images_And_Icons(self):
     # CVE info page
     self.ui.cve_info_back_button.setStyleSheet(r".QPushButton {image: url('assets//images//back.png')}")
 
+    # Vuln info page
+    self.ui.vuln_info_back_button.setStyleSheet(r".QPushButton {image: url('assets//images//back.png')}")
+
     self.logger.debug(f"Load_Images_And_Icons : Buttons icons seted")
