@@ -1619,6 +1619,9 @@ QTreeView::item:selected:!active {
 }
 </string>
       </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
      </widget>
     </widget>
    </widget>
