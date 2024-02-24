@@ -418,8 +418,8 @@ QSlider::sub-page:vertical {
 }
 QListView {
     show-decoration-selected: 1;
-	color: #a9b7c6;
-	background-color:#f4f2fa;
+	color: #474c52;
+	background-color:#c8c5d9;
     border-radius: 10px;
 }
 
@@ -584,14 +584,14 @@ QPushButton#pushButton_app_exit:default{
 
 QTreeView {
     show-decoration-selected: 1;
-	color: #a9b7c6;
-	background-color:#f4f2fa;
+	color: #474c52;
+	background-color:#c8c5d9;
     border-radius: 10px;
 
 }
 
 QTreeView::item {
-     border: 1px solid #d9d9d9;
+    border: 1px solid #d9d9d9;
     border-top-color: transparent;
     border-bottom-color: transparent;
 }

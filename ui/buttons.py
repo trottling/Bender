@@ -35,9 +35,9 @@ def Connect_Buttons(self):
 
     self.ui.back_result_button.clicked.connect(lambda: StackedWidgetChangePage(self, 1))
 
-    self.ui.next_result_button.clicked.connect(lambda: StackedWidgetChangePage(self, 2))
+    self.ui.next_result_button.clicked.connect(lambda: StackedWidgetChangePage(self, 0))
 
-    self.ui.vuln_info_back_button.clicked.connect(lambda: StackedWidgetChangePage(self, 0))
+    self.ui.vuln_info_back_button.clicked.connect(lambda: StackedWidgetChangePage(self, 2))
 
     self.ui.horizontalSlider_network_threads.valueChanged.connect(lambda: MaxNetWorkersChanged(self))
 
@@ -149,7 +149,6 @@ def ApplyCustomQSSTheme(self):
 
 
 def SaveDebugLog(self):
-    log_file = None
     try:
         log_file = QFileDialog.getSaveFileName(self, caption='Save log file (.log)', directory="./",
                                                filter=".log",
@@ -291,18 +290,34 @@ def SaveReport(self):
             f.write(f"OS Release: {platform.release()}\n")
             f.write(f"OS Version: {platform.version()}\n")
             f.write("\n\n\n")
+            match self.checker:
+                case "RunCIA":
+                    for item in self.report["cve_list"]:
+                        f.write(f"cve: {item["cve"]}\n")
+                        f.write(f"package: {item["package"]}\n")
+                        f.write(f"version: {item["version"]}\n")
+                        f.write(f"score: {item["score"]}\n")
+                        f.write(f"desc: {item["desc"]}\n")
+                        f.write(f"published: {item["datePublished"]}\n")
+                        f.write(f"shortName: {item["shortName"]}\n")
+                        f.write(f"references: {item["references"]}\n")
+                        f.write("\n\n\n")
+                case "RunCCD":
+                    for item in self.report["driver_list"]:
+                        Write_dict_recursive(self, f, item)
+                        f.write("\n\n\n")
 
-            for item in self.report["cve_list"]:
-                f.write(f"cve: {item["cve"]}\n")
-                f.write(f"package: {item["package"]}\n")
-                f.write(f"version: {item["version"]}\n")
-                f.write(f"score: {item["score"]}\n")
-                f.write(f"desc: {item["desc"]}\n")
-                f.write(f"published: {item["datePublished"]}\n")
-                f.write(f"shortName: {item["shortName"]}\n")
-                f.write(f"references: {item["references"]}\n")
-                f.write("\n\n\n")
     except Exception as e:
         self.logger.error(f"SaveReport : {e}")
         return
     self.logger.debug(f"SaveReport : Report writed")
+
+
+def Write_dict_recursive(self, f, d, indent=0):
+    for key, value in d.items():
+        if isinstance(value, dict):
+            f.write("  " * indent + str(key) + ": \n")
+            Write_dict_recursive(self, f, value, indent + 1)
+            f.write("  " * indent + "")
+        else:
+            f.write("  " * indent + str(key) + ": " + str(value) + "\n")

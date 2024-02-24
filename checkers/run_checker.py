@@ -40,6 +40,8 @@ def Run_Checker(self, checker):
     self.ui.work_log.setPlainText("")
     self.ui.progressBar.setValue(0)
 
+    self.checker = checker
+
     if Validate_before_check(self):
         return
     try:

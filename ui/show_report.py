@@ -2,7 +2,7 @@ import json
 import re
 
 from PyQt6 import QtGui
-from PyQt6.QtGui import QFileSystemModel, QStandardItemModel, QStandardItem
+from PyQt6.QtGui import QStandardItemModel, QStandardItem
 
 from ui.animations import StackedWidgetChangePage, ElemShowAnim
 from ui.tools import Report_Error
@@ -165,7 +165,7 @@ def ShowCVEInfo_CCD(self, index):
 def Load_json_to_tree(self, json_data, parent=None):
     if isinstance(json_data, dict):
         for key, value in json_data.items():
-            item = QStandardItem(str(key))
+            item = QStandardItem(Split_by_Uppercase(self, str(key)))
             if isinstance(value, (dict, list)):
                 Load_json_to_tree(self, value, item)
             else:
