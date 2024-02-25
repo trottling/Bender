@@ -81,7 +81,7 @@ def ElemShowAnim(self, elem):
 
 
 def ElemHideAnim(self, elem):
-    self.logger.debug("ElemHideAnim : Show")
+    self.logger.debug("ElemHideAnim : Hide")
 
     elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(1.0))
 
