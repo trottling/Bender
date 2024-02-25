@@ -107,7 +107,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -868,7 +868,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>284</x>
-        <y>373</y>
+        <y>327</y>
         <width>246</width>
         <height>31</height>
        </rect>
@@ -881,7 +881,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>548</x>
-        <y>371</y>
+        <y>325</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -897,7 +897,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>88</x>
-        <y>373</y>
+        <y>327</y>
         <width>183</width>
         <height>31</height>
        </rect>
@@ -915,7 +915,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>88</x>
-        <y>329</y>
+        <y>283</y>
         <width>183</width>
         <height>31</height>
        </rect>
@@ -933,7 +933,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>284</x>
-        <y>329</y>
+        <y>283</y>
         <width>246</width>
         <height>31</height>
        </rect>
@@ -946,12 +946,17 @@ p, li { white-space: pre-wrap; }
         <string>vulners.com (Recommended)</string>
        </property>
       </item>
+      <item>
+       <property name="text">
+        <string>vulmon.com (No need API key)</string>
+       </property>
+      </item>
      </widget>
      <widget class="QFrame" name="vulners_check_result">
       <property name="geometry">
        <rect>
         <x>600</x>
-        <y>371</y>
+        <y>325</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -982,24 +987,6 @@ p, li { white-space: pre-wrap; }
        <string/>
       </property>
      </widget>
-     <widget class="QLabel" name="label_settings_cia">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>275</y>
-        <width>251</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>18</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Check installed apps&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_user_interface">
       <property name="geometry">
        <rect>
@@ -1022,7 +1009,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>284</x>
-        <y>424</y>
+        <y>381</y>
         <width>246</width>
         <height>25</height>
        </rect>
@@ -1053,7 +1040,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>88</x>
-        <y>418</y>
+        <y>375</y>
         <width>187</width>
         <height>31</height>
        </rect>
@@ -1071,28 +1058,28 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>550</x>
-        <y>424</y>
+        <y>375</y>
         <width>32</width>
-        <height>26</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>13</pointsize>
+        <pointsize>14</pointsize>
        </font>
       </property>
       <property name="text">
        <string>20</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
      <widget class="QPushButton" name="vulners_key_help">
       <property name="geometry">
        <rect>
         <x>548</x>
-        <y>327</y>
+        <y>281</y>
         <width>35</width>
         <height>35</height>
        </rect>
@@ -1102,6 +1089,77 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="text">
        <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_data_threads">
+      <property name="geometry">
+       <rect>
+        <x>88</x>
+        <y>423</y>
+        <width>187</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Max data
+processing threads</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_data_threads_value">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>431</y>
+        <width>32</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>20</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QSlider" name="horizontalSlider_data_threads">
+      <property name="geometry">
+       <rect>
+        <x>284</x>
+        <y>437</y>
+        <width>246</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="minimum">
+       <number>10</number>
+      </property>
+      <property name="maximum">
+       <number>200</number>
+      </property>
+      <property name="singleStep">
+       <number>10</number>
+      </property>
+      <property name="value">
+       <number>50</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickInterval">
+       <number>10</number>
       </property>
      </widget>
      <zorder>qss_apply_file_pushButton</zorder>
@@ -1127,12 +1185,14 @@ p, li { white-space: pre-wrap; }
      <zorder>db_comboBox</zorder>
      <zorder>vulners_check_result</zorder>
      <zorder>delete_qss_pushButton</zorder>
-     <zorder>label_settings_cia</zorder>
      <zorder>label_user_interface</zorder>
      <zorder>horizontalSlider_network_threads</zorder>
      <zorder>label_network_threads</zorder>
      <zorder>label_network_threads_value</zorder>
      <zorder>vulners_key_help</zorder>
+     <zorder>label_data_threads</zorder>
+     <zorder>label_data_threads_value</zorder>
+     <zorder>horizontalSlider_data_threads</zorder>
     </widget>
     <widget class="QWidget" name="page_errors">
      <widget class="QPlainTextEdit" name="errors_log">
