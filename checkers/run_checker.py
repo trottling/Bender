@@ -2,7 +2,7 @@ from PyQt6.QtCore import QThread, pyqtSignal
 from checkers.check_drivers import RunCCD
 from checkers.check_installed_apps import RunCIA
 from ui.animations import ChangePBarValue, StackedWidgetChangePage
-from ui.tools import Report_Error
+from ui.tools import Report_Error, ClearResult
 from checkers.validate import Validate_before_check
 from ui.show_report import Show_Report_CIA, Show_Report_CCD
 
@@ -36,10 +36,7 @@ class CheckerThread(QThread):
 
 
 def Run_Checker(self, checker):
-    # Clear log widget and set pbar to 0
-    self.ui.work_log.setPlainText("")
-    self.ui.progressBar.setValue(0)
-
+    ClearResult(self)
     self.checker = checker
 
     if Validate_before_check(self):

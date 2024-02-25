@@ -135,3 +135,12 @@ def GetRelPath(self, data_path, slash_replace=True):
     self.logger.debug(f"GetRelPath : {result}")
 
     return result
+
+
+def ClearResult(self):
+    if self.result_list_model is not None:
+        self.result_list_model.removeRows(0, self.result_list_model.rowCount())
+
+    self.ui.work_log.setPlainText("")
+    self.ui.progressBar.setValue(0)
+    self.ui.result_listView.clear()

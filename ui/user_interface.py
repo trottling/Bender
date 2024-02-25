@@ -27,6 +27,7 @@ class User_UI(QMainWindow):
         self.config = ConfigParser()
         self.isVulnersKeyValid = False
         self.isSliderTimerStart = False
+        self.result_list_model = None
         Start_App(self)
         CheckUserOs(self)
 
