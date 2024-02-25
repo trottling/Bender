@@ -47,6 +47,7 @@ def Save_Settings(self):
         self.config.set('main', "cve_db", self.ui.db_comboBox.currentText())
         self.config.set('main', "vulners_api_key", self.ui.api_key.text().strip())
         self.config.set('main', "net_workers", str(self.ui.horizontalSlider_network_threads.value()))
+        self.config.set('main', "data_workers", str(self.ui.horizontalSlider_data_threads.value()))
 
         with open(self.config_path, 'w') as f:
             self.config.write(f)
@@ -71,6 +72,11 @@ def Load_Settings(self):
             if self.config.get("main", "net_workers") not in (None, ""):
                 self.ui.horizontalSlider_network_threads.setValue(int(self.config.get("main", "net_workers")))
                 self.ui.label_network_threads_value.setText(self.config.get("main", "net_workers"))
+
+            self.logger.debug(f"Load_Settings : data_workers : {self.config.get('main', "data_workers")}")
+            if self.config.get("main", "data_workers") not in (None, ""):
+                self.ui.horizontalSlider_data_threads.setValue(int(self.config.get("main", "data_workers")))
+                self.ui.label_data_threads_value.setText(self.config.get("main", "data_workers"))
 
             if self.config.get("main", "vulners_api_key") not in (None, ""):
                 self.logger.debug(f"Load_Settings : vulners_api_key : * IS NOT EMPTY *")
@@ -143,4 +149,3 @@ def ClearResult(self):
 
     self.ui.work_log.setPlainText("")
     self.ui.progressBar.setValue(0)
-    self.ui.result_listView.clear()

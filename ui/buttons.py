@@ -41,6 +41,8 @@ def Connect_Buttons(self):
 
     self.ui.horizontalSlider_network_threads.valueChanged.connect(lambda: MaxNetWorkersChanged(self))
 
+    self.ui.horizontalSlider_data_threads.valueChanged.connect(lambda: MaxDataWorkersChanged(self))
+
     self.ui.qss_apply_pushButton.clicked.connect(lambda: ApplyQSSTheme(self))
 
     self.ui.qss_comboBox.currentIndexChanged.connect(lambda:
@@ -253,6 +255,14 @@ def ClearCVEInfoPage(self):
 def MaxNetWorkersChanged(self):
     value = str(self.ui.horizontalSlider_network_threads.value())
     self.ui.label_network_threads_value.setText(value)
+    if not self.isSliderTimerStart:
+        self.isSliderTimerStart = True
+        QTimer.singleShot(2500, lambda: (Save_Settings(self), ChangeSliderLock(self)))
+
+
+def MaxDataWorkersChanged(self):
+    value = str(self.ui.horizontalSlider_data_threads.value())
+    self.ui.label_data_threads_value.setText(value)
     if not self.isSliderTimerStart:
         self.isSliderTimerStart = True
         QTimer.singleShot(2500, lambda: (Save_Settings(self), ChangeSliderLock(self)))

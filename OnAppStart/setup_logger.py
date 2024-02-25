@@ -11,7 +11,12 @@ def Setup_logger(app_version, file_handler):
     std_handler.setFormatter(Formatter("%(asctime)s %(levelname)s %(message)s"))
     file_handler.setFormatter(Formatter("%(asctime)s %(levelname)s %(message)s"))
     logger.addHandler(std_handler)
-    logger.addHandler(file_handler)
+
+    try:
+        logger.addHandler(file_handler)
+    except Exception as e:
+        logger.error(f"Setup_logger : file_handler : {e}")
+
     logger.setLevel(logging.DEBUG)
 
     logger.debug(f"Python {sys.version}")

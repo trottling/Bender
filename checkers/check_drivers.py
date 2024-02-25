@@ -1,3 +1,4 @@
+import concurrent.futures
 import hashlib
 import json
 from os import listdir
@@ -75,26 +76,18 @@ def RunCCD(self):
     #
 
     self.log_signal.emit(f"Inspection drivers in database\n")
-    vuln_list = []
-    for drv_hash in self.drivers_list_hashed:
-        for date in self.driver_db:
-            for item in date["KnownVulnerableSamples"]:
-                if 'SHA256' in item and drv_hash[0] == item['SHA256'] or 'SHA1' in item and drv_hash[1] == item['SHA1']:
-                    vuln_driver_data = {
-                        "shortName": item["Filename"] if "Filename" in item else item["OriginalFilename"],
-                        "version": item["FileVersion"] if "FileVersion" in item and item[
-                            "FileVersion"].strip() != "" else "No File Version",
-                        "datePublished": item[
-                            "CreationTimestamp"] if "CreationTimestamp" in item else "No Date Published",
-                        "desc": f"{item["Company"] if "Company" in item and item["Company"].strip() != "" else "No Company"} : {item["Description"] if "Description" in item and item["Description"].strip() != "" else "No Description"} : {item["Product"] if "Description" in item and item["Product"].strip() != "" else "No Product"} : {item["Copyright"] if "Copyright" in item else "No Copyright"}",
-                        "ImportedFunctions": item[
-                            "ImportedFunctions"] if "ImportedFunctions" in item else ["No Imported Functions"],
-                        "hash": f"SHA256 : {item['SHA256']}" if 'SHA256' in item else f"SHA1 : {item['SHA1']}",
-                    }
-                    Recursive_save(self, date, vuln_driver_data)
-                    vuln_list.append(vuln_driver_data)
+    self.vuln_list = []
 
-    self.report = {"driver_list": vuln_list}
+    try:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=self.data_threads) as executor:
+            futures = []
+            for drv_hash in self.drivers_list_hashed:
+                futures.append(executor.submit(ProcessDriver, self=self, drv_hash=drv_hash))
+            executor.shutdown(wait=True, cancel_futures=False)
+    except Exception as e:
+        self.err_signal.emit("RunCCD : Failed to Inspection drivers in database : " + str(e))
+
+    self.report = {"driver_list": self.vuln_list}
 
     #
     # Log results
@@ -122,3 +115,22 @@ def Recursive_save(self, source_dict, target_dict, prefix=""):
             Recursive_save(self, value, target_dict, prefix + key + ".")
         else:
             target_dict[prefix + key] = value
+
+
+def ProcessDriver(self, drv_hash):
+    for date in self.driver_db:
+        for item in date["KnownVulnerableSamples"]:
+            if 'SHA256' in item and drv_hash[0] == item['SHA256'] or 'SHA1' in item and drv_hash[1] == item['SHA1']:
+                vuln_driver_data = {
+                    "shortName": item["Filename"] if "Filename" in item else item["OriginalFilename"],
+                    "version": item["FileVersion"] if "FileVersion" in item and item[
+                        "FileVersion"].strip() != "" else "No File Version",
+                    "datePublished": item[
+                        "CreationTimestamp"] if "CreationTimestamp" in item else "No Date Published",
+                    "desc": f"{item["Company"] if "Company" in item and item["Company"].strip() != "" else "No Company"} : {item["Description"] if "Description" in item and item["Description"].strip() != "" else "No Description"} : {item["Product"] if "Description" in item and item["Product"].strip() != "" else "No Product"} : {item["Copyright"] if "Copyright" in item else "No Copyright"}",
+                    "ImportedFunctions": item[
+                        "ImportedFunctions"] if "ImportedFunctions" in item else ["No Imported Functions"],
+                    "hash": f"SHA256 : {item['SHA256']}" if 'SHA256' in item else f"SHA1 : {item['SHA1']}",
+                }
+                Recursive_save(self, date, vuln_driver_data)
+                self.vuln_list.append(vuln_driver_data)

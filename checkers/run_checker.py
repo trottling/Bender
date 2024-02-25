@@ -13,7 +13,7 @@ class CheckerThread(QThread):
     pbar_signal = pyqtSignal(int)
     err_signal = pyqtSignal(str)
 
-    def __init__(self, checker, logger, db, api_key, net_threads):
+    def __init__(self, checker, logger, db, api_key, net_threads, data_threads):
         QThread.__init__(self)
         super().__init__()
         self.checker = checker
@@ -21,6 +21,7 @@ class CheckerThread(QThread):
         self.db = db
         self.api_key = api_key
         self.net_threads = net_threads
+        self.data_threads = data_threads
         self.report = None
 
     def run(self):
@@ -44,7 +45,8 @@ def Run_Checker(self, checker):
     try:
         StackedWidgetChangePage(self, 1)
         self.checker_thread = CheckerThread(checker, self.logger, self.ui.db_comboBox.currentText(),
-                                            self.ui.api_key.text(), self.ui.horizontalSlider_network_threads.value())
+                                            self.ui.api_key.text(), self.ui.horizontalSlider_network_threads.value(),
+                                            self.ui.horizontalSlider_data_threads.value())
         self.checker_thread.log_signal.connect(lambda log: self.ui.work_log.appendPlainText(log))
         self.checker_thread.err_signal.connect(lambda err: (Report_Error(self, err), self.checker_thread.stop()))
         self.checker_thread.pbar_signal.connect(lambda value: ChangePBarValue(self, value))

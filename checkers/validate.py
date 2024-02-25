@@ -2,7 +2,7 @@ from PyQt6.QtCore import QTimer
 
 
 def Validate_before_check(self):
-    if self.ui.db_comboBox.currentText() == "vulners.com (Recommended)":
+    if self.checker == "RunCIA" and self.ui.db_comboBox.currentText() == "vulners.com (Recommended)":
         if self.ui.api_key.text().strip() == "":
             ShowErrMessage(self, "Vulners.com API key is empty")
             return True

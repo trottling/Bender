@@ -11,6 +11,7 @@ def Load_Images_And_Icons(self):
         ".QFrame {border-image: url('" + GetRelPath(self, 'assets//images//bender.png') + "')}")
     self.ui.git_frame.setStyleSheet(
         r".QFrame {image: url('" + GetRelPath(self, 'assets//images//github.png') + "')}")
+
     self.logger.debug(f"Load_Images_And_Icons : Logos seted")
 
     # Buttons icons
