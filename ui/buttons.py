@@ -13,7 +13,7 @@ from checkers.run_checker import Run_Checker
 from checkers.run_checker import Stop_Checker
 from ui.animations import App_Exit_Anim, StackedWidgetChangePage, ElemShowAnim, ElemHideAnim
 from ui.styles import Load_Styles
-from ui.tools import Save_Settings, Check_Vulners_Key_Request
+from ui.tools import Save_Settings, Check_Vulners_Key_Request, GetRelPath
 
 
 def Connect_Buttons(self):
@@ -175,17 +175,17 @@ def SaveDebugLog(self):
 def ApplyQSSTheme(self):
     Save_Settings(self)
     if self.ui.qss_comboBox.currentText() == 'Default (Light)' or self.ui.qss_comboBox.currentText() == 'Default (Dark)':
-        self.ui.setStyleSheet(open(
-            f"assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss",
-            mode="r").read())
+        self.ui.setStyleSheet(open(GetRelPath(self,
+                                              f"assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss"),
+                                   mode="r").read())
         self.logger.debug(
             f"AppleQSSTheme : assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss : Default Styles loaded")
 
     elif self.ui.qss_comboBox.currentText() != "Custom":
         try:
-            self.ui.setStyleSheet(open(
-                f"{self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()}",
-                mode="r").read())
+            self.ui.setStyleSheet(open(GetRelPath(self,
+                                                  f"{self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()}"),
+                                       mode="r").read())
             self.logger.debug(
                 f"AppleQSSTheme : {self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()} : User Styles loaded")
         except Exception as e:
@@ -198,13 +198,16 @@ def Check_Vulners_Key(self):
     Save_Settings(self)
     if self.ui.api_key.text().strip() == "":
         self.logger.debug("Check_Vulners_Key : api key empty")
-        self.ui.vulners_check_result.setStyleSheet(r".QFrame {image: url('assets//images//fail.png')}")
+        self.ui.vulners_check_result.setStyleSheet(
+            r".QFrame {image: url('" + GetRelPath(self, 'assets//images//fail.png') + "')}")
         ElemShowAnim(self, self.ui.vulners_check_result)
         return
     if Check_Vulners_Key_Request(self):
-        self.ui.vulners_check_result.setStyleSheet(r".QFrame {image: url('assets//images//apply.png')}")
+        self.ui.vulners_check_result.setStyleSheet(
+            r".QFrame {image: url('" + GetRelPath(self, 'assets//images//apply.png') + "')}")
     else:
-        self.ui.vulners_check_result.setStyleSheet(r".QFrame {image: url('assets//images//fail.png')}")
+        self.ui.vulners_check_result.setStyleSheet(
+            r".QFrame {image: url('" + GetRelPath(self, 'assets//images//fail.png') + "')}")
 
     ElemShowAnim(self, self.ui.vulners_check_result)
 

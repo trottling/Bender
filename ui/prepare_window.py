@@ -1,18 +1,22 @@
 import sys
+import os
 
 from PyQt6 import uic, QtGui
 from PyQt6.QtCore import Qt
+from ui.tools import GetRelPath
 
 
 def Prepare_Window(self):
-    self.logger.debug(r"Prepare_Window : Loading UI : .\ui\app.ui")
+    ui_path = GetRelPath(self, "assets/app.ui")
+    self.logger.debug(f"Prepare_Window : Loading UI : {ui_path}")
 
     # Load UI file
-    self.ui = uic.loadUi(r"assets\ui\app.ui", self)
+
+    self.ui = uic.loadUi(ui_path, self)
     self.logger.debug(f"Prepare_Window : UI loaded")
 
     # Icon
-    self.ui.setWindowIcon(QtGui.QIcon(r"assets\icons\bender.ico"))
+    self.ui.setWindowIcon(QtGui.QIcon(GetRelPath(self, "assets//icons//bender.ico.ui")))
     self.logger.debug(f"Prepare_Window : Icon seted")
 
     # Title
@@ -30,3 +34,5 @@ def Prepare_Window(self):
 
     # Window settings
     self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+
+    self.logger.debug(f"Prepare_Window : Window Prepared")

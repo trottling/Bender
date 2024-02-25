@@ -1,6 +1,6 @@
 import os.path
 
-from ui.tools import GetWindowsTheme
+from ui.tools import GetWindowsTheme, GetRelPath
 from os import listdir
 from os.path import isfile, join
 
@@ -28,13 +28,15 @@ def Load_Styles(self):
 
         self.logger.debug(f"Load_Styles : Loading default theme : {self.app_theme} --> {self.theme_to_load}")
 
-        self.ui.setStyleSheet(open(file=f"assets\\qss\\Material{self.theme_to_load}.qss", mode="r").read())
+        self.ui.setStyleSheet(
+            open(file=GetRelPath(self, f"assets\\qss\\Material{self.theme_to_load}.qss"), mode="r").read())
         self.logger.debug(f"Load_Styles : assets\\qss\\Material{self.theme_to_load} : Default Styles loaded")
     else:
         if os.path.isfile(f"{self.appdir}\\saved_qss\\{self.app_theme}"):
             self.logger.debug(f"Load_Styles : Loading User theme : {self.app_theme}")
             try:
-                self.ui.setStyleSheet(open(file=f"{self.appdir}\\saved_qss\\{self.app_theme}", mode="r").read())
+                self.ui.setStyleSheet(
+                    open(file=GetRelPath(self, f"{self.appdir}\\saved_qss\\{self.app_theme}"), mode="r").read())
                 self.ui.qss_comboBox.setCurrentText(self.app_theme)
                 self.logger.debug(f"Load_Styles : {self.app_theme} : User theme loaded")
             except Exception as e:
@@ -47,5 +49,6 @@ def Load_Styles(self):
                 self.ui.qss_comboBox.setCurrentText("Default (Dark)")
 
             self.ui.qss_comboBox.setCurrentText("Default (Dark)")
-            self.ui.setStyleSheet(open(file=f"assets\\qss\\Material{self.theme_to_load}.qss", mode="r").read())
+            self.ui.setStyleSheet(
+                open(file=GetRelPath(self, f"assets\\qss\\Material{self.theme_to_load}.qss"), mode="r").read())
             self.logger.debug(f"Load_Styles : assets\\qss\\Material{self.theme_to_load} : Default Styles loaded")

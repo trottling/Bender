@@ -77,7 +77,7 @@ def Load_Settings(self):
                 self.ui.api_key.setText(str(self.config.get('main', "vulners_api_key")))
                 if Check_Vulners_Key_Request(self):
                     self.ui.vulners_check_result.setStyleSheet(
-                        r".QFrame {image: url('assets//images//apply.png')}")
+                        r".QFrame {image: url('" + GetRelPath(self, 'assets//images//apply.png') + "')}")
             self.logger.debug("Load_Settings : Settings loaded")
 
         except Exception as e:
@@ -118,3 +118,20 @@ def Check_Vulners_Key_Request(self):
     except Exception as e:
         self.logger.error(f"Check_Vulners_Key_Req : {e}")
         return False
+
+
+def GetRelPath(self, data_path, slash_replace=True):
+    if getattr(sys, 'frozen', False):
+        base_path = sys._MEIPASS
+    else:
+        data_path = f"..\\{data_path}"
+        base_path = os.path.dirname(os.path.abspath(__file__))
+
+    result = os.path.join(base_path, data_path)
+
+    if slash_replace:
+        result = result.replace("\\", "/")
+
+    self.logger.debug(f"GetRelPath : {result}")
+
+    return result
