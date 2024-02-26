@@ -43,3 +43,11 @@ Bender uses a number of open source projects to work properly:
 - [httpx] - A next-generation HTTP client
 - [vulners] - Vulners.com API v3 Python wrapper
 - [darkdetect] - Detect OS Dark Mode from Python
+
+[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
+    
+   [PyQT6]: <https://doc.qt.io/qtforpython-6/>
+   [windows_tools]: <https://github.com/netinvent/windows_tools>
+   [httpx]: <https://www.python-httpx.org/>
+   [vulners]: <https://pypi.org/project/vulners/>
+   [darkdetect]: <https://github.com/albertosottile/darkdetect>
