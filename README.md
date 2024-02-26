@@ -1,4 +1,6 @@
-Writing a README.md in progress....
+[![OS - Windows](https://img.shields.io/badge/OS-Windows-blue?logo=windows&logoColor=white)](https://www.microsoft.com/ "Go to Microsoft homepage")
+[![Python 3.6](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
+
 # Bender - Windows Vulnerability Scanner
 
 <div align="center">
@@ -11,7 +13,12 @@ Writing a README.md in progress....
 - Windows 8* and newer
 - That's all!  
 
-> *Required by PyQT6 library  
+> *Required by PyQT6 library
+
+## How to install
+1. Download latest build
+2. Run as Admin
+3. Done!
 
 ## Features
 
