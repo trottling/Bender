@@ -1,5 +1,6 @@
 import concurrent.futures
 import json
+import platform
 
 import httpx
 import vulners
@@ -10,9 +11,10 @@ def RunCIA(self):
     self.raw_soft_list = []
     self.soft_list = []
     self.soft_list_vulners = []
+    self.soft_list_vulmon = []
     self.report = None
 
-    self.logger.debug("RunCIA : Started")
+    self.logger.debug(f"RunCIA : Started : Check by {self.db}")
     self.log_signal.emit("Check installed apps started..." + "\n")
 
     #
@@ -37,8 +39,68 @@ def RunCIA(self):
     self.log_signal.emit(f"Found {len(self.soft_list)} softwares\n")
     self.pbar_signal.emit(15)
 
+    #
+    # Check softwares by selected DB
+    #
+
     match self.db:
-        case "vulners.com (Recommended)": Check_By_Vulners(self)
+        case "vulners.com (Recommended)":
+            Check_By_Vulners(self)
+        case "vulmon.com (No need API key)":
+            Check_By_Vulmon(self)
+    return
+    #
+    # Transorm to result format
+    #
+
+    self.cve_list = []
+    try:
+        for item in self.report:
+            cve = {
+                "cve": item["id"][0],
+                "package": item["package"],
+                "version": item["version"],
+                "score": 0,
+                "desc": "",
+                "datePublished": "",
+                "shortName": "",
+                "cvss_metrics": [],
+                "references": [],
+            }
+            self.cve_list.append(cve)
+        self.report = {"cve_list": self.cve_list}
+    except Exception as e:
+        self.err_signal.emit("RunCIA : Failed to transorm to needed format : " + str(e))
+        return
+
+    self.logger.debug(f"RunCIA : Transormed to needed format : {self.report}")
+
+    #
+    # Getting more info about CVEs
+    #
+
+    if len(self.report["cve_list"]) == 0:
+        self.log_signal.emit("No CVEs to getting more\n")
+    else:
+        self.log_signal.emit("Getting more info about CVEs\n")
+        try:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=self.net_threads) as executor:
+                futures = []
+                for item in self.report["cve_list"]:
+                    futures.append(executor.submit(CIA_Get_CVE_Info, self=self, item=item))
+                executor.shutdown(wait=True, cancel_futures=False)
+        except Exception as e:
+            self.err_signal.emit("RunCIA : Failed to Getting more info about CVEs : " + str(e))
+            return
+
+    #
+    # Done
+    #
+
+    self.log_signal.emit("Done : Click Next button to see scan results")
+    self.logger.debug(f"RunCIA : Done")
+    self.pbar_signal.emit(100)
+    self.result_signal.emit(json.dumps(self.report))
 
 
 def Check_By_Vulners(self):
@@ -49,8 +111,7 @@ def Check_By_Vulners(self):
 
     self.log_signal.emit(f"Transforming softwares list to vulners.com format\n")
     for software in self.soft_list:
-        if self.db == "vulners.com (Recommended)":
-            self.soft_list_vulners.append(dict({"software": software['name'], "version": software['version']}))
+        self.soft_list_vulners.append(dict({"software": software['name'], "version": software['version']}))
 
     self.pbar_signal.emit(30)
 
@@ -91,56 +152,6 @@ def Check_By_Vulners(self):
     self.report = [vuln for vuln in self.report['vulnerabilities'] if vuln['id']]
     self.logger.debug(f"RunCIA : Cleared labels without CVE : {self.report}")
     self.pbar_signal.emit(85)
-
-    #
-    # Transorm to needed format
-    #
-
-    self.cve_list = []
-    try:
-        for item in self.report:
-            cve = {
-                "cve": item["id"][0],
-                "package": item["package"],
-                "version": item["version"],
-                "score": 0,
-                "desc": "",
-                "datePublished": "",
-                "shortName": "",
-                "cvss_metrics": [],
-                "references": [],
-            }
-            self.cve_list.append(cve)
-        self.report = {"cve_list": self.cve_list}
-    except Exception as e:
-        self.err_signal.emit("RunCIA : Failed to transorm to needed format : " + str(e))
-        return
-
-    self.logger.debug(f"RunCIA : Transormed to needed format : {self.report}")
-
-    #
-    # Getting more info about CVEs
-    #
-
-    self.log_signal.emit("Getting more info about CVEs\n")
-    try:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=self.net_threads) as executor:
-            futures = []
-            for item in self.report["cve_list"]:
-                futures.append(executor.submit(CIA_Get_CVE_Info, self=self, item=item))
-            executor.shutdown(wait=True, cancel_futures=False)
-    except Exception as e:
-        self.err_signal.emit("RunCIA : Failed to Getting more info about CVEs : " + str(e))
-        return
-
-    #
-    # Done
-    #
-
-    self.log_signal.emit("Done : Click Next button to see scan results")
-    self.logger.debug(f"RunCIA : Done")
-    self.pbar_signal.emit(100)
-    self.result_signal.emit(json.dumps(self.report))
 
 
 def CIA_Get_CVE_Info(self, item):
