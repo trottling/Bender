@@ -44,7 +44,7 @@ def RunCCD(self):
     #
     #  hash drivers name
     #
-    self.drivers_list_hashed.append(["e4658d93544f69f5cb9aa6d9fec420fecc8750cb57e1e9798da38c139d44f2eb", ""])
+    # self.drivers_list_hashed.append(["e4658d93544f69f5cb9aa6d9fec420fecc8750cb57e1e9798da38c139d44f2eb", ""])
     self.log_signal.emit(f"Hashing drivers\n")
     self.logger.debug(f"RunCCD : Hashing drivers")
     for driver in self.drivers_list:
