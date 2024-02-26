@@ -1,5 +1,5 @@
 [![OS - Windows](https://img.shields.io/badge/OS-Windows-blue?logo=windows&logoColor=white)](https://www.microsoft.com/ "Go to Microsoft homepage")
-[![Python 3.6](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
 
 # Bender - Windows Vulnerability Scanner
 
@@ -29,17 +29,17 @@
 
 ## Current supported vulnerability databases for scanning
 
-### Installed Apps
+Installed Apps:
 - vulners.com
 
-### Drivers
+Drivers:
 - loldrivers.io
 
 ## Scan functios
-### Scan installed system and user apps for CVEs
+Scan installed system and user apps for CVEs
 ![CIA](https://github.com/trottling/Bender/blob/main/media/CIA.gif?raw=true)
 
-### Scan drivers for vulnerabilities
+Scan drivers for vulnerabilities
 ![CCD](https://github.com/trottling/Bender/blob/main/media/CCD.gif?raw=true)
 
 
