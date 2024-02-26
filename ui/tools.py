@@ -99,7 +99,8 @@ def CheckConfigFile(self):
         open(self.config_path, "w").close()
         self.logger.debug(f"CheckConfigFile : {self.config_path} : config created")
         self.config.read(self.config_path)
-        self.config.add_section('main')
+        if not self.config.has_section('main'):
+            self.config.add_section('main')
         self.logger.debug(f"CheckConfigFile : main : add section")
         return False
     else:
