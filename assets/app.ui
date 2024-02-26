@@ -946,11 +946,6 @@ p, li { white-space: pre-wrap; }
         <string>vulners.com (Recommended)</string>
        </property>
       </item>
-      <item>
-       <property name="text">
-        <string>vulmon.com (No need API key)</string>
-       </property>
-      </item>
      </widget>
      <widget class="QFrame" name="vulners_check_result">
       <property name="geometry">

@@ -50,6 +50,9 @@ def Connect_Buttons(self):
     self.ui.qss_comboBox.currentIndexChanged.connect(lambda:
                                                      ChangeQSSDeleteBtn(self))
 
+    self.ui.db_comboBox.currentIndexChanged.connect(lambda:
+                                                    ChangeApiKeyInput(self))
+
     self.ui.qss_file_pushButton.clicked.connect(lambda: OpenQSSFile(self))
 
     self.ui.qss_apply_file_pushButton.clicked.connect(lambda: ApplyCustomQSSTheme(self))
@@ -233,6 +236,24 @@ def ChangeQSSDeleteBtn(self):
         ElemShowAnim(self, self.ui.delete_qss_pushButton)
     else:
         ElemHideAnim(self, self.ui.delete_qss_pushButton)
+
+
+def ChangeApiKeyInput(self):
+    Save_Settings(self)
+    if self.ui.db_comboBox.currentText() == "vulners.com (Recommended)":
+        if not self.ui.label_vulners_key.isVisible():
+            ElemShowAnim(self, self.ui.label_vulners_key)
+            ElemShowAnim(self, self.ui.api_key)
+            ElemShowAnim(self, self.ui.check_key_pushButton)
+            ElemShowAnim(self, self.ui.vulners_check_result)
+            ElemShowAnim(self, self.ui.vulners_key_help)
+    else:
+        if self.ui.label_vulners_key.isVisible():
+            ElemHideAnim(self, self.ui.label_vulners_key)
+            ElemHideAnim(self, self.ui.api_key)
+            ElemHideAnim(self, self.ui.check_key_pushButton)
+            ElemHideAnim(self, self.ui.vulners_check_result)
+            ElemHideAnim(self, self.ui.vulners_key_help)
 
 
 def ChangeTitle(self):
