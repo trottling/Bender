@@ -5,13 +5,13 @@ Writing a README.md in progress....
   <img src="https://raw.githubusercontent.com/trottling/Bender/main/media/bender.png" width="200"/>
 </div>
 
-Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python
+**Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python**
 
 ### Requirements
 - Windows 8* and newer
-- That's all!
+- That's all!  
 
-> *Required by PyQT6 library
+> *Required by PyQT6 library  
 
 ## Features
 
@@ -29,10 +29,10 @@ Simple and portable app for search vulnerabilities in Windows system with pretty
 - loldrivers.io
 
 ## Scan functios
-Scan installed system and user apps for CVEs
+###Scan installed system and user apps for CVEs
 ![CIA](https://github.com/trottling/Bender/blob/main/media/CIA.gif?raw=true)
 
-Scan drivers
+###Scan drivers for vulnerabilities
 ![CCD](https://github.com/trottling/Bender/blob/main/media/CCD.gif?raw=true)
 
 
