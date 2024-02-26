@@ -874,7 +874,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
+       <cursorShape>IBeamCursor</cursorShape>
       </property>
      </widget>
      <widget class="QPushButton" name="check_key_pushButton">
