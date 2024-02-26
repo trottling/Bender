@@ -5,7 +5,7 @@ Writing a README.md in progress....
   <img src="https://raw.githubusercontent.com/trottling/Bender/main/media/bender.png" width="200"/>
 </div>
 
-Simple and portable app to search for vulnerabilities Windows system with pretty UI written in Python
+Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python
 
 ### Requirements
 - Windows 8* and newer
