@@ -150,3 +150,10 @@ def ClearResult(self):
 
     self.ui.work_log.setPlainText("")
     self.ui.progressBar.setValue(0)
+    self.ui.plainTextEdit_vuln.clear()
+    self.ui.plainTextEdit_references.clear()
+    self.ui.plainTextEdit_cvss_3.clear()
+    self.ui.next_work_button.hide()
+    self.ui.label_no_cve.hide()
+
+    self.logger.debug(f"ClearResult : Cleared")

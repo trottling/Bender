@@ -86,7 +86,7 @@ def ShowCVEInfo_CIA(self, index):
                 self.ui.plainTextEdit_cvss_3.appendPlainText(
                     f"{Split_by_Uppercase(self, item)}: {cve_info["cvss_metrics"]["cvssV3_1"][item]}")
         else:
-            self.ui.plainTextEdit_cvss_3.appendPlainText("No info")
+            self.ui.plainTextEdit_cvss_3.setPlainText("No info")
 
         StackedWidgetChangePage(self, 5)
     except Exception as e:
@@ -152,34 +152,38 @@ def ShowCVEInfo_CCD(self, index):
         driver_info = self.report["driver_list"][item_index]
         self.ui.label_vuln_head.setText(f"{driver_info["shortName"]} - {driver_info["version"]}")
 
-        # Create and set model
-        self.model = QStandardItemModel()
-        self.ui.treeView_vuln.setModel(self.model)
-        Load_json_to_tree(self, driver_info)
+        self.ui.plainTextEdit_vuln.setPlainText(FormatDict(self, driver_info))
 
         StackedWidgetChangePage(self, 7)
     except Exception as e:
         Report_Error(self, f"ShowCVEInfo_CCD : {e}")
 
 
-def Load_json_to_tree(self, json_data, parent=None):
-    if isinstance(json_data, dict):
-        for key, value in json_data.items():
-            item = QStandardItem(Split_by_Uppercase(self, str(key)))
-            if isinstance(value, (dict, list)):
-                Load_json_to_tree(self, value, item)
+def FormatDict(self, data, indent=0):
+    formatted_data = ""
+    for key, value in data.items():
+        formatted_key = Split_by_Uppercase(self, key if isinstance(key, str) else str(key), split_dot=True)
+        if isinstance(value, dict):
+            formatted_value = FormatDict(self, value, indent + 4)
+        elif isinstance(value, list):
+            list_lenght = len(value)
+            if list_lenght == 0 or all(v is None or "" for v in value):
+                continue
+            elif list_lenght == 1:
+                formatted_value = f"{value[0] if isinstance(value[0], str) else str(value[0])}"
             else:
-                item.appendRow(QStandardItem(str(value)))
-                if parent is None:
-                    self.model.appendRow(item)
-                else:
-                    parent.appendRow(item)
-    elif isinstance(json_data, list):
-        for item_data in json_data:
-            Load_json_to_tree(self, item_data, parent)
+                formatted_value = f"\n{" " * (indent + 8)}· " + f"\n{" " * (indent + 8)}· ".join(
+                    [f"{item}" if isinstance(item, str) else str(item) for item in value]) + "\n"
+        else:
+            formatted_value = f"{value}" if isinstance(value, str) else str(value)
+        formatted_data += " " * indent + formatted_key + " : " + formatted_value + "\n"
+    self.logger.debug(f"FormatDict : Formated")
+    return formatted_data
 
 
-def Split_by_Uppercase(self, word):
+def Split_by_Uppercase(self, word, split_dot=False):
     result = re.sub(r"([a-z])([A-Z])", r"\1 \2", word).strip().capitalize()
+    if split_dot:
+        result = result.replace(".", " ")
     self.logger.debug(f"Split_by_uppercase : {word} --> {result}")
     return result

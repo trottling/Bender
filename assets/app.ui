@@ -107,7 +107,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>7</number>
     </property>
     <widget class="QWidget" name="page_start">
      <widget class="QPushButton" name="setting_btn">
@@ -1620,7 +1620,7 @@ p, li { white-space: pre-wrap; }
        <string/>
       </property>
      </widget>
-     <widget class="QTreeView" name="treeView_vuln">
+     <widget class="QPlainTextEdit" name="plainTextEdit_vuln">
       <property name="geometry">
        <rect>
         <x>25</x>
@@ -1631,51 +1631,17 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="font">
        <font>
-        <family>Segoe UI Variable Small Semibol</family>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
+        <pointsize>14</pointsize>
        </font>
       </property>
-      <property name="styleSheet">
-       <string notr="true">QTreeView {
-    show-decoration-selected: 1;
-	color: #a9b7c6;
-	background-color:#393743;
-    border-radius: 10px;
-
-}
-
-QTreeView::item {
-     border: 1px solid #d9d9d9;
-    border-top-color: transparent;
-    border-bottom-color: transparent;
-}
-
-QTreeView::item:hover {
-    border-radius: 4px;
-    background: #163147;
-}
-
-QTreeView::item:selected {
-    border: 1px solid #0d4e87;
-    border-radius: 4px;
-
-}
-
-QTreeView::item:selected:active{
-    background: #0d4e87;
-    border-radius: 4px;
-}
-
-QTreeView::item:selected:!active {
-    background: #0d4e87;
-    border-radius: 4px;
-}
-</string>
+      <property name="cursor" stdset="0">
+       <cursorShape>IBeamCursor</cursorShape>
       </property>
-      <property name="editTriggers">
-       <set>QAbstractItemView::NoEditTriggers</set>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
       </property>
      </widget>
     </widget>
