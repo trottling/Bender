@@ -30,10 +30,14 @@ Simple and portable app for search vulnerabilities in Windows system with pretty
 
 ## Scan functios
 Scan installed system and user apps for CVEs
-GIF
+<div align="center" width="640" height="360">
+  <img src="https://github.com/trottling/Bender/blob/main/media/CIA.gif?raw=true" width="200"/>
+</div>
 
 Scan drivers
-GIF
+<div align="center" width="640" height="360">
+  <img src="https://github.com/trottling/Bender/blob/main/media/CCD.gif?raw=true" width="200"/>
+</div>
 
 ## Tech
 
