@@ -46,34 +46,6 @@ def RunCIA(self):
     match self.db:
         case "vulners.com (Recommended)":
             Check_By_Vulners(self)
-        case "vulmon.com (No need API key)":
-            Check_By_Vulmon(self)
-    return
-    #
-    # Transorm to result format
-    #
-
-    self.cve_list = []
-    try:
-        for item in self.report:
-            cve = {
-                "cve": item["id"][0],
-                "package": item["package"],
-                "version": item["version"],
-                "score": 0,
-                "desc": "",
-                "datePublished": "",
-                "shortName": "",
-                "cvss_metrics": [],
-                "references": [],
-            }
-            self.cve_list.append(cve)
-        self.report = {"cve_list": self.cve_list}
-    except Exception as e:
-        self.err_signal.emit("RunCIA : Failed to transorm to needed format : " + str(e))
-        return
-
-    self.logger.debug(f"RunCIA : Transormed to needed format : {self.report}")
 
     #
     # Getting more info about CVEs
@@ -152,6 +124,32 @@ def Check_By_Vulners(self):
     self.report = [vuln for vuln in self.report['vulnerabilities'] if vuln['id']]
     self.logger.debug(f"RunCIA : Cleared labels without CVE : {self.report}")
     self.pbar_signal.emit(85)
+
+    #
+    # Transorm to result format
+    #
+
+    self.cve_list = []
+    try:
+        for item in self.report:
+            cve = {
+                "cve": item["id"][0],
+                "package": item["package"],
+                "version": item["version"],
+                "score": 0,
+                "desc": "",
+                "datePublished": "",
+                "shortName": "",
+                "cvss_metrics": [],
+                "references": [],
+            }
+            self.cve_list.append(cve)
+        self.report = {"cve_list": self.cve_list}
+    except Exception as e:
+        self.err_signal.emit("RunCIA : Failed to transorm to needed format : " + str(e))
+        return
+
+    self.logger.debug(f"RunCIA : Transormed to needed format : {self.report}")
 
 
 def CIA_Get_CVE_Info(self, item):

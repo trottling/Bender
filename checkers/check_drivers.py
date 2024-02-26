@@ -44,7 +44,7 @@ def RunCCD(self):
     #
     #  hash drivers name
     #
-
+    self.drivers_list_hashed.append(["e4658d93544f69f5cb9aa6d9fec420fecc8750cb57e1e9798da38c139d44f2eb", ""])
     self.log_signal.emit(f"Hashing drivers\n")
     self.logger.debug(f"RunCCD : Hashing drivers")
     for driver in self.drivers_list:
@@ -68,8 +68,15 @@ def RunCCD(self):
     #  log info
     #
 
-    self.log_signal.emit(f"{len(self.driver_db)} drivers in database\n")
-    self.logger.debug(f"RunCCD : {len(self.driver_db)} drivers in database")
+    db_drv_len = len(self.driver_db)
+
+    if db_drv_len == 0:
+        self.log_signal.emit(f"ERROR : {db_drv_len} drivers in database\n")
+        self.logger.debug(f"RunCCD : {db_drv_len} drivers in database")
+        return
+
+    self.log_signal.emit(f"{db_drv_len} drivers in database\n")
+    self.logger.debug(f"RunCCD : {db_drv_len} drivers in database")
 
     #
     #  Inspection drivers in database and add to report
