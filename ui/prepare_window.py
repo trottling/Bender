@@ -1,8 +1,8 @@
 import sys
-import os
 
 from PyQt6 import uic, QtGui
 from PyQt6.QtCore import Qt
+
 from ui.tools import GetRelPath
 
 

@@ -2,7 +2,6 @@ import json
 import re
 
 from PyQt6 import QtGui
-from PyQt6.QtGui import QStandardItemModel, QStandardItem
 
 from ui.animations import StackedWidgetChangePage, ElemShowAnim
 from ui.tools import Report_Error

@@ -1,16 +1,15 @@
 from configparser import ConfigParser
 
 from PyQt6 import QtCore
-from PyQt6.QtCore import QSequentialAnimationGroup
-from PyQt6.QtWidgets import QMainWindow, QGraphicsOpacityEffect
+from PyQt6.QtWidgets import QMainWindow
 
 from ui.animations import App_Open_Anim
 from ui.buttons import Connect_Buttons
-from ui.prepare_window import Prepare_Window
+from ui.hide_elements import Hide_Elements
 from ui.images import Load_Images_And_Icons
+from ui.prepare_window import Prepare_Window
 from ui.styles import Load_Styles
 from ui.tools import CheckUserOs, Load_Settings
-from ui.hide_elements import Hide_Elements
 
 
 class User_UI(QMainWindow):
