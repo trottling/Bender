@@ -45,8 +45,15 @@ Bender uses a number of open source projects to work properly:
 - [vulners] - Vulners.com API v3 Python wrapper
 - [darkdetect] - Detect OS Dark Mode from Python
 
-## Todo
-- todo1
+## TODO
+- Do something about the false antivirus message about Bender.exe
+- Make UI adaptive and resizeble
+- Add local network scanning
+- Add more DB to scanners
+
+## How can I help this project?
+- First, look at [TODO list](https://github.com/trottling/Bender/tree/main#todo)
+- If you have ideas for tweaks, write me in the [Telegram](https://t.me/trottling) or open a [new issue](https://github.com/trottling/Bender/issues/new/choose)
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
     
