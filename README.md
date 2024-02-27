@@ -9,6 +9,9 @@
 
 **Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python**
 
+## Table of contents
+1. 
+
 ### Requirements
 - Windows 8* and newer
 - That's all!  
@@ -17,8 +20,9 @@
 
 ## How to install
 1. Download latest build
-2. Run as Admin
-3. Done!
+2. Add to antivirus exclusion if you get messages about Bender.exe, see [first TODO message](https://github.com/trottling/Bender#todo)
+3. Run as Admin
+4. Done!
 
 ## Features
 
@@ -45,13 +49,21 @@ Bender uses a number of open source projects to work properly:
 - [darkdetect] - Detect OS Dark Mode from Python
 
 ## Current supported vulnerability databases for scanning
-| Scan type | Databases |
-| ------ | ------ |
-| Installed Apps | vulners.com |
-| Drivers: | loldrivers.io |
+
+- Installed Apps
+  
+| Database | Api key | Key retrieval | Notes |
+| ------ | ------ | ------ | ------ |
+| vulners.com | Optional | [Easy](https://vulners.com/docs/apikey/) | Select "API" on step 3 | 
+
+- Drivers
+  
+| Database | Api key | Key retrieval | Notes |
+| ------ | ------ | ------ | ------ |
+| loldrivers.io | No needed | - | _ |
 
 ## TODO
-- Do something about the false antivirus message about Bender.exe
+- Do something about the false antivirus message about Bender.exe, thanks to detects on any build through pyinstaller because of schoolchildren writing RATs and Miners in Python
 - Make UI adaptive and resizeble
 - Add local network scanning
 - Add more DB to scanners
