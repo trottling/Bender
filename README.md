@@ -3,6 +3,7 @@
 [![MIT](https://img.shields.io/github/license/trottling/Bender)](https://github.com/trottling/Bender?tab=MIT-1-ov-file#)
 [![Commits](https://img.shields.io/github/commit-activity/m/trottling/Bender)](https://github.com/trottling/Bender/commits/main/)
 [![Downloads](https://img.shields.io/github/downloads/trottling/Bender/total)](https://github.com/trottling/Bender/releases/latest)
+[![Last release](https://img.shields.io/github/v/release/trottling/Bender)](https://github.com/trottling/Bender/releases/latest)
 
 # Bender - Windows Vulnerability Scanner
 
