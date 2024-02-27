@@ -10,7 +10,14 @@
 **Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python**
 
 ## Table of contents
-1. 
+1. [Requirements](https://github.com/trottling/Bender?tab=readme-ov-file#requirements)
+2. [How to install](https://github.com/trottling/Bender?tab=readme-ov-file#how-to-install)
+3. [Features](https://github.com/trottling/Bender?tab=readme-ov-file#features)
+4. [Scan functios](https://github.com/trottling/Bender?tab=readme-ov-file#scan-functios)
+5. [Tech](https://github.com/trottling/Bender?tab=readme-ov-file#tech)
+6. [Current supported vulnerability databases for scanning](https://github.com/trottling/Bender?tab=readme-ov-file#current-supported-vulnerability-databases-for-scanning)
+7. [TODO](https://github.com/trottling/Bender?tab=readme-ov-file#todo)
+8. [How can I help this project?](https://github.com/trottling/Bender?tab=readme-ov-file#how-can-i-help-this-project)
 
 ### Requirements
 - Windows 8* and newer
@@ -31,10 +38,10 @@
 - Save report for each scan
 
 ## Scan functios
-Scan installed system and user apps for CVEs
+- Scan installed system and user apps for CVEs
 ![CIA](https://github.com/trottling/Bender/blob/main/media/CIA.gif?raw=true)
 
-Scan drivers for vulnerabilities
+- Scan drivers for vulnerabilities
 ![CCD](https://github.com/trottling/Bender/blob/main/media/CCD.gif?raw=true)
 
 
