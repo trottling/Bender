@@ -1,17 +1,35 @@
-Writing a README.md in progress....
+[![OS - Windows](https://img.shields.io/badge/OS-Windows-blue?logo=windows&logoColor=white)](https://www.microsoft.com/ "Go to Microsoft homepage")
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
+
 # Bender - Windows Vulnerability Scanner
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/trottling/Bender/main/media/bender.png" width="200"/>
 </div>
 
-Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python
+**Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python**
+
+## Table of contents
+1. [Requirements](https://github.com/trottling/Bender?tab=readme-ov-file#requirements)
+2. [How to install](https://github.com/trottling/Bender?tab=readme-ov-file#how-to-install)
+3. [Features](https://github.com/trottling/Bender?tab=readme-ov-file#features)
+4. [Scan functios](https://github.com/trottling/Bender?tab=readme-ov-file#scan-functios)
+5. [Tech](https://github.com/trottling/Bender?tab=readme-ov-file#tech)
+6. [Current supported vulnerability databases for scanning](https://github.com/trottling/Bender?tab=readme-ov-file#current-supported-vulnerability-databases-for-scanning)
+7. [TODO](https://github.com/trottling/Bender?tab=readme-ov-file#todo)
+8. [How can I help this project?](https://github.com/trottling/Bender?tab=readme-ov-file#how-can-i-help-this-project)
 
 ### Requirements
 - Windows 8* and newer
-- That's all!
+- That's all!  
 
 > *Required by PyQT6 library
+
+## How to install
+1. Download latest build
+2. Add to antivirus exclusion if you get messages about Bender.exe, see [first TODO message](https://github.com/trottling/Bender#todo)
+3. Run as Admin
+4. Done!
 
 ## Features
 
@@ -19,21 +37,13 @@ Simple and portable app for search vulnerabilities in Windows system with pretty
 - Scan drivers in C:\windows\system32\drivers for vulns
 - Save report for each scan
 
-
-## Current supported vulnerability databases for scanning
-
-### Installed Apps
-- vulners.com
-
-### Drivers
-- loldrivers.io
-
 ## Scan functios
-Scan installed system and user apps for CVEs
-GIF
+- Scan installed system and user apps for CVEs
+![CIA](https://github.com/trottling/Bender/blob/main/media/CIA.gif?raw=true)
 
-Scan drivers
-GIF
+- Scan drivers for vulnerabilities
+![CCD](https://github.com/trottling/Bender/blob/main/media/CCD.gif?raw=true)
+
 
 ## Tech
 
@@ -45,11 +55,27 @@ Bender uses a number of open source projects to work properly:
 - [vulners] - Vulners.com API v3 Python wrapper
 - [darkdetect] - Detect OS Dark Mode from Python
 
+## Current supported vulnerability databases for scanning
+
+- Installed Apps
+  
+| Database | Api key | Key retrieval | Notes |
+| ------ | ------ | ------ | ------ |
+| vulners.com | Optional | [Easy](https://vulners.com/docs/apikey/) | Select "API" on step 3 | 
+
+- Drivers
+  
+| Database | Api key | Key retrieval | Notes |
+| ------ | ------ | ------ | ------ |
+| loldrivers.io | No needed | - | _ |
+
 ## TODO
 - Do something about the false antivirus message about Bender.exe
+> Thanks to detects on any build through pyinstaller because of schoolchildren writing RATs and Miners in Python
 - Make UI adaptive and resizeble
 - Add local network scanning
 - Add more DB to scanners
+- Add translate
 
 ## How can I help this project?
 - First, look at [TODO list](https://github.com/trottling/Bender/tree/main#todo)
