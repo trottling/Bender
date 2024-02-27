@@ -4,7 +4,7 @@ import re
 from PyQt6 import QtGui
 
 from ui.animations import StackedWidgetChangePage, ElemShowAnim
-from ui.tools import Report_Error
+from ui.tools import Report_Error, GetRelPath
 
 
 def Show_Report_CIA(self, rep):
@@ -42,7 +42,7 @@ def Show_Report_CIA(self, rep):
 
         # Items alignment
         for item in self.report["cve_list"]:
-            string = f"  {item['cve'].ljust(cve_max)}{str(item['score']).ljust(score_max)}{item['package'].capitalize().ljust(package_max)}{item['version'].ljust(version_max)}"
+            string = f"{item['cve'].ljust(cve_max)}{str(item['score']).ljust(score_max)}{item['package'].capitalize().ljust(package_max)}{item['version'].ljust(version_max)}"
 
             if len(string + item["desc"]) > str_max:
                 desc = f"{item['desc'][:120 - len(string)]}..."
@@ -51,7 +51,28 @@ def Show_Report_CIA(self, rep):
 
             list_item = QtGui.QStandardItem()
             list_item.setText(string + desc)
-            list_item.setIcon(QtGui.QIcon(r"assets\images\risk.png"))
+
+            dot = ""
+            score = item['score']
+
+            if score in ("", "-", None):
+                dot = "dot-grey.png"
+            else:
+                score = float(score)
+                if score == 0.0:
+                    dot = "dot-grey.png"
+                elif 0.0 < score < 4.0:
+                    dot = "dot-yellow.png"
+                elif 4.0 < score < 7.0:
+                    dot = "dot-orange.png"
+                elif 7.0 < score < 9.0:
+                    dot = "dot-red.png"
+                elif score > 9.0:
+                    dot = "dot-dark-red.png"
+                else:
+                    dot = "dot-grey.png"
+
+            list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\images\{dot}")))
 
             self.result_list_model.appendRow(list_item)
 
