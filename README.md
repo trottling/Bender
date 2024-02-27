@@ -70,10 +70,12 @@ Bender uses a number of open source projects to work properly:
 | loldrivers.io | No needed | - | _ |
 
 ## TODO
-- Do something about the false antivirus message about Bender.exe, thanks to detects on any build through pyinstaller because of schoolchildren writing RATs and Miners in Python
+- Do something about the false antivirus message about Bender.exe
+> Thanks to detects on any build through pyinstaller because of schoolchildren writing RATs and Miners in Python
 - Make UI adaptive and resizeble
 - Add local network scanning
 - Add more DB to scanners
+- Add translate
 
 ## How can I help this project?
 - First, look at [TODO list](https://github.com/trottling/Bender/tree/main#todo)
