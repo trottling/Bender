@@ -26,15 +26,6 @@
 - Scan drivers in C:\windows\system32\drivers for vulns
 - Save report for each scan
 
-
-## Current supported vulnerability databases for scanning
-
-Installed Apps:
-- vulners.com
-
-Drivers:
-- loldrivers.io
-
 ## Scan functios
 Scan installed system and user apps for CVEs
 ![CIA](https://github.com/trottling/Bender/blob/main/media/CIA.gif?raw=true)
@@ -52,6 +43,12 @@ Bender uses a number of open source projects to work properly:
 - [httpx] - A next-generation HTTP client
 - [vulners] - Vulners.com API v3 Python wrapper
 - [darkdetect] - Detect OS Dark Mode from Python
+
+## Current supported vulnerability databases for scanning
+| Scan type | Databases |
+| ------ | ------ |
+| Installed Apps | vulners.com |
+| Drivers: | loldrivers.io |
 
 ## TODO
 - Do something about the false antivirus message about Bender.exe
