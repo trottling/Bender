@@ -64,13 +64,13 @@ Bender uses a number of open source projects to work properly:
   
 | Database | Api key | Key retrieval | Notes |
 | ------ | ------ | ------ | ------ |
-| vulners.com | Optional | [Easy](https://vulners.com/docs/apikey/) | Select "API" on step 3 | 
+| vulners.com | Required | [Easy](https://vulners.com/docs/apikey/) | Select "API" on step 3 | 
 
 - Drivers
   
 | Database | Api key | Key retrieval | Notes |
 | ------ | ------ | ------ | ------ |
-| loldrivers.io | No needed | - | _ |
+| loldrivers.io | No needed | - | - |
 
 ## TODO
 - Do something about the false antivirus message about Bender.exe
