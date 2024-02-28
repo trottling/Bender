@@ -9,7 +9,7 @@ from ui.hide_elements import Hide_Elements
 from ui.images import Load_Images_And_Icons
 from ui.prepare_window import Prepare_Window
 from ui.styles import Load_Styles
-from ui.tools import CheckUserOs, Load_Settings
+from ui.tools import CheckUserOs, Load_Settings, CheckUpdate
 
 
 class User_UI(QMainWindow):
@@ -68,3 +68,6 @@ def Start_App(self) -> None:
 
     # Show UI
     App_Open_Anim(self)
+
+    # Check new versions
+    CheckUpdate(self)

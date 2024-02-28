@@ -1,11 +1,16 @@
+import json
 import os
 import sys
+import webbrowser
 
 import darkdetect
 import ctypes
 import platform
 
+import threading
+
 import httpx
+from PyQt6.QtWidgets import QDialog, QPushButton, QMessageBox
 
 
 def GetWindowsTheme(self) -> str:
@@ -83,7 +88,7 @@ def Load_Settings(self):
                 self.ui.api_key.setText(str(self.config.get('main', "vulners_api_key")))
                 if Check_Vulners_Key_Request(self):
                     self.ui.vulners_check_result.setStyleSheet(
-                        r".QFrame {image: url('" + GetRelPath(self, 'assets//images//apply.png') + "')}")
+                        r".QFrame {image: url('" + str(GetRelPath(self, 'assets//images//apply.png')) + "')}")
             self.logger.debug("Load_Settings : Settings loaded")
 
         except Exception as e:
@@ -157,3 +162,64 @@ def ClearResult(self):
     self.ui.label_no_cve.hide()
 
     self.logger.debug(f"ClearResult : Cleared")
+
+
+def CheckUpdate(self):
+    thread = UPD_Thread(self.logger, self.app_version)
+    thread.start()
+    self.logger.debug(f"CheckUpdate : thread start")
+    thread.join()
+    self.logger.debug(f"CheckUpdate : thread finish")
+
+    if thread.isErr:
+        return
+
+    res = thread.upd_res
+
+    button = QMessageBox.question(self, "Update aviable",
+                                  f"{res["name"]} {res["version"]}\n\n{res["changelog"]}\n\nOpen new version download page?")
+    if button == QMessageBox.StandardButton.Yes:
+        webbrowser.open("https://github.com/trottling/Bender/releases/latest")
+
+
+class UPD_Thread(threading.Thread):
+    def __init__(self, logger, app_version) -> None:
+        super().__init__()
+        self.logger = logger
+        self.app_version = app_version
+        self.isErr = False
+        self.upd_res = {}
+
+    def run(self):
+        resp = None
+        try:
+            resp = httpx.get("https://api.github.com/repos/trottling/Bender/releases/latest", timeout=10)
+        except Exception as e:
+            self.logger.error(f"GitUpdateReq : request error : {e}")
+            self.isErr = True
+            return
+
+        if resp.status_code != 200:
+            self.logger.error(f"GitUpdateReq : Status code : {resp.status_code}")
+            self.isErr = True
+            return
+
+        try:
+            data = resp.json()
+            result = {
+                "name": "",
+                "version": "",
+                "changelog": "",
+            }
+            if data["tag_name"] != self.app_version:
+                result["name"] = data["name"]
+                result["version"] = data["tag_name"]
+                result["changelog"] = data["body"]
+                self.upd_res = result
+                return
+            else:
+                self.isErr = True
+
+        except Exception as e:
+            self.logger.error(f"GitUpdateReq : parse error : {e}")
+            self.isErr = True
