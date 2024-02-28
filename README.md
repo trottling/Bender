@@ -89,7 +89,7 @@ Bender uses a number of open source projects to work properly:
 - Research FREE vulnerability databases with API, like vulners.com or vulmon.com (They doesn't have API docs)
 
 ## Run or Build from source
-1. Clone or Download source code
+1. Clone or [Download](https://github.com/trottling/Bender/archive/refs/heads/main.zip) source code
 > git clone https://github.com/trottling/Bender/tree/main
 2. Go to source code folder
 > cd Bender
