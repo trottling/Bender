@@ -177,7 +177,7 @@ def CheckUpdate(self):
     res = thread.upd_res
 
     button = QMessageBox.question(self, "Update aviable",
-                                  f"{res["name"]} {res["version"]}\n\n{res["changelog"]}\n\nOpen new version download page?")
+                                  f"{res["version"]}\n\n{res["changelog"]}\n\nOpen new version download page?")
     if button == QMessageBox.StandardButton.Yes:
         webbrowser.open("https://github.com/trottling/Bender/releases/latest")
 
@@ -207,12 +207,10 @@ class UPD_Thread(threading.Thread):
         try:
             data = resp.json()
             result = {
-                "name": "",
                 "version": "",
                 "changelog": "",
             }
             if data["tag_name"] != self.app_version:
-                result["name"] = data["name"]
                 result["version"] = data["tag_name"]
                 result["changelog"] = data["body"]
                 self.upd_res = result
