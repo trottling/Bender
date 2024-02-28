@@ -40,8 +40,8 @@ def Show_Report_CIA(self, rep):
         self.result_list_model = QtGui.QStandardItemModel()
         self.ui.result_listView.setModel(self.result_list_model)
 
-        # Items alignment
         for item in self.report["cve_list"]:
+            # Items alignment
             string = f"{item['cve'].ljust(cve_max)}{str(item['score']).ljust(score_max)}{item['package'].capitalize().ljust(package_max)}{item['version'].ljust(version_max)}"
 
             if len(string + item["desc"]) > str_max:
@@ -52,27 +52,30 @@ def Show_Report_CIA(self, rep):
             list_item = QtGui.QStandardItem()
             list_item.setText(string + desc)
 
-            dot = ""
-            score = item['score']
+            try:
+                dot = ""
+                score = item['score']
 
-            if score in ("", "-", None):
-                dot = "dot-grey.png"
-            else:
-                score = float(score)
-                if score == 0.0:
+                if score in ("", "-", None):
                     dot = "dot-grey.png"
-                elif 0.0 < score < 4.0:
-                    dot = "dot-yellow.png"
-                elif 4.0 < score < 7.0:
-                    dot = "dot-orange.png"
-                elif 7.0 < score < 9.0:
-                    dot = "dot-red.png"
-                elif score > 9.0:
-                    dot = "dot-dark-red.png"
                 else:
-                    dot = "dot-grey.png"
+                    score = float(score)
+                    if score == 0.0:
+                        dot = "dot-grey.png"
+                    elif 0.0 < score < 4.0:
+                        dot = "dot-yellow.png"
+                    elif 4.0 < score < 7.0:
+                        dot = "dot-orange.png"
+                    elif 7.0 < score < 9.0:
+                        dot = "dot-red.png"
+                    elif score > 9.0:
+                        dot = "dot-dark-red.png"
+                    else:
+                        dot = "dot-grey.png"
 
-            list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\images\{dot}")))
+                list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\images\{dot}")))
+            except Exception as e:
+                self.logger.error(f"Show_Report_CIA : Error setting dot : {e}")
 
             self.result_list_model.appendRow(list_item)
 
