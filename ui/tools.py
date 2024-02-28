@@ -1,16 +1,13 @@
-import json
+import ctypes
 import os
+import platform
 import sys
+import threading
 import webbrowser
 
 import darkdetect
-import ctypes
-import platform
-
-import threading
-
 import httpx
-from PyQt6.QtWidgets import QDialog, QPushButton, QMessageBox
+from PyQt6.QtWidgets import QMessageBox
 
 
 def GetWindowsTheme(self) -> str:
@@ -188,24 +185,24 @@ class UPD_Thread(threading.Thread):
         self.logger = logger
         self.app_version = app_version
         self.isErr = False
+        self.resp = None
         self.upd_res = {}
 
     def run(self):
-        resp = None
         try:
-            resp = httpx.get("https://api.github.com/repos/trottling/Bender/releases/latest", timeout=10)
+            self.resp = httpx.get("https://api.github.com/repos/trottling/Bender/releases/latest", timeout=10)
         except Exception as e:
             self.logger.error(f"GitUpdateReq : request error : {e}")
             self.isErr = True
             return
 
-        if resp.status_code != 200:
-            self.logger.error(f"GitUpdateReq : Status code : {resp.status_code}")
+        if self.resp.status_code != 200:
+            self.logger.error(f"GitUpdateReq : Status code : {self.resp.status_code}")
             self.isErr = True
             return
 
         try:
-            data = resp.json()
+            data = self.resp.json()
             result = {
                 "version": "",
                 "changelog": "",
