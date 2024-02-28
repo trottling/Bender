@@ -24,7 +24,7 @@
 8. [How can I help this project?](https://github.com/trottling/Bender?tab=readme-ov-file#how-can-i-help-this-project)
 9. [Run or Build from source](https://github.com/trottling/Bender/edit/main/README.md#run-or-build-from-source)
 
-### Requirements
+## Requirements
 - Windows 8* and newer
 - That's all!  
 
