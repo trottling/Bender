@@ -11,7 +11,7 @@
   <img src="https://raw.githubusercontent.com/trottling/Bender/main/media/bender.png" width="200"/>
 </div>
 
-**Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python**
+**Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python 3.12**
 
 ## Table of contents
 1. [Requirements](https://github.com/trottling/Bender?tab=readme-ov-file#requirements)
@@ -22,6 +22,7 @@
 6. [Current supported vulnerability databases for scanning](https://github.com/trottling/Bender?tab=readme-ov-file#current-supported-vulnerability-databases-for-scanning)
 7. [TODO](https://github.com/trottling/Bender?tab=readme-ov-file#todo)
 8. [How can I help this project?](https://github.com/trottling/Bender?tab=readme-ov-file#how-can-i-help-this-project)
+9. [Run or Build from source](https://github.com/trottling/Bender/edit/main/README.md#run-or-build-from-source)
 
 ### Requirements
 - Windows 8* and newer
@@ -86,6 +87,18 @@ Bender uses a number of open source projects to work properly:
 - First, look at [TODO list](https://github.com/trottling/Bender/tree/main#todo)
 - If you have ideas for tweaks, write me in the [Telegram](https://t.me/trottling) or open a [new issue](https://github.com/trottling/Bender/issues/new/choose)
 - Research FREE vulnerability databases with API, like vulners.com or vulmon.com (They doesn't have API docs)
+
+## Run or Build from source
+1. Clone or Download source code
+> git clone https://github.com/trottling/Bender/tree/main
+2. Go to source code folder
+> cd Bender
+3. Install requirements
+> pip install -r requirements.txt
+4. Run
+> python main.py
+5. Build
+> build.bat
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
     
