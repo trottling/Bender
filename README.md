@@ -13,6 +13,8 @@
 
 **Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python 3.12**
 
+![START](https://raw.githubusercontent.com/trottling/Bender/main/media/start.png)
+
 ## Table of contents
 1. [Requirements](https://github.com/trottling/Bender?tab=readme-ov-file#requirements)
 2. [How to install](https://github.com/trottling/Bender?tab=readme-ov-file#how-to-install)
