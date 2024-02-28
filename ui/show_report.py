@@ -53,27 +53,28 @@ def Show_Report_CIA(self, rep):
             list_item.setText(string + desc)
 
             try:
-                dot = ""
-                score = item['score']
+                self.dot = ""
+                self.score_raw = item['score']
 
-                if score in ("", "-", None):
-                    dot = "dot-grey.png"
+                if self.score_raw in ("", "-", None):
+                    self.dot = "dot-out.png"
                 else:
-                    score = float(score)
-                    if score == 0.0:
-                        dot = "dot-grey.png"
-                    elif 0.0 < score < 4.0:
-                        dot = "dot-yellow.png"
-                    elif 4.0 < score < 7.0:
-                        dot = "dot-orange.png"
-                    elif 7.0 < score < 9.0:
-                        dot = "dot-red.png"
-                    elif score > 9.0:
-                        dot = "dot-dark-red.png"
+                    self.score = float(self.score_raw)
+                    if self.score == 0.0:
+                        self.dot = "dot-out.png"
+                    elif 0.0 < self.score < 4.0:
+                        self.dot = "dot-yellow.png"
+                    elif 4.0 < self.score < 7.0:
+                        self.dot = "dot-orange.png"
+                    elif 7.0 < self.score < 9.0:
+                        self.dot = "dot-red.png"
+                    elif self.score > 9.0:
+                        self.dot = "dot-dark-red.png"
                     else:
-                        dot = "dot-grey.png"
-
-                list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\images\{dot}")))
+                        self.dot = "dot-grey.png"
+                self.logger.debug(
+                    f"Show_Report_CIA : Score {self.score_raw} --> {self.score if self.score else ""} --> {self.dot}")
+                list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\images\{self.dot}")))
             except Exception as e:
                 self.logger.error(f"Show_Report_CIA : Error setting dot : {e}")
 
