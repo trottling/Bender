@@ -1,5 +1,9 @@
-[![OS - Windows](https://img.shields.io/badge/OS-Windows-blue?logo=windows&logoColor=white)](https://www.microsoft.com/ "Go to Microsoft homepage")
+[![OS - Windows](https://img.shields.io/badge/OS-Windows-blue?logo=windows&logoColor=white)](https://www.microsoft.com/")
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
+[![MIT](https://img.shields.io/github/license/trottling/Bender)](https://github.com/trottling/Bender?tab=MIT-1-ov-file#)
+[![Commits](https://img.shields.io/github/commit-activity/m/trottling/Bender)](https://github.com/trottling/Bender/commits/main/)
+[![Downloads](https://img.shields.io/github/downloads/trottling/Bender/total)](https://github.com/trottling/Bender/releases/latest)
+[![Last release](https://img.shields.io/github/v/release/trottling/Bender)](https://github.com/trottling/Bender/releases/latest)
 
 # Bender - Windows Vulnerability Scanner
 
@@ -23,10 +27,10 @@
 - Windows 8* and newer
 - That's all!  
 
-> *Required by PyQT6 library
+> *Required by PyQT6 library and limited to avoid errors when using system calls from older versions of Windows
 
 ## How to install
-1. Download latest build
+1. Download [latest build](https://github.com/trottling/Bender/releases/latest)
 2. Add to antivirus exclusion if you get messages about Bender.exe, see [first TODO message](https://github.com/trottling/Bender#todo)
 3. Run as Admin
 4. Done!
@@ -61,19 +65,20 @@ Bender uses a number of open source projects to work properly:
   
 | Database | Api key | Key retrieval | Notes |
 | ------ | ------ | ------ | ------ |
-| vulners.com | Optional | [Easy](https://vulners.com/docs/apikey/) | Select "API" on step 3 | 
+| vulners.com | Required | [Easy](https://vulners.com/docs/apikey/) | Select "API" on step 3 | 
 
 - Drivers
   
 | Database | Api key | Key retrieval | Notes |
 | ------ | ------ | ------ | ------ |
-| loldrivers.io | No needed | - | _ |
+| loldrivers.io | No needed | - | - |
 
 ## TODO
 - Do something about the false antivirus message about Bender.exe
 > Thanks to detects on any build through pyinstaller because of schoolchildren writing RATs and Miners in Python
 - Make UI adaptive and resizeble
 - Add local network scanning
+- Add Windows KB CVE scanner 
 - Add more DB to scanners
 - Add translate
 
