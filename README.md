@@ -78,6 +78,7 @@ Bender uses a number of open source projects to work properly:
 > Thanks to detects on any build through pyinstaller because of schoolchildren writing RATs and Miners in Python
 - Make UI adaptive and resizeble
 - Add local network scanning
+- Add Windows KB CVE scanner 
 - Add more DB to scanners
 - Add translate
 
