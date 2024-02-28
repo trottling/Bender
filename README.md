@@ -46,9 +46,11 @@
 
 ## Scan functios
 - Scan installed system and user apps for CVEs
+
 ![CIA](https://github.com/trottling/Bender/blob/main/media/CIA.gif?raw=true)
 
 - Scan drivers for vulnerabilities
+
 ![CCD](https://github.com/trottling/Bender/blob/main/media/CCD.gif?raw=true)
 
 
