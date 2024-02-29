@@ -108,7 +108,7 @@ def ShowCVEInfo_CIA(self, index):
         if "cvssV3_1" in cve_info["cvss_metrics"]:
             for item in cve_info["cvss_metrics"]["cvssV3_1"]:
                 self.ui.plainTextEdit_cvss_3.appendPlainText(
-                    f"{Split_by_Uppercase(self, item)}: {cve_info["cvss_metrics"]["cvssV3_1"][item]}")
+                    f"{Split_Words(self, item)}: {cve_info["cvss_metrics"]["cvssV3_1"][item]}")
         else:
             self.ui.plainTextEdit_cvss_3.setPlainText("No info")
 
@@ -186,7 +186,7 @@ def ShowCVEInfo_CCD(self, index):
 def FormatDict(self, data, indent=0):
     formatted_data = ""
     for key, value in data.items():
-        formatted_key = Split_by_Uppercase(self, key if isinstance(key, str) else str(key), split_dot=True)
+        formatted_key = Split_Words(self, key if isinstance(key, str) else str(key), split_dot=True)
         if isinstance(value, dict):
             formatted_value = FormatDict(self, value, indent + 4)
         elif isinstance(value, list):
@@ -205,9 +205,9 @@ def FormatDict(self, data, indent=0):
     return formatted_data
 
 
-def Split_by_Uppercase(self, word, split_dot=False):
+def Split_Words(self, word, split_dot=False):
     result = re.sub(r"([a-z])([A-Z])", r"\1 \2", word).strip().capitalize()
     if split_dot:
         result = result.replace(".", " ")
-    self.logger.debug(f"Split_by_uppercase : {word} --> {result}")
+    self.logger.debug(f"Split_Words : {word} --> {result}")
     return result
