@@ -12,6 +12,8 @@
 </div>
 
 **Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python 3.12**
+> **NOTE**
+> This application is designed to check the security of YOUR PC. The application only READS system data such as Windows registr or system folders (Drivers Check)
 
 ![START](https://raw.githubusercontent.com/trottling/Bender/main/media/start.png)
 
