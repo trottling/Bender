@@ -48,8 +48,8 @@ def Save_Settings(self):
         self.config.set('main', "app_theme", self.ui.qss_comboBox.currentText())
         self.config.set('main', "cve_db", self.ui.db_comboBox.currentText())
         self.config.set('main', "vulners_api_key", self.ui.api_key.text().strip())
-        self.config.set('main', "net_workers", str(max(min(self.ui.horizontalSlider_network_threads.value())), 10), 200)
-        self.config.set('main', "data_workers", str(max(min(self.ui.horizontalSlider_data_threads.value()), 10), 200))
+        self.config.set('main', "net_workers", str(self.ui.horizontalSlider_network_threads.value()))
+        self.config.set('main', "data_workers", str(self.ui.horizontalSlider_data_threads.value()))
 
         with open(self.config_path, 'w') as f:
             self.config.write(f)
@@ -71,17 +71,17 @@ def Load_Settings(self):
             if cve_db not in (None, ""):
                 self.ui.db_comboBox.setCurrentText(cve_db)
 
-            net_workers = max(min(self.config.get('main', "net_workers"), 10), 200)
+            net_workers = max(min(int(self.config.get('main', "net_workers")), 10), 200)
             self.logger.debug(f"Load_Settings : net_workers : {net_workers}")
             if net_workers not in (None, ""):
-                self.ui.horizontalSlider_network_threads.setValue(int(net_workers))
-            self.ui.label_network_threads_value.setText(net_workers)
+                self.ui.horizontalSlider_network_threads.setValue(net_workers)
+            self.ui.label_network_threads_value.setText(str(net_workers))
 
-            data_workers = max(min(self.config.get('main', "data_workers"), 10), 200)
+            data_workers = max(min(int(self.config.get('main', "data_workers")), 10), 200)
             self.logger.debug(f"Load_Settings : data_workers : {data_workers}")
             if data_workers not in (None, ""):
                 self.ui.horizontalSlider_data_threads.setValue(int(data_workers))
-            self.ui.label_data_threads_value.setText(data_workers)
+            self.ui.label_data_threads_value.setText(str(data_workers))
 
             vulners_api_key = self.config.get("main", "vulners_api_key")
             if vulners_api_key not in (None, ""):
