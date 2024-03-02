@@ -10,7 +10,7 @@ def App_Open_Anim(self):
     self.ui.setWindowOpacity(0)
     self.ui.show()
     animation = QPropertyAnimation(self.ui, b'windowOpacity', self)
-    animation.setDuration(500)
+    animation.setDuration(250)
     animation.setStartValue(0.0)
     animation.setEndValue(1.0)
     animation.start()
@@ -25,7 +25,7 @@ def App_Exit_Anim(self):
     animation = QPropertyAnimation(self.ui, b'windowOpacity', self)
     animation.finished.connect(lambda: ((self.logger.debug(
         "App_Exit_Anim : ******* EXIT *******"), sys.exit(0))))
-    animation.setDuration(500)
+    animation.setDuration(250)
     animation.setStartValue(1.0)
     animation.setEndValue(0.0)
     animation.start()
