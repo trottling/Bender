@@ -42,8 +42,8 @@ def Prepare_Window(self):
             if monitor.is_primary:
                 self.screen_width = monitor.width
                 self.screen_height = monitor.height
-                self.screen_width_cut = int(round(float(self.screen_width) * 0.75))
-                self.screen_height_cut = int(round(float(self.screen_height) * 0.75))
+                self.screen_width_cut = int(round(self.screen_width * 0.75))
+                self.screen_height_cut = int(round(self.screen_height * 0.75))
                 self.ui.resize(self.screen_width_cut, self.screen_height_cut)
                 self.ui.move(int((self.screen_width - self.ui.size().width()) / 2),
                              int((self.screen_height - self.ui.size().height()) / 2))
