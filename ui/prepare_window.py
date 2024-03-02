@@ -52,4 +52,9 @@ def Prepare_Window(self):
                 break
     except Exception as e:
         self.logger.error(f"Prepare_Window : Cannot Set window size : {e}")
+
+    # Make grips invisible
+    [self.cornerGrips[i].setStyleSheet(r"background-color: transparent;") for i in range(4)]
+    self.logger.debug(f"Prepare_Window : grips invisible")
+
     self.logger.debug(f"Prepare_Window : Window Prepared")
