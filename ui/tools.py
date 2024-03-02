@@ -46,7 +46,6 @@ def Save_Settings(self):
     try:
 
         self.config.set('main', "app_theme", self.ui.qss_comboBox.currentText())
-        self.config.set('main', "cve_db", self.ui.db_comboBox.currentText())
         self.config.set('main', "vulners_api_key", self.ui.api_key.text().strip())
         self.config.set('main', "net_workers", str(self.ui.horizontalSlider_network_threads.value()))
         self.config.set('main', "data_workers", str(self.ui.horizontalSlider_data_threads.value()))
@@ -65,11 +64,6 @@ def Load_Settings(self):
 
             self.logger.debug(f"Load_Settings : app_theme : {self.config.get('main', "app_theme")}")
             self.app_theme = self.config.get('main', "app_theme")
-
-            cve_db = self.config.get('main', "cve_db")
-            self.logger.debug(f"Load_Settings : cve_db : {cve_db}")
-            if cve_db not in (None, ""):
-                self.ui.db_comboBox.setCurrentText(cve_db)
 
             net_workers = max(min(int(self.config.get('main', "net_workers")), 10), 200)
             self.logger.debug(f"Load_Settings : net_workers : {net_workers}")
