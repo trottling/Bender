@@ -2,8 +2,8 @@ import sys
 
 from PyQt6.QtWidgets import QApplication
 
-from OnAppStart.setup_logger import Setup_logger
-from OnAppStart.check_appdir import CheckAppDir
+from on_start.check_appdir import CheckAppDir
+from on_start.setup_logger import Setup_logger
 from ui.user_interface import User_UI
 
 app_version = "1.0.0"
