@@ -67,12 +67,22 @@ def GetRelPath(self, data_path, slash_replace=True):
         data_path = f"..\\{data_path}"
         base_path = os.path.dirname(os.path.abspath(__file__))
 
+    # Instead of several calls to get the relative path of one element,
+    # a single call will be made and the result
+    # will be saved in dict for later use
+
+    if data_path in self.rel_path_dict:
+        result = self.rel_path_dict[data_path]
+        self.logger.debug(f"GetRelPath : ext : {result}")
+        return result
+
     result = os.path.join(base_path, data_path)
 
     if slash_replace:
         result = result.replace("\\", "/")
 
-    self.logger.debug(f"GetRelPath : {result}")
+    self.rel_path_dict[data_path] = result
+    self.logger.debug(f"GetRelPath : new : {result}")
 
     return result
 

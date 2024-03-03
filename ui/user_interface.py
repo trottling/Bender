@@ -3,6 +3,7 @@ from configparser import ConfigParser
 from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
+from config.read_config import Load_Settings
 from ui.animations import App_Open_Anim
 from ui.buttons import Connect_Buttons
 from ui.hide_elements import Hide_Elements
@@ -10,7 +11,7 @@ from ui.images import Load_Images_And_Icons
 from ui.prepare_window import Prepare_Window
 from ui.side_grips import SideGrip
 from ui.styles import Load_Styles
-from ui.tools import CheckUserOs, Load_Settings, CheckUpdate
+from ui.tools import CheckUserOs, CheckUpdate
 
 
 class User_UI(QMainWindow):
@@ -44,7 +45,8 @@ class User_UI(QMainWindow):
         # corner grips should be "on top" of everything, otherwise the side grips
         # will take precedence on mouse events, so we are adding them *after*;
         # alternatively, widget.raise_() can be used
-        self.cornerGrips = [QtWidgets.QSizeGrip(self) for i in range(4)]
+        self.cornerGrips = [QtWidgets.QSizeGrip(self) for _ in range(4)]
+        self.rel_path_dict = {}
         Start_App(self)
         CheckUserOs(self)
 
