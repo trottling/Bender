@@ -12,5 +12,5 @@ def CheckConfigFile(self):
         self.logger.debug(f"CheckConfigFile : main : add section")
         return False
     else:
-        self.logger.debug(f"CheckConfigFile :  {self.config_path} : config exist")
+        self.logger.debug(f"CheckConfigFile : {self.config_path} : config exist")
         return True

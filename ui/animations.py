@@ -9,6 +9,10 @@ from ui.tools import GetRelPath
 def App_Open_Anim(self):
     self.logger.debug(f"App_Open_Anim : Animation")
 
+    if self.window_size_full:
+        self.ui.showMaximized()
+        self.logger.debug("App_Open_Anim : showMaximized")
+
     self.ui.setWindowOpacity(0)
     self.ui.show()
     animation = QPropertyAnimation(self.ui, b'windowOpacity', self)

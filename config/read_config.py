@@ -21,10 +21,12 @@ def Load_Settings(self):
                 self.ui.horizontalSlider_data_threads.setValue(int(data_workers))
             self.ui.label_data_threads_value.setText(str(data_workers))
 
-            vulners_api_key = self.config.get("main", "vulners_api_key")  # TODO Move to start tasks
+            vulners_api_key = self.config.get("main", "vulners_api_key")
             if vulners_api_key not in (None, ""):
                 self.logger.debug(f"Load_Settings : vulners_api_key : * IS NOT EMPTY *")
             self.ui.api_key.setText(str(vulners_api_key))
+
+            self.window_size_full = True if self.config.get("main", "window_size_full") == "0" else False
 
             self.logger.debug("Load_Settings : Settings loaded")
 
