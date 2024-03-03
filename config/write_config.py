@@ -4,6 +4,11 @@ from config.check_config import CheckConfigFile
 def Save_Settings(self):
     CheckConfigFile(self)
     try:
+        self.logger.debug(f"Save_Settings : main : app_theme : {self.ui.qss_comboBox.currentText()}")
+        self.logger.debug(f"Save_Settings :main : vulners_api_key : {self.ui.api_key.text().strip()}")
+        self.logger.debug(
+            f"Save_Settings :main : net_workers : {str(self.ui.horizontalSlider_network_threads.value())}")
+        self.logger.debug(f"Save_Settings : main : data_workers : {str(self.ui.horizontalSlider_data_threads.value())}")
 
         self.config.set('main', "app_theme", self.ui.qss_comboBox.currentText())
         self.config.set('main', "vulners_api_key", self.ui.api_key.text().strip())
