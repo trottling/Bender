@@ -13,6 +13,7 @@
 
 **Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python 3.12**
 > **NOTE**
+>  
 > This application is designed for scan ONLY YOUR PC. The author is not responsible for illegal actions in which Bender was used.
 > Also, Bender is Free Open Source Software project, that does not conduct any commercial activities. 
 
