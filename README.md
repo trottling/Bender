@@ -13,7 +13,8 @@
 
 **Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python 3.12**
 > **NOTE**
-> This application is designed to check the security of YOUR PC. The application only READS system data such as Windows registr or system folders (Drivers Check)
+> This application is designed for scan ONLY YOUR PC. The author is not responsible for illegal actions in which Bender was used.
+> Also, Bender is Free Open Source Software project, that does not conduct any commercial activities. 
 
 ![START](https://raw.githubusercontent.com/trottling/Bender/main/media/start.png)
 
