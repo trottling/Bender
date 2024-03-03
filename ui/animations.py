@@ -3,6 +3,8 @@ import sys
 from PyQt6.QtCore import QPropertyAnimation, QEasingCurve
 from PyQt6.QtWidgets import QGraphicsOpacityEffect
 
+from ui.tools import GetRelPath
+
 
 def App_Open_Anim(self):
     self.logger.debug(f"App_Open_Anim : Animation")
@@ -99,3 +101,56 @@ def ElemHideAnim(self, elem):
         lambda: (elem.setGraphicsEffect(None), elem.hide()))
 
     anim.start()
+
+
+def ImageChangeAnim(self, elem, image, elem_type, elem_style):
+    #
+    # Move opacity from 1 to 0 --> Change Image  -->  Move opacity from 0 to 1
+    # Part 1
+    #
+
+    self.logger.debug("ImageChangeAnim : Change Image")
+
+    elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(1.0))
+
+    effect = QGraphicsOpacityEffect(elem)
+    effect.setOpacity(1.0)
+    elem.setGraphicsEffect(effect)
+
+    anim = QPropertyAnimation(effect, b"opacity", self)
+    anim.setDuration(175)
+    anim.setStartValue(effect.opacity())
+    anim.setEndValue(0.0)
+    anim.setEasingCurve(QEasingCurve.Type.OutQuad)
+
+    anim.finished.connect(
+        lambda: ImageChangeAnimShow(self, elem, image, elem_type, elem_style))
+
+    anim.start()
+
+
+def ImageChangeAnimShow(self, elem, image, elem_type, elem_style):
+    #
+    # Part 2
+    #
+
+    try:
+        elem.setStyleSheet(
+            "." + elem_type + "{" + elem_style + ": url('" + GetRelPath(self, image) + "')}")
+    except Exception as e:
+        self.logger.error(f"ImageChangeAnimShow : {e}")
+        return
+
+    elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(0.0))
+
+    effect = QGraphicsOpacityEffect(elem)
+    effect.setOpacity(0.0)
+    elem.setGraphicsEffect(effect)
+
+    anim = QPropertyAnimation(effect, b"opacity", self)
+    anim.setDuration(175)
+    anim.setStartValue(effect.opacity())
+    anim.setEndValue(1.0)
+    anim.setEasingCurve(QEasingCurve.Type.OutQuad)
+    anim.start()
+    self.logger.debug("ImageChangeAnimShow : Image Changed")
