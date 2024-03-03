@@ -517,6 +517,75 @@ QPushButton#pushButton_app_hide:default{
 
 
 
+
+QPushButton#pushButton_app_size:hover{
+	border-style: solid;
+	border-top-color: transparent;
+	border-radius: 10px 0 0 10px;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	border-bottom-color: transparent;
+	border-style: solid;
+	color: #FFFFFF;
+	padding-bottom: 0px;
+	background-color: #5f5c70;
+}
+QPushButton#pushButton_app_size:pressed{
+	border-style: solid;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	border-radius: 10px 0 0 10px;
+	border-bottom-color: transparent;
+	border-width: 0px;
+	border-style: solid;
+	color: #FFFFFF;
+	padding-bottom: 0px;
+	background-color: #5f5c70
+}
+QPushButton#pushButton_app_size:disabled{
+	border-style: solid;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-radius: 10px 0 0 10px;
+	border-left-color: transparent;
+	border-bottom-color: #808086;
+	border-bottom-width: 0px;
+	border-style: solid;
+	color: #FFFFFF;
+	padding-bottom: 1px;
+	background-color: #1e1d23;
+}
+QPushButton#pushButton_app_size{
+	border-style: solid;
+	border-radius: 10px 0 0 10px;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	border-bottom-color: transparent;
+	border-width: 0px;
+	border-style: solid;
+	color: #FFFFFF;
+	padding: 0px;
+	background-color: #1e1d23;
+}
+QPushButton#pushButton_app_size:default{
+	border-style: solid;
+	border-radius: 10px 0 0 10px;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	border-bottom-color: #0d4e87;
+	border-width: 0px;
+	color: #FFFFFF;
+	padding: 0px;
+	background-color: #1e1d23;
+}
+
+
+
+
+
 QPushButton#pushButton_app_exit:hover{
 	border-style: solid;
 	border-top-color: transparent;
@@ -582,37 +651,3 @@ QPushButton#pushButton_app_exit:default{
 	background-color: #1e1d23;
 }
 
-QTreeView {
-    show-decoration-selected: 1;
-	color: #a9b7c6;
-	background-color:#393743;
-    border-radius: 10px;
-
-}
-
-QTreeView::item {
-     border: 1px solid #d9d9d9;
-    border-top-color: transparent;
-    border-bottom-color: transparent;
-}
-
-QTreeView::item:hover {
-    border-radius: 4px;
-    background: #163147;
-}
-
-QTreeView::item:selected {
-    border: 1px solid #0d4e87;
-    border-radius: 4px;
-
-}
-
-QTreeView::item:selected:active{
-    background: #0d4e87;
-    border-radius: 4px;
-}
-
-QTreeView::item:selected:!active {
-    background: #0d4e87;
-    border-radius: 4px;
-}
