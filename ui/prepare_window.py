@@ -48,7 +48,7 @@ def Prepare_Window(self):
                 self.ui.move(int((self.screen_width - self.ui.size().width()) / 2),
                              int((self.screen_height - self.ui.size().height()) / 2))
                 self.logger.debug(
-                    f"Prepare_Window : Resize to {self.screen_width_cut} x {self.screen_height_cut} : Original {self.screen_width} x {self.screen_height}")
+                    f"Prepare_Window : Resized to {self.screen_width_cut} x {self.screen_height_cut} : Original {self.screen_width} x {self.screen_height}")
                 break
     except Exception as e:
         self.logger.error(f"Prepare_Window : Cannot Set window size : {e}")

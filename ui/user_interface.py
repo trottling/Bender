@@ -1,6 +1,6 @@
 from configparser import ConfigParser
 
-from PyQt6 import QtCore
+from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
 from ui.animations import App_Open_Anim
@@ -8,11 +8,14 @@ from ui.buttons import Connect_Buttons
 from ui.hide_elements import Hide_Elements
 from ui.images import Load_Images_And_Icons
 from ui.prepare_window import Prepare_Window
+from ui.side_grips import SideGrip
 from ui.styles import Load_Styles
 from ui.tools import CheckUserOs, Load_Settings, CheckUpdate
 
 
 class User_UI(QMainWindow):
+    _gripSize = 16
+
     def __init__(self, app_version, logger, appdir) -> None:
         super().__init__()
         self.app_version = app_version
@@ -21,30 +24,104 @@ class User_UI(QMainWindow):
         self.ui = None
         self.app_theme = None
         self.check_thread = None
-        self.offset = None
+        self.window_offset = None
         self.config_path = self.appdir + "\\" + "config.ini"
         self.config = ConfigParser()
         self.isVulnersKeyValid = False
         self.isSliderTimerStart = False
         self.result_list_model = None
+        self.window_size_full = False
+        self.screen_width = 0
+        self.screen_height = 0
+        self.screen_width_cut = 0
+        self.screen_height_cut = 0
+        self.sideGrips = [
+            SideGrip(self, QtCore.Qt.Edge.LeftEdge),
+            SideGrip(self, QtCore.Qt.Edge.TopEdge),
+            SideGrip(self, QtCore.Qt.Edge.RightEdge),
+            SideGrip(self, QtCore.Qt.Edge.BottomEdge),
+        ]
+        # corner grips should be "on top" of everything, otherwise the side grips
+        # will take precedence on mouse events, so we are adding them *after*;
+        # alternatively, widget.raise_() can be used
+        self.cornerGrips = [QtWidgets.QSizeGrip(self) for i in range(4)]
         Start_App(self)
         CheckUserOs(self)
 
-    def mousePressEvent(self, event):
+    #
+    # Window move
+    #
+
+    def mousePressEvent(self, event):  # TODO Set to windows title insane all window
         if event.button() == QtCore.Qt.MouseButton.LeftButton:
-            self.offset = event.pos()
+            self.window_offset = event.pos()
         else:
             super().mousePressEvent(event)
 
     def mouseMoveEvent(self, event):
-        if self.offset is not None and event.buttons() == QtCore.Qt.MouseButton.LeftButton:
-            self.move(self.pos() + event.pos() - self.offset)
+        if self.window_offset is not None and event.buttons() == QtCore.Qt.MouseButton.LeftButton:
+            self.move(self.pos() + event.pos() - self.window_offset)
         else:
             super().mouseMoveEvent(event)
 
     def mouseReleaseEvent(self, event):
-        self.offset = None
+        self.window_offset = None
         super().mouseReleaseEvent(event)
+
+    #
+    # Window resize
+    # https://stackoverflow.com/questions/62807295
+    #
+
+    @property
+    def gripSize(self):
+        return self._gripSize
+
+    def setGripSize(self, size):
+        if size == self._gripSize:
+            return
+        self._gripSize = max(2, size)
+        self.updateGrips()
+
+    def updateGrips(self):
+        self.setContentsMargins(*[self.gripSize] * 4)
+
+        outRect = self.rect()
+        # an "inner" rect used for reference to set the geometries of size grips
+        inRect = outRect.adjusted(self.gripSize, self.gripSize,
+                                  -self.gripSize, -self.gripSize)
+
+        # top left
+        self.cornerGrips[0].setGeometry(
+            QtCore.QRect(outRect.topLeft(), inRect.topLeft()))
+        # top right
+        self.cornerGrips[1].setGeometry(
+            QtCore.QRect(outRect.topRight(), inRect.topRight()).normalized())
+        # bottom right
+        self.cornerGrips[2].setGeometry(
+            QtCore.QRect(inRect.bottomRight(), outRect.bottomRight()))
+        # bottom left
+        self.cornerGrips[3].setGeometry(
+            QtCore.QRect(outRect.bottomLeft(), inRect.bottomLeft()).normalized())
+
+        # left edge
+        self.sideGrips[0].setGeometry(
+            0, inRect.top(), self.gripSize, inRect.height())
+        # top edge
+        self.sideGrips[1].setGeometry(
+            inRect.left(), 0, inRect.width(), self.gripSize)
+        # right edge
+        self.sideGrips[2].setGeometry(
+            inRect.left() + inRect.width(),
+            inRect.top(), self.gripSize, inRect.height())
+        # bottom edge
+        self.sideGrips[3].setGeometry(
+            self.gripSize, inRect.top() + inRect.height(),
+            inRect.width(), self.gripSize)
+
+    def resizeEvent(self, event):
+        QtWidgets.QMainWindow.resizeEvent(self, event)
+        self.updateGrips()
 
 
 def Start_App(self) -> None:
@@ -71,3 +148,5 @@ def Start_App(self) -> None:
 
     # Check new versions
     CheckUpdate(self)
+
+    # Run start tasks
