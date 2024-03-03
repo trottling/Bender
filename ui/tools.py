@@ -41,70 +41,6 @@ def Report_Error(self, error):
     self.logger.error(f"Report_Error : {str(error)}")
 
 
-def Save_Settings(self):
-    CheckConfigFile(self)
-    try:
-
-        self.config.set('main', "app_theme", self.ui.qss_comboBox.currentText())
-        self.config.set('main', "vulners_api_key", self.ui.api_key.text().strip())
-        self.config.set('main', "net_workers", str(self.ui.horizontalSlider_network_threads.value()))
-        self.config.set('main', "data_workers", str(self.ui.horizontalSlider_data_threads.value()))
-
-        with open(self.config_path, 'w') as f:
-            self.config.write(f)
-            self.logger.debug("Save_Settings : Settings saved")
-    except Exception as e:
-        self.logger.error(f"Save_Settings : {e}")
-
-
-def Load_Settings(self):
-    if CheckConfigFile(self):
-        try:
-            self.config.read(self.config_path)
-
-            self.logger.debug(f"Load_Settings : app_theme : {self.config.get('main', "app_theme")}")
-            self.app_theme = self.config.get('main', "app_theme")
-
-            net_workers = max(min(int(self.config.get('main', "net_workers")), 10), 200)
-            self.logger.debug(f"Load_Settings : net_workers : {net_workers}")
-            if net_workers not in (None, ""):
-                self.ui.horizontalSlider_network_threads.setValue(net_workers)
-            self.ui.label_network_threads_value.setText(str(net_workers))
-
-            data_workers = max(min(int(self.config.get('main', "data_workers")), 10), 200)
-            self.logger.debug(f"Load_Settings : data_workers : {data_workers}")
-            if data_workers not in (None, ""):
-                self.ui.horizontalSlider_data_threads.setValue(int(data_workers))
-            self.ui.label_data_threads_value.setText(str(data_workers))
-
-            vulners_api_key = self.config.get("main", "vulners_api_key")
-            if vulners_api_key not in (None, ""):
-                self.logger.debug(f"Load_Settings : vulners_api_key : * IS NOT EMPTY *")
-            self.ui.api_key.setText(str(vulners_api_key))
-            if Check_Vulners_Key_Request(self):
-                self.ui.vulners_check_result.setStyleSheet(
-                    r".QFrame {image: url('" + str(GetRelPath(self, 'assets//images//apply.png')) + "')}")
-            self.logger.debug("Load_Settings : Settings loaded")
-
-        except Exception as e:
-            self.logger.error(f"Load_Settings : {e}")
-
-
-def CheckConfigFile(self):
-    if not os.path.isfile(self.config_path) or open(self.config_path, "r").read() == "" or open(self.config_path,
-                                                                                                "r").read() is None:
-        open(self.config_path, "w").close()
-        self.logger.debug(f"CheckConfigFile : {self.config_path} : config created")
-        self.config.read(self.config_path)
-        if not self.config.has_section('main'):
-            self.config.add_section('main')
-        self.logger.debug(f"CheckConfigFile : main : add section")
-        return False
-    else:
-        self.logger.debug(f"CheckConfigFile :  {self.config_path} : config exist")
-        return True
-
-
 def Check_Vulners_Key_Request(self):
     try:
         resp = httpx.post(url=f"https://vulners.com/api/v3/apiKey/valid/?keyID={self.ui.api_key.text().strip()}")
@@ -208,6 +144,7 @@ class UPD_Thread(threading.Thread):
                 self.upd_res = result
                 return
             else:
+                self.logger.debug(f"CheckUpdate : Last version")
                 self.isErr = True
 
         except Exception as e:

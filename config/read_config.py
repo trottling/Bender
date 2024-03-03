@@ -1,0 +1,32 @@
+from config.check_config import CheckConfigFile
+
+
+def Load_Settings(self):
+    if CheckConfigFile(self):
+        try:
+            self.config.read(self.config_path)
+
+            self.logger.debug(f"Load_Settings : app_theme : {self.config.get('main', "app_theme")}")
+            self.app_theme = self.config.get('main', "app_theme")
+
+            net_workers = max(min(int(self.config.get('main', "net_workers")), 10), 200)
+            self.logger.debug(f"Load_Settings : net_workers : {net_workers}")
+            if net_workers not in (None, ""):
+                self.ui.horizontalSlider_network_threads.setValue(net_workers)
+            self.ui.label_network_threads_value.setText(str(net_workers))
+
+            data_workers = max(min(int(self.config.get('main', "data_workers")), 10), 200)
+            self.logger.debug(f"Load_Settings : data_workers : {data_workers}")
+            if data_workers not in (None, ""):
+                self.ui.horizontalSlider_data_threads.setValue(int(data_workers))
+            self.ui.label_data_threads_value.setText(str(data_workers))
+
+            vulners_api_key = self.config.get("main", "vulners_api_key")  # TODO Move to start tasks
+            if vulners_api_key not in (None, ""):
+                self.logger.debug(f"Load_Settings : vulners_api_key : * IS NOT EMPTY *")
+            self.ui.api_key.setText(str(vulners_api_key))
+
+            self.logger.debug("Load_Settings : Settings loaded")
+
+        except Exception as e:
+            self.logger.error(f"Load_Settings : {e}")
