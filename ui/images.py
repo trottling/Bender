@@ -20,12 +20,12 @@ def Load_Images_And_Icons(self):
     self.logger.debug(f"Load_Images_And_Icons : Logos seted")
 
     # Set start page system data icons to processing GIF
-    processing_elems = [self.ui.image_os_name, self.ui.image_os_ver, self.ui.image_os_status,
-                        self.ui.image_as_admin, self.ui.image_net_type, self.ui.image_net_status,
-                        self.ui.image_vulners_api, self.ui.image_vulners_key_check, self.ui.image_loldrivers,
-                        self.ui.image_version]
+    self.start_processing_elems = [self.ui.image_os_name, self.ui.image_os_ver, self.ui.image_os_status,
+                                   self.ui.image_as_admin, self.ui.image_net_status, self.ui.image_net_type,
+                                   self.ui.image_vulners_api, self.ui.image_vulners_key_check, self.ui.image_loldrivers,
+                                   self.ui.image_version]
 
-    for elem in processing_elems:
+    for elem in self.start_processing_elems:
         gif = QMovie(GetRelPath(self, r"assets\gifs\loading.gif"))
         gif.setFormat(b"gif")
         gif.setScaledSize(QtCore.QSize(22, 22))
@@ -57,6 +57,8 @@ def Load_Images_And_Icons(self):
         ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//settings.png') + "')}")
     self.ui.info_btn.setStyleSheet(
         ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//info.png') + "')}")
+    self.ui.reload_btn.setStyleSheet(
+        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//reload.png') + "')}")
 
     # Work log page
     self.ui.back_work_button.setStyleSheet(
