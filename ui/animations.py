@@ -66,11 +66,12 @@ def StackedWidgetChangePage(self, page_to: int):
     anim.start()
 
 
-def ElemShowAnim(self, elem):
+def ElemShowAnim(self, elem, show=True):
     self.logger.debug("ElemShowAnim : Show")
 
     elem.setGraphicsEffect(QGraphicsOpacityEffect())
-    elem.show()
+    if show:
+        elem.show()
 
     effect = QGraphicsOpacityEffect(elem)
     elem.setGraphicsEffect(effect)
@@ -86,7 +87,7 @@ def ElemShowAnim(self, elem):
     anim.start()
 
 
-def ElemHideAnim(self, elem):
+def ElemHideAnim(self, elem, hide=True):
     self.logger.debug("ElemHideAnim : Hide")
 
     elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(1.0))
@@ -102,7 +103,10 @@ def ElemHideAnim(self, elem):
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
 
     anim.finished.connect(
-        lambda: (elem.setGraphicsEffect(None), elem.hide()))
+        lambda: elem.setGraphicsEffect(None))
+    if hide:
+        anim.finished.connect(
+            lambda: elem.hide())
 
     anim.start()
 
