@@ -3,6 +3,7 @@ import sys
 
 import darkdetect
 import httpx
+from PyQt6.QtCore import QTimer
 
 
 def GetWindowsTheme(self) -> str:
@@ -64,3 +65,11 @@ def GetRelPath(self, data_path, slash_replace=True):
     self.logger.debug(f"GetRelPath : new : {result}")
 
     return result
+
+
+def ShowErrMessage(self, msg):
+    if not self.ui.alert_msg.isVisible():
+        self.ui.alert_msg.show()
+        self.ui.alert_msg.setText(msg)
+        self.logger.debug(f"ShowErrMessage : {msg}")
+        QTimer.singleShot(5000, lambda: self.ui.alert_msg.hide())
