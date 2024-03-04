@@ -1,43 +1,38 @@
 import os
-import platform
 import sys
-import time
 import webbrowser
 from pathlib import Path
 
+from PyQt6 import QtCore, QtTest, QtGui
 from PyQt6.QtCore import QTimer
+from PyQt6.QtGui import QMovie
 from PyQt6.QtWidgets import QFileDialog
 
-from OnAppStart.setup_logger import Check_Admin
-from checkers.run_checker import Run_Checker
 from checkers.run_checker import Stop_Checker
+from config.write_config import Save_Settings
+from tasks.start_tasks import Run_Start_Tasks
 from ui.animations import App_Exit_Anim, StackedWidgetChangePage, ElemShowAnim, ElemHideAnim
 from ui.styles import Load_Styles
-from ui.tools import Save_Settings, Check_Vulners_Key_Request, GetRelPath
+from ui.tools import Check_Vulners_Key_Request, GetRelPath, ShowErrMessage
 
 
 def Connect_Buttons(self):
+    #
+    # Start page
+    #
+
     self.ui.setting_btn.clicked.connect(lambda: (StackedWidgetChangePage(self, 3)))
 
     self.ui.info_btn.clicked.connect(lambda: (StackedWidgetChangePage(self, 6)))
 
-    self.ui.cve_info_back_button.clicked.connect(lambda: (StackedWidgetChangePage(self, 2), ClearCVEInfoPage(self)))
+    self.ui.reload_btn.clicked.connect(lambda: (RestartStartTask(self)))
+
+    #
+    # Setting page
+    #
 
     self.ui.setting_back_button.clicked.connect(
         lambda: (Save_Settings(self), (StackedWidgetChangePage(self, 0))))
-
-    self.ui.info_back_button.clicked.connect(lambda: StackedWidgetChangePage(self, 0))
-
-    self.ui.back_work_button.clicked.connect(
-        lambda: (StackedWidgetChangePage(self, 0), Stop_Checker(self)))
-
-    self.ui.next_work_button.clicked.connect(lambda: StackedWidgetChangePage(self, 2))
-
-    self.ui.back_result_button.clicked.connect(lambda: StackedWidgetChangePage(self, 1))
-
-    self.ui.next_result_button.clicked.connect(lambda: StackedWidgetChangePage(self, 0))
-
-    self.ui.vuln_info_back_button.clicked.connect(lambda: StackedWidgetChangePage(self, 2))
 
     self.ui.horizontalSlider_network_threads.valueChanged.connect(lambda: MaxNetWorkersChanged(self))
 
@@ -50,9 +45,6 @@ def Connect_Buttons(self):
     self.ui.qss_comboBox.currentIndexChanged.connect(lambda:
                                                      ChangeQSSDeleteBtn(self))
 
-    self.ui.db_comboBox.currentIndexChanged.connect(lambda:
-                                                    ChangeApiKeyInput(self))
-
     self.ui.qss_file_pushButton.clicked.connect(lambda: OpenQSSFile(self))
 
     self.ui.qss_apply_file_pushButton.clicked.connect(lambda: ApplyCustomQSSTheme(self))
@@ -61,28 +53,52 @@ def Connect_Buttons(self):
 
     self.ui.save_log_pushButton.clicked.connect(lambda: SaveDebugLog(self))
 
+    self.ui.check_key_pushButton.clicked.connect(lambda: Check_Vulners_Key(self))
+
+    #
+    # Info page
+    #
+
+    self.ui.info_back_button.clicked.connect(lambda: StackedWidgetChangePage(self, 0))
+
+    #
+    # Errors page
+    #
+
     self.ui.save_log_pushButton_2.clicked.connect(lambda: SaveDebugLog(self))
 
     self.ui.errors_exit.clicked.connect(lambda: (self.logger.debug(
-        "errors_exit : EXIT"), sys.exit(-1)))
+        "errors_exit : ******** EXIT ********"), sys.exit(-1)))
 
-    self.ui.check_key_pushButton.clicked.connect(lambda: Check_Vulners_Key(self))
+    self.ui.cve_info_back_button.clicked.connect(lambda: (StackedWidgetChangePage(self, 2), ClearCVEInfoPage(self)))
+
+    self.ui.back_work_button.clicked.connect(
+        lambda: (StackedWidgetChangePage(self, 0), Stop_Checker(self)))
+
+    self.ui.next_work_button.clicked.connect(lambda: StackedWidgetChangePage(self, 2))
+
+    self.ui.back_result_button.clicked.connect(lambda: StackedWidgetChangePage(self, 1))
+
+    self.ui.next_result_button.clicked.connect(lambda: StackedWidgetChangePage(self, 0))
+
+    self.ui.vuln_info_back_button.clicked.connect(lambda: StackedWidgetChangePage(self, 2))
 
     self.ui.delete_qss_pushButton.clicked.connect(lambda: DeleteQSSTheme(self))
 
-    self.ui.pushButton_app_exit.clicked.connect(lambda: App_Exit_Anim(self))
-
     self.ui.stackedWidget.currentChanged.connect(lambda: ChangeTitle(self))
 
-    self.ui.save_report_btn.clicked.connect(lambda: SaveReport(self))
+    # self.ui.save_report_btn.clicked.connect(lambda: SaveReport(self))
 
-    self.ui.vulners_key_help.clicked.connect(lambda: webbrowser.open("https://vulners.com/docs/apikey/"))
+    #
+    # Toolbar
+    #
+
+    self.ui.pushButton_app_exit.clicked.connect(lambda: App_Exit_Anim(self))
+
+    self.ui.pushButton_app_size.clicked.connect(lambda: Resize_Window(self))
 
     self.ui.pushButton_app_hide.clicked.connect(lambda: (self.ui.showMinimized(), self.logger.debug(
-        "pushButton_app_hide : Minimized")))
-
-    self.ui.CCD_btn.clicked.connect(lambda: Run_Checker(self, "RunCCD"))
-    self.ui.CIA_btn.clicked.connect(lambda: Run_Checker(self, "RunCIA"))
+        "pushButton_app_hide : ******** Minimized ********")))
 
     self.logger.debug(f"Connect_Buttons : Buttons connected")
 
@@ -203,6 +219,7 @@ def Check_Vulners_Key(self):
     Save_Settings(self)
     if self.ui.api_key.text().strip() == "":
         self.logger.debug("Check_Vulners_Key : api key empty")
+        webbrowser.open("https://vulners.com/docs/apikey/")
         self.ui.vulners_check_result.setStyleSheet(
             r".QFrame {image: url('" + GetRelPath(self, 'assets//images//fail.png') + "')}")
         ElemShowAnim(self, self.ui.vulners_check_result)
@@ -236,24 +253,6 @@ def ChangeQSSDeleteBtn(self):
         ElemShowAnim(self, self.ui.delete_qss_pushButton)
     else:
         ElemHideAnim(self, self.ui.delete_qss_pushButton)
-
-
-def ChangeApiKeyInput(self):
-    Save_Settings(self)
-    if self.ui.db_comboBox.currentText() == "vulners.com (Recommended)":
-        if not self.ui.label_vulners_key.isVisible():
-            ElemShowAnim(self, self.ui.label_vulners_key)
-            ElemShowAnim(self, self.ui.api_key)
-            ElemShowAnim(self, self.ui.check_key_pushButton)
-            ElemShowAnim(self, self.ui.vulners_check_result)
-            ElemShowAnim(self, self.ui.vulners_key_help)
-    else:
-        if self.ui.label_vulners_key.isVisible():
-            ElemHideAnim(self, self.ui.label_vulners_key)
-            ElemHideAnim(self, self.ui.api_key)
-            ElemHideAnim(self, self.ui.check_key_pushButton)
-            ElemHideAnim(self, self.ui.vulners_check_result)
-            ElemHideAnim(self, self.ui.vulners_key_help)
 
 
 def ChangeTitle(self):
@@ -309,41 +308,6 @@ def SaveReport(self):
 
     self.logger.debug(f"SaveReport : Open file {report_file}")
 
-    try:
-        with open(report_file, "w") as f:
-            f.write(f"Bender - Windows Vulnerability Scanner\n")
-            f.write(f"Search vulnerabilities in your Windows system\n")
-            f.write(f"Autor - @trottling\n")
-            f.write(f"Github - github.com/trottling/Bender\n")
-            f.write("\n\n\n")
-            f.write(f"Time: {time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())}\n")
-            f.write(f"Python: {sys.version}\n")
-            f.write(f"Application version: {self.app_version}\n")
-            f.write(f"Run as Admin : {Check_Admin(self.logger)}\n")
-            f.write(f"OS Name: {platform.system()}\n")
-            f.write(f"OS Release: {platform.release()}\n")
-            f.write(f"OS Version: {platform.version()}\n")
-            f.write("\n\n\n")
-            match self.checker:
-                case "RunCIA":
-                    for item in self.report["cve_list"]:
-                        f.write(f"cve: {item["cve"]}\n")
-                        f.write(f"package: {item["package"]}\n")
-                        f.write(f"version: {item["version"]}\n")
-                        f.write(f"score: {item["score"]}\n")
-                        f.write(f"desc: {item["desc"]}\n")
-                        f.write(f"published: {item["datePublished"]}\n")
-                        f.write(f"shortName: {item["shortName"]}\n")
-                        f.write(f"references: {item["references"]}\n")
-                        f.write("\n\n\n")
-                case "RunCCD":
-                    for item in self.report["driver_list"]:
-                        Write_dict_recursive(self, f, item)
-                        f.write("\n\n\n")
-
-    except Exception as e:
-        self.logger.error(f"SaveReport : {e}")
-        return
     self.logger.debug(f"SaveReport : Report writed")
 
 
@@ -355,3 +319,41 @@ def Write_dict_recursive(self, f, d, indent=0):
             f.write("  " * indent + "")
         else:
             f.write("  " * indent + str(key) + ": " + str(value) + "\n")
+
+
+def Resize_Window(self):
+    if not self.window_size_full:
+        self.ui.showMaximized()
+        self.logger.debug("Resize_Window : showMaximized")
+        self.window_size_full = True
+        Save_Settings(self)
+    else:
+        if self.screen_width_cut != 0 and self.screen_height_cut != 0:
+            self.ui.resize(self.screen_width_cut, self.screen_height_cut)
+            self.logger.debug(f"Resize_Window : Resized {self.screen_width_cut} x {self.screen_height_cut}")
+        else:
+            self.ui.resize(800, 600)
+            self.logger.debug(f"Resize_Window : Resized 800 x 600")
+        self.ui.move(int((self.screen_width - self.ui.size().width()) / 2),
+                     int((self.screen_height - self.ui.size().height()) / 2))
+        self.window_size_full = False
+        Save_Settings(self)
+
+
+def RestartStartTask(self):
+    if self.start_tasks_running:
+        ShowErrMessage(self, "The operability test is already running")
+    else:
+
+        for elem in self.start_processing_elems:
+            ElemHideAnim(self, elem, hide=False)
+            QtTest.QTest.qWait(275)
+            elem.setPixmap(QtGui.QPixmap())
+            gif = QMovie(GetRelPath(self, r"assets\gifs\loading.gif"))
+            gif.setFormat(b"gif")
+            gif.setScaledSize(QtCore.QSize(22, 22))
+            elem.setMovie(gif)
+            gif.start()
+            ElemShowAnim(self, elem, show=False)
+
+        Run_Start_Tasks(self)
