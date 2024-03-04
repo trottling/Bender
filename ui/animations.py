@@ -1,6 +1,8 @@
 import sys
 
+from PyQt6 import QtCore
 from PyQt6.QtCore import QPropertyAnimation, QEasingCurve
+from PyQt6.QtGui import QPixmap, QPainter
 from PyQt6.QtWidgets import QGraphicsOpacityEffect
 
 from ui.tools import GetRelPath
@@ -66,7 +68,7 @@ def StackedWidgetChangePage(self, page_to: int):
     anim.start()
 
 
-def ElemShowAnim(self, elem, show=True):
+def ElemShowAnim(self, elem, show=True, dur=250):
     self.logger.debug("ElemShowAnim : Show")
 
     elem.setGraphicsEffect(QGraphicsOpacityEffect())
@@ -77,7 +79,7 @@ def ElemShowAnim(self, elem, show=True):
     elem.setGraphicsEffect(effect)
 
     anim = QPropertyAnimation(effect, b"opacity", self)
-    anim.setDuration(250)
+    anim.setDuration(dur)
     anim.setStartValue(0.0)
     anim.setEndValue(1.0)
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
@@ -87,7 +89,7 @@ def ElemShowAnim(self, elem, show=True):
     anim.start()
 
 
-def ElemHideAnim(self, elem, hide=True):
+def ElemHideAnim(self, elem, hide=True, dur=250):
     self.logger.debug("ElemHideAnim : Hide")
 
     elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(1.0))
@@ -97,7 +99,7 @@ def ElemHideAnim(self, elem, hide=True):
     elem.setGraphicsEffect(effect)
 
     anim = QPropertyAnimation(effect, b"opacity", self)
-    anim.setDuration(250)
+    anim.setDuration(dur)
     anim.setStartValue(effect.opacity())
     anim.setEndValue(0.0)
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
@@ -111,7 +113,7 @@ def ElemHideAnim(self, elem, hide=True):
     anim.start()
 
 
-def ImageChangeAnim(self, elem, image, elem_type, elem_style):
+def ImageChangeAnim(self, elem, image):
     #
     # Move opacity from 1 to 0 --> Change Image  -->  Move opacity from 0 to 1 | total 250 ms
     # Part 1
@@ -132,19 +134,19 @@ def ImageChangeAnim(self, elem, image, elem_type, elem_style):
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
 
     anim.finished.connect(
-        lambda: ImageChangeAnimShow(self, elem, image, elem_type, elem_style))
+        lambda: ImageChangeAnimShow(self, elem, image))
 
     anim.start()
 
 
-def ImageChangeAnimShow(self, elem, image, elem_type, elem_style):
+def ImageChangeAnimShow(self, elem, image):
     #
     # Part 2
     #
 
     try:
-        elem.setStyleSheet(
-            "." + elem_type + "{" + elem_style + ": url('" + GetRelPath(self, image) + "')}")
+        pixmap = QPixmap(GetRelPath(self, image))
+        elem.setPixmap(pixmap)
     except Exception as e:
         self.logger.error(f"ImageChangeAnimShow : {e}")
         return
