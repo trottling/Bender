@@ -26,8 +26,8 @@ def Prepare_Window(self):
 
     # Set version
     self.ui.app_ver.setText(
-        f"<html><head/><body><p align=\"right\"><span style=\" font-size:12pt;\">ver {self.app_version}</span></p"
-        f"></body></html>")
+        f'<html><head/><body><p align="right"><a href="https://github.com/trottling/Bender/releases/latest"><span '
+        f'style=" text-decoration: underline; color:#a9b7c6;">ver {self.app_version}‎</span></a></p></body></html>')
     self.ui.python_version.setText(
         f"<html><head/><body><p align=\"right\"><span style=\" font-size:12pt;\">Python {sys.version}</span></p"
         f"></body></html>")
