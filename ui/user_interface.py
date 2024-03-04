@@ -4,6 +4,7 @@ from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
 from config.read_config import Load_Settings
+from tasks.start_tasks import Run_Start_Tasks
 from ui.animations import App_Open_Anim
 from ui.buttons import Connect_Buttons
 from ui.hide_elements import Hide_Elements
@@ -11,7 +12,6 @@ from ui.images import Load_Images_And_Icons
 from ui.prepare_window import Prepare_Window
 from ui.side_grips import SideGrip
 from ui.styles import Load_Styles
-from ui.tools import CheckUserOs, CheckUpdate
 
 
 class User_UI(QMainWindow):
@@ -32,6 +32,7 @@ class User_UI(QMainWindow):
         self.isSliderTimerStart = False
         self.result_list_model = None
         self.window_size_full = False
+        self.start_tasks_running = False
         self.screen_width = 0
         self.screen_height = 0
         self.screen_width_cut = 0
@@ -48,7 +49,6 @@ class User_UI(QMainWindow):
         self.cornerGrips = [QtWidgets.QSizeGrip(self) for _ in range(4)]
         self.rel_path_dict = {}
         Start_App(self)
-        CheckUserOs(self)
 
     #
     # Window move
@@ -71,8 +71,7 @@ class User_UI(QMainWindow):
         super().mouseReleaseEvent(event)
 
     #
-    # Window resize
-    # https://stackoverflow.com/questions/62807295
+    # Window resize - stackoverflow.com/questions/62807295
     #
 
     @property
@@ -148,7 +147,5 @@ def Start_App(self) -> None:
     # Show UI
     App_Open_Anim(self)
 
-    # Check new versions
-    CheckUpdate(self)
-
     # Run start tasks
+    Run_Start_Tasks(self)
