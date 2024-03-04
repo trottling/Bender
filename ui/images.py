@@ -1,8 +1,13 @@
+from PyQt6 import QtCore
+from PyQt6.QtGui import QMovie
+
 from ui.tools import GetRelPath
 
 
 def Load_Images_And_Icons(self):
+    #
     # Logo
+    #
     self.ui.logo.setStyleSheet(
         ".QFrame {border-image: url('" + GetRelPath(self, 'assets//images//bender.png') + "')}")
     self.ui.logo_2.setStyleSheet(
@@ -14,7 +19,24 @@ def Load_Images_And_Icons(self):
 
     self.logger.debug(f"Load_Images_And_Icons : Logos seted")
 
+    # Set start page system data icons to processing GIF
+    processing_elems = [self.ui.image_os_name, self.ui.image_os_ver, self.ui.image_os_status,
+                        self.ui.image_as_admin, self.ui.image_net_type, self.ui.image_net_status,
+                        self.ui.image_vulners_api, self.ui.image_vulners_key_check, self.ui.image_loldrivers,
+                        self.ui.image_version]
+
+    for elem in processing_elems:
+        gif = QMovie(GetRelPath(self, r"assets\gifs\loading.gif"))
+        gif.setFormat(b"gif")
+        gif.setScaledSize(QtCore.QSize(22, 22))
+        elem.setMovie(gif)
+        gif.start()
+
+    self.logger.debug(f"Load_Images_And_Icons : Loading GIF seted")
+
+    #
     # Buttons icons
+    #
 
     # Toolbar
     self.ui.pushButton_app_exit.setStyleSheet(
@@ -26,25 +48,9 @@ def Load_Images_And_Icons(self):
     self.ui.app_icon.setStyleSheet(
         ".QFrame {image: url('" + GetRelPath(self, 'assets//images//bender-small.png') + "')}")
 
-    # Settings
-    self.ui.setting_back_button.setStyleSheet(
-        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//back.png') + "')}")
-    self.ui.lang_apply_pushButton.setStyleSheet(
-        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//apply.png') + "')}")
-    self.ui.qss_apply_pushButton.setStyleSheet(
-        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//apply.png') + "')}")
-    self.ui.reset_qss_pushButton.setStyleSheet(
-        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//reset.png') + "')}")
-    self.ui.qss_apply_file_pushButton.setStyleSheet(
-        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//add.png') + "')}")
-    self.ui.qss_file_pushButton.setStyleSheet(
-        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//qss-file.png') + "')}")
-    self.ui.check_key_pushButton.setStyleSheet(
-        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//check.png') + "')}")
-    self.ui.delete_qss_pushButton.setStyleSheet(
-        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//delete.png') + "')}")
-
+    #
     # Pages
+    #
 
     # Start page
     self.ui.setting_btn.setStyleSheet(
@@ -67,6 +73,24 @@ def Load_Images_And_Icons(self):
     # Info page
     self.ui.info_back_button.setStyleSheet(
         ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//back.png') + "')}")
+
+    # Settings
+    self.ui.setting_back_button.setStyleSheet(
+        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//back.png') + "')}")
+    self.ui.lang_apply_pushButton.setStyleSheet(
+        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//apply.png') + "')}")
+    self.ui.qss_apply_pushButton.setStyleSheet(
+        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//apply.png') + "')}")
+    self.ui.reset_qss_pushButton.setStyleSheet(
+        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//reset.png') + "')}")
+    self.ui.qss_apply_file_pushButton.setStyleSheet(
+        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//add.png') + "')}")
+    self.ui.qss_file_pushButton.setStyleSheet(
+        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//qss-file.png') + "')}")
+    self.ui.check_key_pushButton.setStyleSheet(
+        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//check.png') + "')}")
+    self.ui.delete_qss_pushButton.setStyleSheet(
+        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//delete.png') + "')}")
 
     # CVE info page
     self.ui.cve_info_back_button.setStyleSheet(
