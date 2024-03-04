@@ -1,13 +1,8 @@
-import ctypes
 import os
-import platform
 import sys
-import threading
-import webbrowser
 
 import darkdetect
 import httpx
-from PyQt6.QtWidgets import QMessageBox
 
 
 def GetWindowsTheme(self) -> str:
@@ -17,22 +12,6 @@ def GetWindowsTheme(self) -> str:
     else:
         self.logger.debug("GetWindowsTheme : Dark mode is disabled")
         return "Light"
-
-
-def CheckUserOs(self):
-    if sys.platform != "win32" or not platform.release().isdigit() or int(platform.release()) < 7:
-        Report_Error(self, f"Unsupported operating system : {platform.system()} {platform.release()}")
-
-    if not IsUserAdmin(self):
-        Report_Error(self, "App run without Admin privileges")
-
-
-def IsUserAdmin(self):
-    try:
-        return ctypes.windll.shell32.IsUserAnAdmin()
-    except Exception as e:
-        Report_Error(self, f"Admin check failed, assuming not an Admin : {e}\n")
-        return False
 
 
 def Report_Error(self, error):
@@ -85,78 +64,3 @@ def GetRelPath(self, data_path, slash_replace=True):
     self.logger.debug(f"GetRelPath : new : {result}")
 
     return result
-
-
-def ClearResult(self):
-    if self.result_list_model is not None:
-        self.result_list_model.removeRows(0, self.result_list_model.rowCount())
-
-    self.ui.work_log.setPlainText("")
-    self.ui.progressBar.setValue(0)
-    self.ui.plainTextEdit_vuln.clear()
-    self.ui.plainTextEdit_references.clear()
-    self.ui.plainTextEdit_cvss_3.clear()
-    self.ui.next_work_button.hide()
-    self.ui.label_no_cve.hide()
-
-    self.logger.debug(f"ClearResult : Cleared")
-
-
-def CheckUpdate(self):
-    thread = UPD_Thread(self.logger, self.app_version)
-    thread.start()
-    self.logger.debug(f"CheckUpdate : thread start")
-    thread.join()
-    self.logger.debug(f"CheckUpdate : thread finish")
-
-    if thread.isErr:
-        return
-
-    res = thread.upd_res
-
-    button = QMessageBox.question(self, "Update aviable",
-                                  f"{res["version"]}\n\n{res["changelog"]}\n\nOpen new version download page?")
-    if button == QMessageBox.StandardButton.Yes:
-        webbrowser.open("https://github.com/trottling/Bender/releases/latest")
-
-
-class UPD_Thread(threading.Thread):
-    def __init__(self, logger, app_version) -> None:
-        super().__init__()
-        self.logger = logger
-        self.app_version = app_version
-        self.isErr = False
-        self.resp = None
-        self.upd_res = {}
-
-    def run(self):
-        try:
-            self.resp = httpx.get("https://api.github.com/repos/trottling/Bender/releases/latest", timeout=10)
-        except Exception as e:
-            self.logger.error(f"GitUpdateReq : request error : {e}")
-            self.isErr = True
-            return
-
-        if self.resp.status_code != 200:
-            self.logger.error(f"GitUpdateReq : Status code : {self.resp.status_code}")
-            self.isErr = True
-            return
-
-        try:
-            data = self.resp.json()
-            result = {
-                "version": "",
-                "changelog": "",
-            }
-            if data["tag_name"] != self.app_version:
-                result["version"] = data["tag_name"]
-                result["changelog"] = data["body"]
-                self.upd_res = result
-                return
-            else:
-                self.logger.debug(f"CheckUpdate : Last version")
-                self.isErr = True
-
-        except Exception as e:
-            self.logger.error(f"GitUpdateReq : parse error : {e}")
-            self.isErr = True
