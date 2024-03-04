@@ -109,7 +109,7 @@ def ElemHideAnim(self, elem):
 
 def ImageChangeAnim(self, elem, image, elem_type, elem_style):
     #
-    # Move opacity from 1 to 0 --> Change Image  -->  Move opacity from 0 to 1
+    # Move opacity from 1 to 0 --> Change Image  -->  Move opacity from 0 to 1 | total 250 ms
     # Part 1
     #
 
@@ -158,3 +158,55 @@ def ImageChangeAnimShow(self, elem, image, elem_type, elem_style):
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
     anim.start()
     self.logger.debug("ImageChangeAnimShow : Image Changed")
+
+
+def TextChangeAnim(self, elem, text):
+    #
+    # Move opacity from 1 to 0 --> Change text  -->  Move opacity from 0 to 1 | total 250 ms
+    # Part 1
+    #
+
+    self.logger.debug("TextChangeAnim : Change Text")
+
+    elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(1.0))
+
+    effect = QGraphicsOpacityEffect(elem)
+    effect.setOpacity(1.0)
+    elem.setGraphicsEffect(effect)
+
+    anim = QPropertyAnimation(effect, b"opacity", self)
+    anim.setDuration(175)
+    anim.setStartValue(effect.opacity())
+    anim.setEndValue(0.0)
+    anim.setEasingCurve(QEasingCurve.Type.OutQuad)
+
+    anim.finished.connect(
+        lambda: TextChangeAnimShow(self, elem, text))
+
+    anim.start()
+
+
+def TextChangeAnimShow(self, elem, text):
+    #
+    # Part 2
+    #
+
+    try:
+        elem.setText(text)
+    except Exception as e:
+        self.logger.error(f"ImageChangeAnimShow : {e}")
+        return
+
+    elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(0.0))
+
+    effect = QGraphicsOpacityEffect(elem)
+    effect.setOpacity(0.0)
+    elem.setGraphicsEffect(effect)
+
+    anim = QPropertyAnimation(effect, b"opacity", self)
+    anim.setDuration(175)
+    anim.setStartValue(effect.opacity())
+    anim.setEndValue(1.0)
+    anim.setEasingCurve(QEasingCurve.Type.OutQuad)
+    anim.start()
+    self.logger.debug("TextChangeAnimShow : Text Changed")
