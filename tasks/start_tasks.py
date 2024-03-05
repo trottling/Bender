@@ -1,6 +1,7 @@
 import concurrent.futures as cf
 import ctypes
 import platform
+import sys
 import webbrowser
 
 import httpx
@@ -15,7 +16,7 @@ def Run_Start_Tasks(self):
     #
     # Run task in other Thread -->
     # Task return list like [[func1, arg1], [func2, arg2]] -->
-    # Run funcs with args from list
+    # Run funcs with args from list in UI thread
     #
 
     self.start_tasks_running = True
@@ -100,31 +101,38 @@ def GetSystemInfo(self):
         match self.validate_platform_release:
             case '11':
                 win_icon = r"assets\images\win-11-small.png"
-                self.validate_os_sup_status = "Support"
+                self.os_sup_status = "Support"
                 result.append(
                     [ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\apply.png"])
 
             case '10':
                 win_icon = r"assets\images\win-10-small.png"
-                self.validate_os_sup_status = "Support"
+                self.os_sup_status = "Support"
                 result.append(
                     [ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\apply.png"])
 
-            case '8', '8.1':
+            case '8' | '8.1':
                 win_icon = r"assets\images\win-8-small.png"
-                self.validate_os_sup_status = "Unknown"
+                self.os_sup_status = "Unknown"
                 result.append(
                     [ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\warn.png"])
 
             case _:
                 win_icon = r"assets\images\help.png"
-                self.validate_os_sup_status = "Unknown"
+                self.os_sup_status = "Unknown"
                 result.append(
                     [ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\warn.png"])
 
+        self.validate_os_sup_status = True
+        if platform.system() != "Windows":
+            self.validate_os_sup_status = False
+
+        if sys.platform != "win32" or not platform.release().isdigit() or int(platform.release()) < 8:
+            self.validate_os_sup_status = False
+
         result.append([ImageChangeAnim, self, self.ui.image_os_name, win_icon])
         result.append([ImageChangeAnim, self, self.ui.image_os_ver, r"assets\images\cpu.png"])
-        result.append([TextChangeAnim, self, self.ui.label_os_status_2, self.validate_os_sup_status])
+        result.append([TextChangeAnim, self, self.ui.label_os_status_2, self.os_sup_status])
 
         return result
     except Exception as e:

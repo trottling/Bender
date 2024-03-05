@@ -10,6 +10,7 @@ from PyQt6.QtWidgets import QFileDialog
 
 from checkers.run_checker import Stop_Checker
 from config.write_config import Save_Settings
+from tasks.scanner_start_validator import StartScannerValidator
 from tasks.start_tasks import Run_Start_Tasks
 from ui.animations import App_Exit_Anim, StackedWidgetChangePage, ElemShowAnim, ElemHideAnim, TextChangeAnim, \
     ImageChangeAnim
@@ -27,6 +28,8 @@ def Connect_Buttons(self):
     self.ui.info_btn.clicked.connect(lambda: (StackedWidgetChangePage(self, 6)))
 
     self.ui.reload_btn.clicked.connect(lambda: (RestartStartTask(self)))
+
+    self.ui.pushButton_start_scan.clicked.connect(lambda: (StartScanner(self)))
 
     #
     # Setting page
@@ -357,3 +360,8 @@ def RestartStartTask(self):
             QtTest.QTest.qWait(200)
 
         Run_Start_Tasks(self)
+
+
+def StartScanner(self):
+    if StartScannerValidator(self):
+        return
