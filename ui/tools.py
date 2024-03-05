@@ -29,11 +29,9 @@ def Check_Vulners_Key_Request(self):
             return False
         if resp.json()['data']['valid']:
             self.logger.debug(f"Check_Vulners_Key_Req : key valid")
-            self.isVulnersKeyValid = True
             return True
         else:
             self.logger.debug(f"Check_Vulners_Key_Req : key invalid : {resp.json()}")
-            self.isVulnersKeyValid = False
             return False
     except Exception as e:
         self.logger.error(f"Check_Vulners_Key_Req : {e}")
