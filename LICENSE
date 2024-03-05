@@ -3,19 +3,22 @@ MIT License
 Copyright (c) 2024 trottling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+of this software and associated documentation files ("Bender") to engage in 
+partially restricted activities with the Software, including, without limitation,
+copying, modifying, merging, publishing, distributing, provided that the original
+source of the software (github.com/trottling/Bender) and the creator (Owner) are
+identified as github.com/trottling.  Any commercial activity, including licensing,
+sublicensing, and/or selling copies of the Software must be discussed with the creator
+(Owner) in advance for consent (with discussion of terms and conditions) or refusal.
+All of these things are authorized to be done by the persons to whom the Software is
+made available, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice must be included in
+all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING, BUT NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIMS, DAMAGES OR OTHER LIABILITIES, WHETHER CONTRACTUAL, 
+TORT OR OTHERWISE, ARISING OUT OF OR IN CONNECTION WITH THE SOFTWARE, ITS USE OR 
+OTHER OPERATIONS ON OR IN CONNECTION WITH THE SOFTWARE.
