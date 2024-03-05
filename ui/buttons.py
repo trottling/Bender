@@ -76,10 +76,7 @@ def Connect_Buttons(self):
 
     self.ui.cve_info_back_button.clicked.connect(lambda: (StackedWidgetChangePage(self, 2), ClearCVEInfoPage(self)))
 
-    self.ui.back_work_button.clicked.connect(
-        lambda: (StackedWidgetChangePage(self, 0), Stop_Checker(self)))
-
-    self.ui.next_work_button.clicked.connect(lambda: StackedWidgetChangePage(self, 2))
+    self.ui.next_work_btn.clicked.connect(lambda: StackedWidgetChangePage(self, 2))
 
     self.ui.back_result_button.clicked.connect(lambda: StackedWidgetChangePage(self, 1))
 

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1450</width>
+    <width>1655</width>
     <height>969</height>
    </rect>
   </property>
@@ -65,6 +65,9 @@
     </property>
     <item row="0" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_44">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item>
        <widget class="QFrame" name="app_icon">
         <property name="sizePolicy">
@@ -242,7 +245,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_start">
        <layout class="QGridLayout" name="gridLayout_2">
@@ -322,6 +325,9 @@
               <height>50</height>
              </size>
             </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -385,73 +391,6 @@
           </item>
          </layout>
         </item>
-        <item row="1" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <spacer name="horizontalSpacer_6">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QLabel" name="app_desc">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>16</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Search &lt;span style=&quot; color:#0d4e87;&quot;&gt;vulnerabilities&lt;/span&gt; in your Windows system&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="scaledContents">
-             <bool>true</bool>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_5">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item row="2" column="0">
-         <spacer name="verticalSpacer_8">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>29</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="3" column="0" colspan="3">
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
@@ -512,38 +451,6 @@
            </spacer>
           </item>
          </layout>
-        </item>
-        <item row="4" column="0">
-         <spacer name="verticalSpacer_6">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Preferred</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="6" column="0">
-         <spacer name="verticalSpacer_9">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Preferred</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item row="7" column="0">
          <layout class="QHBoxLayout" name="horizontalLayout_45">
@@ -1352,19 +1259,6 @@
           </property>
          </spacer>
         </item>
-        <item row="8" column="0">
-         <spacer name="verticalSpacer_5">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="10" column="0">
          <spacer name="verticalSpacer_7">
           <property name="orientation">
@@ -1460,7 +1354,7 @@ color: rgb(255, 255, 255);</string>
           </item>
          </layout>
         </item>
-        <item row="9" column="0" colspan="2">
+        <item row="9" column="0" colspan="3">
          <layout class="QHBoxLayout" name="horizontalLayout_11">
           <item>
            <spacer name="horizontalSpacer_12">
@@ -1520,6 +1414,118 @@ color: rgb(255, 255, 255);</string>
           </item>
          </layout>
         </item>
+        <item row="1" column="0" colspan="3">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <spacer name="horizontalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="app_desc">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>16</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Search &lt;span style=&quot; color:#0d4e87;&quot;&gt;vulnerabilities&lt;/span&gt; in your Windows system&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item row="6" column="0" colspan="3">
+         <spacer name="verticalSpacer_9">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Preferred</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="8" column="0" colspan="3">
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <spacer name="verticalSpacer_8">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>29</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="4" column="0" colspan="3">
+         <spacer name="verticalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Preferred</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="page_work">
@@ -1547,7 +1553,7 @@ color: rgb(255, 255, 255);</string>
              </font>
             </property>
             <property name="text">
-             <string>TextLabel</string>
+             <string>Scanning System</string>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
@@ -1718,7 +1724,7 @@ color: rgb(255, 255, 255);</string>
              <enum>Qt::Horizontal</enum>
             </property>
             <property name="sizeType">
-             <enum>QSizePolicy::Preferred</enum>
+             <enum>QSizePolicy::Expanding</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -1729,7 +1735,7 @@ color: rgb(255, 255, 255);</string>
            </spacer>
           </item>
           <item>
-           <widget class="QFrame" name="frame_7">
+           <widget class="QFrame" name="framel_scan_successful">
             <property name="minimumSize">
              <size>
               <width>26</width>
@@ -1751,7 +1757,7 @@ color: rgb(255, 255, 255);</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_14">
+           <widget class="QLabel" name="label_scan_successful">
             <property name="minimumSize">
              <size>
               <width>76</width>
@@ -1760,22 +1766,22 @@ color: rgb(255, 255, 255);</string>
             </property>
             <property name="maximumSize">
              <size>
-              <width>76</width>
-              <height>26</height>
+              <width>100</width>
+              <height>30</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>13</pointsize>
+              <pointsize>16</pointsize>
              </font>
             </property>
             <property name="text">
-             <string>Succefull</string>
+             <string>Successful</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_16">
+           <widget class="QLabel" name="label_scan_successful_len">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1791,12 +1797,12 @@ color: rgb(255, 255, 255);</string>
             <property name="maximumSize">
              <size>
               <width>51</width>
-              <height>26</height>
+              <height>30</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>13</pointsize>
+              <pointsize>16</pointsize>
              </font>
             </property>
             <property name="text">
@@ -1824,7 +1830,7 @@ color: rgb(255, 255, 255);</string>
            </spacer>
           </item>
           <item>
-           <widget class="QFrame" name="frame_8">
+           <widget class="QFrame" name="frame_scan_partially">
             <property name="minimumSize">
              <size>
               <width>26</width>
@@ -1846,7 +1852,7 @@ color: rgb(255, 255, 255);</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_15">
+           <widget class="QLabel" name="label_scan_partially">
             <property name="minimumSize">
              <size>
               <width>76</width>
@@ -1855,13 +1861,13 @@ color: rgb(255, 255, 255);</string>
             </property>
             <property name="maximumSize">
              <size>
-              <width>76</width>
-              <height>26</height>
+              <width>90</width>
+              <height>30</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>13</pointsize>
+              <pointsize>16</pointsize>
              </font>
             </property>
             <property name="text">
@@ -1870,7 +1876,7 @@ color: rgb(255, 255, 255);</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_17">
+           <widget class="QLabel" name="label_scan_partially_len">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1886,12 +1892,12 @@ color: rgb(255, 255, 255);</string>
             <property name="maximumSize">
              <size>
               <width>51</width>
-              <height>26</height>
+              <height>30</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>13</pointsize>
+              <pointsize>16</pointsize>
              </font>
             </property>
             <property name="text">
@@ -1919,7 +1925,7 @@ color: rgb(255, 255, 255);</string>
            </spacer>
           </item>
           <item>
-           <widget class="QFrame" name="frame_9">
+           <widget class="QFrame" name="frame_scan_error">
             <property name="minimumSize">
              <size>
               <width>26</width>
@@ -1941,7 +1947,7 @@ color: rgb(255, 255, 255);</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_19">
+           <widget class="QLabel" name="label_scan_error">
             <property name="minimumSize">
              <size>
               <width>76</width>
@@ -1950,22 +1956,22 @@ color: rgb(255, 255, 255);</string>
             </property>
             <property name="maximumSize">
              <size>
-              <width>76</width>
-              <height>26</height>
+              <width>90</width>
+              <height>30</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>13</pointsize>
+              <pointsize>16</pointsize>
              </font>
             </property>
             <property name="text">
-             <string>Partially</string>
+             <string>Error</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_18">
+           <widget class="QLabel" name="label_scan_error_len">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1981,12 +1987,12 @@ color: rgb(255, 255, 255);</string>
             <property name="maximumSize">
              <size>
               <width>51</width>
-              <height>26</height>
+              <height>30</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>13</pointsize>
+              <pointsize>16</pointsize>
              </font>
             </property>
             <property name="text">
@@ -2012,6 +2018,19 @@ color: rgb(255, 255, 255);</string>
           </item>
          </layout>
         </item>
+        <item row="2" column="0" colspan="2">
+         <spacer name="verticalSpacer_25">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>97</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
         <item row="9" column="0" colspan="2">
          <layout class="QHBoxLayout" name="horizontalLayout_31">
           <item>
@@ -2031,7 +2050,7 @@ color: rgb(255, 255, 255);</string>
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="back_work_button">
+           <widget class="QPushButton" name="next_work_btn">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2040,55 +2059,14 @@ color: rgb(255, 255, 255);</string>
             </property>
             <property name="minimumSize">
              <size>
-              <width>51</width>
-              <height>51</height>
+              <width>300</width>
+              <height>70</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>51</width>
-              <height>51</height>
-             </size>
-            </property>
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_49">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="next_work_button">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>51</width>
-              <height>51</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>51</width>
-              <height>51</height>
+              <width>300</width>
+              <height>70</height>
              </size>
             </property>
             <property name="cursor">
@@ -2117,7 +2095,52 @@ color: rgb(255, 255, 255);</string>
           </item>
          </layout>
         </item>
-        <item row="0" column="0">
+        <item row="8" column="0" colspan="2">
+         <spacer name="verticalSpacer_24">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="6" column="0" colspan="2">
+         <spacer name="verticalSpacer_27">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <spacer name="verticalSpacer_28">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="0" colspan="2">
          <spacer name="verticalSpacer_26">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -2130,60 +2153,15 @@ color: rgb(255, 255, 255);</string>
           </property>
          </spacer>
         </item>
-        <item row="2" column="1">
-         <spacer name="verticalSpacer_25">
+        <item row="10" column="0" colspan="2">
+         <spacer name="verticalSpacer_39">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>97</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="8" column="0">
-         <spacer name="verticalSpacer_24">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>96</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="6" column="0" colspan="2">
-         <spacer name="verticalSpacer_27">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Preferred</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="4" column="0">
-         <spacer name="verticalSpacer_28">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Preferred</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>10</height>
+            <height>40</height>
            </size>
           </property>
          </spacer>
@@ -2387,8 +2365,8 @@ color: rgb(255, 255, 255);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1373</width>
-               <height>828</height>
+               <width>98</width>
+               <height>38</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_10">
@@ -2737,7 +2715,7 @@ processing threads</string>
                 <property name="maximumSize">
                  <size>
                   <width>35</width>
-                  <height>16777215</height>
+                  <height>35</height>
                  </size>
                 </property>
                 <property name="text">

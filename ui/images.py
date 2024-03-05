@@ -57,9 +57,7 @@ def Load_Images_And_Icons(self):
         ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//reload.png') + "')}")
 
     # Work log page
-    self.ui.back_work_button.setStyleSheet(
-        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//back.png') + "')}")
-    self.ui.next_work_button.setStyleSheet(
+    self.ui.next_work_btn.setStyleSheet(
         ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//next.png') + "')}")
 
     # Work result page

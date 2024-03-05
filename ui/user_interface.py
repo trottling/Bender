@@ -15,25 +15,39 @@ from ui.styles import Load_Styles
 
 
 class User_UI(QMainWindow):
-    _gripSize = 16
+    _gripSize = 16  # Corner grips size
 
     def __init__(self, app_version, logger, appdir) -> None:
         super().__init__()
+
         self.app_version = app_version
         self.logger = logger
         self.appdir = appdir
+
         self.ui = None
+
         self.app_theme = None
         self.check_thread = None
-        self.window_offset = None
         self.config_path = self.appdir + "\\" + "config.ini"
         self.config = ConfigParser()
-        self.isVulnersKeyValid = False
         self.isSliderTimerStart = False
-        self.result_list_model = None
-        self.window_size_full = False
         self.start_tasks_running = False
+        self.result_list_model = None
+        self.rel_path_dict = {}
+
+        # Validating vars
         self.validate_vulners_key = False
+        self.start_tasks_running = False
+        self.validate_os_sup_status = False
+        self.validate_user_admin = False
+        self.validate_net_status = False
+        self.validate_vulners_status = False
+        self.validate_vulners_key = False
+        self.validate_loldrivers_status = False
+
+        # Window actions
+        self.window_size_full = False
+        self.window_offset = None
         self.screen_width = 0
         self.screen_height = 0
         self.screen_width_cut = 0
@@ -48,7 +62,6 @@ class User_UI(QMainWindow):
         # will take precedence on mouse events, so we are adding them *after*;
         # alternatively, widget.raise_() can be used
         self.cornerGrips = [QtWidgets.QSizeGrip(self) for _ in range(4)]
-        self.rel_path_dict = {}
         Start_App(self)
 
     #

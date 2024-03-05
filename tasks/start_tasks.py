@@ -225,14 +225,14 @@ def CheckVulnersKey(self):
             if resp.json()['data']['valid']:
                 self.logger.debug(f"CheckVulnersKey : key valid")
                 self.validate_vulners_key = True
-                result.append([TextChangeAnim, self, self.ui.label_vulners_key_3, "Key valid"])
+                result.append([TextChangeAnim, self, self.ui.label_vulners_key_3, "Valid"])
                 result.append([ImageChangeAnim, self, self.ui.image_vulners_key_check, r"assets\images\key.png"])
                 result.append([ImageChangeAnim, self, self.ui.vulners_check_result, r"assets\images\apply.png"])
 
             else:
                 self.logger.debug(f"CheckVulnersKey : key invalid : {resp.json()}")
                 self.validate_vulners_key = False
-                result.append([TextChangeAnim, self, self.ui.label_vulners_key_3, "Key invalid"])
+                result.append([TextChangeAnim, self, self.ui.label_vulners_key_3, "Invalid"])
                 result.append([ImageChangeAnim, self, self.ui.image_vulners_key_check, r"assets\images\fail.png"])
                 result.append([ImageChangeAnim, self, self.ui.vulners_check_result, r"assets\images\fail.png"])
 
