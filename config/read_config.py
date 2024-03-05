@@ -24,7 +24,9 @@ def Load_Settings(self):
             vulners_api_key = self.config.get("main", "vulners_api_key")
             if vulners_api_key not in (None, ""):
                 self.logger.debug(f"Load_Settings : vulners_api_key : * IS NOT EMPTY *")
-            self.ui.api_key.setText(str(vulners_api_key))
+                self.ui.api_key.setText(str(vulners_api_key))
+            else:
+                self.logger.debug(f"Load_Settings : vulners_api_key : * EMPTY *")
 
             self.window_size_full = True if self.config.get("main", "window_size_full") == "0" else False
 
