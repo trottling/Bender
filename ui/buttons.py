@@ -11,7 +11,8 @@ from PyQt6.QtWidgets import QFileDialog
 from checkers.run_checker import Stop_Checker
 from config.write_config import Save_Settings
 from tasks.start_tasks import Run_Start_Tasks
-from ui.animations import App_Exit_Anim, StackedWidgetChangePage, ElemShowAnim, ElemHideAnim
+from ui.animations import App_Exit_Anim, StackedWidgetChangePage, ElemShowAnim, ElemHideAnim, TextChangeAnim, \
+    ImageChangeAnim
 from ui.styles import Load_Styles
 from ui.tools import Check_Vulners_Key_Request, GetRelPath, ShowErrMessage
 
@@ -215,23 +216,19 @@ def ApplyQSSTheme(self):
 
 
 def Check_Vulners_Key(self):
-    ElemHideAnim(self, self.ui.vulners_check_result)
     Save_Settings(self)
     if self.ui.api_key.text().strip() == "":
         self.logger.debug("Check_Vulners_Key : api key empty")
         webbrowser.open("https://vulners.com/docs/apikey/")
-        self.ui.vulners_check_result.setStyleSheet(
-            r".QFrame {image: url('" + GetRelPath(self, 'assets//images//fail.png') + "')}")
-        ElemShowAnim(self, self.ui.vulners_check_result)
+        ImageChangeAnim(self, self.ui.vulners_check_result, 'assets//images//fail.png')
+        self.validate_vulners_key = False
         return
     if Check_Vulners_Key_Request(self):
-        self.ui.vulners_check_result.setStyleSheet(
-            r".QFrame {image: url('" + GetRelPath(self, 'assets//images//apply.png') + "')}")
+        ImageChangeAnim(self, self.ui.vulners_check_result, 'assets//images//apply.png')
+        self.validate_vulners_key = True
     else:
-        self.ui.vulners_check_result.setStyleSheet(
-            r".QFrame {image: url('" + GetRelPath(self, 'assets//images//fail.png') + "')}")
-
-    ElemShowAnim(self, self.ui.vulners_check_result)
+        ImageChangeAnim(self, self.ui.vulners_check_result, 'assets//images//fail.png')
+        self.validate_vulners_key = False
 
 
 def DeleteQSSTheme(self):
@@ -344,16 +341,19 @@ def RestartStartTask(self):
     if self.start_tasks_running:
         ShowErrMessage(self, "The operability test is already running")
     else:
-
-        for elem in self.start_processing_elems:
-            ElemHideAnim(self, elem, hide=False)
-            QtTest.QTest.qWait(275)
-            elem.setPixmap(QtGui.QPixmap())
+        #
+        # Total 100 ms
+        #
+        for image, label in zip(self.start_processing_elems, self.start_processing_labels):
+            ElemHideAnim(self, image, dur=40)
+            TextChangeAnim(self, label, "Processing...")
+            image.clear()
             gif = QMovie(GetRelPath(self, r"assets\gifs\loading.gif"))
             gif.setFormat(b"gif")
             gif.setScaledSize(QtCore.QSize(22, 22))
-            elem.setMovie(gif)
+            image.setMovie(gif)
             gif.start()
-            ElemShowAnim(self, elem, show=False)
+            ElemShowAnim(self, image, dur=40)
+            QtTest.QTest.qWait(200)
 
         Run_Start_Tasks(self)
