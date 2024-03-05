@@ -20,10 +20,6 @@ def Load_Images_And_Icons(self):
     self.logger.debug(f"Load_Images_And_Icons : Logos seted")
 
     # Set start page system data icons to processing GIF
-    self.start_processing_elems = [self.ui.image_os_name, self.ui.image_os_ver, self.ui.image_os_status,
-                                   self.ui.image_as_admin, self.ui.image_net_status, self.ui.image_net_type,
-                                   self.ui.image_vulners_api, self.ui.image_vulners_key_check, self.ui.image_loldrivers,
-                                   self.ui.image_version]
 
     for elem in self.start_processing_elems:
         gif = QMovie(GetRelPath(self, r"assets\gifs\loading.gif"))

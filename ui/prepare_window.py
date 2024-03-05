@@ -57,4 +57,13 @@ def Prepare_Window(self):
     [self.cornerGrips[i].setStyleSheet(r"background-color: transparent;") for i in range(4)]
     self.logger.debug(f"Prepare_Window : grips invisible")
 
+    # Create start check elems lists
+    self.start_processing_elems = [self.ui.image_os_name, self.ui.image_os_ver, self.ui.image_os_status,
+                                   self.ui.image_as_admin, self.ui.image_net_status, self.ui.image_vulners_api,
+                                   self.ui.image_vulners_key_check, self.ui.image_loldrivers, self.ui.image_version]
+
+    self.start_processing_labels = [self.ui.label_os_name_2, self.ui.label_os_ver_2, self.ui.label_os_status_2,
+                                    self.ui.label_admin_result, self.ui.label_net_status_2, self.ui.label_vulners_api_2,
+                                    self.ui.label_vulners_key_3, self.ui.label_loldrivers_2]
+
     self.logger.debug(f"Prepare_Window : Window Prepared")
