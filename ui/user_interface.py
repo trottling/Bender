@@ -33,6 +33,7 @@ class User_UI(QMainWindow):
         self.result_list_model = None
         self.window_size_full = False
         self.start_tasks_running = False
+        self.validate_vulners_key = False
         self.screen_width = 0
         self.screen_height = 0
         self.screen_width_cut = 0
