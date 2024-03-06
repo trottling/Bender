@@ -32,6 +32,7 @@ class User_UI(QMainWindow):
         self.config = ConfigParser()
         self.isSliderTimerStart = False
         self.start_tasks_running = False
+        self.qss_input_showed = False
         self.result_list_model = None
         self.rel_path_dict = {}
 

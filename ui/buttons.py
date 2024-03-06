@@ -4,13 +4,14 @@ import webbrowser
 from pathlib import Path
 
 from PyQt6 import QtCore, QtTest, QtGui
-from PyQt6.QtCore import QTimer
+from PyQt6.QtCore import QTimer, QPropertyAnimation, QEasingCurve
 from PyQt6.QtGui import QMovie
-from PyQt6.QtWidgets import QFileDialog
+from PyQt6.QtWidgets import QFileDialog, QGraphicsOpacityEffect
 
 from checkers.run_checker import Stop_Checker
 from config.write_config import Save_Settings
 from tasks.scanner_start_validator import StartScannerValidator
+from tasks.scanner_tasks import Run_Scanner_Tasks
 from tasks.start_tasks import Run_Start_Tasks
 from ui.animations import App_Exit_Anim, StackedWidgetChangePage, ElemShowAnim, ElemHideAnim, TextChangeAnim, \
     ImageChangeAnim
@@ -78,10 +79,6 @@ def Connect_Buttons(self):
 
     self.ui.next_work_btn.clicked.connect(lambda: StackedWidgetChangePage(self, 2))
 
-    self.ui.back_result_button.clicked.connect(lambda: StackedWidgetChangePage(self, 1))
-
-    self.ui.next_result_button.clicked.connect(lambda: StackedWidgetChangePage(self, 0))
-
     self.ui.vuln_info_back_button.clicked.connect(lambda: StackedWidgetChangePage(self, 2))
 
     self.ui.delete_qss_pushButton.clicked.connect(lambda: DeleteQSSTheme(self))
@@ -105,30 +102,55 @@ def Connect_Buttons(self):
 
 
 def ChangeShowQSSInput(self):
-    if self.ui.qss_comboBox.currentText() != "Custom":
+    if self.ui.qss_comboBox.currentText() != "Custom" and self.qss_input_showed:
         HideQSSInput(self)
-        self.logger.debug(
-            f"ChangeShowQSSInput : {self.ui.qss_comboBox.currentText()} : Selected theme is not Custom")
-        return
-    else:
-        self.logger.debug("ChangeShowQSSInput : Selected theme is Custom")
+    elif self.ui.qss_comboBox.currentText() == "Custom" and not self.qss_input_showed:
         ShowQSSInput(self)
 
 
 def HideQSSInput(self):
-    ElemHideAnim(self, self.ui.qss_label_2)
-    ElemHideAnim(self, self.ui.qss_lineEdit)
-    ElemHideAnim(self, self.ui.delete_qss_pushButton)
-    ElemHideAnim(self, self.ui.qss_apply_file_pushButton)
-    ElemHideAnim(self, self.ui.qss_file_pushButton)
+    self.qss_input_showed = False
+    elem_list = [self.ui.qss_label_2, self.ui.qss_lineEdit, self.ui.delete_qss_pushButton,
+                 self.ui.qss_apply_file_pushButton, self.ui.qss_file_pushButton]
+
+    for elem in elem_list:
+        elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(1.0))
+
+        effect = QGraphicsOpacityEffect(elem)
+        effect.setOpacity(1.0)
+        elem.setGraphicsEffect(effect)
+
+        anim = QPropertyAnimation(effect, b"opacity", self)
+        anim.setDuration(150)
+        anim.setStartValue(effect.opacity())
+        anim.setEndValue(0.0)
+        anim.setEasingCurve(QEasingCurve.Type.OutQuad)
+        anim.start()
+        elem.setEnabled(False)
+
     self.logger.debug("HideQSSInput : Hided")
 
 
 def ShowQSSInput(self):
-    ElemShowAnim(self, self.ui.qss_label_2)
-    ElemShowAnim(self, self.ui.qss_lineEdit)
-    ElemShowAnim(self, self.ui.qss_apply_file_pushButton)
-    ElemShowAnim(self, self.ui.qss_file_pushButton)
+    self.qss_input_showed = True
+    elem_list = [self.ui.qss_label_2, self.ui.qss_lineEdit, self.ui.delete_qss_pushButton,
+                 self.ui.qss_apply_file_pushButton, self.ui.qss_file_pushButton]
+
+    for elem in elem_list:
+        elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(0.0))
+
+        effect = QGraphicsOpacityEffect(elem)
+        effect.setOpacity(0.0)
+        elem.setGraphicsEffect(effect)
+
+        anim = QPropertyAnimation(effect, b"opacity", self)
+        anim.setDuration(150)
+        anim.setStartValue(effect.opacity())
+        anim.setEndValue(1.0)
+        anim.setEasingCurve(QEasingCurve.Type.OutQuad)
+        anim.start()
+        elem.setEnabled(True)
+
     self.logger.debug("ShowQSSInput : Showed")
 
 
@@ -346,6 +368,7 @@ def RestartStartTask(self):
         #
         for image, label in zip(self.start_processing_elems, self.start_processing_labels):
             ElemHideAnim(self, image, dur=40)
+            QtTest.QTest.qWait(40)
             TextChangeAnim(self, label, "Processing...")
             image.clear()
             gif = QMovie(GetRelPath(self, r"assets\gifs\loading.gif"))
@@ -354,7 +377,7 @@ def RestartStartTask(self):
             image.setMovie(gif)
             gif.start()
             ElemShowAnim(self, image, dur=40)
-            QtTest.QTest.qWait(200)
+            QtTest.QTest.qWait(40)
 
         Run_Start_Tasks(self)
 
@@ -362,3 +385,4 @@ def RestartStartTask(self):
 def StartScanner(self):
     if StartScannerValidator(self):
         return
+    Run_Scanner_Tasks(self)

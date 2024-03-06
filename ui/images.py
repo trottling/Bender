@@ -61,10 +61,6 @@ def Load_Images_And_Icons(self):
         ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//next.png') + "')}")
 
     # Work result page
-    self.ui.back_result_button.setStyleSheet(
-        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//back.png') + "')}")
-    self.ui.next_result_button.setStyleSheet(
-        ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//fail.png') + "')}")
 
     # Info page
     self.ui.info_back_button.setStyleSheet(
