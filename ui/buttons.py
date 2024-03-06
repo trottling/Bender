@@ -65,6 +65,7 @@ def Connect_Buttons(self):
     #
 
     self.ui.info_back_button.clicked.connect(lambda: StackedWidgetChangePage(self, 0))
+    self.ui.pushButton_repo.clicked.connect(lambda: webbrowser.open("https://github.com/trottling/Bender"))
 
     #
     # Errors page
@@ -364,7 +365,7 @@ def RestartStartTask(self):
         ShowErrMessage(self, "The operability test is already running")
     else:
         #
-        # Total 100 ms
+        # Total 175 ms
         #
         for image, label in zip(self.start_processing_elems, self.start_processing_labels):
             ElemHideAnim(self, image, dur=40)
