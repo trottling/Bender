@@ -24,12 +24,12 @@ def Run_Start_Tasks(self):
     # This call will be in UI thread
     self.vulners_key = self.ui.api_key.text().strip()
 
-    self.done_tasks_list = []
+    self.done_start_tasks_list = []
     self.start_tasks_list = [CheckUpdate, GetSystemInfo, CheckIsUserAdmin, GetNetwork,
                              CheckVulners, CheckVulnersKey, CheckLoldrivers]
 
     with cf.ThreadPoolExecutor(max_workers=len(self.start_tasks_list)) as self.st_pool:
-        [self.done_tasks_list.append(self.st_pool.submit(task, self)) for task in self.start_tasks_list]
+        [self.done_start_tasks_list.append(self.st_pool.submit(task, self)) for task in self.start_tasks_list]
         self.st_pool.shutdown(wait=True, cancel_futures=False)
 
     #
@@ -38,7 +38,7 @@ def Run_Start_Tasks(self):
     #
 
     QtTest.QTest.qWait(500)
-    for task in self.done_tasks_list:
+    for task in self.done_start_tasks_list:
         if task.result() is not None:
             for func in task.result():
                 try:
