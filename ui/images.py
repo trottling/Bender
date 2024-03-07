@@ -56,11 +56,27 @@ def Load_Images_And_Icons(self):
     self.ui.reload_btn.setStyleSheet(
         ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//reload.png') + "')}")
 
-    # Work log page
+    # Pbar page
     self.ui.next_work_btn.setStyleSheet(
         ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//next.png') + "')}")
 
     # Work result page
+    self.ui.frame_Hardware_cpu.setStyleSheet(
+        ".QFrame {image: url('" + GetRelPath(self, 'assets//images//pc_cpu.png') + "')}")
+    self.ui.frame_Hardware_gpu.setStyleSheet(
+        ".QFrame {image: url('" + GetRelPath(self, 'assets//images//gpu.png') + "')}")
+    self.ui.frame_Hardware_ram.setStyleSheet(
+        ".QFrame {image: url('" + GetRelPath(self, 'assets//images//ram.png') + "')}")
+    self.ui.frame_Hardware_rom.setStyleSheet(
+        ".QFrame {image: url('" + GetRelPath(self, 'assets//images//ssd.png') + "')}")
+    self.ui.frame_net_firewall.setStyleSheet(
+        ".QFrame {image: url('" + GetRelPath(self, 'assets//images//firewall.png') + "')}")
+    self.ui.frame_net_mac.setStyleSheet(
+        ".QFrame {image: url('" + GetRelPath(self, 'assets//images//mac.png') + "')}")
+    self.ui.frame_net_local_ip.setStyleSheet(
+        ".QFrame {image: url('" + GetRelPath(self, 'assets//images//internal.png') + "')}")
+    self.ui.frame_ext_local_ip.setStyleSheet(
+        ".QFrame {image: url('" + GetRelPath(self, 'assets//images//external.png') + "')}")
 
     # Info page
     self.ui.info_back_button.setStyleSheet(
