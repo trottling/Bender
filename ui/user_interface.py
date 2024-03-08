@@ -26,6 +26,7 @@ class User_UI(QMainWindow):
 
         self.ui = None
 
+        # UI vars
         self.app_theme = None
         self.check_thread = None
         self.config_path = self.appdir + "\\" + "config.ini"
