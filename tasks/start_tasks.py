@@ -29,22 +29,25 @@ def Run_Start_Tasks(self):
 
     with cf.ThreadPoolExecutor(max_workers=len(self.start_tasks_list)) as self.st_pool:
         [self.done_start_tasks_list.append(self.st_pool.submit(task, self)) for task in self.start_tasks_list]
-        QtTest.QTest.qWait(2500)  # Even though it's a crutch, it fucking really works and takes away the ui freezes
+        while all([i.done() != True for i in
+                   self.done_start_tasks_list]):  # Even though it's a crutch, it fucking really works and takes away
+            # the ui freezes
+            QtTest.QTest.qWait(200)
 
-    #
-    # First element in list is func, other is args
-    # Sleep for more pretty anim
-    #
+        #
+        # First element in list is func, other is args
+        # Sleep for more pretty anim
+        #
 
-    QtTest.QTest.qWait(500)
-    for task in self.done_start_tasks_list:
-        if task.result() is not None:
-            for func in task.result():
-                try:
-                    QtTest.QTest.qWait(25)
-                    func[0](*[arg for arg in func[1:] if len(func) > 1])
-                except Exception as e:
-                    self.logger.error(f"Run_Start_Tasks : {e}")
+        QtTest.QTest.qWait(500)
+        for task in self.done_start_tasks_list:
+            if task.result() is not None:
+                for func in task.result():
+                    try:
+                        QtTest.QTest.qWait(25)
+                        func[0](*[arg for arg in func[1:] if len(func) > 1])
+                    except Exception as e:
+                        self.logger.error(f"Run_Start_Tasks : {e}")
 
     self.start_tasks_running = False
 
