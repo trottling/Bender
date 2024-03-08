@@ -3,20 +3,19 @@ import sys
 import webbrowser
 from pathlib import Path
 
-from PyQt6 import QtCore, QtTest, QtGui
+from PyQt6 import QtCore, QtTest
 from PyQt6.QtCore import QTimer, QPropertyAnimation, QEasingCurve
 from PyQt6.QtGui import QMovie
 from PyQt6.QtWidgets import QFileDialog, QGraphicsOpacityEffect
 
-from checkers.run_checker import Stop_Checker
 from config.write_config import Save_Settings
 from tasks.scanner_start_validator import StartScannerValidator
 from tasks.scanner_tasks import Run_Scanner_Tasks
 from tasks.start_tasks import Run_Start_Tasks
 from ui.animations import App_Exit_Anim, StackedWidgetChangePage, ElemShowAnim, ElemHideAnim, TextChangeAnim, \
-    ImageChangeAnim
+    ImageChangeAnim, ShowErrMessage
 from ui.styles import Load_Styles
-from ui.tools import Check_Vulners_Key_Request, GetRelPath, ShowErrMessage
+from ui.tools import Check_Vulners_Key_Request, GetRelPath
 
 
 def Connect_Buttons(self):
