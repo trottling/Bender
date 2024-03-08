@@ -1,8 +1,7 @@
 import sys
 
-from PyQt6 import QtCore
-from PyQt6.QtCore import QPropertyAnimation, QEasingCurve
-from PyQt6.QtGui import QPixmap, QPainter
+from PyQt6.QtCore import QPropertyAnimation, QEasingCurve, QTimer
+from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QGraphicsOpacityEffect
 
 from ui.tools import GetRelPath
@@ -216,3 +215,11 @@ def TextChangeAnimShow(self, elem, text):
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
     anim.start()
     self.logger.debug("TextChangeAnimShow : Text Changed")
+
+
+def ShowErrMessage(self, msg):
+    if not self.ui.alert_msg.isVisible():
+        self.ui.alert_msg.setText(msg)
+        self.logger.debug(f"ShowErrMessage : {msg}")
+        ElemShowAnim(self, self.ui.alert_msg)
+        QTimer.singleShot(5000, lambda: ElemHideAnim(self, self.ui.alert_msg))
