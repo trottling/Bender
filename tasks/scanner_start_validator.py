@@ -1,4 +1,4 @@
-from ui.tools import ShowErrMessage
+from ui.animations import ShowErrMessage
 
 
 def StartScannerValidator(self):

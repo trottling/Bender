@@ -8,8 +8,7 @@ import httpx
 from PyQt6 import QtTest
 from PyQt6.QtWidgets import QMessageBox
 
-from ui.animations import ImageChangeAnim, TextChangeAnim
-from ui.tools import ShowErrMessage
+from ui.animations import ImageChangeAnim, TextChangeAnim, ShowErrMessage
 
 
 def Run_Start_Tasks(self):
@@ -30,7 +29,7 @@ def Run_Start_Tasks(self):
 
     with cf.ThreadPoolExecutor(max_workers=len(self.start_tasks_list)) as self.st_pool:
         [self.done_start_tasks_list.append(self.st_pool.submit(task, self)) for task in self.start_tasks_list]
-        self.st_pool.shutdown(wait=True, cancel_futures=False)
+        QtTest.QTest.qWait(2500)  # Even though it's a crutch, it fucking really works and takes away the ui freezes
 
     #
     # First element in list is func, other is args
