@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1663</width>
+    <width>1644</width>
     <height>873</height>
    </rect>
   </property>
@@ -554,11 +554,8 @@
          </layout>
         </item>
         <item row="3" column="0" colspan="3">
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item>
+         <layout class="QGridLayout" name="gridLayout_20">
+          <item row="0" column="0">
            <spacer name="horizontalSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -574,7 +571,7 @@
             </property>
            </spacer>
           </item>
-          <item>
+          <item row="0" column="1">
            <widget class="QFrame" name="logo">
             <property name="minimumSize">
              <size>
@@ -599,7 +596,7 @@
             </property>
            </widget>
           </item>
-          <item>
+          <item row="0" column="2">
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -759,6 +756,22 @@
                </widget>
               </item>
               <item>
+               <spacer name="horizontalSpacer_126">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Preferred</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>10</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
                <widget class="QLabel" name="label_os_name_2">
                 <property name="font">
                  <font>
@@ -769,7 +782,7 @@
                  <string>Processing...</string>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                 </property>
                </widget>
               </item>
@@ -825,6 +838,22 @@
                </widget>
               </item>
               <item>
+               <spacer name="horizontalSpacer_133">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Preferred</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>10</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
                <widget class="QLabel" name="label_os_ver_2">
                 <property name="font">
                  <font>
@@ -835,7 +864,7 @@
                  <string>Processing...</string>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                 </property>
                </widget>
               </item>
@@ -891,6 +920,22 @@
                </widget>
               </item>
               <item>
+               <spacer name="horizontalSpacer_140">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Preferred</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>10</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
                <widget class="QLabel" name="label_os_status_2">
                 <property name="font">
                  <font>
@@ -901,7 +946,7 @@
                  <string>Processing...</string>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                 </property>
                </widget>
               </item>
@@ -1066,6 +1111,22 @@
                </widget>
               </item>
               <item>
+               <spacer name="horizontalSpacer_142">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Preferred</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>10</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
                <widget class="QLabel" name="label_admin_result">
                 <property name="font">
                  <font>
@@ -1076,7 +1137,7 @@
                  <string>Processing...</string>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                 </property>
                </widget>
               </item>
@@ -1132,6 +1193,22 @@
                </widget>
               </item>
               <item>
+               <spacer name="horizontalSpacer_143">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Preferred</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>10</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
                <widget class="QLabel" name="label_net_status_2">
                 <property name="font">
                  <font>
@@ -1142,7 +1219,7 @@
                  <string>Processing...</string>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                 </property>
                </widget>
               </item>
@@ -1313,6 +1390,22 @@
                </widget>
               </item>
               <item>
+               <spacer name="horizontalSpacer_141">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Preferred</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>10</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
                <widget class="QLabel" name="label_vulners_api_2">
                 <property name="font">
                  <font>
@@ -1323,7 +1416,7 @@
                  <string>Processing...</string>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                 </property>
                </widget>
               </item>
@@ -1379,6 +1472,22 @@
                </widget>
               </item>
               <item>
+               <spacer name="horizontalSpacer_144">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Preferred</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>10</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
                <widget class="QLabel" name="label_vulners_key_3">
                 <property name="font">
                  <font>
@@ -1389,7 +1498,7 @@
                  <string>Processing...</string>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                 </property>
                </widget>
               </item>
@@ -1445,6 +1554,22 @@
                </widget>
               </item>
               <item>
+               <spacer name="horizontalSpacer_145">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Preferred</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>10</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
                <widget class="QLabel" name="label_loldrivers_2">
                 <property name="font">
                  <font>
@@ -1455,7 +1580,7 @@
                  <string>Processing...</string>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                 </property>
                </widget>
               </item>
@@ -1843,6 +1968,22 @@ color: rgb(255, 255, 255);</string>
            </widget>
           </item>
           <item>
+           <spacer name="horizontalSpacer_53">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>10</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QLabel" name="label_scan_successful">
             <property name="minimumSize">
              <size>
@@ -1916,101 +2057,6 @@ color: rgb(255, 255, 255);</string>
            </spacer>
           </item>
           <item>
-           <widget class="QFrame" name="frame_scan_partially">
-            <property name="minimumSize">
-             <size>
-              <width>26</width>
-              <height>26</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>26</width>
-              <height>26</height>
-             </size>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_scan_partially">
-            <property name="minimumSize">
-             <size>
-              <width>76</width>
-              <height>26</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>90</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>16</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>Partially</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_scan_partially_len">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>51</width>
-              <height>26</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>51</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>16</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>0</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_53">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Preferred</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
            <widget class="QFrame" name="frame_scan_error">
             <property name="minimumSize">
              <size>
@@ -2031,6 +2077,22 @@ color: rgb(255, 255, 255);</string>
              <enum>QFrame::Raised</enum>
             </property>
            </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_106">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>10</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
           <item>
            <widget class="QLabel" name="label_scan_error">
@@ -2145,6 +2207,9 @@ color: rgb(255, 255, 255);</string>
             <property name="text">
              <string/>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
            </widget>
           </item>
           <item>
@@ -2177,7 +2242,7 @@ color: rgb(255, 255, 255);</string>
              <bool>true</bool>
             </property>
             <property name="alignment">
-             <set>Qt::AlignCenter</set>
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -2439,12 +2504,12 @@ color: rgb(255, 255, 255);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1642</width>
-               <height>1700</height>
+               <width>1623</width>
+               <height>2024</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_15">
-              <item row="7" column="0" colspan="4">
+              <item row="9" column="0" colspan="3">
                <layout class="QHBoxLayout" name="horizontalLayout_66">
                 <property name="spacing">
                  <number>0</number>
@@ -2993,8 +3058,8 @@ color: rgb(255, 255, 255);</string>
                 </item>
                </layout>
               </item>
-              <item row="2" column="0" colspan="4">
-               <spacer name="verticalSpacer_69">
+              <item row="15" column="0" colspan="3">
+               <spacer name="verticalSpacer_51">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
@@ -3009,7 +3074,7 @@ color: rgb(255, 255, 255);</string>
                 </property>
                </spacer>
               </item>
-              <item row="0" column="0" colspan="4">
+              <item row="0" column="0" colspan="3">
                <spacer name="verticalSpacer_71">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -3025,7 +3090,55 @@ color: rgb(255, 255, 255);</string>
                 </property>
                </spacer>
               </item>
-              <item row="3" column="0" colspan="4">
+              <item row="6" column="0" colspan="3">
+               <spacer name="verticalSpacer_70">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="10" column="0" colspan="3">
+               <spacer name="verticalSpacer_73">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>10</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="2" column="0" colspan="3">
+               <spacer name="verticalSpacer_69">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="3" column="0" colspan="3">
                <layout class="QHBoxLayout" name="horizontalLayout_60">
                 <item>
                  <widget class="QGroupBox" name="groupBox_System">
@@ -3121,7 +3234,7 @@ color: rgb(255, 255, 255);</string>
                         </font>
                        </property>
                        <property name="text">
-                        <string>Windows 11</string>
+                        <string>Unknown Win version</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -3184,7 +3297,7 @@ color: rgb(255, 255, 255);</string>
                         </font>
                        </property>
                        <property name="text">
-                        <string>00000000</string>
+                        <string>Unknown Win release</string>
                        </property>
                        <property name="scaledContents">
                         <bool>true</bool>
@@ -3285,7 +3398,7 @@ color: rgb(255, 255, 255);</string>
                    <enum>Qt::Horizontal</enum>
                   </property>
                   <property name="sizeType">
-                   <enum>QSizePolicy::Preferred</enum>
+                   <enum>QSizePolicy::Fixed</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -3605,7 +3718,7 @@ color: rgb(255, 255, 255);</string>
                           </font>
                          </property>
                          <property name="text">
-                          <string>Ryzen 228</string>
+                          <string>Unknown CPU</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -3633,7 +3746,7 @@ color: rgb(255, 255, 255);</string>
                           </font>
                          </property>
                          <property name="text">
-                          <string>Rx 9999 xd</string>
+                          <string>Unknown GPU</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -3661,7 +3774,7 @@ color: rgb(255, 255, 255);</string>
                           </font>
                          </property>
                          <property name="text">
-                          <string>1337 Gb ram</string>
+                          <string>Unknown RAM</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -3689,7 +3802,7 @@ color: rgb(255, 255, 255);</string>
                           </font>
                          </property>
                          <property name="text">
-                          <string>40 Tb Rom</string>
+                          <string>Unknown ROM</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -3732,483 +3845,10 @@ color: rgb(255, 255, 255);</string>
                   </layout>
                  </widget>
                 </item>
-                <item>
-                 <spacer name="horizontalSpacer_106">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeType">
-                   <enum>QSizePolicy::Preferred</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QGroupBox" name="groupBox_Network">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>280</width>
-                    <height>300</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>999999</width>
-                    <height>300</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>24</pointsize>
-                   </font>
-                  </property>
-                  <property name="title">
-                   <string>Network</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                  <property name="flat">
-                   <bool>false</bool>
-                  </property>
-                  <layout class="QGridLayout" name="gridLayout_12">
-                   <item row="0" column="0">
-                    <layout class="QHBoxLayout" name="horizontalLayout_33">
-                     <item>
-                      <spacer name="horizontalSpacer_95">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeType">
-                        <enum>QSizePolicy::Expanding</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>28</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item>
-                      <layout class="QVBoxLayout" name="verticalLayout_20">
-                       <item>
-                        <spacer name="verticalSpacer_84">
-                         <property name="orientation">
-                          <enum>Qt::Vertical</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>20</width>
-                           <height>40</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                       <item>
-                        <widget class="QFrame" name="frame_net_firewall">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="minimumSize">
-                          <size>
-                           <width>26</width>
-                           <height>26</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>26</width>
-                           <height>26</height>
-                          </size>
-                         </property>
-                         <property name="frameShape">
-                          <enum>QFrame::StyledPanel</enum>
-                         </property>
-                         <property name="frameShadow">
-                          <enum>QFrame::Raised</enum>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="verticalSpacer_80">
-                         <property name="orientation">
-                          <enum>Qt::Vertical</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>20</width>
-                           <height>40</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                       <item>
-                        <widget class="QFrame" name="frame_net_mac">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="minimumSize">
-                          <size>
-                           <width>26</width>
-                           <height>26</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>26</width>
-                           <height>26</height>
-                          </size>
-                         </property>
-                         <property name="frameShape">
-                          <enum>QFrame::StyledPanel</enum>
-                         </property>
-                         <property name="frameShadow">
-                          <enum>QFrame::Raised</enum>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="verticalSpacer_81">
-                         <property name="orientation">
-                          <enum>Qt::Vertical</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>20</width>
-                           <height>40</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                       <item>
-                        <widget class="QFrame" name="frame_net_local_ip">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="minimumSize">
-                          <size>
-                           <width>26</width>
-                           <height>26</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>26</width>
-                           <height>26</height>
-                          </size>
-                         </property>
-                         <property name="frameShape">
-                          <enum>QFrame::StyledPanel</enum>
-                         </property>
-                         <property name="frameShadow">
-                          <enum>QFrame::Raised</enum>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="verticalSpacer_83">
-                         <property name="orientation">
-                          <enum>Qt::Vertical</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>20</width>
-                           <height>40</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                       <item>
-                        <widget class="QFrame" name="frame_ext_local_ip">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="minimumSize">
-                          <size>
-                           <width>26</width>
-                           <height>26</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>26</width>
-                           <height>26</height>
-                          </size>
-                         </property>
-                         <property name="frameShape">
-                          <enum>QFrame::StyledPanel</enum>
-                         </property>
-                         <property name="frameShadow">
-                          <enum>QFrame::Raised</enum>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="verticalSpacer_82">
-                         <property name="orientation">
-                          <enum>Qt::Vertical</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>20</width>
-                           <height>40</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_46">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeType">
-                        <enum>QSizePolicy::Preferred</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>10</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item>
-                      <layout class="QVBoxLayout" name="verticalLayout_21">
-                       <property name="spacing">
-                        <number>0</number>
-                       </property>
-                       <item>
-                        <spacer name="verticalSpacer_56">
-                         <property name="orientation">
-                          <enum>Qt::Vertical</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>20</width>
-                           <height>40</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="label_Network_rules">
-                         <property name="font">
-                          <font>
-                           <pointsize>16</pointsize>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>999 Firewall rules</string>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignCenter</set>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="verticalSpacer_57">
-                         <property name="orientation">
-                          <enum>Qt::Vertical</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>20</width>
-                           <height>40</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="label_network_mac">
-                         <property name="font">
-                          <font>
-                           <pointsize>16</pointsize>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>aaa:aaa:aaaaa:aaa
-Mac adress</string>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignCenter</set>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="verticalSpacer_79">
-                         <property name="orientation">
-                          <enum>Qt::Vertical</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>20</width>
-                           <height>40</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="label_Network_local_ip">
-                         <property name="font">
-                          <font>
-                           <pointsize>16</pointsize>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>000.000.000.000
-Local IP</string>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignCenter</set>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="verticalSpacer_58">
-                         <property name="orientation">
-                          <enum>Qt::Vertical</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>20</width>
-                           <height>40</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="label_Network_ext_ip">
-                         <property name="font">
-                          <font>
-                           <pointsize>16</pointsize>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>000.000.000.000
-External IP</string>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignCenter</set>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="verticalSpacer_60">
-                         <property name="orientation">
-                          <enum>Qt::Vertical</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>20</width>
-                           <height>40</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_99">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeType">
-                        <enum>QSizePolicy::Expanding</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>28</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                    </layout>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
                </layout>
               </item>
-              <item row="1" column="0" colspan="4">
-               <layout class="QHBoxLayout" name="horizontalLayout_41">
-                <property name="spacing">
-                 <number>0</number>
-                </property>
-                <item>
-                 <spacer name="horizontalSpacer_73">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_result">
-                  <property name="font">
-                   <font>
-                    <pointsize>34</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Scanning results</string>
-                  </property>
-                  <property name="scaledContents">
-                   <bool>true</bool>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="horizontalSpacer_74">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
-              </item>
-              <item row="4" column="0" colspan="4">
-               <spacer name="verticalSpacer_70">
+              <item row="8" column="0" colspan="3">
+               <spacer name="verticalSpacer_24">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
@@ -4218,12 +3858,12 @@ External IP</string>
                 <property name="sizeHint" stdset="0">
                  <size>
                   <width>20</width>
-                  <height>40</height>
+                  <height>20</height>
                  </size>
                 </property>
                </spacer>
               </item>
-              <item row="5" column="0" colspan="4">
+              <item row="7" column="0" colspan="3">
                <layout class="QHBoxLayout" name="horizontalLayout_67">
                 <item>
                  <spacer name="horizontalSpacer_75">
@@ -4268,8 +3908,263 @@ External IP</string>
                 </item>
                </layout>
               </item>
-              <item row="6" column="0" colspan="4">
-               <spacer name="verticalSpacer_24">
+              <item row="14" column="0" colspan="3">
+               <layout class="QHBoxLayout" name="horizontalLayout_51">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QGroupBox" name="groupBox_local_ports">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>280</width>
+                    <height>300</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>300</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>20</pointsize>
+                   </font>
+                  </property>
+                  <property name="title">
+                   <string>Local open ports</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="flat">
+                   <bool>false</bool>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_13">
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <item row="0" column="0">
+                    <spacer name="horizontalSpacer_100">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeType">
+                      <enum>QSizePolicy::Preferred</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>10</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item row="0" column="1">
+                    <layout class="QHBoxLayout" name="horizontalLayout_53">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QListWidget" name="open_local_ports_list">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="horizontalScrollBarPolicy">
+                        <enum>Qt::ScrollBarAlwaysOff</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_97">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeType">
+                        <enum>QSizePolicy::Fixed</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>5</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                   <item row="1" column="1">
+                    <spacer name="verticalSpacer_52">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeType">
+                      <enum>QSizePolicy::Fixed</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>10</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_125">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>30</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="groupBox_Externall_ports">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>280</width>
+                    <height>300</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>300</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>20</pointsize>
+                   </font>
+                  </property>
+                  <property name="title">
+                   <string>External open ports</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_16">
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <item row="0" column="2">
+                    <spacer name="horizontalSpacer_124">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeType">
+                      <enum>QSizePolicy::Preferred</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>10</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item row="1" column="1">
+                    <spacer name="verticalSpacer_77">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeType">
+                      <enum>QSizePolicy::Fixed</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>16</width>
+                       <height>10</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QListWidget" name="open_Externall_ports_list">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="horizontalScrollBarPolicy">
+                      <enum>Qt::ScrollBarAlwaysOff</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <spacer name="horizontalSpacer_98">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeType">
+                      <enum>QSizePolicy::Fixed</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>5</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="13" column="0" colspan="3">
+               <spacer name="verticalSpacer_78">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
@@ -4279,12 +4174,12 @@ External IP</string>
                 <property name="sizeHint" stdset="0">
                  <size>
                   <width>20</width>
-                  <height>20</height>
+                  <height>10</height>
                  </size>
                 </property>
                </spacer>
               </item>
-              <item row="9" column="0" colspan="4">
+              <item row="11" column="0" colspan="3">
                <layout class="QHBoxLayout" name="horizontalLayout_68">
                 <property name="spacing">
                  <number>0</number>
@@ -4466,7 +4361,7 @@ External IP</string>
                         <enum>Qt::Horizontal</enum>
                        </property>
                        <property name="sizeType">
-                        <enum>QSizePolicy::Preferred</enum>
+                        <enum>QSizePolicy::Fixed</enum>
                        </property>
                        <property name="sizeHint" stdset="0">
                         <size>
@@ -4728,7 +4623,7 @@ External IP</string>
                       </spacer>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="Software_pushButton_3">
+                      <widget class="QPushButton" name="Drivers_pushButton_2">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                          <horstretch>0</horstretch>
@@ -4816,45 +4711,61 @@ External IP</string>
                 </item>
                </layout>
               </item>
-              <item row="8" column="0" colspan="4">
-               <spacer name="verticalSpacer_73">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Fixed</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>10</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="11" column="0" colspan="4">
-               <spacer name="verticalSpacer_78">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Fixed</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>10</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="12" column="0" colspan="4">
-               <layout class="QHBoxLayout" name="horizontalLayout_51">
+              <item row="1" column="0" colspan="3">
+               <layout class="QHBoxLayout" name="horizontalLayout_41">
                 <property name="spacing">
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QGroupBox" name="groupBox_local_ports">
+                 <spacer name="horizontalSpacer_73">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_result">
+                  <property name="font">
+                   <font>
+                    <pointsize>34</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Scanning results</string>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>true</bool>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_74">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item row="5" column="0" colspan="3">
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <item>
+                 <widget class="QGroupBox" name="groupBox_Network">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -4869,17 +4780,17 @@ External IP</string>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>16777215</width>
+                    <width>999999</width>
                     <height>300</height>
                    </size>
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>20</pointsize>
+                    <pointsize>24</pointsize>
                    </font>
                   </property>
                   <property name="title">
-                   <string>Local open ports</string>
+                   <string>Network</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -4887,67 +4798,380 @@ External IP</string>
                   <property name="flat">
                    <bool>false</bool>
                   </property>
-                  <layout class="QGridLayout" name="gridLayout_13">
+                  <layout class="QGridLayout" name="gridLayout_12">
                    <property name="leftMargin">
-                    <number>0</number>
+                    <number>5</number>
                    </property>
                    <property name="topMargin">
-                    <number>0</number>
+                    <number>5</number>
                    </property>
                    <property name="rightMargin">
-                    <number>0</number>
+                    <number>5</number>
                    </property>
                    <property name="bottomMargin">
-                    <number>0</number>
+                    <number>5</number>
                    </property>
                    <property name="spacing">
                     <number>0</number>
                    </property>
                    <item row="0" column="0">
-                    <spacer name="horizontalSpacer_100">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeType">
-                      <enum>QSizePolicy::Preferred</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>10</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                   <item row="0" column="1">
-                    <layout class="QHBoxLayout" name="horizontalLayout_53">
-                     <property name="spacing">
-                      <number>0</number>
-                     </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_33">
                      <item>
-                      <widget class="QListWidget" name="open_local_ports_list">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="horizontalScrollBarPolicy">
-                        <enum>Qt::ScrollBarAlwaysOff</enum>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_97">
+                      <spacer name="horizontalSpacer_95">
                        <property name="orientation">
                         <enum>Qt::Horizontal</enum>
                        </property>
                        <property name="sizeType">
-                        <enum>QSizePolicy::Fixed</enum>
+                        <enum>QSizePolicy::Expanding</enum>
                        </property>
                        <property name="sizeHint" stdset="0">
                         <size>
-                         <width>5</width>
+                         <width>28</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <layout class="QVBoxLayout" name="verticalLayout_20">
+                       <item>
+                        <spacer name="verticalSpacer_84">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="frame_net_firewall">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>26</width>
+                           <height>26</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>26</width>
+                           <height>26</height>
+                          </size>
+                         </property>
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_80">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="frame_net_mac">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>26</width>
+                           <height>26</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>26</width>
+                           <height>26</height>
+                          </size>
+                         </property>
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_81">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="frame_net_local_ip">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>26</width>
+                           <height>26</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>26</width>
+                           <height>26</height>
+                          </size>
+                         </property>
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_83">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="frame_ext_local_ip">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>26</width>
+                           <height>26</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>26</width>
+                           <height>26</height>
+                          </size>
+                         </property>
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_82">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_46">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeType">
+                        <enum>QSizePolicy::Preferred</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>10</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <layout class="QVBoxLayout" name="verticalLayout_21">
+                       <property name="spacing">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <spacer name="verticalSpacer_56">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_Network_rules">
+                         <property name="font">
+                          <font>
+                           <pointsize>16</pointsize>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>Unknown Firewall</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignCenter</set>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_57">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_network_mac">
+                         <property name="font">
+                          <font>
+                           <pointsize>16</pointsize>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>Unkwown Mac adress</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignCenter</set>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_79">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_Network_local_ip">
+                         <property name="font">
+                          <font>
+                           <pointsize>16</pointsize>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>Unkwown Local IP</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignCenter</set>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_58">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_Network_ext_ip">
+                         <property name="font">
+                          <font>
+                           <pointsize>16</pointsize>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>Unknown External IP</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignCenter</set>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_60">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_99">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeType">
+                        <enum>QSizePolicy::Expanding</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>28</width>
                          <height>20</height>
                         </size>
                        </property>
@@ -4955,27 +5179,11 @@ External IP</string>
                      </item>
                     </layout>
                    </item>
-                   <item row="1" column="1">
-                    <spacer name="verticalSpacer_52">
-                     <property name="orientation">
-                      <enum>Qt::Vertical</enum>
-                     </property>
-                     <property name="sizeType">
-                      <enum>QSizePolicy::Fixed</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>20</width>
-                       <height>10</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
                   </layout>
                  </widget>
                 </item>
                 <item>
-                 <spacer name="horizontalSpacer_125">
+                 <spacer name="horizontalSpacer_149">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
@@ -4984,14 +5192,14 @@ External IP</string>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
-                    <width>30</width>
-                    <height>20</height>
+                    <width>20</width>
+                    <height>297</height>
                    </size>
                   </property>
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QGroupBox" name="groupBox_Externall_ports">
+                 <widget class="QGroupBox" name="groupBox_other">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -5006,105 +5214,343 @@ External IP</string>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>16777215</width>
+                    <width>999999</width>
                     <height>300</height>
                    </size>
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>20</pointsize>
+                    <pointsize>24</pointsize>
                    </font>
                   </property>
                   <property name="title">
-                   <string>External open ports</string>
+                   <string>Other</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
-                  <layout class="QGridLayout" name="gridLayout_16">
+                  <property name="flat">
+                   <bool>false</bool>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_21">
                    <property name="leftMargin">
-                    <number>0</number>
+                    <number>5</number>
                    </property>
                    <property name="topMargin">
-                    <number>0</number>
+                    <number>5</number>
                    </property>
                    <property name="rightMargin">
-                    <number>0</number>
+                    <number>5</number>
                    </property>
                    <property name="bottomMargin">
-                    <number>0</number>
+                    <number>5</number>
                    </property>
                    <property name="spacing">
                     <number>0</number>
                    </property>
-                   <item row="0" column="2">
-                    <spacer name="horizontalSpacer_124">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeType">
-                      <enum>QSizePolicy::Preferred</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>10</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                   <item row="1" column="1">
-                    <spacer name="verticalSpacer_77">
-                     <property name="orientation">
-                      <enum>Qt::Vertical</enum>
-                     </property>
-                     <property name="sizeType">
-                      <enum>QSizePolicy::Fixed</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>16</width>
-                       <height>10</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QListWidget" name="open_Externall_ports_list">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="horizontalScrollBarPolicy">
-                      <enum>Qt::ScrollBarAlwaysOff</enum>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="0" column="0">
-                    <spacer name="horizontalSpacer_98">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeType">
-                      <enum>QSizePolicy::Fixed</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>5</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
+                    <layout class="QHBoxLayout" name="horizontalLayout_56">
+                     <item>
+                      <spacer name="horizontalSpacer_146">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeType">
+                        <enum>QSizePolicy::Expanding</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>28</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <layout class="QVBoxLayout" name="verticalLayout_22">
+                       <item>
+                        <spacer name="verticalSpacer_90">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="frame_sys_bitness">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>26</width>
+                           <height>26</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>26</width>
+                           <height>26</height>
+                          </size>
+                         </property>
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_91">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="frame_sys_bitlocker">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>26</width>
+                           <height>26</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>26</width>
+                           <height>26</height>
+                          </size>
+                         </property>
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_92">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="frame_sys_virt">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>26</width>
+                           <height>26</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>26</width>
+                           <height>26</height>
+                          </size>
+                         </property>
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_93">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_147">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeType">
+                        <enum>QSizePolicy::Preferred</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>10</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <layout class="QVBoxLayout" name="verticalLayout_23">
+                       <property name="spacing">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <spacer name="verticalSpacer_95">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_sys_bitness">
+                         <property name="font">
+                          <font>
+                           <pointsize>16</pointsize>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>Unknown Bitness</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignCenter</set>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_96">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_sys_bitlocker">
+                         <property name="font">
+                          <font>
+                           <pointsize>16</pointsize>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>Unkwown Bitlocker</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignCenter</set>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_97">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_sys_virt">
+                         <property name="font">
+                          <font>
+                           <pointsize>16</pointsize>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>Unkwown Virtualization</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignCenter</set>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_98">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_148">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeType">
+                        <enum>QSizePolicy::Expanding</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>28</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
                    </item>
                   </layout>
                  </widget>
                 </item>
                </layout>
               </item>
-              <item row="13" column="0" colspan="4">
-               <spacer name="verticalSpacer_51">
+              <item row="4" column="0" colspan="3">
+               <spacer name="verticalSpacer_100">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
@@ -5114,7 +5560,7 @@ External IP</string>
                 <property name="sizeHint" stdset="0">
                  <size>
                   <width>20</width>
-                  <height>40</height>
+                  <height>10</height>
                  </size>
                 </property>
                </spacer>
