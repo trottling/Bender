@@ -3,49 +3,36 @@ import re
 
 from PyQt6 import QtGui
 
-from ui.animations import StackedWidgetChangePage, ElemShowAnim
+from ui.animations import StackedWidgetChangePage
 from ui.tools import Report_Error, GetRelPath
 
 
-def Show_Report_CIA(self, rep):
-    try:
-        self.logger.debug("Show_Report_CIA : loading report")
-        self.report = json.loads(rep)
-    except Exception as e:
-        Report_Error(self, "Failed to convert report to JSON format : " + str(e))
-
-    self.ui.next_work_button.show()
-    self.logger.debug("Show_Report_CIA : next_work_button : show")
-
+def Show_Report_CIA(self):
     self.logger.debug(f"Show_Report_CIA : {len(self.report["cve_list"])} CVEs in list")
-    if len(self.report["cve_list"]) == 0:
-        ElemShowAnim(self, self.ui.label_no_cve)
-        return
 
     try:
         # Calculate alignment
-        str_max = 126
-        cve_max = max(len(item["cve"]) for item in self.report["cve_list"]) + 8
-        score_max = max(len(str(item['score'])) for item in self.report["cve_list"]) + 8
-        package_max = max(len(item["package"]) for item in self.report["cve_list"]) + 8
-        version_max = max(len(item["version"]) for item in self.report["cve_list"]) + 8
+        str_max = 75
+        cve_max = max(len(item["cve"]) for item in self.report["cve_list"]) + 4
+        score_max = max(len(str(item['score'])) for item in self.report["cve_list"]) + 4
+        package_max = max(len(item["package"]) for item in self.report["cve_list"]) + 4
+        version_max = max(len(item["version"]) for item in self.report["cve_list"]) + 4
         self.logger.debug(
             f"Show_Report_CIA : cve_max {cve_max} : score_max {score_max} : package_max {package_max} : version_max {version_max}")
 
-        # Header alignment
-        header = f"     {'CVE'.ljust(cve_max)}{'Score'.ljust(score_max)}{'App'.ljust(package_max)}{'Version'.ljust(version_max)}Desc"
-        self.ui.label_result_info.setText(header)
-
         # Setup list
-        self.result_list_model = QtGui.QStandardItemModel()
-        self.ui.result_listView.setModel(self.result_list_model)
+        self.vunl_app_list_model = QtGui.QStandardItemModel()
+        self.ui.Software_listView_vuln.setModel(self.vunl_app_list_model)
+
+        if len(self.report["cve_list"]) > 7:
+            self.ui.Software_pushButton_2.show()
 
         for item in self.report["cve_list"]:
             # Items alignment
-            string = f"{item['cve'].ljust(cve_max)}{str(item['score']).ljust(score_max)}{item['package'].capitalize().ljust(package_max)}{item['version'].ljust(version_max)}"
+            string = f"{item['cve'].ljust(cve_max - len(item['cve']))}{str(item['score'] - len(item['score'])).ljust(score_max)}{item['package'].capitalize().ljust(package_max - len(item['package']))}{item['version'].ljust(version_max - len(item['version']))}"
 
             if len(string + item["desc"]) > str_max:
-                desc = f"{item['desc'][:120 - len(string)]}..."
+                desc = f"{item['desc'][:75 - len(string)]}..."
             else:
                 desc = item["desc"]
 
@@ -74,13 +61,13 @@ def Show_Report_CIA(self, rep):
                         self.dot = "dot-grey.png"
                 self.logger.debug(
                     f"Show_Report_CIA : Score {self.score_raw} --> {self.score if self.score else ""} --> {self.dot}")
-                list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\images\{self.dot}")))
+                list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\{self.dot}")))
             except Exception as e:
                 self.logger.error(f"Show_Report_CIA : Error setting dot : {e}")
 
-            self.result_list_model.appendRow(list_item)
+            self.vunl_app_list_model.appendRow(list_item)
 
-        self.ui.result_listView.doubleClicked.connect(lambda index: ShowCVEInfo_CIA(self, index))
+        self.ui.Software_listView_vuln.doubleClicked.connect(lambda index: ShowCVEInfo_CIA(self, index))
         self.logger.debug("Show_Report_CIA : List maked")
     except Exception as e:
         Report_Error(self, f"Show_Report_CIA : {e}")
@@ -129,7 +116,7 @@ def Show_Report_CCD(self, rep):
 
     self.logger.debug(f"Show_Report_CCD : {len(self.report["driver_list"])} drivers in list")
     if len(self.report["driver_list"]) == 0:
-        ElemShowAnim(self, self.ui.label_no_cve)
+        # ElemShowAnim(self, self.ui.label_no_cve)
         return
 
     try:
@@ -145,8 +132,8 @@ def Show_Report_CCD(self, rep):
         self.ui.label_result_info.setText(header)
 
         # Setup list
-        self.result_list_model = QtGui.QStandardItemModel()
-        self.ui.result_listView.setModel(self.result_list_model)
+        self.vunl_app_list_model = QtGui.QStandardItemModel()
+        self.ui.Drivers_listWidget.setModel(self.vunl_app_list_model)
 
         # Items alignment
         for item in self.report["driver_list"]:
@@ -161,7 +148,7 @@ def Show_Report_CCD(self, rep):
             list_item.setText(string + desc)
             list_item.setIcon(QtGui.QIcon(r"assets\images\risk.png"))
 
-            self.result_list_model.appendRow(list_item)
+            self.vunl_app_list_model.appendRow(list_item)
 
         self.ui.result_listView.doubleClicked.connect(lambda index: ShowCVEInfo_CCD(self, index))
         self.logger.debug("Show_Report_CCD : List maked")
