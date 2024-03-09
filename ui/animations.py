@@ -38,15 +38,6 @@ def App_Exit_Anim(self):
     animation.start()
 
 
-def ChangePBarValue(self, val: int):
-    self.logger.debug(f"ChangePBarValue : Animation to {val}%")
-    animation = QPropertyAnimation(self.ui.progressBar, b"value", self)
-    animation.setDuration(1000)
-    animation.setStartValue(self.ui.progressBar.value())
-    animation.setEndValue(val)
-    animation.start()
-
-
 def StackedWidgetChangePage(self, page_to: int):
     self.logger.debug(f"StackedWidgetAnimation : move to {page_to}")
     current_widget = self.ui.stackedWidget.currentWidget()
