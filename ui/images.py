@@ -59,6 +59,10 @@ def Load_Images_And_Icons(self):
     # Pbar page
     self.ui.next_work_btn.setStyleSheet(
         ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//next.png') + "')}")
+    self.ui.framel_scan_successful.setStyleSheet(
+        ".QFrame {image: url('" + GetRelPath(self, 'assets//images//apply.png') + "')}")
+    self.ui.frame_scan_error.setStyleSheet(
+        ".QFrame {image: url('" + GetRelPath(self, 'assets//images//fail.png') + "')}")
 
     # Work result page
     self.ui.frame_Hardware_cpu.setStyleSheet(
@@ -77,6 +81,10 @@ def Load_Images_And_Icons(self):
         ".QFrame {image: url('" + GetRelPath(self, 'assets//images//internal.png') + "')}")
     self.ui.frame_ext_local_ip.setStyleSheet(
         ".QFrame {image: url('" + GetRelPath(self, 'assets//images//external.png') + "')}")
+    self.ui.frame_sys_bitlocker.setStyleSheet(
+        ".QFrame {image: url('" + GetRelPath(self, 'assets//images//bitlocker.png') + "')}")
+    self.ui.frame_sys_virt.setStyleSheet(
+        ".QFrame {image: url('" + GetRelPath(self, 'assets//images//virtualization.png') + "')}")
 
     # Info page
     self.ui.info_back_button.setStyleSheet(
