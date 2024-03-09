@@ -85,6 +85,8 @@ def Load_Images_And_Icons(self):
         ".QFrame {image: url('" + GetRelPath(self, 'assets//images//bitlocker.png') + "')}")
     self.ui.frame_sys_virt.setStyleSheet(
         ".QFrame {image: url('" + GetRelPath(self, 'assets//images//virtualization.png') + "')}")
+    self.ui.frame_sys_bitness.setStyleSheet(
+        ".QFrame {image: url('" + GetRelPath(self, 'assets//images//help.png') + "')}")
 
     # Info page
     self.ui.info_back_button.setStyleSheet(
