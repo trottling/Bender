@@ -99,29 +99,29 @@ def GetSystemInfo(self):
 
         self.validate_platform_release = platform.release()
         self.validate_platform_name = platform.system()
-        win_icon = ""
+        self.win_icon_start = ""
 
         match self.validate_platform_release:
             case '11':
-                win_icon = r"assets\images\win-11-small.png"
+                self.win_icon_start = r"assets\images\win-11-small.png"
                 self.os_sup_status = "Support"
                 result.append(
                     [ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\apply.png"])
 
             case '10':
-                win_icon = r"assets\images\win-10-small.png"
+                self.win_icon_start = r"assets\images\win-10-small.png"
                 self.os_sup_status = "Support"
                 result.append(
                     [ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\apply.png"])
 
             case '8' | '8.1':
-                win_icon = r"assets\images\win-8-small.png"
+                self.win_icon_start = r"assets\images\win-8-small.png"
                 self.os_sup_status = "Unknown"
                 result.append(
                     [ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\warn.png"])
 
             case _:
-                win_icon = r"assets\images\help.png"
+                self.win_icon_start = r"assets\images\help.png"
                 self.os_sup_status = "Unknown"
                 result.append(
                     [ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\warn.png"])
@@ -133,7 +133,7 @@ def GetSystemInfo(self):
         if sys.platform != "win32" or not platform.release().isdigit() or int(platform.release()) < 8:
             self.validate_os_sup_status = False
 
-        result.append([ImageChangeAnim, self, self.ui.image_os_name, win_icon])
+        result.append([ImageChangeAnim, self, self.ui.image_os_name, self.win_icon_start])
         result.append([ImageChangeAnim, self, self.ui.image_os_ver, r"assets\images\cpu.png"])
         result.append([TextChangeAnim, self, self.ui.label_os_status_2, self.os_sup_status])
 
