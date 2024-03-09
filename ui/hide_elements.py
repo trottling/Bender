@@ -10,6 +10,11 @@ def Hide_Elements(self):
     self.ui.image_work_progress.hide()
     self.ui.label_work_progress.hide()
 
+    # Hide expand btns
+    self.ui.Software_pushButton.hide()
+    self.ui.Software_pushButton_2.hide()
+    self.ui.Drivers_pushButton.hide()
+    self.ui.Drivers_pushButton_2.hide()
     HideQSSInput(self)
 
     self.logger.debug("Hide_Elements : Elements Hided")
