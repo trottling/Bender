@@ -1,4 +1,4 @@
-from PyQt6 import QtCore
+from PyQt6 import QtCore, QtGui
 from PyQt6.QtGui import QMovie
 
 from ui.tools import GetRelPath
@@ -89,6 +89,8 @@ def Load_Images_And_Icons(self):
     # Info page
     self.ui.info_back_button.setStyleSheet(
         ".QPushButton {image: url('" + GetRelPath(self, 'assets//images//back.png') + "')}")
+    self.ui.pushButton_repo.setIcon(QtGui.QIcon(GetRelPath(self, r"assets\images\trottling.png")))
+    self.ui.pushButton_repo.setIconSize(QtCore.QSize(40, 40))
 
     # Settings
     self.ui.setting_back_button.setStyleSheet(
