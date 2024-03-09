@@ -52,8 +52,7 @@ def StackedWidgetChangePage(self, page_to: int):
     anim.setEndValue(0.0)
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
 
-    anim.finished.connect(
-        lambda: (self.ui.stackedWidget.setCurrentIndex(page_to), current_widget.setGraphicsEffect(None)))
+    anim.finished.connect(lambda: (self.ui.stackedWidget.setCurrentIndex(page_to), effect.setEnabled(False)))
 
     anim.start()
 
@@ -74,7 +73,7 @@ def ElemShowAnim(self, elem, show=True, dur=250):
     anim.setEndValue(1.0)
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
 
-    anim.finished.connect(lambda: elem.setGraphicsEffect(None))
+    anim.finished.connect(lambda: effect.setEnabled(False))
 
     anim.start()
 
@@ -94,11 +93,9 @@ def ElemHideAnim(self, elem, hide=True, dur=250):
     anim.setEndValue(0.0)
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
 
-    anim.finished.connect(
-        lambda: elem.setGraphicsEffect(None))
+    anim.finished.connect(lambda: effect.setEnabled(False))
     if hide:
-        anim.finished.connect(
-            lambda: elem.hide())
+        anim.finished.connect(lambda: elem.hide())
 
     anim.start()
 
@@ -123,8 +120,7 @@ def ImageChangeAnim(self, elem, image):
     anim.setEndValue(0.0)
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
 
-    anim.finished.connect(
-        lambda: ImageChangeAnimShow(self, elem, image))
+    anim.finished.connect(lambda: ImageChangeAnimShow(self, elem, image))
 
     anim.start()
 
@@ -152,7 +148,7 @@ def ImageChangeAnimShow(self, elem, image):
     anim.setStartValue(effect.opacity())
     anim.setEndValue(1.0)
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
-    anim.finished.connect(lambda: elem.setGraphicsEffect(None))
+    anim.finished.connect(lambda: effect.setEnabled(False))
     anim.start()
     self.logger.debug("ImageChangeAnimShow : Image Changed")
 
@@ -177,8 +173,7 @@ def TextChangeAnim(self, elem, text):
     anim.setEndValue(0.0)
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
 
-    anim.finished.connect(
-        lambda: TextChangeAnimShow(self, elem, text))
+    anim.finished.connect(lambda: TextChangeAnimShow(self, elem, text))
 
     anim.start()
 
@@ -205,7 +200,7 @@ def TextChangeAnimShow(self, elem, text):
     anim.setStartValue(effect.opacity())
     anim.setEndValue(1.0)
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
-    anim.finished.connect(lambda: elem.setGraphicsEffect(None))
+    anim.finished.connect(lambda: effect.setEnabled(False))
     anim.start()
     self.logger.debug("TextChangeAnimShow : Text Changed")
 
