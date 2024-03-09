@@ -161,6 +161,7 @@ def ImageChangeAnimShow(self, elem, image):
     anim.setStartValue(effect.opacity())
     anim.setEndValue(1.0)
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
+    anim.finished.connect(lambda: elem.setGraphicsEffect(None))
     anim.start()
     self.logger.debug("ImageChangeAnimShow : Image Changed")
 
@@ -213,6 +214,7 @@ def TextChangeAnimShow(self, elem, text):
     anim.setStartValue(effect.opacity())
     anim.setEndValue(1.0)
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
+    anim.finished.connect(lambda: elem.setGraphicsEffect(None))
     anim.start()
     self.logger.debug("TextChangeAnimShow : Text Changed")
 
