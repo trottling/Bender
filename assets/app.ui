@@ -389,7 +389,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page_start">
        <layout class="QGridLayout" name="gridLayout_2">
@@ -442,7 +442,7 @@
             </property>
             <property name="font">
              <font>
-              <pointsize>25</pointsize>
+              <pointsize>26</pointsize>
               <weight>75</weight>
               <italic>false</italic>
               <bold>true</bold>
@@ -616,7 +616,7 @@ color: rgb(255, 255, 255);</string>
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="setting_btn">
+           <widget class="QPushButton" name="reload_btn">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -672,7 +672,7 @@ color: rgb(255, 255, 255);</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="reload_btn">
+           <widget class="QPushButton" name="setting_btn">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -786,7 +786,7 @@ color: rgb(255, 255, 255);</string>
              <widget class="QLabel" name="label_os_name">
               <property name="font">
                <font>
-                <pointsize>16</pointsize>
+                <pointsize>17</pointsize>
                </font>
               </property>
               <property name="text">
@@ -811,7 +811,7 @@ color: rgb(255, 255, 255);</string>
              <widget class="QLabel" name="label_os_ver">
               <property name="font">
                <font>
-                <pointsize>16</pointsize>
+                <pointsize>17</pointsize>
                </font>
               </property>
               <property name="text">
@@ -836,7 +836,7 @@ color: rgb(255, 255, 255);</string>
              <widget class="QLabel" name="label_os_status">
               <property name="font">
                <font>
-                <pointsize>16</pointsize>
+                <pointsize>17</pointsize>
                </font>
               </property>
               <property name="text">
@@ -923,7 +923,7 @@ color: rgb(255, 255, 255);</string>
                <widget class="QLabel" name="label_os_name_2">
                 <property name="font">
                  <font>
-                  <pointsize>16</pointsize>
+                  <pointsize>17</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -1005,7 +1005,7 @@ color: rgb(255, 255, 255);</string>
                <widget class="QLabel" name="label_os_ver_2">
                 <property name="font">
                  <font>
-                  <pointsize>16</pointsize>
+                  <pointsize>17</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -1087,7 +1087,7 @@ color: rgb(255, 255, 255);</string>
                <widget class="QLabel" name="label_os_status_2">
                 <property name="font">
                  <font>
-                  <pointsize>16</pointsize>
+                  <pointsize>17</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -1140,7 +1140,7 @@ color: rgb(255, 255, 255);</string>
              <widget class="QLabel" name="label_admin">
               <property name="font">
                <font>
-                <pointsize>16</pointsize>
+                <pointsize>17</pointsize>
                </font>
               </property>
               <property name="text">
@@ -1165,7 +1165,7 @@ color: rgb(255, 255, 255);</string>
              <widget class="QLabel" name="label_net_status">
               <property name="font">
                <font>
-                <pointsize>16</pointsize>
+                <pointsize>17</pointsize>
                </font>
               </property>
               <property name="text">
@@ -1278,7 +1278,7 @@ color: rgb(255, 255, 255);</string>
                <widget class="QLabel" name="label_admin_result">
                 <property name="font">
                  <font>
-                  <pointsize>16</pointsize>
+                  <pointsize>17</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -1360,7 +1360,7 @@ color: rgb(255, 255, 255);</string>
                <widget class="QLabel" name="label_net_status_2">
                 <property name="font">
                  <font>
-                  <pointsize>16</pointsize>
+                  <pointsize>17</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -1420,7 +1420,7 @@ color: rgb(255, 255, 255);</string>
              <widget class="QLabel" name="label_vulners_api">
               <property name="font">
                <font>
-                <pointsize>16</pointsize>
+                <pointsize>17</pointsize>
                </font>
               </property>
               <property name="text">
@@ -1445,7 +1445,7 @@ color: rgb(255, 255, 255);</string>
              <widget class="QLabel" name="label_vulners_api_key">
               <property name="font">
                <font>
-                <pointsize>16</pointsize>
+                <pointsize>17</pointsize>
                </font>
               </property>
               <property name="text">
@@ -1470,7 +1470,7 @@ color: rgb(255, 255, 255);</string>
              <widget class="QLabel" name="label_loldrivers">
               <property name="font">
                <font>
-                <pointsize>16</pointsize>
+                <pointsize>17</pointsize>
                </font>
               </property>
               <property name="text">
@@ -1557,7 +1557,7 @@ color: rgb(255, 255, 255);</string>
                <widget class="QLabel" name="label_vulners_api_2">
                 <property name="font">
                  <font>
-                  <pointsize>16</pointsize>
+                  <pointsize>17</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -1639,7 +1639,7 @@ color: rgb(255, 255, 255);</string>
                <widget class="QLabel" name="label_vulners_key_3">
                 <property name="font">
                  <font>
-                  <pointsize>16</pointsize>
+                  <pointsize>17</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -1721,7 +1721,7 @@ color: rgb(255, 255, 255);</string>
                <widget class="QLabel" name="label_loldrivers_2">
                 <property name="font">
                  <font>
-                  <pointsize>16</pointsize>
+                  <pointsize>17</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -1827,7 +1827,7 @@ color: rgb(255, 255, 255);</string>
             </property>
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>17</pointsize>
              </font>
             </property>
             <property name="text">
@@ -2475,7 +2475,7 @@ color: rgb(255, 255, 255);</string>
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>0</y>
+               <y>-1215</y>
                <width>1623</width>
                <height>2024</height>
               </rect>
@@ -2646,7 +2646,7 @@ color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="font">
                         <font>
-                         <pointsize>16</pointsize>
+                         <pointsize>18</pointsize>
                          <kerning>true</kerning>
                         </font>
                        </property>
@@ -2809,7 +2809,7 @@ color: rgb(255, 255, 255);</string>
                       <widget class="QLabel" name="label_5">
                        <property name="font">
                         <font>
-                         <pointsize>15</pointsize>
+                         <pointsize>16</pointsize>
                         </font>
                        </property>
                        <property name="text">
@@ -2995,7 +2995,7 @@ color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="font">
                         <font>
-                         <pointsize>16</pointsize>
+                         <pointsize>18</pointsize>
                          <kerning>true</kerning>
                         </font>
                        </property>
@@ -3202,7 +3202,7 @@ color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="font">
                         <font>
-                         <pointsize>16</pointsize>
+                         <pointsize>17</pointsize>
                         </font>
                        </property>
                        <property name="text">
@@ -3265,7 +3265,7 @@ color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="font">
                         <font>
-                         <pointsize>16</pointsize>
+                         <pointsize>17</pointsize>
                         </font>
                        </property>
                        <property name="text">
@@ -3686,7 +3686,7 @@ color: rgb(255, 255, 255);</string>
                         <widget class="QLabel" name="label_Hardware_cpu">
                          <property name="font">
                           <font>
-                           <pointsize>16</pointsize>
+                           <pointsize>17</pointsize>
                           </font>
                          </property>
                          <property name="text">
@@ -3714,7 +3714,7 @@ color: rgb(255, 255, 255);</string>
                         <widget class="QLabel" name="label_Hardware_gpu">
                          <property name="font">
                           <font>
-                           <pointsize>16</pointsize>
+                           <pointsize>17</pointsize>
                           </font>
                          </property>
                          <property name="text">
@@ -3742,7 +3742,7 @@ color: rgb(255, 255, 255);</string>
                         <widget class="QLabel" name="label_Hardware_ram">
                          <property name="font">
                           <font>
-                           <pointsize>16</pointsize>
+                           <pointsize>17</pointsize>
                           </font>
                          </property>
                          <property name="text">
@@ -3770,7 +3770,7 @@ color: rgb(255, 255, 255);</string>
                         <widget class="QLabel" name="label_Hardware_rom">
                          <property name="font">
                           <font>
-                           <pointsize>16</pointsize>
+                           <pointsize>17</pointsize>
                           </font>
                          </property>
                          <property name="text">
@@ -4237,7 +4237,7 @@ color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="font">
                         <font>
-                         <pointsize>16</pointsize>
+                         <pointsize>18</pointsize>
                         </font>
                        </property>
                        <property name="cursor">
@@ -4462,7 +4462,7 @@ color: rgb(255, 255, 255);</string>
                       <widget class="QLabel" name="label_6">
                        <property name="font">
                         <font>
-                         <pointsize>15</pointsize>
+                         <pointsize>16</pointsize>
                         </font>
                        </property>
                        <property name="text">
@@ -4616,7 +4616,7 @@ color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="font">
                         <font>
-                         <pointsize>16</pointsize>
+                         <pointsize>18</pointsize>
                          <kerning>true</kerning>
                         </font>
                        </property>
@@ -5023,7 +5023,7 @@ color: rgb(255, 255, 255);</string>
                         <widget class="QLabel" name="label_Network_rules">
                          <property name="font">
                           <font>
-                           <pointsize>16</pointsize>
+                           <pointsize>17</pointsize>
                           </font>
                          </property>
                          <property name="text">
@@ -5051,7 +5051,7 @@ color: rgb(255, 255, 255);</string>
                         <widget class="QLabel" name="label_network_mac">
                          <property name="font">
                           <font>
-                           <pointsize>16</pointsize>
+                           <pointsize>17</pointsize>
                           </font>
                          </property>
                          <property name="text">
@@ -5079,7 +5079,7 @@ color: rgb(255, 255, 255);</string>
                         <widget class="QLabel" name="label_Network_local_ip">
                          <property name="font">
                           <font>
-                           <pointsize>16</pointsize>
+                           <pointsize>17</pointsize>
                           </font>
                          </property>
                          <property name="text">
@@ -5107,7 +5107,7 @@ color: rgb(255, 255, 255);</string>
                         <widget class="QLabel" name="label_Network_ext_ip">
                          <property name="font">
                           <font>
-                           <pointsize>16</pointsize>
+                           <pointsize>17</pointsize>
                           </font>
                          </property>
                          <property name="text">
@@ -5416,7 +5416,7 @@ color: rgb(255, 255, 255);</string>
                         <widget class="QLabel" name="label_sys_bitness">
                          <property name="font">
                           <font>
-                           <pointsize>16</pointsize>
+                           <pointsize>17</pointsize>
                           </font>
                          </property>
                          <property name="text">
@@ -5444,7 +5444,7 @@ color: rgb(255, 255, 255);</string>
                         <widget class="QLabel" name="label_sys_bitlocker">
                          <property name="font">
                           <font>
-                           <pointsize>16</pointsize>
+                           <pointsize>17</pointsize>
                           </font>
                          </property>
                          <property name="text">
@@ -5472,7 +5472,7 @@ color: rgb(255, 255, 255);</string>
                         <widget class="QLabel" name="label_sys_virt">
                          <property name="font">
                           <font>
-                           <pointsize>16</pointsize>
+                           <pointsize>17</pointsize>
                           </font>
                          </property>
                          <property name="text">
@@ -6963,22 +6963,6 @@ processing threads</string>
             </property>
            </widget>
           </item>
-          <item>
-           <spacer name="horizontalSpacer_11">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Preferred</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
          </layout>
         </item>
         <item row="2" column="0" colspan="2">
@@ -7752,22 +7736,6 @@ Please report it with FULL LOG to the developer, if it is not related to your sy
             </property>
            </widget>
           </item>
-          <item>
-           <spacer name="horizontalSpacer_36">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
          </layout>
         </item>
         <item row="1" column="0">
@@ -8171,6 +8139,22 @@ p, li { white-space: pre-wrap; }
              <string/>
             </property>
            </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_11">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>10</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </item>
