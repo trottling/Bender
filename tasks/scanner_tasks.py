@@ -10,16 +10,14 @@ import psutil
 import vulners
 import win32api
 import wmi
-
-from PyQt6 import QtTest, QtCore
+from PyQt6 import QtTest, QtCore, QtGui
 from PyQt6.QtGui import QMovie
-from PyQt6.uic.properties import QtGui
 from getmac import get_mac_address
 from windows_tools import windows_firewall, bitness, bitlocker
 from windows_tools.installed_software import get_installed_software
 
 from ui.animations import StackedWidgetChangePage, ElemShowAnim, TextChangeAnim, ImageChangeAnim
-from ui.show_report import Show_Report_CIA
+from ui.show_report import ReportApps
 from ui.tools import GetRelPath
 
 
@@ -37,7 +35,7 @@ def Run_Scanner_Tasks(self):
     self.done_scan_tasks_list = []
 
     # Funcs to call
-    self.scan_tasks_list = [RunCIA, GetWinIcon, GetWinVersions, GetCpu, GetGpu, GetRam, GetRom,
+    self.scan_tasks_list = [CheckApps, GetWinIcon, GetWinVersions, GetCpu, GetGpu, GetRam, GetRom,
                             GetFirewall, GetMac, GetLocalIP, GetExtIP, GetBitness, GetBitlocker,
                             GetVirtualization]
 
@@ -51,7 +49,7 @@ def Run_Scanner_Tasks(self):
     self.soft_list = []
     self.soft_list_vulners = []
 
-    # Pbar values
+    # Info values
     self.res_good = 0
     self.res_bad = 0
 
@@ -263,59 +261,69 @@ def GetVirtualization(self):
         self.res_bad += 1
 
 
-def RunCIA(self):
-    print("\n\n\nЖОПА\n\n\n")
+def GetApps(self):
     try:
         for software in get_installed_software():
             if software['name'] != "" and software['version'] != "":
                 self.soft_list.append(software)
-        self.logger.debug(f"RunCIA : {len(self.soft_list)} soft")
+
+        self.logger.debug(f"GetApps : {len(self.soft_list)} soft")
+
+        # check for zero list length
+        if len(self.soft_list) > 0:
+            self.res_good += 1
+            return False
+        else:
+            self.res_bad += 1
+            return True
+
     except Exception as e:
-        self.logger.error(f"RunCIA : {e}")
+        self.logger.error(f"GetApps : {e}")
         self.res_bad += 1
-        return
+        return True
 
-    # check for zero list length
-    if len(self.soft_list) == 0:
-        self.logger.error(f"RunCIA : zero soft_list")
-        self.res_bad += 1
-        return
 
-    # All apps list
-    self.scan_result.append([FillInstalledAppsList, self, self.soft_list])
-
-    self.logger.debug(f"Transforming softwares list to vulners.com format")
-    for software in self.soft_list:
-        self.soft_list_vulners.append(dict({"software": software['name'], "version": software['version']}))
-
-    self.logger.debug(f"Connecting to vulners.com API")
-
+def ConnectVulners(self):
     try:
         self.vulners_api = vulners.VulnersApi(api_key=self.vulners_key)
+        self.res_good += 1
     except Exception as e:
-        self.logger.error("RunCIA : Failed to connect Vulners Api : " + str(e))
-        return
+        self.logger.error(f"ConnectVulners : {e}")
+        self.res_bad += 1
+        return True
 
-    self.logger.debug(f"Sending softwares list to vulners.com")
+
+def SendAppsVulners(self):
     try:
-        if len(self.soft_list_vulners) > 500:
-            for i in range(0, len(self.soft_list_vulners), 500):
-                yield self.soft_list_vulners[i:i + 500]
-            for chunk in self.soft_list_vulners:
-                self.apps_report.update(self.vulners_api.software_audit(os="", version="", packages=chunk))
+        if len(self.soft_list) > 500:
+            while True:
+
+                try:
+                    self.soft_list_vulners = [next(self.soft_list) for _ in range(500)]
+                except StopIteration:
+                    self.apps_report.update(self.vulners_api.software_audit(os="", version="", packages=[
+                        {"software": software['name'], "version": software['version']} for software in
+                        self.soft_list_vulners]))
+                    break
+
+                self.apps_report.update(self.vulners_api.software_audit(os="", version="", packages=[
+                    {"software": software['name'], "version": software['version']} for software in
+                    self.soft_list_vulners]))
         else:
-            self.apps_report = self.vulners_api.software_audit(os="", version="", packages=self.soft_list_vulners)
+            self.apps_report = self.vulners_api.software_audit(os="", version="", packages=[
+                {"software": software['name'], "version": software['version']} for software in self.soft_list])
+        self.res_good += 1
     except Exception as e:
-        self.logger.error("RunCIA : Failed to get vulners.com report : " + str(e))
-        return
+        self.logger.error(f"SendAppsVulners : Failed to get vulners.com report : {e}")
+        self.res_bad += 1
+        return True
 
-    # Clear labels without CVE
-    self.apps_report = [vuln for vuln in self.apps_report['vulnerabilities'] if vuln['id']]
 
-    # Transorm to result format
+def ProcessAppsResponse(self):
     self.cve_list = []
+
     try:
-        for item in self.apps_report:
+        for item in [vuln for vuln in self.apps_report['vulnerabilities'] if vuln['id']]:
             cve = {
                 "cve": item["id"][0],
                 "package": item["package"],
@@ -330,84 +338,108 @@ def RunCIA(self):
             self.cve_list.append(cve)
         self.apps_report = {"cve_list": self.cve_list}
     except Exception as e:
-        self.logger.error("RunCIA : Failed to transorm to needed format : " + str(e))
-        return
+        self.logger.error(f"ProcessAppsResponse : Failed to transorm to needed format : {e}")
+        self.res_bad += 1
+        return True
 
-    self.logger.debug(f"RunCIA : Transormed to needed format : {self.apps_report}")
-
-    #
     # Getting more info about CVEs
-    #
-
-    if len(self.apps_report["cve_list"]) == 0:
-        pass
-    else:
+    if len(self.apps_report["cve_list"]) > 0:
         try:
             with cf.ThreadPoolExecutor(max_workers=self.net_threads) as executor:
                 futures = []
                 for item in self.apps_report["cve_list"]:
-                    futures.append(executor.submit(CIA_Get_CVE_Info, self=self, item=item))
+                    futures.append(executor.submit(GetCveInfo, self=self, item=item))
                 executor.shutdown(wait=True, cancel_futures=False)
         except Exception as e:
-            self.logger.error("RunCIA : Failed to Getting more info about CVEs : " + str(e))
-            return
+            self.logger.error(f"ProcessAppsResponse : Failed to Getting more info about CVEs : {e}")
+            self.res_bad += 1
+            return True
 
-    #
-    # Done
-    #
-
-    self.logger.debug(f"RunCIA : Done")
-    self.scan_result.append([Show_Report_CIA, self])
+    self.res_good += 1
+    return False
 
 
-def CIA_Get_CVE_Info(self, item):
+def GetCveInfo(self, item):
     cve_id = item["cve"]
     self.logger.debug(f"CIA_Get_CVE_Info : Processing {cve_id}")
+
     try:
-        resp = httpx.get(f"https://cveawg.mitre.org/api/cve/{cve_id}", timeout=10).json()
-
-        item["desc"] = resp["containers"]["cna"]["descriptions"][0]["value"] if \
-            resp["containers"]["cna"]["descriptions"][0]["value"] else "No descriprion"
-
-        if "metrics" in resp["containers"]["cna"] and "cvssV3_1" in \
-                resp["containers"]["cna"]["metrics"][0]:
-            item["score"] = resp["containers"]["cna"]["metrics"][0]["cvssV3_1"][
-                "baseScore"]
-        else:
-            "-"
-
-        if "assignerShortName" in resp["cveMetadata"]:
-            item["shortName"] = resp["cveMetadata"]["assignerShortName"]
-        else:
-            item["shortName"] = "No shortname"
-
-        if "metrics" in resp["containers"]["cna"] and "cvssV3_1" in \
-                resp["containers"]["cna"]["metrics"][0]:
-            item["cvss_metrics"] = resp["containers"]["cna"]["metrics"][0]
-        else:
-            "-"
-
-            item["datePublished"] = resp["cveMetadata"]["datePublished"] if \
-                resp["cveMetadata"]["datePublished"] else "No date"
-
-        if "references" in resp["containers"]["cna"]:
-            item["references"] = resp["containers"]["cna"]["references"]
-        else:
-            "No references"
+        self.mitre_resp = httpx.get(f"https://cveawg.mitre.org/api/cve/{cve_id}", timeout=10).json()
     except Exception as e:
-        self.logger.error(f"RunCIA : {cve_id} : Failed to get more info : {str(e)}")
+        self.logger.error(f"GetCveInfo : {cve_id} : {e}")
+
+    try:
+        item["desc"] = self.mitre_resp["containers"]["cna"]["descriptions"][0]["value"]
+    except KeyError:
+        item["desc"] = "No descriprion"
+
+    try:
+        item["score"] = self.mitre_resp["containers"]["cna"]["metrics"][0]["cvssV3_1"]["baseScore"]
+    except KeyError:
+        item["score"] = "-"
+
+    try:
+        item["shortName"] = self.mitre_resp["cveMetadata"]["assignerShortName"]
+    except KeyError:
+        item["shortName"] = "No shortname"
+
+    try:
+        item["cvss_metrics"] = self.mitre_resp["containers"]["cna"]["metrics"][0]
+    except KeyError:
+        item["cvss_metrics"] = "-"
+
+    try:
+        item["datePublished"] = self.mitre_resp["cveMetadata"]["datePublished"]
+    except KeyError:
+        item["datePublished"] = "No date"
+
+    try:
+        item["references"] = self.mitre_resp["containers"]["cna"]["references"]
+    except KeyError:
+        item["references"] = "No references"
 
 
-def FillInstalledAppsList(self, data):
-    name_max = max(len(item['name']) for item in data)
-    ver_max = max(len(item['version']) for item in data)
-    autor_max = max(len(item['publisher']) for item in data)
+def CheckApps(self):
+    if GetApps(self):
+        self.res_bad += 1
+        return
 
-    self.all_app_list_model = QtGui.QStandardItemModel()
-    self.ui.Software_listView_vuln.setModel(self.all_app_list_model)
+    # Fill all apps list
+    self.scan_result.append([FillAllAppsList, self, self.soft_list])
 
-    for item in data:
-        list_item = QtGui.QStandardItem()
-        list_item.setText(
-            f"{item['name'].ljust(name_max - len(item['name']))}{item['version'].ljust(ver_max - len(item['version']))}{item['publisher'].ljust(autor_max - len(item['publisher']))}")
-        self.all_app_list_model.appendRow(list_item)
+    # Connect to Vulners api via his lib
+    if ConnectVulners(self):
+        self.res_bad += 1
+        return
+
+    # Sending softwares list to Vulners api via his lib
+    if SendAppsVulners(self):
+        self.res_bad += 1
+        return
+
+    # Transorm to result format
+    if ProcessAppsResponse(self):
+        self.res_bad += 1
+        return
+
+    self.scan_result.append([ReportApps, self])
+    self.res_good += 1
+
+
+def FillAllAppsList(self, data):
+    try:
+        self.all_app_list_model = QtGui.QStandardItemModel()
+        self.ui.Software_listView_all.setModel(self.all_app_list_model)
+        for item in data:
+            list_item = QtGui.QStandardItem()
+            list_item.setText(
+                str(item['name'][:40]).capitalize() + f"{"..." if len(item['name']) > 40 else ""}" + "\t" + str(
+                    item['version'][:15]))
+            self.all_app_list_model.appendRow(list_item)
+
+        if len(data) > 7:
+            self.ui.Software_pushButton.show()
+        self.res_good += 1
+    except Exception as e:
+        self.logger.error(f"FillAllAppsList : {e}")
+        self.res_bad += 1

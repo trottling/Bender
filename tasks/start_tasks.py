@@ -50,6 +50,7 @@ def Run_Start_Tasks(self):
                     except Exception as e:
                         self.logger.error(f"Run_Start_Tasks : {e}")
 
+    QtTest.QTest.qWait(250)
     self.start_tasks_running = False
 
 
