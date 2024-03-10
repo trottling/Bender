@@ -24,9 +24,6 @@ def ReportApps(self):
         self.vunl_app_list_model = QtGui.QStandardItemModel()
         self.ui.Software_listView_vuln.setModel(self.vunl_app_list_model)
 
-        if len(self.apps_report["cve_list"]) > 7:
-            self.ui.Software_pushButton_2.show()
-
         for item in self.apps_report["cve_list"]:
             # Items alignment
             string = f"{item['cve'][:20].ljust(cve_max)}{str(item['score']).ljust(score_max)}{item['package'].capitalize().ljust(package_max)}{item['version'].ljust(version_max)}"
@@ -105,38 +102,25 @@ def ReportAppsFull(self, index):
         Report_Error(self, f"ReportAppsFull : {e}")
 
 
-def Show_Report_CCD(self, rep):
-    try:
-        self.logger.debug("Show_Report_CCD : loading report")
-        self.report = json.loads(rep)
-    except Exception as e:
-        Report_Error(self, "Failed to convert report to JSON format : " + str(e))
-
-    self.ui.next_work_button.show()
-    self.logger.debug("Show_Report_CCD : next_work_button : show")
-
-    self.logger.debug(f"Show_Report_CCD : {len(self.report["driver_list"])} drivers in list")
-    if len(self.report["driver_list"]) == 0:
+def ReportDrivers(self):
+    self.logger.debug(f"ReportDrivers : {len(self.drivers_report["driver_list"])} drivers in list")
+    if len(self.drivers_report["driver_list"]) == 0:
         return
 
     try:
         # Calculate alignment
         str_max = 126
-        shortName_max = max(len(item["shortName"]) for item in self.report["driver_list"]) + 8
-        version_max = max(len(item["version"]) for item in self.report["driver_list"]) + 8
+        shortName_max = max(len(item["shortName"]) for item in self.drivers_report["driver_list"]) + 8
+        version_max = max(len(item["version"]) for item in self.drivers_report["driver_list"]) + 8
         self.logger.debug(
-            f"Show_Report_CCD : cve_max {shortName_max} : version_max {version_max}")
-
-        # Header alignment
-        header = f"     {'Name'.ljust(shortName_max)}{'Version'.ljust(version_max)}Desc"
-        self.ui.label_result_info.setText(header)
+            f"ReportDrivers : cve_max {shortName_max} : version_max {version_max}")
 
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
-        self.ui.Drivers_listWidget.setModel(self.vunl_app_list_model)
+        self.ui.Drivers_listView_vuln.setModel(self.vunl_app_list_model)
 
         # Items alignment
-        for item in self.report["driver_list"]:
+        for item in self.drivers_report["driver_list"]:
             string = f"  {item['shortName'].ljust(shortName_max)}{str(item['version']).ljust(version_max)}"
 
             if len(string + item["desc"]) > str_max:
@@ -146,21 +130,19 @@ def Show_Report_CCD(self, rep):
 
             list_item = QtGui.QStandardItem()
             list_item.setText(string + desc)
-            list_item.setIcon(QtGui.QIcon(r"assets\images\risk.png"))
-
             self.vunl_app_list_model.appendRow(list_item)
 
-        self.ui.result_listView.doubleClicked.connect(lambda index: ShowCVEInfo_CCD(self, index))
-        self.logger.debug("Show_Report_CCD : List maked")
+        self.ui.Drivers_listView_vuln.doubleClicked.connect(lambda index: ReportDriversFull(self, index))
+        self.logger.debug("ReportDrivers : List maked")
     except Exception as e:
-        Report_Error(self, f"Show_Report_CCD : {e}")
+        Report_Error(self, f"ReportDrivers : {e}")
 
 
-def ShowCVEInfo_CCD(self, index):
+def ReportDriversFull(self, index):
     try:
         item_index = index.row()
         self.logger.debug(f"ShowCVEInfo_CIA : item index {str(item_index).strip()} ")
-        driver_info = self.report["driver_list"][item_index]
+        driver_info = self.drivers_report["driver_list"][item_index]
         self.ui.label_vuln_head.setText(f"{driver_info["shortName"]} - {driver_info["version"]}")
 
         self.ui.plainTextEdit_vuln.setPlainText(FormatDict(self, driver_info))

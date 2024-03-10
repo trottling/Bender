@@ -6,15 +6,16 @@ def Hide_Elements(self):
     self.ui.delete_qss_pushButton.hide()
     self.ui.label_windows_title.hide()
     self.ui.app_icon.hide()
-    self.ui.next_work_btn.hide()
-    self.ui.image_work_progress.hide()
-    self.ui.label_work_progress.hide()
 
-    # Hide expand btns
-    self.ui.Software_pushButton.hide()
-    self.ui.Software_pushButton_2.hide()
-    self.ui.Drivers_pushButton.hide()
-    self.ui.Drivers_pushButton_2.hide()
+    # Work progress page
+    self.ui.next_work_btn.hide()
+    self.ui.framel_scan_successful.hide()
+    self.ui.label_scan_successful.hide()
+    self.ui.label_scan_successful_len.hide()
+    self.ui.frame_scan_error.hide()
+    self.ui.label_scan_error.hide()
+    self.ui.label_scan_error_len.hide()
+
     HideQSSInput(self)
 
     self.logger.debug("Hide_Elements : Elements Hided")
