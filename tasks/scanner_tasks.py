@@ -1,23 +1,27 @@
 import concurrent.futures as cf
+import hashlib
 import platform
 import shutil
 import socket
 import subprocess
+from os import listdir
+from os.path import join, isfile
 
 import cpuinfo
 import httpx
 import psutil
 import vulners
-import win32api
 import wmi
 from PyQt6 import QtTest, QtCore, QtGui
 from PyQt6.QtGui import QMovie
 from getmac import get_mac_address
-from windows_tools import windows_firewall, bitness, bitlocker
+from portscan import PortScan
+from windows_tools import windows_firewall, bitness, bitlocker, logical_disks
 from windows_tools.installed_software import get_installed_software
 
-from ui.animations import StackedWidgetChangePage, ElemShowAnim, TextChangeAnim, ImageChangeAnim
-from ui.show_report import ReportApps
+from other.tcp_port_dict import port_dict
+from ui.animations import StackedWidgetChangePage, ElemShowAnim, TextChangeAnim, ImageChangeAnim, ElemHideAnim
+from ui.show_report import ReportApps, ReportDrivers
 from ui.tools import GetRelPath
 
 
@@ -35,8 +39,10 @@ def Run_Scanner_Tasks(self):
     self.done_scan_tasks_list = []
 
     # Funcs to call
-    self.scan_tasks_list = [CheckApps, GetWinIcon, GetWinVersions, GetCpu, GetGpu, GetRam, GetRom,
-                            GetFirewall, GetMac, GetLocalIP, GetExtIP, GetBitness, GetBitlocker,
+    self.scan_tasks_list = [CheckApps, CheckDrivers, GetLocalPorts, GetExtPorts,
+                            GetWinIcon, GetWinVersions, GetCpu, GetGpu,
+                            GetRam, GetRom, GetFirewall, GetMac,
+                            GetLocalIP, GetExtIP, GetBitness, GetBitlocker,
                             GetVirtualization]
 
     # UI Input vars
@@ -48,6 +54,11 @@ def Run_Scanner_Tasks(self):
     self.apps_report = {}
     self.soft_list = []
     self.soft_list_vulners = []
+    self.drivers_report = {}
+    self.drivers_list = []
+    self.drivers_list_hashed = []  # Sha256 hash
+    self.drivers_vuln_list = []
+    self.driver_db = None
 
     # Info values
     self.res_good = 0
@@ -87,14 +98,24 @@ def Run_Scanner_Tasks(self):
 
     ElemShowAnim(self, self.ui.next_work_btn)
     TextChangeAnim(self, self.ui.label_work_progress, "Done")
+    ElemHideAnim(self, self.ui.label_win_warn, dur=200)
     self.ui.image_work_progress.clear()
     ImageChangeAnim(self, self.ui.image_work_progress, r"assets\images\bender-medium.png")
-    UpdateResultInfo(self)
+    self.ui.label_scan_successful_len.setText(str(self.res_good))
+    self.ui.label_scan_error_len.setText(str(self.res_bad))
+    ShowWorkElems(self)
 
 
-def UpdateResultInfo(self):
-    TextChangeAnim(self, self.ui.label_scan_successful_len, str(self.res_good))
-    TextChangeAnim(self, self.ui.label_scan_error_len, str(self.res_bad))
+def ShowWorkElems(self):
+    QtTest.QTest.qWait(500)
+
+    for elem in [self.ui.framel_scan_successful, self.ui.label_scan_successful,
+                 self.ui.label_scan_successful_len, self.ui.frame_scan_error,
+                 self.ui.label_scan_error, self.ui.label_scan_error_len]:
+        ElemShowAnim(self, elem)
+        QtTest.QTest.qWait(100)
+
+    QtTest.QTest.qWait(250)
 
 
 def GetWinIcon(self):
@@ -160,7 +181,7 @@ def GetRam(self):
 def GetRom(self):
     try:
         space = 0.0
-        for drive in win32api.GetLogicalDriveStrings().split('\000')[:-1]:
+        for drive in logical_disks.get_logical_disks():
             total, _, _ = shutil.disk_usage(drive)
             space += total
         self.scan_result.append([self.ui.label_Hardware_rom.setText, f"{space // (2 ** 30)} Gb ROM"])
@@ -234,8 +255,19 @@ def GetBitness(self):
 
 def GetBitlocker(self):
     try:
-        if bitlocker.check_bitlocker_management_tools():  # TODO FIX
-            self.scan_result.append([self.ui.label_sys_bitlocker.setText, f"Bitlocker Enabled"])
+        drives_list = []
+        if bitlocker.check_bitlocker_management_tools():
+
+            for drive in logical_disks.get_logical_disks():
+
+                for line in subprocess.check_output(['manage-bde', '-status', drive]).decode(encoding='utf-8',
+                                                                                             errors='ignore'):
+                    if 'AES' or 'XEX' in line:
+                        drives_list.append(drive)
+                        continue
+
+            self.scan_result.append(
+                [self.ui.label_sys_bitlocker.setText, f"Bitlocker Enabled - Disks {", ".join(list(set(drives_list)))}"])
         else:
             self.scan_result.append([self.ui.label_sys_bitlocker.setText, f"Bitlocker Disabled"])
         self.res_good += 1
@@ -437,9 +469,256 @@ def FillAllAppsList(self, data):
                     item['version'][:15]))
             self.all_app_list_model.appendRow(list_item)
 
-        if len(data) > 7:
-            self.ui.Software_pushButton.show()
         self.res_good += 1
     except Exception as e:
         self.logger.error(f"FillAllAppsList : {e}")
+        self.res_bad += 1
+
+
+def GetLocalPorts(self):
+    try:
+        local_ip = socket.gethostbyname(socket.gethostname())
+        self.LocalPorts = PortScan(ip_str=local_ip, port_str="1-49151",
+                                   thread_num=1000, show_refused=False,
+                                   wait_time=3, stop_after_count=True).run()
+
+        self.scan_result.append([FillLocalPorts, self])
+
+        self.res_good += 1
+    except Exception as e:
+        self.logger.error(f"GetLocalPorts : {e}")
+        self.res_bad += 1
+
+
+def FillLocalPorts(self):
+    try:
+        self.local_ports_list_model = QtGui.QStandardItemModel()
+        self.ui.open_local_ports_list.setModel(self.local_ports_list_model)
+
+        for item in self.LocalPorts:
+            port = str(item[1])
+            if port in port_dict:
+                list_item = QtGui.QStandardItem()
+                list_item.setText(
+                    f"{port}\t{port_dict[port]["Service Name"] if port_dict[port]["Service Name"] != "" else "No Service Info"}\t{port_dict[port]["Description"] if port_dict[port]["Description"] != "" else "No Description"}")
+                self.local_ports_list_model.appendRow(list_item)
+        self.res_good += 1
+    except Exception as e:
+        self.logger.error(f"FillLocalPorts : {e}")
+        self.res_bad += 1
+
+
+def GetExtPorts(self):
+    try:
+
+        ext_ip = httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')
+        self.ExtPorts = PortScan(ip_str=ext_ip, port_str="1-49151",
+                                 thread_num=1000, show_refused=False,
+                                 wait_time=3, stop_after_count=True).run()
+
+        self.scan_result.append([FillExtPorts, self])
+        self.res_good += 1
+    except Exception as e:
+        self.logger.error(f"GetExtPorts : {e}")
+        self.res_bad += 1
+
+
+def FillExtPorts(self):
+    try:
+        self.ext_ports_list_model = QtGui.QStandardItemModel()
+        self.ui.open_Externall_ports_list.setModel(self.ext_ports_list_model)
+        for item in self.ExtPorts:
+            port = str(item[1])
+            if port in port_dict:
+                list_item = QtGui.QStandardItem()
+                list_item.setText(
+                    f"{port}\t{port_dict[port]["Service Name"] if port_dict[port]["Service Name"] != "" else "No Service Info"}\t{port_dict[port]["Description"] if port_dict[port]["Description"] != "" else "No Description"}")
+                self.ext_ports_list_model.appendRow(list_item)
+        self.res_good += 1
+    except Exception as e:
+        self.logger.error(f"FillExtPorts : {e}")
+        self.res_bad += 1
+
+
+def GetDrivers(self):
+    try:
+        # getting drivers
+        for driver in [f for f in listdir(r"c:\windows\system32\drivers") if
+                       isfile(join(r"c:\windows\system32\drivers", f))]:
+            self.drivers_list.append(driver)
+
+        self.logger.debug(f"GetDrivers : {len(self.drivers_list)} drivers")
+
+        # check for zero list length
+        if len(self.drivers_list) == 0:
+            self.res_bad += 1
+            return True
+
+        self.res_good += 1
+        return False
+    except Exception as e:
+        self.logger.error(f"GetDrivers : {e}")
+        self.res_bad += 1
+        return True
+
+
+def HashDrivers(self):
+    try:
+        for driver in self.drivers_list:
+            # [sha256, sha1]
+            drivers_path = r"c:\windows\system32\drivers"
+            with open(f"{drivers_path}\\{driver}", "rb") as f:
+                self.drivers_list_hashed.append(
+                    [hashlib.sha256(f.read()).hexdigest(), hashlib.sha1(f.read()).hexdigest()])
+        self.res_good += 1
+        return False
+    except Exception as e:
+        self.logger.error(f"HashDrivers : {e}")
+        self.res_bad += 1
+        return True
+
+
+def GetDriversDB(self):
+    try:
+        self.driver_db = httpx.get("https://www.loldrivers.io/api/drivers.json", timeout=10).json()
+        self.logger.debug(f"GetDriversDB : {len(self.driver_db)} drivers in database")
+
+        if len(self.driver_db) == 0:
+            self.res_bad += 1
+            return True
+
+        self.res_good += 1
+        return False
+
+    except Exception as e:
+        self.logger.error(f"GetDriversDB : {e}")
+        self.res_bad += 1
+        return True
+
+
+def ScanDrivers(self):
+    try:
+        with cf.ThreadPoolExecutor(max_workers=self.data_workers) as executor:
+            futures = []
+            for drv_hash in self.drivers_list_hashed:
+                futures.append(executor.submit(ProcessDriver, self=self, drv_hash=drv_hash))
+            executor.shutdown(wait=True, cancel_futures=False)
+
+        self.res_good += 1
+        return False
+    except Exception as e:
+        self.logger.error(f"ScanDrivers : {e}")
+        self.res_bad += 1
+        return True
+
+
+def RecursiveSaveDict(self, source_dict, target_dict, prefix=""):
+    for key, value in source_dict.items():
+        if isinstance(value, dict):
+            RecursiveSaveDict(self, value, target_dict, prefix + key + ".")
+        else:
+            target_dict[prefix + key] = value
+
+
+def ProcessDriver(self, drv_hash):
+    for date in self.driver_db:
+        for item in date["KnownVulnerableSamples"]:
+            if 'SHA256' in item and drv_hash[0] == item['SHA256'] or 'SHA1' in item and drv_hash[1] == item['SHA1']:
+
+                try:
+                    shortName = item["Filename"]
+                except KeyError:
+                    try:
+                        shortName = item["OriginalFilename"]
+                    except KeyError:
+                        shortName = "Unknown Short Name"
+
+                try:
+                    version = item["FileVersion"]
+                except KeyError:
+                    version = "No File Version"
+
+                try:
+                    datePublished = item["CreationTimestamp"]
+                except KeyError:
+                    datePublished = "No Date Published"
+
+                try:
+                    Company = item["Company"]
+                except KeyError:
+                    Company = "No Company"
+
+                try:
+                    Desc = item["Description"]
+                except KeyError:
+                    Desc = "No Description"
+
+                try:
+                    Product = item["Product"]
+                except KeyError:
+                    Product = "No Product"
+
+                try:
+                    Copyright = item["Copyright"]
+                except KeyError:
+                    Copyright = "No Copyright"
+
+                try:
+                    ImportedFunctions = item["ImportedFunctions"]
+                except KeyError:
+                    ImportedFunctions = ["No Imported Functions"]
+
+                try:
+                    drhash = f"SHA256 : {item['SHA256']}"
+                except KeyError:
+                    drhash = f"SHA1 : {item['SHA1']}"
+
+                vuln_driver_data = {
+                    "shortName": shortName,
+                    "version": version,
+                    "datePublished": datePublished,
+                    "desc": f"{Company} : {Desc} : {Product} : {Copyright}",
+                    "ImportedFunctions": ImportedFunctions,
+                    "hash": drhash
+                }
+                RecursiveSaveDict(self, date, vuln_driver_data)
+                self.drivers_vuln_list.append(vuln_driver_data)
+
+
+def CheckDrivers(self):
+    if GetDrivers(self):
+        self.res_bad += 1
+        return
+
+    self.scan_result.append([FillDriversList, self])
+
+    if HashDrivers(self):
+        self.res_bad += 1
+        return
+
+    if GetDriversDB(self):
+        self.res_bad += 1
+        return
+
+    if ScanDrivers(self):
+        self.res_bad += 1
+        return
+
+    self.drivers_report = {"driver_list": self.drivers_vuln_list}
+
+    self.scan_result.append([ReportDrivers, self])
+
+
+def FillDriversList(self):
+    try:
+        self.Drivers_list_model = QtGui.QStandardItemModel()
+        self.ui.Drivers_listView_all.setModel(self.Drivers_list_model)
+        for item in self.drivers_list:
+            list_item = QtGui.QStandardItem()
+            list_item.setText(item)
+            self.Drivers_list_model.appendRow(list_item)
+
+        self.res_good += 1
+    except Exception as e:
+        self.logger.error(f"FillExtPorts : {e}")
         self.res_bad += 1
