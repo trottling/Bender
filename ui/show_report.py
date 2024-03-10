@@ -7,29 +7,29 @@ from ui.animations import StackedWidgetChangePage
 from ui.tools import Report_Error, GetRelPath
 
 
-def Show_Report_CIA(self):
-    self.logger.debug(f"Show_Report_CIA : {len(self.report["cve_list"])} CVEs in list")
+def ReportApps(self):
+    self.logger.debug(f"ReportApps : {len(self.apps_report["cve_list"])} CVEs in list")
 
     try:
         # Calculate alignment
         str_max = 75
-        cve_max = max(len(item["cve"]) for item in self.report["cve_list"]) + 4
-        score_max = max(len(str(item['score'])) for item in self.report["cve_list"]) + 4
-        package_max = max(len(item["package"]) for item in self.report["cve_list"]) + 4
-        version_max = max(len(item["version"]) for item in self.report["cve_list"]) + 4
+        cve_max = max(len(item["cve"]) for item in self.apps_report["cve_list"]) + 4
+        score_max = max(len(str(item['score'])) for item in self.apps_report["cve_list"]) + 4
+        package_max = max(len(item["package"]) for item in self.apps_report["cve_list"]) + 4
+        version_max = max(len(item["version"]) for item in self.apps_report["cve_list"]) + 4
         self.logger.debug(
-            f"Show_Report_CIA : cve_max {cve_max} : score_max {score_max} : package_max {package_max} : version_max {version_max}")
+            f"ReportApps : cve_max {cve_max} : score_max {score_max} : package_max {package_max} : version_max {version_max}")
 
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
         self.ui.Software_listView_vuln.setModel(self.vunl_app_list_model)
 
-        if len(self.report["cve_list"]) > 7:
+        if len(self.apps_report["cve_list"]) > 7:
             self.ui.Software_pushButton_2.show()
 
-        for item in self.report["cve_list"]:
+        for item in self.apps_report["cve_list"]:
             # Items alignment
-            string = f"{item['cve'].ljust(cve_max - len(item['cve']))}{str(item['score'] - len(item['score'])).ljust(score_max)}{item['package'].capitalize().ljust(package_max - len(item['package']))}{item['version'].ljust(version_max - len(item['version']))}"
+            string = f"{item['cve'][:20].ljust(cve_max)}{str(item['score']).ljust(score_max)}{item['package'].capitalize().ljust(package_max)}{item['version'].ljust(version_max)}"
 
             if len(string + item["desc"]) > str_max:
                 desc = f"{item['desc'][:75 - len(string)]}..."
@@ -60,24 +60,25 @@ def Show_Report_CIA(self):
                     else:
                         self.dot = "dot-grey.png"
                 self.logger.debug(
-                    f"Show_Report_CIA : Score {self.score_raw} --> {self.score if self.score else ""} --> {self.dot}")
+                    f"ReportApps : Score {self.score_raw} --> {self.score if self.score else ""} --> {self.dot}")
                 list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\{self.dot}")))
             except Exception as e:
-                self.logger.error(f"Show_Report_CIA : Error setting dot : {e}")
+                self.logger.error(f"ReportApps : Error setting dot : {e}")
 
             self.vunl_app_list_model.appendRow(list_item)
 
-        self.ui.Software_listView_vuln.doubleClicked.connect(lambda index: ShowCVEInfo_CIA(self, index))
-        self.logger.debug("Show_Report_CIA : List maked")
+        self.ui.Software_listView_vuln.doubleClicked.connect(lambda index: ReportAppsFull(self, index))
+        self.logger.debug("ReportApps : List maked")
+        self.res_good += 1
     except Exception as e:
-        Report_Error(self, f"Show_Report_CIA : {e}")
+        Report_Error(self, f"ReportApps : {e}")
 
 
-def ShowCVEInfo_CIA(self, index):
+def ReportAppsFull(self, index):
     try:
         item_index = index.row()
-        self.logger.debug(f"ShowCVEInfo_CIA : item index {str(item_index).strip()} ")
-        cve_info = self.report["cve_list"][item_index]
+        self.logger.debug(f"ReportAppsFull : item index {str(item_index).strip()} ")
+        cve_info = self.apps_report["cve_list"][item_index]
 
         self.ui.label_cve_head.setText(
             f"{cve_info["cve"]} - {cve_info["package"].capitalize()} - {cve_info["version"]}")
@@ -101,7 +102,7 @@ def ShowCVEInfo_CIA(self, index):
 
         StackedWidgetChangePage(self, 5)
     except Exception as e:
-        Report_Error(self, f"ShowCVEInfo_CIA : {e}")
+        Report_Error(self, f"ReportAppsFull : {e}")
 
 
 def Show_Report_CCD(self, rep):
@@ -116,7 +117,6 @@ def Show_Report_CCD(self, rep):
 
     self.logger.debug(f"Show_Report_CCD : {len(self.report["driver_list"])} drivers in list")
     if len(self.report["driver_list"]) == 0:
-        # ElemShowAnim(self, self.ui.label_no_cve)
         return
 
     try:
