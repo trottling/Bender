@@ -2368,6 +2368,9 @@ color: rgb(255, 255, 255);</string>
             <property name="text">
              <string/>
             </property>
+            <property name="flat">
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -2475,7 +2478,7 @@ color: rgb(255, 255, 255);</string>
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>-1215</y>
+               <y>-660</y>
                <width>1623</width>
                <height>2024</height>
               </rect>
@@ -2497,7 +2500,7 @@ color: rgb(255, 255, 255);</string>
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
-                    <height>360</height>
+                    <height>16777215</height>
                    </size>
                   </property>
                   <property name="font">
@@ -2573,6 +2576,9 @@ color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="horizontalScrollBarPolicy">
                         <enum>Qt::ScrollBarAlwaysOff</enum>
+                       </property>
+                       <property name="autoScrollMargin">
+                        <number>16</number>
                        </property>
                        <property name="editTriggers">
                         <set>QAbstractItemView::NoEditTriggers</set>
@@ -2754,7 +2760,7 @@ color: rgb(255, 255, 255);</string>
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
-                    <height>360</height>
+                    <height>16777215</height>
                    </size>
                   </property>
                   <property name="font">
@@ -4167,7 +4173,7 @@ color: rgb(255, 255, 255);</string>
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
-                    <height>360</height>
+                    <height>16777215</height>
                    </size>
                   </property>
                   <property name="font">
@@ -4407,7 +4413,7 @@ color: rgb(255, 255, 255);</string>
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
-                    <height>360</height>
+                    <height>16777215</height>
                    </size>
                   </property>
                   <property name="font">
@@ -7126,6 +7132,9 @@ processing threads</string>
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0">
          <layout class="QHBoxLayout" name="horizontalLayout_30">
+          <property name="spacing">
+           <number>0</number>
+          </property>
           <item>
            <spacer name="horizontalSpacer_42">
             <property name="orientation">
@@ -7144,6 +7153,9 @@ processing threads</string>
           </item>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_17">
+            <property name="spacing">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QPlainTextEdit" name="errors_log">
               <property name="sizePolicy">
@@ -7592,9 +7604,12 @@ Please report it with FULL LOG to the developer, if it is not related to your sy
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>23</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
