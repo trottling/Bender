@@ -1,24 +1,28 @@
-MIT License
+BSD 3-Clause License
 
-Copyright (c) 2024 trottling
+Copyright (c) 2024, trottling
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files ("Bender") to engage in 
-partially restricted activities with the Software, including, without limitation,
-copying, modifying, merging, publishing, distributing, provided that the original
-source of the software (github.com/trottling/Bender) and the creator (Owner) are
-identified as github.com/trottling.  Any commercial activity, including licensing,
-sublicensing, and/or selling copies of the Software must be discussed with the creator
-(Owner) in advance for consent (with discussion of terms and conditions) or refusal.
-All of these things are authorized to be done by the persons to whom the Software is
-made available, subject to the following conditions:
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
 
-The above copyright notice and this permission notice must be included in
-all copies or substantial portions of the Software.
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
 
-THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-INCLUDING, BUT NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
-PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIMS, DAMAGES OR OTHER LIABILITIES, WHETHER CONTRACTUAL, 
-TORT OR OTHERWISE, ARISING OUT OF OR IN CONNECTION WITH THE SOFTWARE, ITS USE OR 
-OTHER OPERATIONS ON OR IN CONNECTION WITH THE SOFTWARE.
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
