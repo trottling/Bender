@@ -5,7 +5,7 @@ from pathlib import Path
 
 from PyQt6 import QtCore, QtTest
 from PyQt6.QtCore import QTimer, QPropertyAnimation, QEasingCurve
-from PyQt6.QtGui import QMovie
+from PyQt6.QtGui import QMovie, QImage
 from PyQt6.QtWidgets import QFileDialog, QGraphicsOpacityEffect
 
 from config.write_config import Save_Settings
@@ -30,6 +30,13 @@ def Connect_Buttons(self):
     self.ui.reload_btn.clicked.connect(lambda: (RestartStartTask(self)))
 
     self.ui.pushButton_start_scan.clicked.connect(lambda: (StartScanner(self)))
+
+    #
+    # Result page
+    #
+
+    self.ui.pushButton_save_log.clicked.connect(lambda: SaveDebugLog(self))
+    self.ui.pushButton_save_report.clicked.connect(lambda: SaveScanResults(self))
 
     #
     # Setting page
@@ -198,7 +205,7 @@ def SaveDebugLog(self):
                                                filter=".log",
                                                initialFilter=".log")
     except Exception as e:
-        self.logger.debug(f"SaveDebugLog : {e}")
+        self.logger.error(f"SaveDebugLog : {e}")
         return
 
     if log_file == "":
@@ -386,3 +393,33 @@ def StartScanner(self):
     if StartScannerValidator(self):
         return
     Run_Scanner_Tasks(self)
+
+
+def SaveScanResults(self):
+    try:
+        res_file = QFileDialog.getSaveFileName(self, caption='Save image (.png)', directory="./",
+                                               filter=".png",
+                                               initialFilter=".png")
+    except Exception as e:
+        self.logger.error(f"SaveScanResults : {e}")
+        return
+
+    if res_file == "" or None:
+        return
+
+    res_file = res_file[0] + res_file[1]
+
+    self.logger.debug(f"SaveScanResults : Open file {res_file}")
+
+    self.ui.pushButton_save_log.hide()
+    self.ui.pushButton_save_report.hide()
+
+    try:
+        image = self.ui.scrollAreaWidgetContents.grab(self.ui.scrollAreaWidgetContents.rect())
+        image.save(res_file)
+        self.logger.debug(f"SaveScanResults : Image writed")
+    except Exception as e:
+        self.logger.error(f"SaveScanResults : error {e}")
+
+    self.ui.pushButton_save_log.show()
+    self.ui.pushButton_save_report.show()
