@@ -1,4 +1,3 @@
-import json
 import re
 
 from PyQt6 import QtGui
@@ -27,14 +26,8 @@ def ReportApps(self):
         for item in self.apps_report["cve_list"]:
             # Items alignment
             string = f"{item['cve'][:20].ljust(cve_max)}{str(item['score']).ljust(score_max)}{item['package'].capitalize().ljust(package_max)}{item['version'].ljust(version_max)}"
-
-            if len(string + item["desc"]) > str_max:
-                desc = f"{item['desc'][:75 - len(string)]}..."
-            else:
-                desc = item["desc"]
-
             list_item = QtGui.QStandardItem()
-            list_item.setText(string + desc)
+            list_item.setText(string)
 
             try:
                 self.dot = ""
