@@ -97,24 +97,25 @@ def Run_Scanner_Tasks(self):
             except Exception as e:
                 self.logger.error(f"Run_Scanner_Tasks : {e}")
 
-    ElemShowAnim(self, self.ui.next_work_btn)
+    ChangeWorkElems(self)
+
+
+def ChangeWorkElems(self):
     TextChangeAnim(self, self.ui.label_work_progress, "Done")
     ElemHideAnim(self, self.ui.label_win_warn, dur=200)
     self.ui.image_work_progress.clear()
     ImageChangeAnim(self, self.ui.image_work_progress, r"assets\images\bender-medium.png")
     self.ui.label_scan_successful_len.setText(str(self.res_good))
     self.ui.label_scan_error_len.setText(str(self.res_bad))
-    ShowWorkElems(self)
 
-
-def ShowWorkElems(self):
-    QtTest.QTest.qWait(500)
+    QtTest.QTest.qWait(1000)
 
     for elem in [self.ui.framel_scan_successful, self.ui.label_scan_successful,
                  self.ui.label_scan_successful_len, self.ui.frame_scan_error,
-                 self.ui.label_scan_error, self.ui.label_scan_error_len]:
+                 self.ui.label_scan_error, self.ui.label_scan_error_len,
+                 self.ui.next_work_btn]:
         ElemShowAnim(self, elem)
-        QtTest.QTest.qWait(100)
+        QtTest.QTest.qWait(50)
 
     QtTest.QTest.qWait(250)
 
