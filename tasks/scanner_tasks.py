@@ -12,7 +12,8 @@ import httpx
 import psutil
 import vulners
 import wmi
-from PyQt6 import QtTest, QtCore, QtGui
+from PyQt6 import QtTest, QtCore, QtGui, QtWebEngineWidgets
+from PyQt6.QtCore import QUrl
 from PyQt6.QtGui import QMovie
 from getmac import get_mac_address
 from portscan import PortScan
@@ -33,7 +34,7 @@ def Run_Scanner_Tasks(self):
     #
 
     # Funcs calls results
-    self.scan_result = []
+    self.scan_result = [[LoadShodanReport, self]]
 
     # Custom waiting list
     self.done_scan_tasks_list = []
@@ -116,6 +117,17 @@ def ShowWorkElems(self):
         QtTest.QTest.qWait(100)
 
     QtTest.QTest.qWait(250)
+
+
+def LoadShodanReport(self):
+    try:
+        ip = httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')
+        self.ui.WebWidget.load(QUrl(f"https://www.shodan.io/host/{ip}"))
+        self.logger.debug("LoadShodanReport : added")
+        self.res_good += 1
+    except Exception as e:
+        self.logger.error(f"LoadShodanReport : {e}")
+        self.res_bad += 1
 
 
 def GetWinIcon(self):
