@@ -12,7 +12,7 @@ import httpx
 import psutil
 import vulners
 import wmi
-from PyQt6 import QtTest, QtCore, QtGui, QtWebEngineWidgets
+from PyQt6 import QtTest, QtCore, QtGui
 from PyQt6.QtCore import QUrl
 from PyQt6.QtGui import QMovie
 from getmac import get_mac_address
