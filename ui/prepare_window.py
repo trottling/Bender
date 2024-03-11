@@ -4,6 +4,12 @@ from PyQt6 import uic, QtGui
 from PyQt6.QtCore import Qt
 from screeninfo import get_monitors
 
+#
+# !!! Required by QT Designer WebView widget !!!
+# from PyQt6 import QtWebEngineWidgets
+#
+from PyQt6 import QtWebEngineWidgets
+
 from ui.tools import GetRelPath
 
 
