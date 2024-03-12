@@ -17,7 +17,7 @@ from PyQt6.QtCore import QUrl
 from PyQt6.QtGui import QMovie
 from getmac import get_mac_address
 from portscan import PortScan
-from windows_tools import windows_firewall, bitness, bitlocker, logical_disks
+from windows_tools import windows_firewall, bitness, bitlocker, logical_disks, updates
 from windows_tools.installed_software import get_installed_software
 
 from other.tcp_port_dict import port_dict
@@ -40,11 +40,11 @@ def Run_Scanner_Tasks(self):
     self.done_scan_tasks_list = []
 
     # Funcs to call
-    self.scan_tasks_list = [CheckApps, CheckDrivers, GetLocalPorts, GetExtPorts,
-                            GetWinIcon, GetWinVersions, GetCpu, GetGpu,
-                            GetRam, GetRom, GetFirewall, GetMac,
-                            GetLocalIP, GetExtIP, GetBitness, GetBitlocker,
-                            GetVirtualization]
+    self.scan_tasks_list = [CheckApps, CheckDrivers, CheckKB, GetLocalPorts,
+                            GetExtPorts, GetWinIcon, GetWinVersions, GetCpu,
+                            GetGpu, GetRam, GetRom, GetFirewall,
+                            GetMac, GetLocalIP, GetExtIP, GetBitness,
+                            GetBitlocker, GetVirtualization]
 
     # UI Input vars
     self.net_threads = self.ui.horizontalSlider_network_threads.value()
@@ -60,6 +60,8 @@ def Run_Scanner_Tasks(self):
     self.drivers_list_hashed = []  # Sha256 hash
     self.drivers_vuln_list = []
     self.driver_db = None
+    self.kb_list = []
+    self.kb_scan_res = {}
 
     # Info values
     self.res_good = 0
@@ -124,7 +126,7 @@ def LoadShodanReport(self):
     try:
         ip = httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')
         self.ui.WebWidget.load(QUrl(f"https://www.shodan.io/host/{ip}"))
-        self.logger.debug("LoadShodanReport : added")
+        self.logger.debug("LoadShodanReport : loaded")
         self.res_good += 1
     except Exception as e:
         self.logger.error(f"LoadShodanReport : {e}")
@@ -278,9 +280,9 @@ def GetBitlocker(self):
                     if 'AES' or 'XEX' in line:
                         drives_list.append(drive)
                         continue
-
-            self.scan_result.append(
-                [self.ui.label_sys_bitlocker.setText, f"Bitlocker Enabled - Disks {", ".join(list(set(drives_list)))}"])
+            if len(drives_list) != 0:
+                text = ", ".join([i.replace(":", "") for i in list(set(drives_list))])  # Remove ":" from drive name
+                self.scan_result.append([self.ui.label_sys_bitlocker.setText, f"Bitlocker Enabled - Disks {text}"])
         else:
             self.scan_result.append([self.ui.label_sys_bitlocker.setText, f"Bitlocker Disabled"])
         self.res_good += 1
@@ -328,12 +330,12 @@ def GetApps(self):
         return True
 
 
-def ConnectVulners(self):
+def ConnectVulnersSoft(self):
     try:
-        self.vulners_api = vulners.VulnersApi(api_key=self.vulners_key)
+        self.vulners_api_soft = vulners.VulnersApi(api_key=self.vulners_key)
         self.res_good += 1
     except Exception as e:
-        self.logger.error(f"ConnectVulners : {e}")
+        self.logger.error(f"ConnectVulnersSoft : {e}")
         self.res_bad += 1
         return True
 
@@ -346,16 +348,16 @@ def SendAppsVulners(self):
                 try:
                     self.soft_list_vulners = [next(self.soft_list) for _ in range(500)]
                 except StopIteration:
-                    self.apps_report.update(self.vulners_api.software_audit(os="", version="", packages=[
+                    self.apps_report.update(self.vulners_api_soft.software_audit(os="", version="", packages=[
                         {"software": software['name'], "version": software['version']} for software in
                         self.soft_list_vulners]))
                     break
 
-                self.apps_report.update(self.vulners_api.software_audit(os="", version="", packages=[
+                self.apps_report.update(self.vulners_api_soft.software_audit(os="", version="", packages=[
                     {"software": software['name'], "version": software['version']} for software in
                     self.soft_list_vulners]))
         else:
-            self.apps_report = self.vulners_api.software_audit(os="", version="", packages=[
+            self.apps_report = self.vulners_api_soft.software_audit(os="", version="", packages=[
                 {"software": software['name'], "version": software['version']} for software in self.soft_list])
         self.res_good += 1
     except Exception as e:
@@ -453,7 +455,7 @@ def CheckApps(self):
     self.scan_result.append([FillAllAppsList, self, self.soft_list])
 
     # Connect to Vulners api via his lib
-    if ConnectVulners(self):
+    if ConnectVulnersSoft(self):
         self.res_bad += 1
         return
 
@@ -729,6 +731,82 @@ def FillDriversList(self):
         for item in self.drivers_list:
             list_item = QtGui.QStandardItem()
             list_item.setText(item)
+            self.Drivers_list_model.appendRow(list_item)
+
+        self.res_good += 1
+    except Exception as e:
+        self.logger.error(f"FillExtPorts : {e}")
+        self.res_bad += 1
+
+
+def ConnectVulnersKB(self):
+    try:
+        self.vulners_api_kb = vulners.VulnersApi(api_key=self.vulners_key)
+        self.res_good += 1
+    except Exception as e:
+        self.logger.error(f"ConnectVulnersKB : {e}")
+        self.res_bad += 1
+        return True
+
+
+def GetKB(self):
+    try:
+        self.kb_list = updates.get_windows_updates(filter_duplicates=True)
+        self.logger.debug(f"GetKB : {len(self.kb_list)} KB")
+        if len(self.kb_list) == 0:
+            self.res_bad += 1
+            return
+
+        self.res_good += 1
+    except Exception as e:
+        self.logger.error(f"ConnectVulnersKB : {e}")
+        self.res_bad += 1
+        return True
+
+
+def SendKBVulners(self):
+    try:
+        print("\n\n", [kb["kb"] for kb in self.kb_list if kb["kb"] != "" or None], "\n\n")
+        self.kb_scan_res = self.vulners_api_kb.kb_audit(os=f"{platform.system()} {platform.release()}",
+                                                        kb_list=[kb["kb"] for kb in self.kb_list if
+                                                                 kb["kb"] != "" or None])
+        self.res_good += 1
+        print(self.kb_scan_res)
+    except Exception as e:
+        self.logger.error(f"SendKBVulners : {e}")
+        self.res_bad += 1
+        return True
+
+
+def CheckKB(self):
+    # Another API connection call is needed to ensure that the API wrapper is received at the right time
+    if ConnectVulnersKB(self):
+        self.res_bad += 1
+        return True
+
+    if GetKB(self):
+        self.res_bad += 1
+        return True
+
+    if SendKBVulners(self):
+        self.res_bad += 1
+        return True
+
+
+def FillKBList(self):
+    try:
+        self.All_kb_list_model = QtGui.QStandardItemModel()
+        self.ui.all_kb_list.setModel(self.All_kb_list_model)
+        for item in self.kb_list:
+            list_item = QtGui.QStandardItem()
+            list_item.setText(f"{item[str("kb")]}\t{item["installation"]} - {item["result"]} {item["title"]}")
+            list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\dot-green.png")))
+            self.Drivers_list_model.appendRow(list_item)
+
+        for item in self.kb_scan_res['kbMissed']:
+            list_item = QtGui.QStandardItem()
+            list_item.setText(f"{item[str("kb")]}\t{item["installation"]} - {item["result"]} {item["title"]}")
+            list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\dot-green.png")))
             self.Drivers_list_model.appendRow(list_item)
 
         self.res_good += 1
