@@ -20,9 +20,8 @@ from portscan import PortScan
 from windows_tools import windows_firewall, bitness, bitlocker, logical_disks, updates
 from windows_tools.installed_software import get_installed_software
 
-from other.tcp_port_dict import port_dict
 from ui.animations import StackedWidgetChangePage, ElemShowAnim, TextChangeAnim, ImageChangeAnim, ElemHideAnim
-from ui.show_report import ReportApps, ReportDrivers
+from ui.show_report import ReportApps, ReportDrivers, FillExtPorts, FillLocalPorts, FillKBList, ReportKB
 from ui.tools import GetRelPath
 
 
@@ -40,6 +39,7 @@ def Run_Scanner_Tasks(self):
     self.done_scan_tasks_list = []
 
     # Funcs to call
+    # Firts run long-time funcs
     self.scan_tasks_list = [CheckApps, CheckDrivers, CheckKB, GetLocalPorts,
                             GetExtPorts, GetWinIcon, GetWinVersions, GetCpu,
                             GetGpu, GetRam, GetRom, GetFirewall,
@@ -57,11 +57,12 @@ def Run_Scanner_Tasks(self):
     self.soft_list_vulners = []
     self.drivers_report = {}
     self.drivers_list = []
-    self.drivers_list_hashed = []  # Sha256 hash
+    self.drivers_list_hashed = []  # Sha256 and Sha1 hash
     self.drivers_vuln_list = []
     self.driver_db = None
     self.kb_list = []
     self.kb_scan_res = {}
+    self.kb_report = {}
 
     # Info values
     self.res_good = 0
@@ -279,12 +280,15 @@ def GetBitlocker(self):
                                                                                              errors='ignore'):
                     if 'AES' or 'XEX' in line:
                         drives_list.append(drive)
-                        continue
+                        break
             if len(drives_list) != 0:
                 text = ", ".join([i.replace(":", "") for i in list(set(drives_list))])  # Remove ":" from drive name
-                self.scan_result.append([self.ui.label_sys_bitlocker.setText, f"Bitlocker Enabled - Disks {text}"])
+                self.scan_result.append([self.ui.label_sys_bitlocker.setText,
+                                         f"Bitlocker Enabled - {"Disks" if len(drives_list) > 1 else "Disk"} {text}"])
+            else:
+                self.scan_result.append([self.ui.label_sys_bitlocker.setText, f"Bitlocker Disabled"])
         else:
-            self.scan_result.append([self.ui.label_sys_bitlocker.setText, f"Bitlocker Disabled"])
+            self.scan_result.append([self.ui.label_sys_bitlocker.setText, f"Bitlocker Tools not found"])
         self.res_good += 1
     except Exception as e:
         self.logger.error(f"GetBitlocker : {e}")
@@ -334,6 +338,7 @@ def ConnectVulnersSoft(self):
     try:
         self.vulners_api_soft = vulners.VulnersApi(api_key=self.vulners_key)
         self.res_good += 1
+        return False
     except Exception as e:
         self.logger.error(f"ConnectVulnersSoft : {e}")
         self.res_bad += 1
@@ -360,6 +365,7 @@ def SendAppsVulners(self):
             self.apps_report = self.vulners_api_soft.software_audit(os="", version="", packages=[
                 {"software": software['name'], "version": software['version']} for software in self.soft_list])
         self.res_good += 1
+        return False
     except Exception as e:
         self.logger.error(f"SendAppsVulners : Failed to get vulners.com report : {e}")
         self.res_bad += 1
@@ -367,7 +373,7 @@ def SendAppsVulners(self):
 
 
 def ProcessAppsResponse(self):
-    self.cve_list = []
+    self.cve_list_apps = []
 
     try:
         for item in [vuln for vuln in self.apps_report['vulnerabilities'] if vuln['id']]:
@@ -382,8 +388,8 @@ def ProcessAppsResponse(self):
                 "cvss_metrics": [],
                 "references": [],
             }
-            self.cve_list.append(cve)
-        self.apps_report = {"cve_list": self.cve_list}
+            self.cve_list_apps.append(cve)
+        self.apps_report = {"cve_list": self.cve_list_apps}
     except Exception as e:
         self.logger.error(f"ProcessAppsResponse : Failed to transorm to needed format : {e}")
         self.res_bad += 1
@@ -408,7 +414,7 @@ def ProcessAppsResponse(self):
 
 def GetCveInfo(self, item):
     cve_id = item["cve"]
-    self.logger.debug(f"CIA_Get_CVE_Info : Processing {cve_id}")
+    self.logger.debug(f"GetCveInfo : Processing {cve_id}")
 
     try:
         self.mitre_resp = httpx.get(f"https://cveawg.mitre.org/api/cve/{cve_id}", timeout=10).json()
@@ -505,24 +511,6 @@ def GetLocalPorts(self):
         self.res_bad += 1
 
 
-def FillLocalPorts(self):
-    try:
-        self.local_ports_list_model = QtGui.QStandardItemModel()
-        self.ui.open_local_ports_list.setModel(self.local_ports_list_model)
-
-        for item in self.LocalPorts:
-            port = str(item[1])
-            if port in port_dict:
-                list_item = QtGui.QStandardItem()
-                list_item.setText(
-                    f"{port}\t{port_dict[port]["Service Name"] if port_dict[port]["Service Name"] != "" else "No Service Info"}\t{port_dict[port]["Description"] if port_dict[port]["Description"] != "" else "No Description"}")
-                self.local_ports_list_model.appendRow(list_item)
-        self.res_good += 1
-    except Exception as e:
-        self.logger.error(f"FillLocalPorts : {e}")
-        self.res_bad += 1
-
-
 def GetExtPorts(self):
     try:
 
@@ -535,23 +523,6 @@ def GetExtPorts(self):
         self.res_good += 1
     except Exception as e:
         self.logger.error(f"GetExtPorts : {e}")
-        self.res_bad += 1
-
-
-def FillExtPorts(self):
-    try:
-        self.ext_ports_list_model = QtGui.QStandardItemModel()
-        self.ui.open_Externall_ports_list.setModel(self.ext_ports_list_model)
-        for item in self.ExtPorts:
-            port = str(item[1])
-            if port in port_dict:
-                list_item = QtGui.QStandardItem()
-                list_item.setText(
-                    f"{port}\t{port_dict[port]["Service Name"] if port_dict[port]["Service Name"] != "" else "No Service Info"}\t{port_dict[port]["Description"] if port_dict[port]["Description"] != "" else "No Description"}")
-                self.ext_ports_list_model.appendRow(list_item)
-        self.res_good += 1
-    except Exception as e:
-        self.logger.error(f"FillExtPorts : {e}")
         self.res_bad += 1
 
 
@@ -743,6 +714,7 @@ def ConnectVulnersKB(self):
     try:
         self.vulners_api_kb = vulners.VulnersApi(api_key=self.vulners_key)
         self.res_good += 1
+        return False
     except Exception as e:
         self.logger.error(f"ConnectVulnersKB : {e}")
         self.res_bad += 1
@@ -755,9 +727,10 @@ def GetKB(self):
         self.logger.debug(f"GetKB : {len(self.kb_list)} KB")
         if len(self.kb_list) == 0:
             self.res_bad += 1
-            return
+            return True
 
         self.res_good += 1
+        return False
     except Exception as e:
         self.logger.error(f"ConnectVulnersKB : {e}")
         self.res_bad += 1
@@ -766,50 +739,78 @@ def GetKB(self):
 
 def SendKBVulners(self):
     try:
-        print("\n\n", [kb["kb"] for kb in self.kb_list if kb["kb"] != "" or None], "\n\n")
+        # List with deleted KBs without KB ID
+        kb = [item['kb'] for item in self.kb_list if item['kb'] not in ("", None) and "KB" in item['kb']]
+        kb.append('KB4465659')
+        self.logger.debug(f"SendKBVulners : {kb}")
         self.kb_scan_res = self.vulners_api_kb.kb_audit(os=f"{platform.system()} {platform.release()}",
-                                                        kb_list=[kb["kb"] for kb in self.kb_list if
-                                                                 kb["kb"] != "" or None])
+                                                        kb_list=kb)
         self.res_good += 1
-        print(self.kb_scan_res)
+        return False
     except Exception as e:
         self.logger.error(f"SendKBVulners : {e}")
         self.res_bad += 1
         return True
 
 
-def CheckKB(self):
-    # Another API connection call is needed to ensure that the API wrapper is received at the right time
-    if ConnectVulnersKB(self):
+def ProcessKBResponse(self):
+    self.cve_list_kb = []
+
+    try:
+        for item in self.kb_scan_res["cvelist"]:
+            cve = {
+                "cve": item,
+                "score": 0,
+                "desc": "",
+                "datePublished": "",
+                "shortName": "",
+                "cvss_metrics": [],
+                "references": [],
+            }
+            self.cve_list_kb.append(cve)
+        self.kb_report = {"cve_list": self.cve_list_kb}
+    except Exception as e:
+        self.logger.error(f"ProcessKBResponse : Failed to transorm to needed format : {e}")
         self.res_bad += 1
         return True
+
+    # Getting more info about CVEs
+    if len(self.kb_report["cve_list"]) > 0:
+        try:
+            with cf.ThreadPoolExecutor(max_workers=self.net_threads) as executor:
+                futures = []
+                for item in self.kb_report["cve_list"]:
+                    futures.append(executor.submit(GetCveInfo, self=self, item=item))
+                executor.shutdown(wait=True, cancel_futures=False)
+        except Exception as e:
+            self.logger.error(f"ProcessKBResponse : Failed to Getting more info about CVEs : {e}")
+            self.res_bad += 1
+            return True
+
+    self.res_good += 1
+    return False
+
+
+def CheckKB(self):
+    # Another API connection call is needed to ensure that the API wrapper is received at the right time
+
+    if ConnectVulnersKB(self):
+        self.res_bad += 1
+        return
 
     if GetKB(self):
         self.res_bad += 1
-        return True
+        return
+
+    self.scan_result.append([FillKBList, self])
 
     if SendKBVulners(self):
         self.res_bad += 1
-        return True
+        return
 
-
-def FillKBList(self):
-    try:
-        self.All_kb_list_model = QtGui.QStandardItemModel()
-        self.ui.all_kb_list.setModel(self.All_kb_list_model)
-        for item in self.kb_list:
-            list_item = QtGui.QStandardItem()
-            list_item.setText(f"{item[str("kb")]}\t{item["installation"]} - {item["result"]} {item["title"]}")
-            list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\dot-green.png")))
-            self.Drivers_list_model.appendRow(list_item)
-
-        for item in self.kb_scan_res['kbMissed']:
-            list_item = QtGui.QStandardItem()
-            list_item.setText(f"{item[str("kb")]}\t{item["installation"]} - {item["result"]} {item["title"]}")
-            list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\dot-green.png")))
-            self.Drivers_list_model.appendRow(list_item)
-
-        self.res_good += 1
-    except Exception as e:
-        self.logger.error(f"FillExtPorts : {e}")
+    if ProcessKBResponse(self):
         self.res_bad += 1
+        return
+
+    self.res_good += 1
+    self.scan_result.append([ReportKB, self])

@@ -2,6 +2,7 @@ import re
 
 from PyQt6 import QtGui
 
+from other.tcp_port_dict import port_dict
 from ui.animations import StackedWidgetChangePage
 from ui.tools import Report_Error, GetRelPath
 
@@ -10,14 +11,6 @@ def ReportApps(self):
     self.logger.debug(f"ReportApps : {len(self.apps_report["cve_list"])} CVEs in list")
 
     try:
-        # Calculate alignment
-        str_max = 75
-        cve_max = max(len(item["cve"]) for item in self.apps_report["cve_list"]) + 4
-        score_max = max(len(str(item['score'])) for item in self.apps_report["cve_list"]) + 4
-        package_max = max(len(item["package"]) for item in self.apps_report["cve_list"]) + 4
-        version_max = max(len(item["version"]) for item in self.apps_report["cve_list"]) + 4
-        self.logger.debug(
-            f"ReportApps : cve_max {cve_max} : score_max {score_max} : package_max {package_max} : version_max {version_max}")
 
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
@@ -25,7 +18,7 @@ def ReportApps(self):
 
         for item in self.apps_report["cve_list"]:
             # Items alignment
-            string = f"{item['cve'][:20].ljust(cve_max)}{str(item['score']).ljust(score_max)}{item['package'].capitalize().ljust(package_max)}{item['version'].ljust(version_max)}"
+            string = f"{item['cve']}\t{str(item['score'])}\t{item['package'].capitalize()}\t{item['version']}"[:85]
             list_item = QtGui.QStandardItem()
             list_item.setText(string)
 
@@ -102,28 +95,15 @@ def ReportDrivers(self):
         return
 
     try:
-        # Calculate alignment
-        str_max = 126
-        shortName_max = max(len(item["shortName"]) for item in self.drivers_report["driver_list"]) + 8
-        version_max = max(len(item["version"]) for item in self.drivers_report["driver_list"]) + 8
-        self.logger.debug(
-            f"ReportDrivers : cve_max {shortName_max} : version_max {version_max}")
-
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
         self.ui.Drivers_listView_vuln.setModel(self.vunl_app_list_model)
 
         # Items alignment
         for item in self.drivers_report["driver_list"]:
-            string = f"  {item['shortName'].ljust(shortName_max)}{str(item['version']).ljust(version_max)}"
-
-            if len(string + item["desc"]) > str_max:
-                desc = f"{item['desc'][:120 - len(string)]}..."
-            else:
-                desc = item["desc"]
-
+            string = f"  {item['shortName']}\t{str(item['version'])}\t{item["desc"]}"[:85]
             list_item = QtGui.QStandardItem()
-            list_item.setText(string + desc)
+            list_item.setText(string)
             self.vunl_app_list_model.appendRow(list_item)
 
         self.ui.Drivers_listView_vuln.doubleClicked.connect(lambda index: ReportDriversFull(self, index))
@@ -174,3 +154,145 @@ def Split_Words(self, word, split_dot=False):
         result = result.replace(".", " ")
     self.logger.debug(f"Split_Words : {word} --> {result}")
     return result
+
+
+def ReportKB(self):
+    self.logger.debug(f"ReportKB : {len(self.kb_report["cve_list"])} CVEs in list")
+
+    try:
+
+        # Setup list
+        self.vunl_app_list_model = QtGui.QStandardItemModel()
+        self.ui.vuln_kb_list.setModel(self.vunl_app_list_model)
+
+        for item in self.kb_report["cve_list"]:
+            string = f"{item['cve']}\t{str(item['score'])}"[:85]
+            list_item = QtGui.QStandardItem()
+            list_item.setText(string)
+
+            try:
+                self.dot = ""
+                self.score = "No score"
+                self.score_raw = item['score']
+
+                if self.score_raw in ("", "-", None):
+                    self.dot = "dot-out.png"
+                else:
+                    self.score = float(self.score_raw)
+                    if self.score == 0.0:
+                        self.dot = "dot-out.png"
+                    elif 0.0 < self.score < 4.0:
+                        self.dot = "dot-yellow.png"
+                    elif 4.0 < self.score < 7.0:
+                        self.dot = "dot-orange.png"
+                    elif 7.0 < self.score < 9.0:
+                        self.dot = "dot-red.png"
+                    elif self.score > 9.0:
+                        self.dot = "dot-dark-red.png"
+                    else:
+                        self.dot = "dot-grey.png"
+                self.logger.debug(
+                    f"ReportKB : Score {self.score_raw} --> {self.score if self.score else ""} --> {self.dot}")
+                list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\{self.dot}")))
+            except Exception as e:
+                self.logger.error(f"ReportKB : Error setting dot : {e}")
+
+            self.vunl_app_list_model.appendRow(list_item)
+
+        self.ui.vuln_kb_list.doubleClicked.connect(lambda index: ReportKBFull(self, index))
+        self.logger.debug("ReportKB : List maked")
+        self.res_good += 1
+    except Exception as e:
+        Report_Error(self, f"ReportKB : {e}")
+
+
+def ReportKBFull(self, index):
+    try:
+        item_index = index.row()
+        self.logger.debug(f"ReportKBFull : item index {str(item_index).strip()} ")
+        cve_info = self.kb_report["cve_list"][item_index]
+
+        self.ui.label_cve_head.setText(cve_info["cve"])
+
+        self.ui.label_published.setText(
+            f"Published: {cve_info["datePublished"]}" if "datePublished" in cve_info and cve_info[
+                "datePublished"].strip != "" else "Published: No date")
+        self.ui.cve_desc_plainTextEdit.setPlainText(cve_info["desc"].capitalize())
+
+        self.ui.label_shortname.setText(f"Shortname: {cve_info["shortName"].capitalize()}")
+
+        for ref in cve_info["references"]:
+            self.ui.plainTextEdit_references.appendHtml(f"<a href='{ref['url']}'>{ref['url']}</a>")
+
+        if "cvssV3_1" in cve_info["cvss_metrics"]:
+            for item in cve_info["cvss_metrics"]["cvssV3_1"]:
+                self.ui.plainTextEdit_cvss_3.appendPlainText(
+                    f"{Split_Words(self, item)}: {cve_info["cvss_metrics"]["cvssV3_1"][item]}")
+        else:
+            self.ui.plainTextEdit_cvss_3.setPlainText("No info")
+
+        StackedWidgetChangePage(self, 5)
+    except Exception as e:
+        Report_Error(self, f"ReportKBFull : {e}")
+
+
+def FillLocalPorts(self):
+    try:
+        self.local_ports_list_model = QtGui.QStandardItemModel()
+        self.ui.open_local_ports_list.setModel(self.local_ports_list_model)
+
+        for item in self.LocalPorts:
+            port = str(item[1])
+            if port in port_dict:
+                list_item = QtGui.QStandardItem()
+                service = port_dict[port]["Service Name"] if port_dict[port][
+                                                                 "Service Name"] != "" else "No Service Info"
+                desc = port_dict[port]["Description"] if port_dict[port]["Description"] != "" else "No Description"
+                list_item.setText(f"{port}\t{service}\t{desc}"[:85])
+                self.local_ports_list_model.appendRow(list_item)
+        self.res_good += 1
+    except Exception as e:
+        self.logger.error(f"FillLocalPorts : {e}")
+        self.res_bad += 1
+
+
+def FillExtPorts(self):
+    try:
+        self.ext_ports_list_model = QtGui.QStandardItemModel()
+        self.ui.open_Externall_ports_list.setModel(self.ext_ports_list_model)
+        for item in self.ExtPorts:
+            port = str(item[1])
+            if port in port_dict:
+                list_item = QtGui.QStandardItem()
+                service = port_dict[port]["Service Name"] if port_dict[port][
+                                                                 "Service Name"] != "" else "No Service Info"
+                desc = port_dict[port]["Description"] if port_dict[port]["Description"] != "" else "No Description"
+                list_item.setText(f"{port}\t{service}\t{desc}"[:85])
+                self.ext_ports_list_model.appendRow(list_item)
+        self.res_good += 1
+    except Exception as e:
+        self.logger.error(f"FillExtPorts : {e}")
+        self.res_bad += 1
+
+
+def FillKBList(self):
+    try:
+        self.All_kb_list_model = QtGui.QStandardItemModel()
+        self.ui.all_kb_list.setModel(self.All_kb_list_model)
+        for item in self.kb_list:
+            list_item = QtGui.QStandardItem()
+            kb = item[str('kb')] if item[str('kb')] not in ("", None) else "No KB ID"
+            list_item.setText(f"{kb}\t{item["result"]}\t{item["title"]}"[:85])
+            list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\dot-green.png")))
+            self.All_kb_list_model.appendRow(list_item)
+
+        for item in self.kb_scan_res['kbMissed']:
+            list_item = QtGui.QStandardItem()
+            list_item.setText(item)
+            list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\dot-red.png")))
+            self.All_kb_list_model.appendRow(list_item)
+
+        self.res_good += 1
+    except Exception as e:
+        self.logger.error(f"FillKBList : {e}")
+        self.res_bad += 1
