@@ -31,6 +31,7 @@ def ReportApps(self):
 
             try:
                 self.dot = ""
+                self.score = "No score"
                 self.score_raw = item['score']
 
                 if self.score_raw in ("", "-", None):
