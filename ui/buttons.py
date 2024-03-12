@@ -202,8 +202,7 @@ def ApplyCustomQSSTheme(self):
 def SaveDebugLog(self):
     try:
         log_file = QFileDialog.getSaveFileName(self, caption='Save log file (.log)', directory="./",
-                                               filter=".log",
-                                               initialFilter=".log")
+                                               filter=".log")
     except Exception as e:
         self.logger.error(f"SaveDebugLog : {e}")
         return
@@ -398,8 +397,7 @@ def StartScanner(self):
 def SaveScanResults(self):
     try:
         res_file = QFileDialog.getSaveFileName(self, caption='Save image (.png)', directory="./",
-                                               filter=".png",
-                                               initialFilter=".png")
+                                               filter=".png")
     except Exception as e:
         self.logger.error(f"SaveScanResults : {e}")
         return
