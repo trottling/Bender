@@ -5,7 +5,7 @@ from pathlib import Path
 
 from PyQt6 import QtCore, QtTest
 from PyQt6.QtCore import QTimer, QPropertyAnimation, QEasingCurve
-from PyQt6.QtGui import QMovie, QImage
+from PyQt6.QtGui import QMovie
 from PyQt6.QtWidgets import QFileDialog, QGraphicsOpacityEffect
 
 from config.write_config import Save_Settings
@@ -247,7 +247,7 @@ def Check_Vulners_Key(self):
     Save_Settings(self)
     if self.ui.api_key.text().strip() == "":
         self.logger.debug("Check_Vulners_Key : api key empty")
-        webbrowser.open("https://vulners.com/docs/apikey/")
+        webbrowser.open("https://github.com/trottling/Bender/blob/main/VULNERS-API-KEY-HELP.md")
         ImageChangeAnim(self, self.ui.vulners_check_result, 'assets//images//fail.png')
         self.validate_vulners_key = False
         return

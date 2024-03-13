@@ -213,7 +213,8 @@ def CheckVulnersKey(self):
     if self.vulners_key in ("", None):
         result.append([ImageChangeAnim, self, self.ui.image_vulners_key_check, r"assets\images\fail.png"])
         result.append([TextChangeAnim, self, self.ui.label_vulners_key_3, "Key empty"])
-        result.append([ShowErrMessage, self, "Enter your Vulners.com key in setting and validate it"])
+        result.append([ShowErrMessage, self,
+                       "Enter your Vulners.com key in setting and validate it. <a href='https://github.com/trottling/Bender/blob/main/VULNERS-API-KEY-HELP.md'>Click for help</a>"])
         return result
 
     # Skip key check if key already validate in setting in one session time
