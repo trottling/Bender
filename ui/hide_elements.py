@@ -16,6 +16,12 @@ def Hide_Elements(self):
     self.ui.label_scan_error.hide()
     self.ui.label_scan_error_len.hide()
 
+    # Work result page
+    self.ui.logo_3.hide()
+    self.ui.app_name_2.hide()
+    self.ui.app_desc_2.hide()
+    self.ui.app_link_label.hide()
+
     HideQSSInput(self)
 
     self.logger.debug("Hide_Elements : Elements Hided")

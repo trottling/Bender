@@ -411,6 +411,10 @@ def SaveScanResults(self):
 
     self.ui.pushButton_save_log.hide()
     self.ui.pushButton_save_report.hide()
+    self.ui.logo_3.show()
+    self.ui.app_name_2.show()
+    self.ui.app_desc_2.show()
+    self.ui.app_link_label.show()
 
     try:
         image = self.ui.scrollAreaWidgetContents.grab(self.ui.scrollAreaWidgetContents.rect())
@@ -421,3 +425,7 @@ def SaveScanResults(self):
 
     self.ui.pushButton_save_log.show()
     self.ui.pushButton_save_report.show()
+    self.ui.logo_3.hide()
+    self.ui.app_name_2.hide()
+    self.ui.app_desc_2.hide()
+    self.ui.app_link_label.hide()
