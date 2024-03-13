@@ -31,22 +31,26 @@
 9. [Run or Build from source](https://github.com/trottling/Bender/edit/main/README.md#run-or-build-from-source)
 
 ## Requirements
-- Windows 8* and newer
+- Windows 8, 8.1, 10 or 11 and newer
+- Admin privileges for access to system info
 - That's all!  
-
 > *Required by PyQT6 library and limited to avoid errors when using system calls from older versions of Windows
 
 ## How to install
 1. Download [latest build](https://github.com/trottling/Bender/releases/latest)
-2. Add to antivirus exclusion if you get messages about Bender.exe, see [first TODO message](https://github.com/trottling/Bender#todo)
-3. Run as Admin
-4. Done!
+2. Get Vulners.com API key, see [help page](https://github.com/trottling/Bender/blob/main/VULNERS-API-KEY-HELP.md)
+3. Add to antivirus exclusion if you get messages about Bender.exe, see [first TODO message](https://github.com/trottling/Bender#todo)
+4. Run as Admin
+5. Done!
+
 
 ## Features
 
 - Scan installed system and user apps for CVEs
-- Scan drivers in C:\windows\system32\drivers for vulns
-- Save report for each scan
+- Scan drivers in C:\windows\system32\drivers for vulnerabilities
+- Scan installed Windows KB for CVEs
+- Scan Local and External ports
+- Save report as image
 
 ## Scan functios
 - Scan installed system and user apps for CVEs
@@ -85,10 +89,6 @@ Bender uses a number of open source projects to work properly:
 ## TODO
 - Do something about the false antivirus message about Bender.exe
 > Thanks to detects on any build through pyinstaller because of schoolchildren writing RATs and Miners in Python
-- Make UI adaptive and resizeble
-- Add local network scanning
-- Add Windows KB CVE scanner 
-- Add more DB to scanners
 - Add translate
 
 ## How can I help this project?
