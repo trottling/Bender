@@ -389,7 +389,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>6</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_start">
        <layout class="QGridLayout" name="gridLayout_2">
@@ -533,8 +533,11 @@ color: rgb(255, 255, 255);</string>
             <property name="indent">
              <number>0</number>
             </property>
+            <property name="openExternalLinks">
+             <bool>true</bool>
+            </property>
             <property name="textInteractionFlags">
-             <set>Qt::NoTextInteraction</set>
+             <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
             </property>
            </widget>
           </item>
@@ -2542,12 +2545,24 @@ color: rgb(255, 255, 255);</string>
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>0</y>
-               <width>773</width>
+               <y>-480</y>
+               <width>1667</width>
                <height>3423</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_15">
+              <property name="topMargin">
+               <number>9</number>
+              </property>
+              <property name="rightMargin">
+               <number>9</number>
+              </property>
+              <property name="bottomMargin">
+               <number>9</number>
+              </property>
+              <property name="spacing">
+               <number>6</number>
+              </property>
               <item row="19" column="0" colspan="2">
                <widget class="QGroupBox" name="groupBox">
                 <property name="sizePolicy">
@@ -2713,22 +2728,6 @@ color: rgb(255, 255, 255);</string>
                      </property>
                     </layout>
                    </item>
-                   <item row="1" column="0">
-                    <spacer name="verticalSpacer_61">
-                     <property name="orientation">
-                      <enum>Qt::Vertical</enum>
-                     </property>
-                     <property name="sizeType">
-                      <enum>QSizePolicy::Preferred</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>20</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
                    <item row="3" column="0">
                     <spacer name="verticalSpacer_72">
                      <property name="orientation">
@@ -2741,6 +2740,22 @@ color: rgb(255, 255, 255);</string>
                       <size>
                        <width>20</width>
                        <height>10</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item row="1" column="0">
+                    <spacer name="verticalSpacer_61">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeType">
+                      <enum>QSizePolicy::Preferred</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
                       </size>
                      </property>
                     </spacer>
@@ -2856,6 +2871,9 @@ color: rgb(255, 255, 255);</string>
                     <pointsize>24</pointsize>
                    </font>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
                   <property name="title">
                    <string>Vulnerable Softwares</string>
                   </property>
@@ -2881,6 +2899,76 @@ color: rgb(255, 255, 255);</string>
                    <property name="spacing">
                     <number>0</number>
                    </property>
+                   <item row="2" column="0">
+                    <layout class="QHBoxLayout" name="horizontalLayout_61">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <spacer name="horizontalSpacer_129">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeType">
+                        <enum>QSizePolicy::Preferred</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>10</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <widget class="QListView" name="Software_listView_vuln">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Segoe UI Variable Small Semibol</family>
+                         <pointsize>18</pointsize>
+                        </font>
+                       </property>
+                       <property name="horizontalScrollBarPolicy">
+                        <enum>Qt::ScrollBarAlwaysOff</enum>
+                       </property>
+                       <property name="editTriggers">
+                        <set>QAbstractItemView::NoEditTriggers</set>
+                       </property>
+                       <property name="defaultDropAction">
+                        <enum>Qt::IgnoreAction</enum>
+                       </property>
+                       <property name="verticalScrollMode">
+                        <enum>QAbstractItemView::ScrollPerPixel</enum>
+                       </property>
+                       <property name="horizontalScrollMode">
+                        <enum>QAbstractItemView::ScrollPerPixel</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_130">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeType">
+                        <enum>QSizePolicy::Preferred</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>10</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
                    <item row="0" column="0">
                     <layout class="QHBoxLayout" name="horizontalLayout_54">
                      <property name="spacing">
@@ -2963,76 +3051,6 @@ color: rgb(255, 255, 255);</string>
                       </size>
                      </property>
                     </spacer>
-                   </item>
-                   <item row="2" column="0">
-                    <layout class="QHBoxLayout" name="horizontalLayout_61">
-                     <property name="spacing">
-                      <number>0</number>
-                     </property>
-                     <item>
-                      <spacer name="horizontalSpacer_129">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeType">
-                        <enum>QSizePolicy::Preferred</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>10</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item>
-                      <widget class="QListView" name="Software_listView_vuln">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>Segoe UI Variable Small Semibol</family>
-                         <pointsize>18</pointsize>
-                        </font>
-                       </property>
-                       <property name="horizontalScrollBarPolicy">
-                        <enum>Qt::ScrollBarAlwaysOff</enum>
-                       </property>
-                       <property name="editTriggers">
-                        <set>QAbstractItemView::NoEditTriggers</set>
-                       </property>
-                       <property name="defaultDropAction">
-                        <enum>Qt::IgnoreAction</enum>
-                       </property>
-                       <property name="verticalScrollMode">
-                        <enum>QAbstractItemView::ScrollPerPixel</enum>
-                       </property>
-                       <property name="horizontalScrollMode">
-                        <enum>QAbstractItemView::ScrollPerPixel</enum>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_130">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeType">
-                        <enum>QSizePolicy::Preferred</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>10</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                    </layout>
                    </item>
                   </layout>
                  </widget>
@@ -3557,22 +3575,6 @@ color: rgb(255, 255, 255);</string>
                    <property name="spacing">
                     <number>0</number>
                    </property>
-                   <item row="1" column="0" colspan="2">
-                    <spacer name="verticalSpacer_87">
-                     <property name="orientation">
-                      <enum>Qt::Vertical</enum>
-                     </property>
-                     <property name="sizeType">
-                      <enum>QSizePolicy::Preferred</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>18</width>
-                       <height>10</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
                    <item row="3" column="0" colspan="2">
                     <spacer name="verticalSpacer_89">
                      <property name="orientation">
@@ -3589,56 +3591,21 @@ color: rgb(255, 255, 255);</string>
                      </property>
                     </spacer>
                    </item>
-                   <item row="0" column="0" colspan="2">
-                    <layout class="QHBoxLayout" name="horizontalLayout_63">
-                     <property name="spacing">
-                      <number>0</number>
+                   <item row="1" column="0" colspan="2">
+                    <spacer name="verticalSpacer_87">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
                      </property>
-                     <item>
-                      <spacer name="horizontalSpacer_134">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="label_6">
-                       <property name="font">
-                        <font>
-                         <pointsize>16</pointsize>
-                        </font>
-                       </property>
-                       <property name="text">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#0d4e87;&quot;&gt;Double click&lt;/span&gt; to software to see more info&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_135">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeType">
-                        <enum>QSizePolicy::Expanding</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>13</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                    </layout>
+                     <property name="sizeType">
+                      <enum>QSizePolicy::Preferred</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>18</width>
+                       <height>10</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
                    <item row="2" column="0" colspan="2">
                     <layout class="QHBoxLayout" name="horizontalLayout_64">
@@ -3703,6 +3670,57 @@ color: rgb(255, 255, 255);</string>
                        <property name="sizeHint" stdset="0">
                         <size>
                          <width>10</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                   <item row="0" column="0" colspan="2">
+                    <layout class="QHBoxLayout" name="horizontalLayout_63">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <spacer name="horizontalSpacer_134">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_6">
+                       <property name="font">
+                        <font>
+                         <pointsize>16</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#0d4e87;&quot;&gt;Double click&lt;/span&gt; to software to see more info&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_135">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeType">
+                        <enum>QSizePolicy::Expanding</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>13</width>
                          <height>20</height>
                         </size>
                        </property>

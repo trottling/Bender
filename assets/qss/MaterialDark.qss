@@ -422,6 +422,7 @@ QListView {
 	color: #a9b7c6;
 	background-color:#393743;
     border-radius: 10px;
+    padding: 8px;
 }
 
 QListView::item:alternate {
@@ -513,10 +514,50 @@ QPushButton#pushButton_app_hide:default{
 	background-color: #1e1d23;
 }
 
+QScrollBar:vertical {
+     border: 2px #807f87;
+	 border-radius: 10px;
+     background: #1e1d23;
+     width: 25px;
+     margin: 22px 0 22px 0;
+ }
+QScrollBar::handle:vertical {
+     background: #b8b6c2;
+     min-height: 40px;
+ 	 border-radius: 12px;
+ }
+QScrollBar::add-line:vertical {
+     border: 0px;
+     height: 0px;
+     subcontrol-position: bottom;
+     subcontrol-origin: margin;
+ }
+QScrollBar::sub-line:vertical {
+     border: 0px;
+     height: 0px;
+     subcontrol-position: top;
+     subcontrol-origin: margin;
+ }
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+     border: 0px;
+     width: 0px;
+     height: 0px;
+}
 
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: none;
+}
 
+QAbstractScrollArea #scrollAreaWidgetContents {
+    background-color: #1e1d23;
+}
 
-
+QGroupBox{
+	background-color: transparent;
+	border-color: #393743;
+	border-width: 4px;
+	color: #a9b7c6;
+}
 
 QPushButton#pushButton_app_size:hover{
 	border-style: solid;
@@ -650,4 +691,3 @@ QPushButton#pushButton_app_exit:default{
 	padding: 0px;
 	background-color: #1e1d23;
 }
-
