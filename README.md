@@ -58,8 +58,6 @@
 
 ## Tech
 
-Bender uses a number of open source projects to work properly:
-
 | Project Part | Autor(s) | Desc |
 ---------------|----------|------|
 | App idea | my smoky head | knight 80 😎 😎 😎 |
@@ -76,7 +74,7 @@ Bender uses a number of open source projects to work properly:
 | MAC adress | [getmac] |  Platform-independent pure-Python module to get a MAC address  |
 | Port scanner | [PortScan] | command line port scan utility written in python |
 
-## Current supported vulnerability databases for scanning
+## Current used vulnerability databases
   
 - vulners.com
 - loldrivers.io
