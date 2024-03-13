@@ -27,7 +27,8 @@ def StartScannerValidator(self):
             return True
 
         if not self.validate_vulners_key:
-            ShowErrMessage(self, "Vulners.com key invalid or empty, fix it in settings")
+            ShowErrMessage(self,
+                           "Vulners.com key invalid or empty, fix it in settings. <a href='https://github.com/trottling/Bender/blob/main/VULNERS-API-KEY-HELP.md'>Click for help</a>")
             return True
 
         if not self.validate_loldrivers_status:
