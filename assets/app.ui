@@ -389,7 +389,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page_start">
        <layout class="QGridLayout" name="gridLayout_2">
@@ -2545,7 +2545,7 @@ color: rgb(255, 255, 255);</string>
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>-480</y>
+               <y>-1380</y>
                <width>1667</width>
                <height>3423</height>
               </rect>
