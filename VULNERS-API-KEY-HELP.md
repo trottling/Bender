@@ -8,7 +8,7 @@ Bender use **Vulners.com API** to get vulnerability information based on the sen
 
 ![изображение](https://github.com/trottling/Bender/assets/108357478/a0460e92-40ba-4bff-97e3-104d5622b8a2)
  
-2. Copy API KEY and paste it in KEY field
+2. Copy API KEY and paste it in KEY field in Settings
 
 ![изображение](https://github.com/trottling/Bender/assets/108357478/9bc7897f-c31a-47aa-abe7-05201c2ceeb6)
 
