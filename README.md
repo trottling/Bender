@@ -23,15 +23,15 @@
 1. [Requirements](https://github.com/trottling/Bender?tab=readme-ov-file#requirements)
 2. [How to install](https://github.com/trottling/Bender?tab=readme-ov-file#how-to-install)
 3. [Features](https://github.com/trottling/Bender?tab=readme-ov-file#features)
-4. [Scan functios](https://github.com/trottling/Bender?tab=readme-ov-file#scan-functios)
+4. [Scan report example](https://github.com/trottling/Bender/tree/main#scan-report-example)
 5. [Tech](https://github.com/trottling/Bender?tab=readme-ov-file#tech)
-6. [Current supported vulnerability databases for scanning](https://github.com/trottling/Bender?tab=readme-ov-file#current-supported-vulnerability-databases-for-scanning)
+6. [Current supported vulnerability databases](https://github.com/trottling/Bender?tab=readme-ov-file#current-supported-vulnerability-databases-for-scanning)
 7. [TODO](https://github.com/trottling/Bender?tab=readme-ov-file#todo)
 8. [How can I help this project?](https://github.com/trottling/Bender?tab=readme-ov-file#how-can-i-help-this-project)
 9. [Run or Build from source](https://github.com/trottling/Bender/edit/main/README.md#run-or-build-from-source)
 
 ## Requirements
-- Windows 8, 8.1, 10 or 11 and newer
+- Windows 8, 8.1, 10 or 11 and newer*
 - Admin privileges for access to system info
 - That's all!  
 > *Required by PyQT6 library and limited to avoid errors when using system calls from older versions of Windows
@@ -50,41 +50,34 @@
 - Scan drivers in C:\windows\system32\drivers for vulnerabilities
 - Scan installed Windows KB for CVEs
 - Scan Local and External ports
+- Scan common system information
 - Save report as image
 
-## Scan functios
-- Scan installed system and user apps for CVEs
-
-![CIA](https://github.com/trottling/Bender/blob/main/media/CIA.gif?raw=true)
-
-- Scan drivers for vulnerabilities
-
-![CCD](https://github.com/trottling/Bender/blob/main/media/CCD.gif?raw=true)
-
+## Scan report example
+![image](https://raw.githubusercontent.com/trottling/Bender/main/media/scan_result.png)
 
 ## Tech
 
-Bender uses a number of open source projects to work properly:
+| Project Part | Autor(s) | Desc |
+---------------|----------|------|
+| App idea | my smoky head | knight 80 😎 😎 😎 |
+| Pretty Icons | icons8.com | Curated graphics, design apps, and AI tools |
+| StyleSheets | [GTRONICK/QSS] | QT Style Sheets templates |
+| CVE Info DB Api | [mitre.org] | Solving Problems for a Safer World |
+| Vulnerable drivers DB | [loldrivers.io] | curated list of all abused Windows drivers |
+| GUI | [PyQT6] | official Python bindings for Qt |
+| Dark theme detect | [darkdetect] | Detect OS Dark Mode from Python |
+| Network | [httpx] | A next-generation HTTP client |
+| Windows interactions | [windows_tools] | Collection of various interfaces for Windows functionality |
+| Vulners.com API | [vulners] | Vulners.com API v3 Python wrapper |
+| HW Info | [cpuinfo] | A module for getting CPU info with pure Python |
+| MAC adress | [getmac] |  Platform-independent pure-Python module to get a MAC address  |
+| Port scanner | [PortScan] | command line port scan utility written in python |
 
-- [PyQT6] - Great UI with animatios and themes
-- [windows_tools] - Collection of various interfaces for Windows functionality
-- [httpx] - A next-generation HTTP client
-- [vulners] - Vulners.com API v3 Python wrapper
-- [darkdetect] - Detect OS Dark Mode from Python
-
-## Current supported vulnerability databases for scanning
-
-- Installed Apps
+## Current used vulnerability databases
   
-| Database | Api key | Key retrieval | Notes |
-| ------ | ------ | ------ | ------ |
-| vulners.com | Required | [Easy](https://vulners.com/docs/apikey/) | Select "API" on step 3 | 
-
-- Drivers
-  
-| Database | Api key | Key retrieval | Notes |
-| ------ | ------ | ------ | ------ |
-| loldrivers.io | No needed | - | - |
+- vulners.com
+- loldrivers.io
 
 ## TODO
 - Do something about the false antivirus message about Bender.exe
@@ -98,15 +91,15 @@ Bender uses a number of open source projects to work properly:
 
 ## Run or Build from source
 1. Clone or [Download](https://github.com/trottling/Bender/archive/refs/heads/main.zip) source code
-> git clone https://github.com/trottling/Bender/tree/main
+`git clone https://github.com/trottling/Bender/tree/main`
 2. Go to source code folder
-> cd Bender
+`cd Bender`
 3. Install requirements
-> pip install -r requirements.txt
+`pip install -r requirements.txt`
 4. Run
-> python main.py
+`python main.py`
 5. Build
-> build.bat
+`build.bat`
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
     
@@ -115,3 +108,9 @@ Bender uses a number of open source projects to work properly:
    [httpx]: <https://www.python-httpx.org/>
    [vulners]: <https://pypi.org/project/vulners/>
    [darkdetect]: <https://github.com/albertosottile/darkdetect>
+   [GTRONICK/QSS]: <github.com/GTRONICK/QSS>
+   [mitre.org]: <mitre.org>
+   [loldrivers.io]: <loldrivers.io>
+   [cpuinfo]: <https://github.com/workhorsy/py-cpuinfo>
+   [getmac]: <https://github.com/GhostofGoes/getmac>
+   [PortScan]: <https://github.com/Aperocky/PortScan>
