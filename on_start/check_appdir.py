@@ -15,8 +15,16 @@ def CheckAppDir():
         os.mkdir(style_folder)
 
     log_file = app_folder + "\\" + "debug_log.txt"
+
+    #
+    # If log file doesn't exist, he will be create in check config func
+    #
+
     if os.path.isfile(log_file):
-        os.remove(log_file)
+        try:
+            os.remove(log_file)
+        except PermissionError:
+            pass
     try:
         file_handler = RotatingFileHandler(log_file, maxBytes=0)
         return app_folder, file_handler

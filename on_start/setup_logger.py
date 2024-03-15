@@ -9,11 +9,12 @@ def Setup_logger(app_version, file_handler, appdir):
     logger = logging.getLogger(__name__)
     std_handler = StreamHandler(sys.stdout)
     std_handler.setFormatter(Formatter("%(asctime)s %(levelname)s %(message)s"))
-    file_handler.setFormatter(Formatter("%(asctime)s %(levelname)s %(message)s"))
     logger.addHandler(std_handler)
 
     try:
-        logger.addHandler(file_handler)
+        if file_handler is not None:
+            file_handler.setFormatter(Formatter("%(asctime)s %(levelname)s %(message)s"))
+            logger.addHandler(file_handler)
     except Exception as e:
         logger.error(f"Setup_logger : file_handler : {e}")
 
