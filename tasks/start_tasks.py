@@ -72,7 +72,9 @@ def CheckUpdate(self):
         data = self.resp.json()
         if data["tag_name"] != self.app_version:
             result.append([ImageChangeAnim, self, self.ui.image_version, r"assets\images\warn.png"])
-            result.append([AskUpdate, self, f"{data["tag_name"]}\n\n{data["body"]}\n\nOpen new version download page?"])
+            if not self.update_msg_show:
+                result.append(
+                    [AskUpdate, self, f"{data["tag_name"]}\n\n{data["body"]}\n\nOpen new version download page?"])
         else:
             result.append([ImageChangeAnim, self, self.ui.image_version, r"assets\images\apply.png"])
 
