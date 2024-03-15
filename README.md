@@ -8,7 +8,7 @@
 # Bender - Windows Vulnerability Scanner
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/trottling/Bender/main/media/bender.png" width="200"/>
+  <img alt="page" src="https://raw.githubusercontent.com/trottling/Bender/main/media/bender.png" width="200"/>
 </div>
 
 **Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python 3.12**
@@ -61,21 +61,21 @@
 
 ## Tech
 
-| Project Part | Autor(s) | Desc |
----------------|----------|------|
-| App idea | my smoky head | knight 80 😎 😎 😎 |
-| Pretty Icons | icons8.com | Curated graphics, design apps, and AI tools |
-| StyleSheets | [GTRONICK/QSS] | QT Style Sheets templates |
-| CVE Info DB Api | [mitre.org] | Solving Problems for a Safer World |
-| Vulnerable drivers DB | [loldrivers.io] | curated list of all abused Windows drivers |
-| GUI | [PyQT6] | official Python bindings for Qt |
-| Dark theme detect | [darkdetect] | Detect OS Dark Mode from Python |
-| Network | [httpx] | A next-generation HTTP client |
-| Windows interactions | [windows_tools] | Collection of various interfaces for Windows functionality |
-| Vulners.com API | [vulners] | Vulners.com API v3 Python wrapper |
-| HW Info | [cpuinfo] | A module for getting CPU info with pure Python |
-| MAC adress | [getmac] |  Platform-independent pure-Python module to get a MAC address  |
-| Port scanner | [PortScan] | command line port scan utility written in python |
+| Project Part          | Autor(s)        | Desc                                                         |
+|-----------------------|-----------------|--------------------------------------------------------------|
+| App idea              | my smoky head   | knight 80 😎 😎 😎                                           |
+| Pretty Icons          | icons8.com      | Curated graphics, design apps, and AI tools                  |
+| StyleSheets           | [GTRONICK/QSS]  | QT Style Sheets templates                                    |
+| CVE Info DB Api       | [mitre.org]     | Solving Problems for a Safer World                           |
+| Vulnerable drivers DB | [loldrivers.io] | curated list of all abused Windows drivers                   |
+| GUI                   | [PyQT6]         | official Python bindings for Qt                              |
+| Dark theme detect     | [darkdetect]    | Detect OS Dark Mode from Python                              |
+| Network               | [httpx]         | A next-generation HTTP client                                |
+| Windows interactions  | [windows_tools] | Collection of various interfaces for Windows functionality   |
+| Vulners.com API       | [vulners]       | Vulners.com API v3 Python wrapper                            |
+| HW Info               | [cpuinfo]       | A module for getting CPU info with pure Python               |
+| MAC adress            | [getmac]        | Platform-independent pure-Python module to get a MAC address |
+| Port scanner          | [PortScan]      | command line port scan utility written in python             |
 
 ## Current used vulnerability databases
   
