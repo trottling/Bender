@@ -741,7 +741,6 @@ def SendKBVulners(self):
     try:
         # List with deleted KBs without KB ID
         kb = [item['kb'] for item in self.kb_list if item['kb'] not in ("", None) and "KB" in item['kb']]
-        kb.append('KB4465659')
         self.logger.debug(f"SendKBVulners : {kb}")
         self.kb_scan_res = self.vulners_api_kb.kb_audit(os=f"{platform.system()} {platform.release()}",
                                                         kb_list=kb)
