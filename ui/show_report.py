@@ -296,3 +296,35 @@ def FillKBList(self):
     except Exception as e:
         self.logger.error(f"FillKBList : {e}")
         self.res_bad += 1
+
+
+def FillAllAppsList(self, data):
+    try:
+        self.all_app_list_model = QtGui.QStandardItemModel()
+        self.ui.Software_listView_all.setModel(self.all_app_list_model)
+        for item in data:
+            list_item = QtGui.QStandardItem()
+            list_item.setText(
+                str(item['name'][:40]).capitalize() + f"{"..." if len(item['name']) > 40 else ""}" + "\t" + str(
+                    item['version'][:15]))
+            self.all_app_list_model.appendRow(list_item)
+
+            self.res_good += 1
+    except Exception as e:
+        self.logger.error(f"FillAllAppsList : {e}")
+        self.res_bad += 1
+
+
+def FillDriversList(self):
+    try:
+        self.Drivers_list_model = QtGui.QStandardItemModel()
+        self.ui.Drivers_listView_all.setModel(self.Drivers_list_model)
+        for item in self.drivers_list:
+            list_item = QtGui.QStandardItem()
+            list_item.setText(item)
+            self.Drivers_list_model.appendRow(list_item)
+
+        self.res_good += 1
+    except Exception as e:
+        self.logger.error(f"FillExtPorts : {e}")
+        self.res_bad += 1
