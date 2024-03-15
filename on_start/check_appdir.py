@@ -17,7 +17,7 @@ def CheckAppDir():
     log_file = app_folder + "\\" + "debug_log.txt"
 
     #
-    # If log file doesn't exist, he will be create in check config func
+    # If log file doesn't exist, he will be created in check config func
     #
 
     if os.path.isfile(log_file):
