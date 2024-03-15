@@ -1,5 +1,6 @@
 import sys
 
+from PyQt6 import QtTest
 from PyQt6.QtCore import QPropertyAnimation, QEasingCurve, QTimer
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QGraphicsOpacityEffect
@@ -211,3 +212,23 @@ def ShowErrMessage(self, msg):
         self.logger.debug(f"ShowErrMessage : {msg}")
         ElemShowAnim(self, self.ui.alert_msg)
         QTimer.singleShot(5000, lambda: ElemHideAnim(self, self.ui.alert_msg))
+
+
+def ChangeWorkElems(self):
+    TextChangeAnim(self, self.ui.label_work_progress, "Done")
+    ElemHideAnim(self, self.ui.label_win_warn, dur=200)
+    self.ui.image_work_progress.clear()
+    ImageChangeAnim(self, self.ui.image_work_progress, r"assets\images\bender-medium.png")
+    self.ui.label_scan_successful_len.setText(str(self.res_good))
+    self.ui.label_scan_error_len.setText(str(self.res_bad))
+
+    QtTest.QTest.qWait(1000)
+
+    for elem in [self.ui.framel_scan_successful, self.ui.label_scan_successful,
+                 self.ui.label_scan_successful_len, self.ui.frame_scan_error,
+                 self.ui.label_scan_error, self.ui.label_scan_error_len,
+                 self.ui.next_work_btn]:
+        ElemShowAnim(self, elem)
+        QtTest.QTest.qWait(50)
+
+    QtTest.QTest.qWait(250)
