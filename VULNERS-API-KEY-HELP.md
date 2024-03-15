@@ -1,6 +1,6 @@
 # Why Bender need to Vulners.com API KEY?
 
-Bender use **Vulners.com API** to get vulnerability information based on the sent Windows Applications and KB Updates lists.  
+Bender use **Vulners.com API** to get vulnerability information based on the send Windows Applications and KB Updates lists.  
 
 # How to get API KEY?
 
