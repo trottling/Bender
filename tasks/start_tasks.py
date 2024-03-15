@@ -75,6 +75,7 @@ def CheckUpdate(self):
             if not self.update_msg_show:
                 result.append(
                     [AskUpdate, self, f"{data["tag_name"]}\n\n{data["body"]}\n\nOpen new version download page?"])
+                self.update_msg_show = True
         else:
             result.append([ImageChangeAnim, self, self.ui.image_version, r"assets\images\apply.png"])
 
