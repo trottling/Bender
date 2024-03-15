@@ -7766,7 +7766,6 @@ processing threads</string>
        <zorder>verticalSpacer_10</zorder>
        <zorder>verticalSpacer_12</zorder>
        <zorder>verticalSpacer_16</zorder>
-       <zorder></zorder>
       </widget>
       <widget class="QWidget" name="page_errors">
        <layout class="QGridLayout" name="gridLayout_5">
