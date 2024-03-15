@@ -111,32 +111,22 @@ class User_UI(QMainWindow):
                                   -self.gripSize, -self.gripSize)
 
         # top left
-        self.cornerGrips[0].setGeometry(
-            QtCore.QRect(outRect.topLeft(), inRect.topLeft()))
+        self.cornerGrips[0].setGeometry(QtCore.QRect(outRect.topLeft(), inRect.topLeft()))
         # top right
-        self.cornerGrips[1].setGeometry(
-            QtCore.QRect(outRect.topRight(), inRect.topRight()).normalized())
+        self.cornerGrips[1].setGeometry(QtCore.QRect(outRect.topRight(), inRect.topRight()).normalized())
         # bottom right
-        self.cornerGrips[2].setGeometry(
-            QtCore.QRect(inRect.bottomRight(), outRect.bottomRight()))
+        self.cornerGrips[2].setGeometry(QtCore.QRect(inRect.bottomRight(), outRect.bottomRight()))
         # bottom left
-        self.cornerGrips[3].setGeometry(
-            QtCore.QRect(outRect.bottomLeft(), inRect.bottomLeft()).normalized())
+        self.cornerGrips[3].setGeometry(QtCore.QRect(outRect.bottomLeft(), inRect.bottomLeft()).normalized())
 
         # left edge
-        self.sideGrips[0].setGeometry(
-            0, inRect.top(), self.gripSize, inRect.height())
+        self.sideGrips[0].setGeometry(0, inRect.top(), self.gripSize, inRect.height())
         # top edge
-        self.sideGrips[1].setGeometry(
-            inRect.left(), 0, inRect.width(), self.gripSize)
+        self.sideGrips[1].setGeometry(inRect.left(), 0, inRect.width(), self.gripSize)
         # right edge
-        self.sideGrips[2].setGeometry(
-            inRect.left() + inRect.width(),
-            inRect.top(), self.gripSize, inRect.height())
+        self.sideGrips[2].setGeometry(inRect.left() + inRect.width(), inRect.top(), self.gripSize, inRect.height())
         # bottom edge
-        self.sideGrips[3].setGeometry(
-            self.gripSize, inRect.top() + inRect.height(),
-            inRect.width(), self.gripSize)
+        self.sideGrips[3].setGeometry(self.gripSize, inRect.top() + inRect.height(), inRect.width(), self.gripSize)
 
     def resizeEvent(self, event):
         QtWidgets.QMainWindow.resizeEvent(self, event)

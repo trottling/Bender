@@ -102,8 +102,7 @@ def Connect_Buttons(self):
 
     self.ui.pushButton_app_size.clicked.connect(lambda: Resize_Window(self))
 
-    self.ui.pushButton_app_hide.clicked.connect(lambda: (self.ui.showMinimized(), self.logger.debug(
-        "pushButton_app_hide : ******** Minimized ********")))
+    self.ui.pushButton_app_hide.clicked.connect(lambda: (self.ui.showMinimized(), self.logger.debug("pushButton_app_hide : ******** Minimized ********")))
 
     self.logger.debug(f"Connect_Buttons : Buttons connected")
 
@@ -165,8 +164,7 @@ def OpenQSSFile(self):
     self.logger.debug("OpenQSSFile : Open file")
     qss_file = None
     try:
-        qss_file = QFileDialog.getOpenFileName(self, caption='Open file', directory='./',
-                                               filter="QSS Style files (*.qss)")
+        qss_file = QFileDialog.getOpenFileName(self, caption='Open file', directory='./', filter="QSS Style files (*.qss)")
     except Exception as e:
         self.logger.debug(f"OpenQSSFile : {e}")
 
@@ -225,22 +223,15 @@ def SaveDebugLog(self):
 def ApplyQSSTheme(self):
     Save_Settings(self)
     if self.ui.qss_comboBox.currentText() == 'Default (Light)' or self.ui.qss_comboBox.currentText() == 'Default (Dark)':
-        self.ui.setStyleSheet(open(GetRelPath(self,
-                                              f"assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss"),
-                                   mode="r").read())
-        self.logger.debug(
-            f"AppleQSSTheme : assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss : Default Styles loaded")
+        self.ui.setStyleSheet(open(GetRelPath(self, f"assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss"), mode="r").read())
+        self.logger.debug(f"AppleQSSTheme : assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss : Default Styles loaded")
 
     elif self.ui.qss_comboBox.currentText() != "Custom":
         try:
-            self.ui.setStyleSheet(open(GetRelPath(self,
-                                                  f"{self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()}"),
-                                       mode="r").read())
-            self.logger.debug(
-                f"AppleQSSTheme : {self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()} : User Styles loaded")
+            self.ui.setStyleSheet(open(GetRelPath(self, f"{self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()}"), mode="r").read())
+            self.logger.debug(f"AppleQSSTheme : {self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()} : User Styles loaded")
         except Exception as e:
-            self.logger.error(
-                f"AppleQSSTheme : {self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()} : User Styles not loaded : {e}")
+            self.logger.error(f"AppleQSSTheme : {self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()} : User Styles not loaded : {e}")
 
 
 def Check_Vulners_Key(self):
@@ -320,9 +311,7 @@ def ChangeSliderLock(self):
 def SaveReport(self):
     report_file = None
     try:
-        report_file = QFileDialog.getSaveFileName(self, caption='Save log file (.txt)', directory="./",
-                                                  filter=".txt",
-                                                  initialFilter=".txt")
+        report_file = QFileDialog.getSaveFileName(self, caption='Save log file (.txt)', directory="./", filter=".txt", initialFilter=".txt")
     except Exception as e:
         self.logger.debug(f"SaveReport : {e}")
 
@@ -359,8 +348,7 @@ def Resize_Window(self):
         else:
             self.ui.resize(800, 600)
             self.logger.debug(f"Resize_Window : Resized 800 x 600")
-        self.ui.move(int((self.screen_width - self.ui.size().width()) / 2),
-                     int((self.screen_height - self.ui.size().height()) / 2))
+        self.ui.move(int((self.screen_width - self.ui.size().width()) / 2), int((self.screen_height - self.ui.size().height()) / 2))
         self.window_size_full = False
         Save_Settings(self)
 
@@ -396,8 +384,7 @@ def StartScanner(self):
 
 def SaveScanResults(self):
     try:
-        res_file = QFileDialog.getSaveFileName(self, caption='Save image (.png)', directory="./",
-                                               filter=".png")
+        res_file = QFileDialog.getSaveFileName(self, caption='Save image (.png)', directory="./", filter=".png")
     except Exception as e:
         self.logger.error(f"SaveScanResults : {e}")
         return

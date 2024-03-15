@@ -1,8 +1,8 @@
 import sys
 
-from PyQt6 import QtTest
+from PyQt6 import QtTest, QtCore
 from PyQt6.QtCore import QPropertyAnimation, QEasingCurve, QTimer
-from PyQt6.QtGui import QPixmap
+from PyQt6.QtGui import QPixmap, QMovie
 from PyQt6.QtWidgets import QGraphicsOpacityEffect
 
 from ui.tools import GetRelPath
@@ -31,8 +31,7 @@ def App_Exit_Anim(self):
     self.logger.debug(f"App_Close_Anim : Animation")
 
     animation = QPropertyAnimation(self.ui, b'windowOpacity', self)
-    animation.finished.connect(lambda: ((self.logger.debug(
-        "App_Exit_Anim : ******* EXIT *******"), sys.exit(0))))
+    animation.finished.connect(lambda: ((self.logger.debug(        "App_Exit_Anim : ******* EXIT *******"), sys.exit(0))))
     animation.setDuration(250)
     animation.setStartValue(1.0)
     animation.setEndValue(0.0)
@@ -219,8 +218,8 @@ def ChangeWorkElems(self):
     ElemHideAnim(self, self.ui.label_win_warn, dur=200)
     self.ui.image_work_progress.clear()
     ImageChangeAnim(self, self.ui.image_work_progress, r"assets\images\bender-medium.png")
-    self.ui.label_scan_successful_len.setText(str(self.res_good))
-    self.ui.label_scan_error_len.setText(str(self.res_bad))
+    self.ui.label_scan_successful_len.setText(str(self.scan_thread.res_good))
+    self.ui.label_scan_error_len.setText(str(self.scan_thread.res_bad))
 
     QtTest.QTest.qWait(1000)
 
@@ -232,3 +231,16 @@ def ChangeWorkElems(self):
         QtTest.QTest.qWait(50)
 
     QtTest.QTest.qWait(250)
+
+
+# noinspection PyArgumentList
+def SetWorkPageGIF(self):
+    QtTest.QTest.qWait(500)
+    gif = QMovie(GetRelPath(self, r"assets\gifs\loading.gif"))
+    gif.setFormat(b"gif")
+    gif.setScaledSize(QtCore.QSize(45, 45))
+    self.ui.image_work_progress.setMovie(gif)
+    gif.start()
+    ElemShowAnim(self, self.ui.image_work_progress, dur=200)
+    ElemShowAnim(self, self.ui.label_work_progress, dur=200)
+    QtTest.QTest.qWait(500)

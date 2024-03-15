@@ -73,8 +73,7 @@ def CheckUpdate(self):
         if data["tag_name"] != self.app_version:
             result.append([ImageChangeAnim, self, self.ui.image_version, r"assets\images\warn.png"])
             if not self.update_msg_show:
-                result.append(
-                    [AskUpdate, self, f"{data["tag_name"]}\n\n{data["body"]}\n\nOpen new version download page?"])
+                result.append([AskUpdate, self, f"{data["tag_name"]}\n\n{data["body"]}\n\nOpen new version download page?"])
                 self.update_msg_show = True
         else:
             result.append([ImageChangeAnim, self, self.ui.image_version, r"assets\images\apply.png"])
@@ -109,26 +108,22 @@ def GetSystemInfo(self):
             case '11':
                 self.win_icon_start = r"assets\images\win-11-small.png"
                 self.os_sup_status = "Support"
-                result.append(
-                    [ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\apply.png"])
+                result.append([ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\apply.png"])
 
             case '10':
                 self.win_icon_start = r"assets\images\win-10-small.png"
                 self.os_sup_status = "Support"
-                result.append(
-                    [ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\apply.png"])
+                result.append([ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\apply.png"])
 
             case '8' | '8.1':
                 self.win_icon_start = r"assets\images\win-8-small.png"
                 self.os_sup_status = "Unknown"
-                result.append(
-                    [ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\warn.png"])
+                result.append([ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\warn.png"])
 
             case _:
                 self.win_icon_start = r"assets\images\help.png"
                 self.os_sup_status = "Unknown"
-                result.append(
-                    [ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\warn.png"])
+                result.append([ImageChangeAnim, self, self.ui.image_os_status, r"assets\images\warn.png"])
 
         self.validate_os_sup_status = True
         if platform.system() != "Windows":
@@ -178,8 +173,7 @@ def GetNetwork(self):
     result.append([self.ui.image_net_status.clear])
 
     if self.validate_net_status:
-        result.append(
-            [ImageChangeAnim, self, self.ui.image_net_status, r"assets\images\network.png"])
+        result.append([ImageChangeAnim, self, self.ui.image_net_status, r"assets\images\network.png"])
         result.append([TextChangeAnim, self, self.ui.label_net_status_2, "Connected"])
     else:
         result.append([ImageChangeAnim, self, self.ui.image_net_status, r"assets\images\fail.png"])
@@ -200,8 +194,7 @@ def CheckVulners(self):
     result.append([self.ui.image_vulners_api.clear])
 
     if self.validate_vulners_status:
-        result.append(
-            [ImageChangeAnim, self, self.ui.image_vulners_api, r"assets\images\server.png"])
+        result.append([ImageChangeAnim, self, self.ui.image_vulners_api, r"assets\images\server.png"])
         result.append([TextChangeAnim, self, self.ui.label_vulners_api_2, "Aviable"])
     else:
         result.append([ImageChangeAnim, self, self.ui.image_vulners_api, r"assets\images\fail.png"])
@@ -216,8 +209,7 @@ def CheckVulnersKey(self):
     if self.vulners_key in ("", None):
         result.append([ImageChangeAnim, self, self.ui.image_vulners_key_check, r"assets\images\fail.png"])
         result.append([TextChangeAnim, self, self.ui.label_vulners_key_3, "Key empty"])
-        result.append([ShowErrMessage, self,
-                       "Enter your Vulners.com key in setting and validate it. <a href='https://github.com/trottling/Bender/blob/main/VULNERS-API-KEY-HELP.md'>Click for help</a>"])
+        result.append([ShowErrMessage, self, "Enter your Vulners.com key in setting and validate it. <a href='https://github.com/trottling/Bender/blob/main/VULNERS-API-KEY-HELP.md'>Click for help</a>"])
         return result
 
     # Skip key check if key already validate in setting in one session time
@@ -271,8 +263,7 @@ def CheckLoldrivers(self):
     result.append([self.ui.image_loldrivers.clear])
 
     if self.validate_loldrivers_status:
-        result.append(
-            [ImageChangeAnim, self, self.ui.image_loldrivers, r"assets\images\db.png"])
+        result.append([ImageChangeAnim, self, self.ui.image_loldrivers, r"assets\images\db.png"])
         result.append([TextChangeAnim, self, self.ui.label_loldrivers_2, "Aviable"])
     else:
         result.append([ImageChangeAnim, self, self.ui.image_loldrivers, r"assets\images\fail.png"])

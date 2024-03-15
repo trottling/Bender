@@ -43,8 +43,7 @@ def ReportApps(self):
                         self.dot = "dot-dark-red.png"
                     else:
                         self.dot = "dot-grey.png"
-                self.logger.debug(
-                    f"ReportApps : Score {self.score_raw} --> {self.score if self.score else ""} --> {self.dot}")
+                self.logger.debug(f"ReportApps : Score {self.score_raw} --> {self.score if self.score else ""} --> {self.dot}")
                 list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\{self.dot}")))
             except Exception as e:
                 self.logger.error(f"ReportApps : Error setting dot : {e}")
@@ -64,12 +63,9 @@ def ReportAppsFull(self, index):
         self.logger.debug(f"ReportAppsFull : item index {str(item_index).strip()} ")
         cve_info = self.apps_report["cve_list"][item_index]
 
-        self.ui.label_cve_head.setText(
-            f"{cve_info["cve"]} - {cve_info["package"].capitalize()} - {cve_info["version"]}")
+        self.ui.label_cve_head.setText(f"{cve_info["cve"]} - {cve_info["package"].capitalize()} - {cve_info["version"]}")
 
-        self.ui.label_published.setText(
-            f"Published: {cve_info["datePublished"]}" if "datePublished" in cve_info and cve_info[
-                "datePublished"].strip != "" else "Published: No date")
+        self.ui.label_published.setText(f"Published: {cve_info["datePublished"]}" if "datePublished" in cve_info and cve_info["datePublished"].strip != "" else "Published: No date")
         self.ui.cve_desc_plainTextEdit.setPlainText(cve_info["desc"].capitalize())
 
         self.ui.label_shortname.setText(f"Shortname: {cve_info["shortName"].capitalize()}")
@@ -191,8 +187,7 @@ def ReportKB(self):
                         self.dot = "dot-dark-red.png"
                     else:
                         self.dot = "dot-grey.png"
-                self.logger.debug(
-                    f"ReportKB : Score {self.score_raw} --> {self.score if self.score else ""} --> {self.dot}")
+                self.logger.debug(f"ReportKB : Score {self.score_raw} --> {self.score if self.score else ""} --> {self.dot}")
                 list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\{self.dot}")))
             except Exception as e:
                 self.logger.error(f"ReportKB : Error setting dot : {e}")
@@ -245,8 +240,7 @@ def FillLocalPorts(self):
             port = str(item[1])
             if port in port_dict:
                 list_item = QtGui.QStandardItem()
-                service = port_dict[port]["Service Name"] if port_dict[port][
-                                                                 "Service Name"] != "" else "No Service Info"
+                service = port_dict[port]["Service Name"] if port_dict[port]["Service Name"] != "" else "No Service Info"
                 desc = port_dict[port]["Description"] if port_dict[port]["Description"] != "" else "No Description"
                 list_item.setText(f"{port}\t{service}\t{desc}"[:85])
                 self.local_ports_list_model.appendRow(list_item)
