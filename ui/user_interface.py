@@ -36,6 +36,7 @@ class User_UI(QMainWindow):
         self.start_tasks_running = False
         self.qss_input_showed = False
         self.result_list_model = None
+        self.update_msg_show = False
         self.rel_path_dict = {}
 
         # Validating vars
