@@ -12,7 +12,7 @@ except ModuleNotFoundError:
 def SplashText(self):
     try:
         pyi_splash.update_text("Loading")
-    except:
+    except NameError:
         pass
     self.logger.debug("SplashText : Text change")
 
@@ -20,6 +20,6 @@ def SplashText(self):
 def StopSplash(self):
     try:
         pyi_splash.close()
-    except:
+    except NameError:
         pass
     self.logger.debug("StopSplash : Stop")
