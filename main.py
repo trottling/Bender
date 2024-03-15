@@ -6,7 +6,7 @@ from on_start.check_appdir import CheckAppDir
 from on_start.setup_logger import Setup_logger
 from ui.user_interface import User_UI
 
-app_version = "2.0.0"
+app_version = "2.0.1"
 
 # Check App folder
 appdir, file_handler = CheckAppDir()
