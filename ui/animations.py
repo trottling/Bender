@@ -31,7 +31,7 @@ def App_Exit_Anim(self):
     self.logger.debug(f"App_Close_Anim : Animation")
 
     animation = QPropertyAnimation(self.ui, b'windowOpacity', self)
-    animation.finished.connect(lambda: ((self.logger.debug(        "App_Exit_Anim : ******* EXIT *******"), sys.exit(0))))
+    animation.finished.connect(lambda: ((self.logger.debug("App_Exit_Anim : ******* EXIT *******"), sys.exit(0))))
     animation.setDuration(250)
     animation.setStartValue(1.0)
     animation.setEndValue(0.0)
@@ -207,7 +207,7 @@ def TextChangeAnimShow(self, elem, text):
 
 def ShowErrMessage(self, msg):
     if not self.ui.alert_msg.isVisible():
-        self.ui.alert_msg.setText(msg)
+        self.ui.alert_msg.setText(str(msg))
         self.logger.debug(f"ShowErrMessage : {msg}")
         ElemShowAnim(self, self.ui.alert_msg)
         QTimer.singleShot(5000, lambda: ElemHideAnim(self, self.ui.alert_msg))
