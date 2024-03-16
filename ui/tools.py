@@ -61,4 +61,4 @@ def GetRelPath(self, data_path, slash_replace=True):
     self.rel_path_dict[data_path] = result
     self.logger.debug(f"GetRelPath : new : {result}")
 
-    return result
+    return str(result)
