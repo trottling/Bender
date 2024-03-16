@@ -11,11 +11,14 @@ from ui.tools import GetRelPath
 # !!! Required by QT Designer WebView widget !!!
 # from PyQt6 import QtWebEngineWidgets
 #
+# noinspection PyUnresolvedReferences
+from PyQt6 import QtWebEngineWidgets
 
 
 def Prepare_Window(self):
     ui_path = GetRelPath(self, "assets/app.ui")
     self.logger.debug(f"Prepare_Window : Loading UI : {ui_path}")
+    self.logger.debug(f"Prepare_Window : NOTE : If ui not loaded in long time, check 'from PyQt6 import QtWebEngineWidgets' import")
 
     # Load UI file
 
@@ -44,8 +47,10 @@ def Prepare_Window(self):
             if monitor.is_primary:
                 self.screen_width = monitor.width
                 self.screen_height = monitor.height
-                self.screen_width_cut = min(int(round(self.screen_width * 0.75)), 1200)
-                self.screen_height_cut = min(int(round(self.screen_height * 0.75)), 650)
+                w_cut = int(round(self.screen_width * 0.75))
+                h_cut = int(round(self.screen_height * 0.75))
+                self.screen_width_cut = w_cut if w_cut > 1200 else 1200
+                self.screen_height_cut = h_cut if h_cut > 650 else 650
                 self.ui.resize(self.screen_width_cut, self.screen_height_cut)
                 self.ui.move(int((self.screen_width - self.ui.size().width()) / 2), int((self.screen_height - self.ui.size().height()) / 2))
                 self.logger.debug(f"Prepare_Window : Resized to {self.screen_width_cut} x {self.screen_height_cut} : Original {self.screen_width} x {self.screen_height}")

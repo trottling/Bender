@@ -9,6 +9,7 @@ from PyQt6 import QtTest
 from PyQt6.QtWidgets import QMessageBox
 
 from ui.animations import ImageChangeAnim, TextChangeAnim, ShowErrMessage
+from ui.tools import GetRelPath
 
 
 def Run_Start_Tasks(self):
@@ -87,7 +88,11 @@ def CheckUpdate(self):
 
 
 def AskUpdate(self, text):
-    button = QMessageBox.question(self, "Update aviable", text)
+    msg = QMessageBox(self)
+    msg.setWindowTitle("Update aviable")
+    msg.setText(text)
+    msg.setIcon(GetRelPath(self, "assets/icons/bender.ico"))
+    button = msg.question(self)
     if button == QMessageBox.StandardButton.Yes:
         webbrowser.open("https://github.com/trottling/Bender/releases/latest")
 
