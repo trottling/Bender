@@ -3,15 +3,15 @@ import re
 from PyQt6 import QtGui
 
 from other.tcp_port_dict import port_dict
-from ui.animations import StackedWidgetChangePage
+from ui.animations import StackedWidgetChangePage, UpdateWorkPageStat
 from ui.tools import Report_Error, GetRelPath
 
 
-def ReportApps(self):
+def ReportApps(self, report):
     self.logger.debug(f"ReportApps : {len(self.apps_report["cve_list"])} CVEs in list")
 
     try:
-
+        self.apps_report = report
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
         self.ui.Software_listView_vuln.setModel(self.vunl_app_list_model)
@@ -52,7 +52,7 @@ def ReportApps(self):
 
         self.ui.Software_listView_vuln.doubleClicked.connect(lambda index: ReportAppsFull(self, index))
         self.logger.debug("ReportApps : List maked")
-        self.res_good += 1
+        UpdateWorkPageStat(self, "good")
     except Exception as e:
         Report_Error(self, f"ReportApps : {e}")
 
@@ -85,12 +85,13 @@ def ReportAppsFull(self, index):
         Report_Error(self, f"ReportAppsFull : {e}")
 
 
-def ReportDrivers(self):
+def ReportDrivers(self, drv):
     self.logger.debug(f"ReportDrivers : {len(self.drivers_report["driver_list"])} drivers in list")
     if len(self.drivers_report["driver_list"]) == 0:
         return
 
     try:
+        self.drivers_report = drv
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
         self.ui.Drivers_listView_vuln.setModel(self.vunl_app_list_model)
@@ -152,11 +153,11 @@ def Split_Words(self, word, split_dot=False):
     return result
 
 
-def ReportKB(self):
+def ReportKB(self, kb):
     self.logger.debug(f"ReportKB : {len(self.kb_report["cve_list"])} CVEs in list")
 
     try:
-
+        self.kb_report = kb
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
         self.ui.vuln_kb_list.setModel(self.vunl_app_list_model)
@@ -196,7 +197,7 @@ def ReportKB(self):
 
         self.ui.vuln_kb_list.doubleClicked.connect(lambda index: ReportKBFull(self, index))
         self.logger.debug("ReportKB : List maked")
-        self.res_good += 1
+        UpdateWorkPageStat(self, "good")
     except Exception as e:
         Report_Error(self, f"ReportKB : {e}")
 
@@ -231,8 +232,9 @@ def ReportKBFull(self, index):
         Report_Error(self, f"ReportKBFull : {e}")
 
 
-def FillLocalPorts(self):
+def FillLocalPorts(self, ports):
     try:
+        self.LocalPorts = ports
         self.local_ports_list_model = QtGui.QStandardItemModel()
         self.ui.open_local_ports_list.setModel(self.local_ports_list_model)
 
@@ -244,14 +246,15 @@ def FillLocalPorts(self):
                 desc = port_dict[port]["Description"] if port_dict[port]["Description"] != "" else "No Description"
                 list_item.setText(f"{port}\t{service}\t{desc}"[:85])
                 self.local_ports_list_model.appendRow(list_item)
-        self.res_good += 1
+        UpdateWorkPageStat(self, "good")
     except Exception as e:
         self.logger.error(f"FillLocalPorts : {e}")
-        self.res_bad += 1
+        UpdateWorkPageStat(self, "bad")
 
 
-def FillExtPorts(self):
+def FillExtPorts(self, ports):
     try:
+        self.ExtPorts = ports
         self.ext_ports_list_model = QtGui.QStandardItemModel()
         self.ui.open_Externall_ports_list.setModel(self.ext_ports_list_model)
         for item in self.ExtPorts:
@@ -263,14 +266,15 @@ def FillExtPorts(self):
                 desc = port_dict[port]["Description"] if port_dict[port]["Description"] != "" else "No Description"
                 list_item.setText(f"{port}\t{service}\t{desc}"[:85])
                 self.ext_ports_list_model.appendRow(list_item)
-        self.res_good += 1
+        UpdateWorkPageStat(self, "good")
     except Exception as e:
         self.logger.error(f"FillExtPorts : {e}")
-        self.res_bad += 1
+        UpdateWorkPageStat(self, "bad")
 
 
-def FillKBList(self):
+def FillKBList(self, drv):
     try:
+        self.kb_list = drv
         self.All_kb_list_model = QtGui.QStandardItemModel()
         self.ui.all_kb_list.setModel(self.All_kb_list_model)
         for item in self.kb_list:
@@ -286,10 +290,10 @@ def FillKBList(self):
             list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\dot-red.png")))
             self.All_kb_list_model.appendRow(list_item)
 
-        self.res_good += 1
+        UpdateWorkPageStat(self, "good")
     except Exception as e:
         self.logger.error(f"FillKBList : {e}")
-        self.res_bad += 1
+        UpdateWorkPageStat(self, "bad")
 
 
 def FillAllAppsList(self, data):
@@ -303,10 +307,10 @@ def FillAllAppsList(self, data):
                     item['version'][:15]))
             self.all_app_list_model.appendRow(list_item)
 
-            self.res_good += 1
+            UpdateWorkPageStat(self, "good")
     except Exception as e:
         self.logger.error(f"FillAllAppsList : {e}")
-        self.res_bad += 1
+        UpdateWorkPageStat(self, "bad")
 
 
 def FillDriversList(self):
@@ -318,7 +322,7 @@ def FillDriversList(self):
             list_item.setText(item)
             self.Drivers_list_model.appendRow(list_item)
 
-        self.res_good += 1
+        UpdateWorkPageStat(self, "good")
     except Exception as e:
         self.logger.error(f"FillExtPorts : {e}")
-        self.res_bad += 1
+        UpdateWorkPageStat(self, "bad")

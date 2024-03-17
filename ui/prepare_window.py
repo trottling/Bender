@@ -1,5 +1,13 @@
+import os
 import sys
 
+import darkdetect
+#
+# !!! Required by QT Designer WebView widget !!!
+# from PyQt6 import QtWebEngineWidgets
+#
+# noinspection PyUnresolvedReferences
+from PyQt6 import QtWebEngineWidgets
 from PyQt6 import uic, QtGui
 from PyQt6.QtCore import Qt
 from screeninfo import get_monitors
@@ -7,21 +15,16 @@ from screeninfo import get_monitors
 from ui.tools import GetRelPath
 
 
-#
-# !!! Required by QT Designer WebView widget !!!
-# from PyQt6 import QtWebEngineWidgets
-#
-# noinspection PyUnresolvedReferences
-from PyQt6 import QtWebEngineWidgets
-
-
 def Prepare_Window(self):
+    # Set env flag for QTWEBENGINE
+    if darkdetect.isDark():
+        os.environ["QTWEBENGINE_CHROMIUM_FLAGS"] = "--blink-settings=darkMode=4,darkModeImagePolicy=2"
+    self.logger.debug(f"Prepare_Window : env flag seted")
     ui_path = GetRelPath(self, "assets/app.ui")
-    self.logger.debug(f"Prepare_Window : Loading UI : {ui_path}")
-    self.logger.debug(f"Prepare_Window : NOTE : If ui not loaded in long time, check 'from PyQt6 import QtWebEngineWidgets' import")
 
     # Load UI file
-
+    self.logger.debug(f"Prepare_Window : Loading UI : {ui_path}")
+    self.logger.debug(f"Prepare_Window : NOTE : If ui not loaded in long time, check 'from PyQt6 import QtWebEngineWidgets' import")
     self.ui = uic.loadUi(ui_path, self)
     self.logger.debug(f"Prepare_Window : UI loaded")
 
