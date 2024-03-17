@@ -31,7 +31,7 @@ def App_Exit_Anim(self):
     self.logger.debug(f"App_Close_Anim : Animation")
 
     animation = QPropertyAnimation(self.ui, b'windowOpacity', self)
-    animation.finished.connect(lambda: ((self.logger.debug("App_Exit_Anim : ******* EXIT *******"), sys.exit(0))))
+    animation.finished.connect(lambda: (self.logger.debug("App_Exit_Anim : ******* EXIT *******"), sys.exit(0)))
     animation.setDuration(250)
     animation.setStartValue(1.0)
     animation.setEndValue(0.0)
@@ -213,26 +213,6 @@ def ShowErrMessage(self, msg):
         QTimer.singleShot(5000, lambda: ElemHideAnim(self, self.ui.alert_msg))
 
 
-def ChangeWorkElems(self):
-    TextChangeAnim(self, self.ui.label_work_progress, "Done")
-    ElemHideAnim(self, self.ui.label_win_warn, dur=200)
-    self.ui.image_work_progress.clear()
-    ImageChangeAnim(self, self.ui.image_work_progress, r"assets\images\bender-medium.png")
-    self.ui.label_scan_successful_len.setText(str(self.scan_thread.res_good))
-    self.ui.label_scan_error_len.setText(str(self.scan_thread.res_bad))
-
-    QtTest.QTest.qWait(1000)
-
-    for elem in [self.ui.framel_scan_successful, self.ui.label_scan_successful,
-                 self.ui.label_scan_successful_len, self.ui.frame_scan_error,
-                 self.ui.label_scan_error, self.ui.label_scan_error_len,
-                 self.ui.next_work_btn]:
-        ElemShowAnim(self, elem)
-        QtTest.QTest.qWait(50)
-
-    QtTest.QTest.qWait(250)
-
-
 # noinspection PyArgumentList
 def SetWorkPageGIF(self):
     QtTest.QTest.qWait(500)
@@ -244,3 +224,22 @@ def SetWorkPageGIF(self):
     ElemShowAnim(self, self.ui.image_work_progress, dur=200)
     ElemShowAnim(self, self.ui.label_work_progress, dur=200)
     QtTest.QTest.qWait(500)
+
+
+def ChangeWorkElems(self):
+    TextChangeAnim(self, self.ui.label_work_progress, "Done")
+    self.ui.image_work_progress.clear()
+    ImageChangeAnim(self, self.ui.image_work_progress, r"assets\images\bender-medium.png")
+
+    QtTest.QTest.qWait(1000)
+
+    ElemShowAnim(self, self.ui.next_work_btn)
+
+
+def UpdateWorkPageStat(self, stat):
+    if stat == "good":
+        self.res_good += 1
+        TextChangeAnim(self, self.ui.label_scan_successful_len, str(self.res_good))
+    if stat == "bad":
+        self.res_bad += 1
+        TextChangeAnim(self, self.ui.label_scan_successful_len, str(self.res_bad))
