@@ -3,16 +3,8 @@ from configparser import ConfigParser
 from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
-from config.read_config import Load_Settings
-from tasks.start_tasks import Run_Start_Tasks
-from ui.animations import App_Open_Anim
-from ui.buttons import Connect_Buttons
-from ui.hide_elements import Hide_Elements
-from ui.images import Load_Images_And_Icons
-from ui.prepare_window import Prepare_Window
 from ui.side_grips import SideGrip
-from ui.splash import SplashText, StopSplash
-from ui.styles import Load_Styles
+from ui.start_app import Start_App
 
 
 class User_UI(QMainWindow):
@@ -38,6 +30,9 @@ class User_UI(QMainWindow):
         self.result_list_model = None
         self.update_msg_show = False
         self.rel_path_dict = {}
+        self.net_threads = 0
+        self.data_workers = 0
+        self.vulners_key = None
 
         # Validating vars
         self.validate_vulners_key = False
@@ -48,6 +43,21 @@ class User_UI(QMainWindow):
         self.validate_vulners_status = False
         self.validate_vulners_key = False
         self.validate_loldrivers_status = False
+
+        # Scanner vars
+        self.scan_th = None
+        self.kb_list = None
+        self.kb_scan_res = None
+        self.kb_report = None
+        self.FillDriversList = None
+        self.drivers_vuln_list = None
+        self.drivers_list = None
+        self.vulners_api_soft = None
+        self.soft_list = None
+        self.apps_report = None
+        self.cve_list_kb = None
+        self.scan_result = None
+        self.scan_thread = None
 
         # Window actions
         self.window_size_full = False
@@ -131,35 +141,3 @@ class User_UI(QMainWindow):
     def resizeEvent(self, event):
         QtWidgets.QMainWindow.resizeEvent(self, event)
         self.updateGrips()
-
-
-def Start_App(self) -> None:
-    # Setup Splash screen
-    SplashText(self)
-
-    # Anywhere shit
-    Prepare_Window(self)
-
-    # Load settings
-    Load_Settings(self)
-
-    # Hide elements
-    Hide_Elements(self)
-
-    # Connect buttons
-    Connect_Buttons(self)
-
-    # Load images and Icons
-    Load_Images_And_Icons(self)
-
-    # Load styles
-    Load_Styles(self)
-
-    # Break Splash screen
-    StopSplash(self)
-
-    # Show UI
-    App_Open_Anim(self)
-
-    # Run start tasks
-    Run_Start_Tasks(self)
