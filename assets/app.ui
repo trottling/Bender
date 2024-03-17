@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0" idbasedtr="true">
+ <author>trottling</author>
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1688</width>
+    <width>1713</width>
     <height>873</height>
    </rect>
   </property>
