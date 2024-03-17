@@ -88,12 +88,7 @@ def CheckUpdate(self):
 
 
 def AskUpdate(self, text):
-    msg = QMessageBox(self)
-    msg.setWindowTitle("Update aviable")
-    msg.setText(text)
-    msg.setIcon(GetRelPath(self, "assets/icons/bender.ico"))
-    button = msg.question(self)
-    if button == QMessageBox.StandardButton.Yes:
+    if QMessageBox.question(self, "Update aviable", text) == QMessageBox.StandardButton.Yes:
         webbrowser.open("https://github.com/trottling/Bender/releases/latest")
 
 
