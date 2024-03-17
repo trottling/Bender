@@ -39,7 +39,13 @@ def Check_Vulners_Key_Request(self):
 
 def GetRelPath(self, data_path, slash_replace=True):
     if getattr(sys, 'frozen', False):
-        base_path = sys._MEIPASS
+
+        try:
+            base_path = sys._MEIPASS
+        except Exception as e:
+            self.logger.error(f"GetRelPath : {e}")
+            return ""
+
     else:
         data_path = f"..\\{data_path}"
         base_path = os.path.dirname(os.path.abspath(__file__))
