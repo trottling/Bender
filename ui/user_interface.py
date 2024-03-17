@@ -45,19 +45,9 @@ class User_UI(QMainWindow):
         self.validate_loldrivers_status = False
 
         # Scanner vars
+        self.res_good = 0
+        self.res_bad = 0
         self.scan_th = None
-        self.kb_list = None
-        self.kb_scan_res = None
-        self.kb_report = None
-        self.FillDriversList = None
-        self.drivers_vuln_list = None
-        self.drivers_list = None
-        self.vulners_api_soft = None
-        self.soft_list = None
-        self.apps_report = None
-        self.cve_list_kb = None
-        self.scan_result = None
-        self.scan_thread = None
 
         # Window actions
         self.window_size_full = False
