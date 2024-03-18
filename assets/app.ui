@@ -6441,7 +6441,7 @@ p, li { white-space: pre-wrap; }
 processing threads</string>
               </property>
               <property name="alignment">
-               <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
@@ -6701,6 +6701,9 @@ processing threads</string>
                 <property name="invertedControls">
                  <bool>false</bool>
                 </property>
+                <property name="tickPosition">
+                 <enum>QSlider::NoTicks</enum>
+                </property>
                 <property name="tickInterval">
                  <number>10</number>
                 </property>
@@ -6950,6 +6953,9 @@ processing threads</string>
                  <string>Max port scan
 threads</string>
                 </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
                </widget>
               </item>
               <item>
@@ -7047,6 +7053,9 @@ threads</string>
                     <width>140</width>
                     <height>31</height>
                    </size>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
                   </property>
                   <property name="minimum">
                    <number>100</number>

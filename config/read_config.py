@@ -9,13 +9,13 @@ def Load_Settings(self):
             self.logger.debug(f"Load_Settings : app_theme : {self.config.get('main', "app_theme")}")
             self.app_theme = self.config.get('main', "app_theme")
 
-            net_workers = max(min(int(self.config.get('main', "net_workers")), 10), 200)
+            net_workers = int(self.config.get('main', "net_workers"))
             self.logger.debug(f"Load_Settings : net_workers : {net_workers}")
             if net_workers not in (None, ""):
                 self.ui.horizontalSlider_network_threads.setValue(net_workers)
             self.ui.label_network_threads_value.setText(str(net_workers))
 
-            data_workers = max(min(int(self.config.get('main', "data_workers")), 10), 200)
+            data_workers = int(self.config.get('main', "data_workers"))
             self.logger.debug(f"Load_Settings : data_workers : {data_workers}")
             if data_workers not in (None, ""):
                 self.ui.horizontalSlider_data_threads.setValue(int(data_workers))
@@ -28,11 +28,11 @@ def Load_Settings(self):
             else:
                 self.logger.debug(f"Load_Settings : vulners_api_key : * EMPTY *")
 
-            port_workers = max(min(int(self.config.get('main', "port_workers")), 100), 2047)
+            port_workers = int(self.config.get('main', "port_workers"))
             self.logger.debug(f"Load_Settings : port_workers : {port_workers}")
             if port_workers not in (None, ""):
                 self.ui.horizontalSlider_port_threads.setValue(int(port_workers))
-            self.ui.label_data_threads_value.setText(str(port_workers))
+            self.ui.label_port_threads.setText(str(port_workers))
 
             port_range = self.config.get("main", "port_range")
             if port_range not in (None, ""):
