@@ -242,4 +242,4 @@ def UpdateWorkPageStat(self, stat):
         TextChangeAnim(self, self.ui.label_scan_successful_len, str(self.res_good))
     if stat == "bad":
         self.res_bad += 1
-        TextChangeAnim(self, self.ui.label_scan_successful_len, str(self.res_bad))
+        TextChangeAnim(self, self.ui.label_scan_error_len, str(self.res_bad))

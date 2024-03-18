@@ -307,7 +307,7 @@ def FillAllAppsList(self, data):
                     item['version'][:15]))
             self.all_app_list_model.appendRow(list_item)
 
-            UpdateWorkPageStat(self, "good")
+        UpdateWorkPageStat(self, "good")
     except Exception as e:
         self.logger.error(f"FillAllAppsList : {e}")
         UpdateWorkPageStat(self, "bad")
