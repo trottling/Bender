@@ -5,7 +5,7 @@ def Save_Settings(self):
     CheckConfigFile(self)
     try:
         self.logger.debug(f"Save_Settings : main : app_theme : {self.ui.qss_comboBox.currentText()}")
-        self.logger.debug(f"Save_Settings : main : vulners_api_key : {" * IS NOT EMPTY *" if self.ui.api_key.text().strip() != "" or None else "EMPTY"}")
+        self.logger.debug(f"Save_Settings : main : vulners_api_key : {f" * IS NOT EMPTY * : {len(self.ui.api_key.text().strip())} letters" if self.ui.api_key.text().strip() != "" or None else "EMPTY"}")
         self.logger.debug(f"Save_Settings : main : net_workers : {str(self.ui.horizontalSlider_network_threads.value())}")
         self.logger.debug(f"Save_Settings : main : data_workers : {str(self.ui.horizontalSlider_data_threads.value())}")
         self.logger.debug(f"Save_Settings : main : port_workers : {str(self.ui.horizontalSlider_port_threads.value())}")

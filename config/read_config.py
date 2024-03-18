@@ -21,13 +21,6 @@ def Load_Settings(self):
                 self.ui.horizontalSlider_data_threads.setValue(int(data_workers))
             self.ui.label_data_threads_value.setText(str(data_workers))
 
-            vulners_api_key = self.config.get("main", "vulners_api_key")
-            if vulners_api_key not in (None, ""):
-                self.logger.debug(f"Load_Settings : vulners_api_key : * IS NOT EMPTY *")
-                self.ui.api_key.setText(str(vulners_api_key))
-            else:
-                self.logger.debug(f"Load_Settings : vulners_api_key : * EMPTY *")
-
             port_workers = int(self.config.get('main', "port_workers"))
             self.logger.debug(f"Load_Settings : port_workers : {port_workers}")
             if port_workers not in (None, ""):
@@ -38,6 +31,13 @@ def Load_Settings(self):
             if port_range not in (None, ""):
                 self.ui.api_key.setText(str(port_range))
             self.logger.debug(f"Load_Settings : port_range : {str(port_range)}")
+
+            vulners_api_key = self.config.get("main", "vulners_api_key")
+            if vulners_api_key not in (None, ""):
+                self.logger.debug(f"Load_Settings : vulners_api_key : * IS NOT EMPTY * : {len(str(vulners_api_key))} letters")
+                self.ui.api_key.setText(str(vulners_api_key))
+            else:
+                self.logger.debug(f"Load_Settings : vulners_api_key : * EMPTY *")
 
             self.window_size_full = True if self.config.get("main", "window_size_full") == "0" else False
 
