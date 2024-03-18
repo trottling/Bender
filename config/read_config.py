@@ -27,11 +27,6 @@ def Load_Settings(self):
                 self.ui.horizontalSlider_port_threads.setValue(int(port_workers))
             self.ui.label_port_threads.setText(str(port_workers))
 
-            port_range = self.config.get("main", "port_range")
-            if port_range not in (None, ""):
-                self.ui.api_key.setText(str(port_range))
-            self.logger.debug(f"Load_Settings : port_range : {str(port_range)}")
-
             vulners_api_key = self.config.get("main", "vulners_api_key")
             if vulners_api_key not in (None, ""):
                 self.logger.debug(f"Load_Settings : vulners_api_key : * IS NOT EMPTY * : {len(str(vulners_api_key))} letters")

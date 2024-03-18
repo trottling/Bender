@@ -9,7 +9,6 @@ def Save_Settings(self):
         self.logger.debug(f"Save_Settings : main : net_workers : {str(self.ui.horizontalSlider_network_threads.value())}")
         self.logger.debug(f"Save_Settings : main : data_workers : {str(self.ui.horizontalSlider_data_threads.value())}")
         self.logger.debug(f"Save_Settings : main : port_workers : {str(self.ui.horizontalSlider_port_threads.value())}")
-        self.logger.debug(f"Save_Settings : main : port_range : {self.ui.lineEdit__port_range.text().strip()}")
         self.logger.debug(f"Save_Settings : main : window_size_full : {self.window_size_full}")
 
         self.config.set('main', "app_theme", self.ui.qss_comboBox.currentText())
@@ -17,7 +16,6 @@ def Save_Settings(self):
         self.config.set('main', "net_workers", str(self.ui.horizontalSlider_network_threads.value()))
         self.config.set('main', "data_workers", str(self.ui.horizontalSlider_data_threads.value()))
         self.config.set('main', "port_workers", str(self.ui.horizontalSlider_port_threads.value()))
-        self.config.set('main', "port_range", self.ui.lineEdit__port_range.text().strip())
         self.config.set('main', "window_size_full", "0" if self.window_size_full else "1")
 
         with open(self.config_path, 'w') as f:
