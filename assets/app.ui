@@ -520,7 +520,9 @@
             </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(211, 52, 24);
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+padding-left: 8px;
+padding-rigth: 8px;</string>
             </property>
             <property name="text">
              <string>Error Text</string>
@@ -2547,7 +2549,7 @@ color: rgb(255, 255, 255);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>856</width>
+               <width>1692</width>
                <height>3581</height>
               </rect>
              </property>
@@ -6540,6 +6542,9 @@ processing threads</string>
                 <property name="echoMode">
                  <enum>QLineEdit::PasswordEchoOnEdit</enum>
                 </property>
+                <property name="clearButtonEnabled">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item>
@@ -6751,7 +6756,7 @@ processing threads</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>20</string>
+                 <string>50</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -6876,7 +6881,7 @@ processing threads</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>20</string>
+                 <string>50</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -7063,6 +7068,9 @@ threads</string>
                   <property name="maximum">
                    <number>2047</number>
                   </property>
+                  <property name="value">
+                   <number>500</number>
+                  </property>
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
@@ -7110,7 +7118,7 @@ threads</string>
                    </font>
                   </property>
                   <property name="text">
-                   <string>1000</string>
+                   <string>500</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -7177,6 +7185,9 @@ threads</string>
                   </property>
                   <property name="text">
                    <string>1-1000, 1001</string>
+                  </property>
+                  <property name="clearButtonEnabled">
+                   <bool>false</bool>
                   </property>
                  </widget>
                 </item>
@@ -7744,6 +7755,9 @@ threads</string>
                 </property>
                 <property name="dragEnabled">
                  <bool>true</bool>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
