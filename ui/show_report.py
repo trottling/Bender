@@ -8,17 +8,17 @@ from ui.tools import Report_Error, GetRelPath
 
 
 def ReportApps(self, report):
-    self.logger.debug(f"ReportApps : {len(self.apps_report["cve_list"])} CVEs in list")
 
     try:
         self.apps_report = report
+        self.logger.debug(f"ReportApps : {len(self.apps_report["cve_list"])} CVEs in list")
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
         self.ui.Software_listView_vuln.setModel(self.vunl_app_list_model)
 
         for item in self.apps_report["cve_list"]:
             # Items alignment
-            string = f"{item['cve']}\t{str(item['score'])}\t{item['package'].capitalize()}\t{item['version']}"[:85]
+            string = f"{item['cve']}\t{str(item['score'])}\t{item['package'].capitalize()}\t{item['version']}"
             list_item = QtGui.QStandardItem()
             list_item.setText(string)
 
@@ -86,19 +86,17 @@ def ReportAppsFull(self, index):
 
 
 def ReportDrivers(self, drv):
-    self.logger.debug(f"ReportDrivers : {len(self.drivers_report["driver_list"])} drivers in list")
-    if len(self.drivers_report["driver_list"]) == 0:
-        return
-
     try:
         self.drivers_report = drv
+        self.logger.debug(f"ReportDrivers : {len(self.drivers_report["driver_list"])} drivers in list")
+        if len(self.drivers_report["driver_list"]) == 0:
+            return
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
         self.ui.Drivers_listView_vuln.setModel(self.vunl_app_list_model)
 
-        # Items alignment
-        for item in self.drivers_report["driver_list"]:
-            string = f"  {item['shortName']}\t{str(item['version'])}\t{item["desc"]}"[:85]
+        # Create string and sort by alphabet
+        for string in [f"  {item['shortName']}\t{str(item['version'])}\t{item["desc"]}" for item in self.drivers_report["driver_list"]].sort():
             list_item = QtGui.QStandardItem()
             list_item.setText(string)
             self.vunl_app_list_model.appendRow(list_item)
@@ -154,16 +152,17 @@ def Split_Words(self, word, split_dot=False):
 
 
 def ReportKB(self, kb):
-    self.logger.debug(f"ReportKB : {len(self.kb_report["cve_list"])} CVEs in list")
 
     try:
         self.kb_report = kb
+        self.logger.debug(f"ReportKB : {len(self.kb_report["cve_list"])} CVEs in list")
+
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
         self.ui.vuln_kb_list.setModel(self.vunl_app_list_model)
 
         for item in self.kb_report["cve_list"]:
-            string = f"{item['cve']}\t{str(item['score'])}"[:85]
+            string = f"{item['cve']}\t{str(item['score'])}"
             list_item = QtGui.QStandardItem()
             list_item.setText(string)
 
@@ -210,9 +209,7 @@ def ReportKBFull(self, index):
 
         self.ui.label_cve_head.setText(cve_info["cve"])
 
-        self.ui.label_published.setText(
-            f"Published: {cve_info["datePublished"]}" if "datePublished" in cve_info and cve_info[
-                "datePublished"].strip != "" else "Published: No date")
+        self.ui.label_published.setText(f"Published: {cve_info["datePublished"]}" if "datePublished" in cve_info and cve_info["datePublished"].strip != "" else "Published: No date")
         self.ui.cve_desc_plainTextEdit.setPlainText(cve_info["desc"].capitalize())
 
         self.ui.label_shortname.setText(f"Shortname: {cve_info["shortName"].capitalize()}")
@@ -222,8 +219,7 @@ def ReportKBFull(self, index):
 
         if "cvssV3_1" in cve_info["cvss_metrics"]:
             for item in cve_info["cvss_metrics"]["cvssV3_1"]:
-                self.ui.plainTextEdit_cvss_3.appendPlainText(
-                    f"{Split_Words(self, item)}: {cve_info["cvss_metrics"]["cvssV3_1"][item]}")
+                self.ui.plainTextEdit_cvss_3.appendPlainText(f"{Split_Words(self, item)}: {cve_info["cvss_metrics"]["cvssV3_1"][item]}")
         else:
             self.ui.plainTextEdit_cvss_3.setPlainText("No info")
 
@@ -244,7 +240,7 @@ def FillLocalPorts(self, ports):
                 list_item = QtGui.QStandardItem()
                 service = port_dict[port]["Service Name"] if port_dict[port]["Service Name"] != "" else "No Service Info"
                 desc = port_dict[port]["Description"] if port_dict[port]["Description"] != "" else "No Description"
-                list_item.setText(f"{port}\t{service}\t{desc}"[:85])
+                list_item.setText(f"{port}\t{service}\t{desc}")
                 self.local_ports_list_model.appendRow(list_item)
         UpdateWorkPageStat(self, "good")
     except Exception as e:
@@ -261,10 +257,9 @@ def FillExtPorts(self, ports):
             port = str(item[1])
             if port in port_dict:
                 list_item = QtGui.QStandardItem()
-                service = port_dict[port]["Service Name"] if port_dict[port][
-                                                                 "Service Name"] != "" else "No Service Info"
+                service = port_dict[port]["Service Name"] if port_dict[port]["Service Name"] != "" else "No Service Info"
                 desc = port_dict[port]["Description"] if port_dict[port]["Description"] != "" else "No Description"
-                list_item.setText(f"{port}\t{service}\t{desc}"[:85])
+                list_item.setText(f"{port}\t{service}\t{desc}")
                 self.ext_ports_list_model.appendRow(list_item)
         UpdateWorkPageStat(self, "good")
     except Exception as e:
@@ -280,7 +275,7 @@ def FillKBList(self, drv):
         for item in self.kb_list:
             list_item = QtGui.QStandardItem()
             kb = item[str('kb')] if item[str('kb')] not in ("", None) else "No KB ID"
-            list_item.setText(f"{kb}\t{item["result"]}\t{item["title"]}"[:85])
+            list_item.setText(f"{kb}\t{item["result"]}\t{item["title"]}")
             list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\dot-green.png")))
             self.All_kb_list_model.appendRow(list_item)
 
@@ -302,9 +297,7 @@ def FillAllAppsList(self, data):
         self.ui.Software_listView_all.setModel(self.all_app_list_model)
         for item in data:
             list_item = QtGui.QStandardItem()
-            list_item.setText(
-                str(item['name'][:40]).capitalize() + f"{"..." if len(item['name']) > 40 else ""}" + "\t" + str(
-                    item['version'][:15]))
+            list_item.setText(f"{str(item['name']).capitalize()}\t{str(item['version'])}")
             self.all_app_list_model.appendRow(list_item)
 
         UpdateWorkPageStat(self, "good")

@@ -12,126 +12,13 @@ import httpx
 import psutil
 import vulners
 import wmi
-from PyQt6 import QtTest, QtCore, QtGui
 from PyQt6.QtCore import QUrl
-from PyQt6.QtGui import QMovie
 from getmac import get_mac_address
 from portscan import PortScan
 from windows_tools import windows_firewall, bitness, bitlocker, logical_disks, updates
 from windows_tools.installed_software import get_installed_software
 
-from ui.animations import StackedWidgetChangePage, ElemShowAnim, TextChangeAnim, ImageChangeAnim, ElemHideAnim
-from ui.show_report import ReportApps, ReportDrivers, FillExtPorts, FillLocalPorts, FillKBList, ReportKB
-from ui.tools import GetRelPath
-
-
-def Run_Scanner_Tasks(self):
-    StackedWidgetChangePage(self, 1)
-
-    #
-    # Run ThreadPoolExecutor --> Put result in result page
-    #
-
-    # Funcs calls results
-    self.scan_result = [[LoadShodanReport, self]]
-
-    # Custom waiting list
-    self.done_scan_tasks_list = []
-
-    # Funcs to call
-    # Firts run long-time funcs
-    self.scan_tasks_list = [CheckApps, CheckDrivers, CheckKB, GetLocalPorts,
-                            GetExtPorts, GetWinIcon, GetWinVersions, GetCpu,
-                            GetGpu, GetRam, GetRom, GetFirewall,
-                            GetMac, GetLocalIP, GetExtIP, GetBitness,
-                            GetBitlocker, GetVirtualization]
-
-    # UI Input vars
-    self.net_threads = self.ui.horizontalSlider_network_threads.value()
-    self.data_workers = self.ui.horizontalSlider_data_threads.value()
-    self.vulners_key = self.ui.api_key.text().strip()
-
-    # Scan funcs vars
-    self.apps_report = {}
-    self.soft_list = []
-    self.soft_list_vulners = []
-    self.drivers_report = {}
-    self.drivers_list = []
-    self.drivers_list_hashed = []  # Sha256 and Sha1 hash
-    self.drivers_vuln_list = []
-    self.driver_db = None
-    self.kb_list = []
-    self.kb_scan_res = {}
-    self.kb_report = {}
-
-    # Info values
-    self.res_good = 0
-    self.res_bad = 0
-
-    # Set loading gif to progress label
-    QtTest.QTest.qWait(500)
-    gif = QMovie(GetRelPath(self, r"assets\gifs\loading.gif"))
-    gif.setFormat(b"gif")
-    gif.setScaledSize(QtCore.QSize(45, 45))
-    self.ui.image_work_progress.setMovie(gif)
-    gif.start()
-    ElemShowAnim(self, self.ui.image_work_progress, dur=200)
-    ElemShowAnim(self, self.ui.label_work_progress, dur=200)
-    QtTest.QTest.qWait(500)
-
-    # Start funcs
-    with cf.ThreadPoolExecutor(max_workers=len(self.scan_tasks_list)) as self.sc_pool:
-
-        [self.done_scan_tasks_list.append(self.sc_pool.submit(task, self)) for task in self.scan_tasks_list]
-
-        while all([i.done() is not True for i in self.done_scan_tasks_list]):
-            QtTest.QTest.qWait(200)
-        self.sc_pool.shutdown(wait=True, cancel_futures=False)
-
-    #
-    # First element in list is func, other is args
-    # Sleep for more pretty anim
-    #
-
-    for task in self.scan_result:
-        if task is not None:
-            try:
-                task[0](*[arg for arg in task[1:] if len(task) > 1])
-            except Exception as e:
-                self.logger.error(f"Run_Scanner_Tasks : {e}")
-
-    ChangeWorkElems(self)
-
-
-def ChangeWorkElems(self):
-    TextChangeAnim(self, self.ui.label_work_progress, "Done")
-    ElemHideAnim(self, self.ui.label_win_warn, dur=200)
-    self.ui.image_work_progress.clear()
-    ImageChangeAnim(self, self.ui.image_work_progress, r"assets\images\bender-medium.png")
-    self.ui.label_scan_successful_len.setText(str(self.res_good))
-    self.ui.label_scan_error_len.setText(str(self.res_bad))
-
-    QtTest.QTest.qWait(1000)
-
-    for elem in [self.ui.framel_scan_successful, self.ui.label_scan_successful,
-                 self.ui.label_scan_successful_len, self.ui.frame_scan_error,
-                 self.ui.label_scan_error, self.ui.label_scan_error_len,
-                 self.ui.next_work_btn]:
-        ElemShowAnim(self, elem)
-        QtTest.QTest.qWait(50)
-
-    QtTest.QTest.qWait(250)
-
-
-def LoadShodanReport(self):
-    try:
-        ip = httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')
-        self.ui.WebWidget.load(QUrl(f"https://www.shodan.io/host/{ip}"))
-        self.logger.debug("LoadShodanReport : loaded")
-        self.res_good += 1
-    except Exception as e:
-        self.logger.error(f"LoadShodanReport : {e}")
-        self.res_bad += 1
+from ui.animations import UpdateWorkPageStat
 
 
 def GetWinIcon(self):
@@ -145,53 +32,49 @@ def GetWinIcon(self):
             case '8' | '8.1':
                 win_icon = r"windows-8.png"
 
-        self.scan_result.append([self.ui.label_System_image.setStyleSheet,
-                                 str(".QLabel {image: url('" + GetRelPath(self,
-                                                                          r"assets\\images\\" + win_icon) + "')}")])
+        self.label_System_image_setStyleSheet_signal.emit(win_icon)
 
-        self.res_good += 1
+        self.stat_signal.emit("good")
     except Exception as e:
         self.logger.error(f"GetWinIcon : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
 
 
 def GetWinVersions(self):
     try:
-        self.scan_result.append([self.ui.label_System_name.setText, f"{platform.system()} {platform.release()}"])
-        self.scan_result.append([self.ui.label_System_ver.setText, platform.version()])
-        self.res_good += 1
+        self.label_System_name_setText_signal.emit(f"{platform.system()} {platform.release()}")
+        self.label_System_ver_setText_signal.emit(platform.version())
+        self.stat_signal.emit("good")
     except Exception as e:
         self.logger.error(f"GetWinVersions : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
 
 
 def GetCpu(self):
     try:
-        self.scan_result.append([self.ui.label_Hardware_cpu.setText, cpuinfo.get_cpu_info()['brand_raw']])
-        self.res_good += 1
+        self.label_Hardware_cpu_setText_signal.emit(cpuinfo.get_cpu_info()['brand_raw'])
+        self.stat_signal.emit("good")
     except Exception as e:
         self.logger.error(f"GetCpu : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
 
 
 def GetGpu(self):
     try:
-        self.scan_result.append(
-            [self.ui.label_Hardware_gpu.setText, str(wmi.WMI().Win32_VideoController()[0].wmi_property('Name').value)])
-        self.res_good += 1
+        self.label_Hardware_gpu_setText_signal.emit(str(wmi.WMI().Win32_VideoController()[0].wmi_property('Name').value))
+        self.stat_signal.emit("good")
     except Exception as e:
         self.logger.error(f"GetGpu : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
 
 
 def GetRam(self):
     try:
-        self.scan_result.append(
-            [self.ui.label_Hardware_ram.setText, f"{round(psutil.virtual_memory().total / 1073741824)} Gb RAM"])
-        self.res_good += 1
+        self.label_Hardware_ram_setText_signal.emit(f"{round(psutil.virtual_memory().total / 1073741824)} Gb RAM")
+        self.stat_signal.emit("good")
     except Exception as e:
         self.logger.error(f"GetRam : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
 
 
 def GetRom(self):
@@ -200,73 +83,65 @@ def GetRom(self):
         for drive in logical_disks.get_logical_disks():
             total, _, _ = shutil.disk_usage(drive)
             space += total
-        self.scan_result.append([self.ui.label_Hardware_rom.setText, f"{space // (2 ** 30)} Gb ROM"])
-        self.res_good += 1
+        self.label_Hardware_rom_setText_signal.emit(f"{space // (2 ** 30)} Gb ROM")
+        self.stat_signal.emit("good")
     except Exception as e:
         self.logger.error(f"GetRom : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
 
 
 def GetFirewall(self):
     try:
         if windows_firewall.is_firewall_active():
-            fwlen = len(
-                subprocess.run(["powershell", "Get-NetFirewallRule"], capture_output=True, text=True).stdout.split(
-                    "\n\n"))
-            self.scan_result.append(
-                [self.ui.label_Network_rules.setText, f"{fwlen} Firewall rules" if fwlen > 0 else "Firewall Active"])
+            fwlen = len(subprocess.run(["powershell", "Get-NetFirewallRule"], capture_output=True, text=True, startupinfo=self.si).stdout.split("\n\n"))
+            self.label_Network_rules_setText_signal.emit(f"{fwlen} Firewall rules" if fwlen > 0 else "Firewall Active")
         else:
-            self.scan_result.append([self.ui.label_Network_rules.setText, "Firewall Inactive"])
-            self.res_good += 1
+            self.label_Network_rules_setText_signal.emit("Firewall Inactive")
+            self.stat_signal.emit("good")
     except Exception as e:
         self.logger.error(f"GetFirewall : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
 
 
 def GetMac(self):
     try:
-        self.scan_result.append([self.ui.label_network_mac.setText, f"{str(get_mac_address())} - Mac adress"])
-        self.res_good += 1
+        self.label_network_mac_setText_signal.emit(f"{str(get_mac_address())} - Mac adress")
+        self.stat_signal.emit("good")
     except Exception as e:
         self.logger.error(f"GetMac : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
 
 
 def GetLocalIP(self):
     try:
-        self.scan_result.append(
-            [self.ui.label_Network_local_ip.setText, f"{socket.gethostbyname(socket.gethostname())} - Local IP"])
-        self.res_good += 1
+        self.label_Network_local_ip_setText_signal.emit(f"{socket.gethostbyname(socket.gethostname())} - Local IP")
+        self.stat_signal.emit("good")
     except Exception as e:
         self.logger.error(f"GetLocalIP : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
 
 
 def GetExtIP(self):
     try:
-        self.scan_result.append(
-            [self.ui.label_Network_ext_ip.setText,
-             f"{httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')} - External IP"])
-        self.res_good += 1
+        self.label_Network_ext_ip_setText_signal.emit(f"{httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')} - External IP")
+        self.stat_signal.emit("good")
     except Exception as e:
         self.logger.error(f"GetExtIP : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
 
 
 def GetBitness(self):
     try:
         if bitness.is_64bit():
-            self.scan_result.append([self.ui.frame_sys_bitness.setStyleSheet,
-                                     ".QFrame {image: url('" + GetRelPath(self, 'assets//images//64-bit.png') + "')}"])
-            self.scan_result.append([self.ui.label_sys_bitness.setText, f"64 Bit Bitness"])
+            self.frame_sys_bitness_setStyleSheet_signal.emit('assets//images//64-bit.png')
+            self.label_sys_bitness_setText_signal.emit(f"64 Bit Bitness")
         else:
-            self.scan_result.append([self.ui.frame_sys_bitness.setStyleSheet,
-                                     ".QFrame {image: url('" + GetRelPath(self, 'assets//images//32-bit.png') + "')}"])
-            self.scan_result.append([self.ui.label_sys_bitness.setText, f"32 Bit Bitness"])
-        self.res_good += 1
+            self.frame_sys_bitness_setStyleSheet_signal.emit('assets//images//32-bit.png')
+            self.label_sys_bitness_setText_signal.emit(f"32 Bit Bitness")
+        self.stat_signal.emit("good")
     except Exception as e:
         self.logger.error(f"GetBitness : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
 
 
 def GetBitlocker(self):
@@ -276,40 +151,40 @@ def GetBitlocker(self):
 
             for drive in logical_disks.get_logical_disks():
 
-                for line in subprocess.check_output(['manage-bde', '-status', drive]).decode(encoding='utf-8',
-                                                                                             errors='ignore'):
+                for line in subprocess.check_output(['manage-bde', '-status', drive], startupinfo=self.si).decode(encoding='utf-8', errors='ignore'):
                     if 'AES' or 'XEX' in line:
                         drives_list.append(drive)
                         break
             if len(drives_list) != 0:
-                text = ", ".join([i.replace(":", "") for i in list(set(drives_list))])  # Remove ":" from drive name
-                self.scan_result.append([self.ui.label_sys_bitlocker.setText,
-                                         f"Bitlocker Enabled - {"Disks" if len(drives_list) > 1 else "Disk"} {text}"])
+                # Remove ":" from drive name
+                text = ", ".join([i.replace(":", "") for i in list(set(drives_list))])
+                self.label_sys_bitlocker_setText_signal.emit(f"Bitlocker Enabled - {"Disks" if len(drives_list) > 1 else "Disk"} {text}")
             else:
-                self.scan_result.append([self.ui.label_sys_bitlocker.setText, f"Bitlocker Disabled"])
+                self.label_sys_bitlocker_setText_signal.emit(f"Bitlocker Disabled")
         else:
-            self.scan_result.append([self.ui.label_sys_bitlocker.setText, f"Bitlocker Tools not found"])
-        self.res_good += 1
+            self.label_sys_bitlocker_setText_signal.emit(["self.ui.label_sys_bitlocker.setText", f"Bitlocker Tools not found"])
+        self.stat_signal.emit("good")
     except Exception as e:
         self.logger.error(f"GetBitlocker : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
 
 
 def GetVirtualization(self):
     try:
-        out = subprocess.run(["powershell", 'Get-ComputerInfo -property HyperVisorPresent'],
+        out = subprocess.run(args=["powershell", 'Get-ComputerInfo -property HyperVisorPresent'],
                              capture_output=True,
-                             text=True).stdout
+                             text=True,
+                             startupinfo=self.si).stdout
         if "True" in out:
-            self.scan_result.append([self.ui.label_sys_virt.setText, f"Virtualization Enabled"])
+            self.label_sys_virt_setText_signal.emit(f"Virtualization Enabled")
         elif "False" in out:
-            self.scan_result.append([self.ui.label_sys_virt.setText, f"Virtualization Disabled"])
+            self.label_sys_virt_setText_signal.emit(f"Virtualization Disabled")
         else:
-            self.scan_result.append([self.ui.label_sys_virt.setText, f"Unknown Virtualization"])
-        self.res_good += 1
+            self.label_sys_virt_setText_signal.emit(f"Unknown Virtualization")
+        self.stat_signal.emit("good")
     except Exception as e:
         self.logger.error(f"GetVirtualization : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
 
 
 def GetApps(self):
@@ -322,53 +197,47 @@ def GetApps(self):
 
         # check for zero list length
         if len(self.soft_list) > 0:
-            self.res_good += 1
+            self.stat_signal.emit("good")
             return False
         else:
-            self.res_bad += 1
+            self.stat_signal.emit("bad")
             return True
 
     except Exception as e:
         self.logger.error(f"GetApps : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return True
 
 
 def ConnectVulnersSoft(self):
     try:
         self.vulners_api_soft = vulners.VulnersApi(api_key=self.vulners_key)
-        self.res_good += 1
+        self.stat_signal.emit("good")
         return False
     except Exception as e:
         self.logger.error(f"ConnectVulnersSoft : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return True
+
+
+def CutListByChunks(self, lst, chunk_max):
+    res = [lst[chunk_max * k:chunk_max * (k + 1)] for k in range(chunk_max)]
+    self.logger.debug(f"CutListByChunks : {len(lst)} items / {chunk_max} chunk size --> {len(res)} chunks")
+    return res
 
 
 def SendAppsVulners(self):
     try:
         if len(self.soft_list) > 500:
-            while True:
-
-                try:
-                    self.soft_list_vulners = [next(self.soft_list) for _ in range(500)]
-                except StopIteration:
-                    self.apps_report.update(self.vulners_api_soft.software_audit(os="", version="", packages=[
-                        {"software": software['name'], "version": software['version']} for software in
-                        self.soft_list_vulners]))
-                    break
-
-                self.apps_report.update(self.vulners_api_soft.software_audit(os="", version="", packages=[
-                    {"software": software['name'], "version": software['version']} for software in
-                    self.soft_list_vulners]))
+            for chunc in CutListByChunks(self, self.soft_list, 500):
+                self.apps_report.update(self.vulners_api_soft.software_audit(os="", version="", packages=[{"software": software['name'], "version": software['version']} for software in chunc]))
         else:
-            self.apps_report = self.vulners_api_soft.software_audit(os="", version="", packages=[
-                {"software": software['name'], "version": software['version']} for software in self.soft_list])
-        self.res_good += 1
+            self.apps_report = self.vulners_api_soft.software_audit(os="", version="", packages=[{"software": software['name'], "version": software['version']} for software in self.soft_list])
+        self.stat_signal.emit("good")
         return False
     except Exception as e:
         self.logger.error(f"SendAppsVulners : Failed to get vulners.com report : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return True
 
 
@@ -392,7 +261,7 @@ def ProcessAppsResponse(self):
         self.apps_report = {"cve_list": self.cve_list_apps}
     except Exception as e:
         self.logger.error(f"ProcessAppsResponse : Failed to transorm to needed format : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return True
 
     # Getting more info about CVEs
@@ -405,10 +274,10 @@ def ProcessAppsResponse(self):
                 executor.shutdown(wait=True, cancel_futures=False)
         except Exception as e:
             self.logger.error(f"ProcessAppsResponse : Failed to Getting more info about CVEs : {e}")
-            self.res_bad += 1
+            self.stat_signal.emit("bad")
             return True
 
-    self.res_good += 1
+    self.stat_signal.emit("good")
     return False
 
 
@@ -454,97 +323,79 @@ def GetCveInfo(self, item):
 
 def CheckApps(self):
     if GetApps(self):
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return
 
     # Fill all apps list
-    self.scan_result.append([FillAllAppsList, self, self.soft_list])
+    self.FillAllAppsList_signal.emit(self.soft_list)
 
     # Connect to Vulners api via his lib
     if ConnectVulnersSoft(self):
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return
 
-    # Sending softwares list to Vulners api via his lib
+    # Sending pieces of software list to Vulners api via his lib
     if SendAppsVulners(self):
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return
 
     # Transorm to result format
     if ProcessAppsResponse(self):
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return
 
-    self.scan_result.append([ReportApps, self])
-    self.res_good += 1
-
-
-def FillAllAppsList(self, data):
-    try:
-        self.all_app_list_model = QtGui.QStandardItemModel()
-        self.ui.Software_listView_all.setModel(self.all_app_list_model)
-        for item in data:
-            list_item = QtGui.QStandardItem()
-            list_item.setText(
-                str(item['name'][:40]).capitalize() + f"{"..." if len(item['name']) > 40 else ""}" + "\t" + str(
-                    item['version'][:15]))
-            self.all_app_list_model.appendRow(list_item)
-
-        self.res_good += 1
-    except Exception as e:
-        self.logger.error(f"FillAllAppsList : {e}")
-        self.res_bad += 1
+    self.ReportApps_signal.emit(self.apps_report)
+    self.stat_signal.emit("good")
 
 
 def GetLocalPorts(self):
     try:
         local_ip = socket.gethostbyname(socket.gethostname())
-        self.LocalPorts = PortScan(ip_str=local_ip, port_str="1-49151",
-                                   thread_num=1000, show_refused=False,
-                                   wait_time=3, stop_after_count=True).run()
+        self.LocalPorts = PortScan(ip_str=local_ip, port_str=self.port_range,
+                                   thread_num=self.port_workers, show_refused=False,
+                                   wait_time=2, stop_after_count=True).run()
 
-        self.scan_result.append([FillLocalPorts, self])
+        self.FillLocalPorts_signal.emit(self.LocalPorts)
 
-        self.res_good += 1
+        self.stat_signal.emit("good")
     except Exception as e:
         self.logger.error(f"GetLocalPorts : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
 
 
 def GetExtPorts(self):
     try:
 
         ext_ip = httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')
-        self.ExtPorts = PortScan(ip_str=ext_ip, port_str="1-49151",
-                                 thread_num=1000, show_refused=False,
+        self.ExtPorts = PortScan(ip_str=ext_ip, port_str=self.port_range,
+                                 thread_num=self.port_workers, show_refused=False,
                                  wait_time=3, stop_after_count=True).run()
 
-        self.scan_result.append([FillExtPorts, self])
-        self.res_good += 1
+        self.FillExtPorts_signal.emit(self.ExtPorts)
+        self.stat_signal.emit("good")
     except Exception as e:
         self.logger.error(f"GetExtPorts : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
 
 
 def GetDrivers(self):
     try:
         # getting drivers
-        for driver in [f for f in listdir(r"c:\windows\system32\drivers") if
-                       isfile(join(r"c:\windows\system32\drivers", f))]:
+        for driver in [f for f in listdir(r"c:\windows\system32\drivers") if isfile(join(r"c:\windows\system32\drivers", f))]:
             self.drivers_list.append(driver)
 
         self.logger.debug(f"GetDrivers : {len(self.drivers_list)} drivers")
 
         # check for zero list length
         if len(self.drivers_list) == 0:
-            self.res_bad += 1
+            self.stat_signal.emit("bad")
             return True
 
-        self.res_good += 1
+        self.stat_signal.emit("good")
         return False
     except Exception as e:
         self.logger.error(f"GetDrivers : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return True
 
 
@@ -554,13 +405,12 @@ def HashDrivers(self):
             # [sha256, sha1]
             drivers_path = r"c:\windows\system32\drivers"
             with open(f"{drivers_path}\\{driver}", "rb") as f:
-                self.drivers_list_hashed.append(
-                    [hashlib.sha256(f.read()).hexdigest(), hashlib.sha1(f.read()).hexdigest()])
-        self.res_good += 1
+                self.drivers_list_hashed.append([hashlib.sha256(f.read()).hexdigest(), hashlib.sha1(f.read()).hexdigest()])
+        self.stat_signal.emit("good")
         return False
     except Exception as e:
         self.logger.error(f"HashDrivers : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return True
 
 
@@ -570,15 +420,15 @@ def GetDriversDB(self):
         self.logger.debug(f"GetDriversDB : {len(self.driver_db)} drivers in database")
 
         if len(self.driver_db) == 0:
-            self.res_bad += 1
+            self.stat_signal.emit("bad")
             return True
 
-        self.res_good += 1
+        self.stat_signal.emit("good")
         return False
 
     except Exception as e:
         self.logger.error(f"GetDriversDB : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return True
 
 
@@ -590,11 +440,11 @@ def ScanDrivers(self):
                 futures.append(executor.submit(ProcessDriver, self=self, drv_hash=drv_hash))
             executor.shutdown(wait=True, cancel_futures=False)
 
-        self.res_good += 1
+        self.stat_signal.emit("good")
         return False
     except Exception as e:
         self.logger.error(f"ScanDrivers : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return True
 
 
@@ -673,51 +523,36 @@ def ProcessDriver(self, drv_hash):
 
 def CheckDrivers(self):
     if GetDrivers(self):
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return
 
-    self.scan_result.append([FillDriversList, self])
+    self.FillDriversList_signal.emit(self.drivers_list)
 
     if HashDrivers(self):
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return
 
     if GetDriversDB(self):
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return
 
     if ScanDrivers(self):
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return
 
     self.drivers_report = {"driver_list": self.drivers_vuln_list}
 
-    self.scan_result.append([ReportDrivers, self])
-
-
-def FillDriversList(self):
-    try:
-        self.Drivers_list_model = QtGui.QStandardItemModel()
-        self.ui.Drivers_listView_all.setModel(self.Drivers_list_model)
-        for item in self.drivers_list:
-            list_item = QtGui.QStandardItem()
-            list_item.setText(item)
-            self.Drivers_list_model.appendRow(list_item)
-
-        self.res_good += 1
-    except Exception as e:
-        self.logger.error(f"FillExtPorts : {e}")
-        self.res_bad += 1
+    self.ReportDrivers_signal.emit(self.drivers_report)
 
 
 def ConnectVulnersKB(self):
     try:
         self.vulners_api_kb = vulners.VulnersApi(api_key=self.vulners_key)
-        self.res_good += 1
+        self.stat_signal.emit("good")
         return False
     except Exception as e:
         self.logger.error(f"ConnectVulnersKB : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return True
 
 
@@ -726,14 +561,14 @@ def GetKB(self):
         self.kb_list = updates.get_windows_updates(filter_duplicates=True)
         self.logger.debug(f"GetKB : {len(self.kb_list)} KB")
         if len(self.kb_list) == 0:
-            self.res_bad += 1
+            self.stat_signal.emit("bad")
             return True
 
-        self.res_good += 1
+        self.stat_signal.emit("good")
         return False
     except Exception as e:
         self.logger.error(f"ConnectVulnersKB : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return True
 
 
@@ -741,20 +576,20 @@ def SendKBVulners(self):
     try:
         # List with deleted KBs without KB ID
         kb = [item['kb'] for item in self.kb_list if item['kb'] not in ("", None) and "KB" in item['kb']]
-        self.logger.debug(f"SendKBVulners : {kb}")
-        self.kb_scan_res = self.vulners_api_kb.kb_audit(os=f"{platform.system()} {platform.release()}",
-                                                        kb_list=kb)
-        self.res_good += 1
+        if len(kb) > 500:
+            for chunk in CutListByChunks(self, kb, 500):
+                self.kb_scan_res.update(self.vulners_api_kb.kb_audit(os=f"{platform.system()} {platform.release()}", kb_list=chunk))
+        else:
+            self.kb_scan_res = self.vulners_api_kb.kb_audit(os=f"{platform.system()} {platform.release()}", kb_list=kb)
+        self.stat_signal.emit("good")
         return False
     except Exception as e:
         self.logger.error(f"SendKBVulners : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return True
 
 
 def ProcessKBResponse(self):
-    self.cve_list_kb = []
-
     try:
         for item in self.kb_scan_res["cvelist"]:
             cve = {
@@ -770,7 +605,7 @@ def ProcessKBResponse(self):
         self.kb_report = {"cve_list": self.cve_list_kb}
     except Exception as e:
         self.logger.error(f"ProcessKBResponse : Failed to transorm to needed format : {e}")
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return True
 
     # Getting more info about CVEs
@@ -779,14 +614,14 @@ def ProcessKBResponse(self):
             with cf.ThreadPoolExecutor(max_workers=self.net_threads) as executor:
                 futures = []
                 for item in self.kb_report["cve_list"]:
-                    futures.append(executor.submit(GetCveInfo, self=self, item=item))
+                    futures.append(executor.submit(self.GetCveInfo, self, item))
                 executor.shutdown(wait=True, cancel_futures=False)
         except Exception as e:
             self.logger.error(f"ProcessKBResponse : Failed to Getting more info about CVEs : {e}")
-            self.res_bad += 1
+            self.stat_signal.emit("bad")
             return True
 
-    self.res_good += 1
+    self.stat_signal.emit("good")
     return False
 
 
@@ -794,22 +629,33 @@ def CheckKB(self):
     # Another API connection call is needed to ensure that the API wrapper is received at the right time
 
     if ConnectVulnersKB(self):
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return
 
     if GetKB(self):
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return
 
-    self.scan_result.append([FillKBList, self])
+    self.FillKBList_signal.emit(self.kb_list)
 
     if SendKBVulners(self):
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return
 
     if ProcessKBResponse(self):
-        self.res_bad += 1
+        self.stat_signal.emit("bad")
         return
 
-    self.res_good += 1
-    self.scan_result.append([ReportKB, self])
+    self.stat_signal.emit("good")
+    self.ReportKB_signal.emit(self.kb_report)
+
+
+def LoadShodanReport(self):
+    try:
+        ip = httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')
+        self.ui.WebWidget.load(QUrl(f"https://www.shodan.io/host/{ip}"))
+        self.logger.debug("LoadShodanReport : loaded")
+        UpdateWorkPageStat(self, "good")
+    except Exception as e:
+        self.logger.error(f"LoadShodanReport : {e}")
+        UpdateWorkPageStat(self, "bad")
