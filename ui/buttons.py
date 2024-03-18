@@ -50,8 +50,6 @@ def Connect_Buttons(self):
 
     self.ui.horizontalSlider_port_threads.valueChanged.connect(lambda: SaveOnChange(self))
 
-    self.ui.lineEdit__port_range.textChanged.connect(lambda: SaveOnChange(self))
-
     self.ui.qss_apply_pushButton.clicked.connect(lambda: ApplyQSSTheme(self))
 
     self.ui.qss_comboBox.currentIndexChanged.connect(lambda: ChangeShowQSSInput(self))
