@@ -9,8 +9,7 @@ from PyQt6.QtGui import QMovie
 from PyQt6.QtWidgets import QFileDialog, QGraphicsOpacityEffect
 
 from config.write_config import Save_Settings
-from tasks.scanner_start_validator import StartScannerValidator
-from tasks.scanner_tasks import Run_Scanner_Tasks
+from tasks.start_scanner import StartScanner
 from tasks.start_tasks import Run_Start_Tasks
 from ui.animations import App_Exit_Anim, StackedWidgetChangePage, ElemShowAnim, ElemHideAnim, TextChangeAnim, \
     ImageChangeAnim, ShowErrMessage
@@ -45,9 +44,13 @@ def Connect_Buttons(self):
     self.ui.setting_back_button.clicked.connect(
         lambda: (Save_Settings(self), (StackedWidgetChangePage(self, 0))))
 
-    self.ui.horizontalSlider_network_threads.valueChanged.connect(lambda: MaxNetWorkersChanged(self))
+    self.ui.horizontalSlider_network_threads.valueChanged.connect(lambda: SaveOnChange(self))
 
-    self.ui.horizontalSlider_data_threads.valueChanged.connect(lambda: MaxDataWorkersChanged(self))
+    self.ui.horizontalSlider_data_threads.valueChanged.connect(lambda: SaveOnChange(self))
+
+    self.ui.horizontalSlider_port_threads.valueChanged.connect(lambda: SaveOnChange(self))
+
+    self.ui.lineEdit__port_range.textChanged.connect(lambda: SaveOnChange(self))
 
     self.ui.qss_apply_pushButton.clicked.connect(lambda: ApplyQSSTheme(self))
 
@@ -288,17 +291,11 @@ def ClearCVEInfoPage(self):
                                     ))
 
 
-def MaxNetWorkersChanged(self):
-    value = str(self.ui.horizontalSlider_network_threads.value())
-    self.ui.label_network_threads_value.setText(value)
-    if not self.isSliderTimerStart:
-        self.isSliderTimerStart = True
-        QTimer.singleShot(2500, lambda: (Save_Settings(self), ChangeSliderLock(self)))
+def SaveOnChange(self):
+    self.ui.label_data_threads_value.setText(str(self.ui.horizontalSlider_data_threads.value()))
+    self.ui.label_network_threads_value.setText(str(self.ui.horizontalSlider_network_threads.value()))
+    self.ui.label_port_threads.setText(str(self.ui.horizontalSlider_port_threads.value()))
 
-
-def MaxDataWorkersChanged(self):
-    value = str(self.ui.horizontalSlider_data_threads.value())
-    self.ui.label_data_threads_value.setText(value)
     if not self.isSliderTimerStart:
         self.isSliderTimerStart = True
         QTimer.singleShot(2500, lambda: (Save_Settings(self), ChangeSliderLock(self)))
@@ -374,12 +371,6 @@ def RestartStartTask(self):
             QtTest.QTest.qWait(40)
 
         Run_Start_Tasks(self)
-
-
-def StartScanner(self):
-    if StartScannerValidator(self):
-        return
-    Run_Scanner_Tasks(self)
 
 
 def SaveScanResults(self):
