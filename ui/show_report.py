@@ -8,19 +8,21 @@ from ui.tools import Report_Error, GetRelPath
 
 
 def ReportApps(self, report):
-
     try:
-        self.apps_report = report
-        self.logger.debug(f"ReportApps : {len(self.apps_report["cve_list"])} CVEs in list")
+        self.logger.debug(f"ReportApps : {len(report["cve_list"])} CVEs in list")
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
         self.ui.Software_listView_vuln.setModel(self.vunl_app_list_model)
 
-        for item in self.apps_report["cve_list"]:
-            # Items alignment
-            string = f"{item['cve']}\t{str(item['score'])}\t{item['package'].capitalize()}\t{item['version']}"
+        if len(report["cve_list"]) == 0:
             list_item = QtGui.QStandardItem()
-            list_item.setText(string)
+            list_item.setText("No vulnerable apps found")
+            self.vunl_app_list_model.appendRow(list_item)
+            return
+
+        for item in report["cve_list"]:
+            list_item = QtGui.QStandardItem()
+            list_item.setText(f"{item['cve']}\t{str(item['score'])}\t{item['package'].capitalize()}\t{item['version']}")
 
             try:
                 self.dot = ""
@@ -50,18 +52,18 @@ def ReportApps(self, report):
 
             self.vunl_app_list_model.appendRow(list_item)
 
-        self.ui.Software_listView_vuln.doubleClicked.connect(lambda index: ReportAppsFull(self, index))
+        self.ui.Software_listView_vuln.doubleClicked.connect(lambda index: ReportAppsFull(self, index, report))
         self.logger.debug("ReportApps : List maked")
         UpdateWorkPageStat(self, "good")
     except Exception as e:
         Report_Error(self, f"ReportApps : {e}")
 
 
-def ReportAppsFull(self, index):
+def ReportAppsFull(self, index, report):
     try:
         item_index = index.row()
         self.logger.debug(f"ReportAppsFull : item index {str(item_index).strip()} ")
-        cve_info = self.apps_report["cve_list"][item_index]
+        cve_info = report["cve_list"][item_index]
 
         self.ui.label_cve_head.setText(f"{cve_info["cve"]} - {cve_info["package"].capitalize()} - {cve_info["version"]}")
 
@@ -85,33 +87,38 @@ def ReportAppsFull(self, index):
         Report_Error(self, f"ReportAppsFull : {e}")
 
 
-def ReportDrivers(self, drv):
+def ReportDrivers(self, report):
     try:
-        self.drivers_report = drv
-        self.logger.debug(f"ReportDrivers : {len(self.drivers_report["driver_list"])} drivers in list")
-        if len(self.drivers_report["driver_list"]) == 0:
-            return
+        print("\n\nReportDrivers", report, "\n\n")
+        self.logger.debug(f"ReportDrivers : {len(report["driver_list"])} drivers in list")
+
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
         self.ui.Drivers_listView_vuln.setModel(self.vunl_app_list_model)
 
-        # Create string and sort by alphabet
-        for string in [f"  {item['shortName']}\t{str(item['version'])}\t{item["desc"]}" for item in self.drivers_report["driver_list"]].sort():
+        if len(report["driver_list"]) == 0:
             list_item = QtGui.QStandardItem()
-            list_item.setText(string)
+            list_item.setText("No vulnerable drivers found")
+            self.vunl_app_list_model.appendRow(list_item)
+            return
+
+        for item in report["driver_list"]:
+            list_item = QtGui.QStandardItem()
+            list_item.setText(f"  {item['shortName']}\t{str(item['version'])}\t{item["desc"]}")
+            print(f"  {item['shortName']}\t{str(item['version'])}\t{item["desc"]}")
             self.vunl_app_list_model.appendRow(list_item)
 
-        self.ui.Drivers_listView_vuln.doubleClicked.connect(lambda index: ReportDriversFull(self, index))
+        self.ui.Drivers_listView_vuln.doubleClicked.connect(lambda index: ReportDriversFull(self, index, report))
         self.logger.debug("ReportDrivers : List maked")
     except Exception as e:
         Report_Error(self, f"ReportDrivers : {e}")
 
 
-def ReportDriversFull(self, index):
+def ReportDriversFull(self, index, report):
     try:
         item_index = index.row()
         self.logger.debug(f"ShowCVEInfo_CIA : item index {str(item_index).strip()} ")
-        driver_info = self.drivers_report["driver_list"][item_index]
+        driver_info = report["driver_list"][item_index]
         self.ui.label_vuln_head.setText(f"{driver_info["shortName"]} - {driver_info["version"]}")
 
         self.ui.plainTextEdit_vuln.setPlainText(FormatDict(self, driver_info))
@@ -151,17 +158,22 @@ def Split_Words(self, word, split_dot=False):
     return result
 
 
-def ReportKB(self, kb):
-
+def ReportKB(self, report):
     try:
-        self.kb_report = kb
-        self.logger.debug(f"ReportKB : {len(self.kb_report["cve_list"])} CVEs in list")
+        print("\n\nReportKB", report, "\n\n")
+        self.logger.debug(f"ReportKB : {len(report["cve_list"])} CVEs in list")
 
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
         self.ui.vuln_kb_list.setModel(self.vunl_app_list_model)
 
-        for item in self.kb_report["cve_list"]:
+        if len(report["cve_list"]) == 0:
+            list_item = QtGui.QStandardItem()
+            list_item.setText("No vulnerable Windows KB found")
+            self.vunl_app_list_model.appendRow(list_item)
+            return
+
+        for item in report["cve_list"]:
             string = f"{item['cve']}\t{str(item['score'])}"
             list_item = QtGui.QStandardItem()
             list_item.setText(string)
@@ -194,18 +206,18 @@ def ReportKB(self, kb):
 
             self.vunl_app_list_model.appendRow(list_item)
 
-        self.ui.vuln_kb_list.doubleClicked.connect(lambda index: ReportKBFull(self, index))
+        self.ui.vuln_kb_list.doubleClicked.connect(lambda index: ReportKBFull(self, index, report))
         self.logger.debug("ReportKB : List maked")
         UpdateWorkPageStat(self, "good")
     except Exception as e:
         Report_Error(self, f"ReportKB : {e}")
 
 
-def ReportKBFull(self, index):
+def ReportKBFull(self, index, report):
     try:
         item_index = index.row()
         self.logger.debug(f"ReportKBFull : item index {str(item_index).strip()} ")
-        cve_info = self.kb_report["cve_list"][item_index]
+        cve_info = report["cve_list"][item_index]
 
         self.ui.label_cve_head.setText(cve_info["cve"])
 
@@ -267,19 +279,18 @@ def FillExtPorts(self, ports):
         UpdateWorkPageStat(self, "bad")
 
 
-def FillKBList(self, drv):
+def FillKBList(self, data_inst, data_miss):
     try:
-        self.kb_list = drv
         self.All_kb_list_model = QtGui.QStandardItemModel()
         self.ui.all_kb_list.setModel(self.All_kb_list_model)
-        for item in self.kb_list:
+        for item in data_inst:
             list_item = QtGui.QStandardItem()
             kb = item[str('kb')] if item[str('kb')] not in ("", None) else "No KB ID"
             list_item.setText(f"{kb}\t{item["result"]}\t{item["title"]}")
             list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\dot-green.png")))
             self.All_kb_list_model.appendRow(list_item)
 
-        for item in self.kb_scan_res['kbMissed']:
+        for item in data_miss['kbMissed']:
             list_item = QtGui.QStandardItem()
             list_item.setText(item)
             list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\dot-red.png")))
@@ -306,16 +317,16 @@ def FillAllAppsList(self, data):
         UpdateWorkPageStat(self, "bad")
 
 
-def FillDriversList(self):
+def FillDriversList(self, data):
     try:
         self.Drivers_list_model = QtGui.QStandardItemModel()
         self.ui.Drivers_listView_all.setModel(self.Drivers_list_model)
-        for item in self.drivers_list:
+        for item in data:
             list_item = QtGui.QStandardItem()
-            list_item.setText(item)
+            list_item.setText(str(item))
             self.Drivers_list_model.appendRow(list_item)
 
         UpdateWorkPageStat(self, "good")
     except Exception as e:
-        self.logger.error(f"FillExtPorts : {e}")
+        self.logger.error(f"FillDriversList : {e}")
         UpdateWorkPageStat(self, "bad")
