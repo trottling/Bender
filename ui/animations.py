@@ -230,6 +230,7 @@ def ChangeWorkElems(self):
     TextChangeAnim(self, self.ui.label_work_progress, "Done")
     self.ui.image_work_progress.clear()
     ImageChangeAnim(self, self.ui.image_work_progress, r"assets\images\bender-medium.png")
+    ElemHideAnim(self, self.ui.label_win_warn)
 
     QtTest.QTest.qWait(1000)
 
