@@ -1,5 +1,5 @@
 from PyQt6 import QtCore, QtGui
-from PyQt6.QtGui import QMovie
+from PyQt6.QtGui import QMovie, QPixmap
 
 from ui.tools import GetRelPath
 
@@ -61,7 +61,7 @@ def Load_Images_And_Icons(self):
     self.ui.frame_ext_local_ip.setStyleSheet(".QFrame {image: url('" + GetRelPath(self, 'assets//images//external.png') + "')}")
     self.ui.frame_sys_bitlocker.setStyleSheet(".QFrame {image: url('" + GetRelPath(self, 'assets//images//bitlocker.png') + "')}")
     self.ui.frame_sys_virt.setStyleSheet(".QFrame {image: url('" + GetRelPath(self, 'assets//images//virtualization.png') + "')}")
-    self.ui.frame_sys_bitness.setStyleSheet(".QFrame {image: url('" + GetRelPath(self, 'assets//images//help.png') + "')}")
+    self.ui.frame_sys_bitness.setPixmap(QPixmap(GetRelPath(self, 'assets//images//help.png')))
 
     # Info page
     self.ui.info_back_button.setStyleSheet(".QPushButton {image: url('" + GetRelPath(self, 'assets//images//back.png') + "')}")
