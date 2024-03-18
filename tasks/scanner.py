@@ -25,20 +25,19 @@ class Scanner(QThread):
     ReportApps_signal = pyqtSignal(dict)
     FillLocalPorts_signal = pyqtSignal(list)
     FillExtPorts_signal = pyqtSignal(list)
-    FillDriversList_signal = pyqtSignal(dict)
+    FillDriversList_signal = pyqtSignal(list)
     ReportDrivers_signal = pyqtSignal(dict)
-    FillKBList_signal = pyqtSignal(dict)
+    FillKBList_signal = pyqtSignal((list, dict))
     ReportKB_signal = pyqtSignal(dict)
     UpdateWorkPageStat_signal = pyqtSignal(str)
 
-    def __init__(self, logger, net_threads, data_workers, vulners_key, port_range, port_workers):
+    def __init__(self, logger, net_threads, data_workers, vulners_key, port_workers):
         super().__init__()
 
         self.logger = logger
         self.net_threads = net_threads
         self.data_workers = data_workers
         self.vulners_key = vulners_key
-        self.port_range = port_range
         self.port_workers = port_workers
 
         # Hide console at calling
@@ -51,6 +50,7 @@ class Scanner(QThread):
         self.kb_report = {}
         self.drivers_vuln_list = []
         self.drivers_list = []
+        self.drivers_list_hashed = []
         self.soft_list = []
         self.apps_report = {}
         self.cve_list_kb = []
