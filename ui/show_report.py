@@ -89,7 +89,6 @@ def ReportAppsFull(self, index, report):
 
 def ReportDrivers(self, report):
     try:
-        print("\n\nReportDrivers", report, "\n\n")
         self.logger.debug(f"ReportDrivers : {len(report["driver_list"])} drivers in list")
 
         # Setup list
@@ -160,7 +159,6 @@ def Split_Words(self, word, split_dot=False):
 
 def ReportKB(self, report):
     try:
-        print("\n\nReportKB", report, "\n\n")
         self.logger.debug(f"ReportKB : {len(report["cve_list"])} CVEs in list")
 
         # Setup list
@@ -174,9 +172,8 @@ def ReportKB(self, report):
             return
 
         for item in report["cve_list"]:
-            string = f"{item['cve']}\t{str(item['score'])}"
             list_item = QtGui.QStandardItem()
-            list_item.setText(string)
+            list_item.setText(f"{item['cve']}\t{str(item['score'])}")
 
             try:
                 self.dot = ""
@@ -242,11 +239,10 @@ def ReportKBFull(self, index, report):
 
 def FillLocalPorts(self, ports):
     try:
-        self.LocalPorts = ports
         self.local_ports_list_model = QtGui.QStandardItemModel()
         self.ui.open_local_ports_list.setModel(self.local_ports_list_model)
 
-        for item in self.LocalPorts:
+        for item in ports:
             port = str(item[1])
             if port in port_dict:
                 list_item = QtGui.QStandardItem()
@@ -262,10 +258,9 @@ def FillLocalPorts(self, ports):
 
 def FillExtPorts(self, ports):
     try:
-        self.ExtPorts = ports
         self.ext_ports_list_model = QtGui.QStandardItemModel()
         self.ui.open_Externall_ports_list.setModel(self.ext_ports_list_model)
-        for item in self.ExtPorts:
+        for item in ports:
             port = str(item[1])
             if port in port_dict:
                 list_item = QtGui.QStandardItem()
