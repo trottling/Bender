@@ -37,9 +37,10 @@ def StartScannerValidator(self):
             ShowErrMessage(self, "Loldrivers.io Unavailable, try run scanner later")
             return True
 
-        self.ports_range = self.ui.api_key.text().split(',')
+        self.ports_range = self.ui.lineEdit__port_range.text()
+        check_range = self.ports_range.split(',')
         port_list = []
-        for port in self.ports_range:
+        for port in check_range:
             if re.match(r'^\d+$', port):
                 port_list.append(int(port))
             elif re.match(r'^\d+-\d+$', port):
@@ -49,6 +50,8 @@ def StartScannerValidator(self):
                 port_list.extend(p_range)
         if len(port_list) == 0:
             self.ports_range = "22, 23, 80, 443"
+
+        self.logger.debug(f"StartScannerValidator : ports range : {self.ui.lineEdit__port_range.text()} --> {self.ports_range}")
 
         self.logger.debug("StartScannerValidator : All normal")
 
