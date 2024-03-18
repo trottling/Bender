@@ -44,20 +44,23 @@ def Prepare_Window(self):
     # Window settings
     self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
-    # Set geometry 3/4 primary screen size and move to screen center
+    # Set geometry 3/4 primary screen size and move to primary screen center
     try:
-        for monitor in get_monitors():
-            if monitor.is_primary:
-                self.screen_width = monitor.width
-                self.screen_height = monitor.height
-                w_cut = int(round(self.screen_width * 0.75))
-                h_cut = int(round(self.screen_height * 0.75))
-                self.screen_width_cut = w_cut if w_cut > 1200 else 1200
-                self.screen_height_cut = h_cut if h_cut > 650 else 650
-                self.ui.resize(self.screen_width_cut, self.screen_height_cut)
-                self.ui.move(int((self.screen_width - self.ui.size().width()) / 2), int((self.screen_height - self.ui.size().height()) / 2))
-                self.logger.debug(f"Prepare_Window : Resized to {self.screen_width_cut} x {self.screen_height_cut} : Original {self.screen_width} x {self.screen_height}")
-                break
+
+        monitors_list = [monitor for monitor in get_monitors()]
+        primary_monitor = [monitor for monitor in monitors_list if monitor.is_primary]
+        monitor = primary_monitor[0] if len(primary_monitor) >= 1 else monitors_list[0]
+
+        self.screen_width = monitor.width
+        self.screen_height = monitor.height
+        w_cut = int(round(self.screen_width * 0.75))
+        h_cut = int(round(self.screen_height * 0.75))
+        self.screen_width_cut = w_cut if w_cut > 1200 else 1200
+        self.screen_height_cut = h_cut if h_cut > 650 else 650
+        self.ui.resize(self.screen_width_cut, self.screen_height_cut)
+        self.ui.move(int((self.screen_width - self.ui.size().width()) / 2), int((self.screen_height - self.ui.size().height()) / 2))
+        self.logger.debug(f"Prepare_Window : Resized to {self.screen_width_cut} x {self.screen_height_cut} : Original {self.screen_width} x {self.screen_height}")
+
     except Exception as e:
         self.logger.error(f"Prepare_Window : Cannot Set window size : {e}")
 
