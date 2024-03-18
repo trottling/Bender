@@ -1,5 +1,9 @@
-from tendo import singleton
+import sys
+import wmi
 
 
 def Check_Instance():
-    singleton.SingleInstance()
+    if sys.argv[0] in wmi.WMI().Win32_Process():
+        sys.exit(-1)
+
+
