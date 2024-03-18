@@ -5,13 +5,10 @@ from ui.buttons import Connect_Buttons
 from ui.hide_elements import Hide_Elements
 from ui.images import Load_Images_And_Icons
 from ui.prepare_window import Prepare_Window
-from ui.splash import SplashText, StopSplash
 from ui.styles import Load_Styles
 
 
 def Start_App(self) -> None:
-    # Setup Splash screen
-    SplashText(self)
 
     # Anywhere shit
     Prepare_Window(self)
@@ -30,9 +27,6 @@ def Start_App(self) -> None:
 
     # Load styles
     Load_Styles(self)
-
-    # Break Splash screen
-    StopSplash(self)
 
     # Show UI
     App_Open_Anim(self)
