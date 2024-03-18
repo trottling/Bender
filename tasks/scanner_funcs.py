@@ -229,10 +229,8 @@ def CutListByChunks(self, lst, chunk_max):
 def SendAppsVulners(self):
     try:
         if len(self.soft_list) > 500:
-            for chunc in CutListByChunks(self, self.soft_list, 500):
-                self.apps_report.update(self.vulners_api_soft.software_audit(os="", version="", packages=[{"software": software['name'], "version": software['version']} for software in chunc]))
-        else:
-            self.apps_report = self.vulners_api_soft.software_audit(os="", version="", packages=[{"software": software['name'], "version": software['version']} for software in self.soft_list])
+            self.soft_list = self.soft_list[:500]
+        self.apps_report = self.vulners_api_soft.software_audit(os="", version="", packages=[{"software": software['name'], "version": software['version']} for software in self.soft_list])
         self.stat_signal.emit("good")
         return False
     except Exception as e:
@@ -351,7 +349,7 @@ def CheckApps(self):
 def GetLocalPorts(self):
     try:
         local_ip = socket.gethostbyname(socket.gethostname())
-        self.LocalPorts = PortScan(ip_str=local_ip, port_str=self.port_range,
+        self.LocalPorts = PortScan(ip_str=local_ip, port_str="1-1000",
                                    thread_num=self.port_workers, show_refused=False,
                                    wait_time=2, stop_after_count=True).run()
 
@@ -365,9 +363,8 @@ def GetLocalPorts(self):
 
 def GetExtPorts(self):
     try:
-
         ext_ip = httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')
-        self.ExtPorts = PortScan(ip_str=ext_ip, port_str=self.port_range,
+        self.ExtPorts = PortScan(ip_str=ext_ip, port_str="1-1000",
                                  thread_num=self.port_workers, show_refused=False,
                                  wait_time=3, stop_after_count=True).run()
 
@@ -541,8 +538,8 @@ def CheckDrivers(self):
         return
 
     self.drivers_report = {"driver_list": self.drivers_vuln_list}
-
     self.ReportDrivers_signal.emit(self.drivers_report)
+    self.stat_signal.emit("good")
 
 
 def ConnectVulnersKB(self):
@@ -577,10 +574,8 @@ def SendKBVulners(self):
         # List with deleted KBs without KB ID
         kb = [item['kb'] for item in self.kb_list if item['kb'] not in ("", None) and "KB" in item['kb']]
         if len(kb) > 500:
-            for chunk in CutListByChunks(self, kb, 500):
-                self.kb_scan_res.update(self.vulners_api_kb.kb_audit(os=f"{platform.system()} {platform.release()}", kb_list=chunk))
-        else:
-            self.kb_scan_res = self.vulners_api_kb.kb_audit(os=f"{platform.system()} {platform.release()}", kb_list=kb)
+            kb = kb[:500]
+        self.kb_scan_res = self.vulners_api_kb.kb_audit(os=f"{platform.system()} {platform.release()}", kb_list=kb)
         self.stat_signal.emit("good")
         return False
     except Exception as e:
@@ -614,7 +609,7 @@ def ProcessKBResponse(self):
             with cf.ThreadPoolExecutor(max_workers=self.net_threads) as executor:
                 futures = []
                 for item in self.kb_report["cve_list"]:
-                    futures.append(executor.submit(self.GetCveInfo, self, item))
+                    futures.append(executor.submit(GetCveInfo, self, item))
                 executor.shutdown(wait=True, cancel_futures=False)
         except Exception as e:
             self.logger.error(f"ProcessKBResponse : Failed to Getting more info about CVEs : {e}")
@@ -636,11 +631,11 @@ def CheckKB(self):
         self.stat_signal.emit("bad")
         return
 
-    self.FillKBList_signal.emit(self.kb_list)
-
     if SendKBVulners(self):
         self.stat_signal.emit("bad")
         return
+
+    self.FillKBList_signal.emit(self.kb_list, self.kb_scan_res)
 
     if ProcessKBResponse(self):
         self.stat_signal.emit("bad")
