@@ -6,7 +6,9 @@ from ui.animations import StackedWidgetChangePage, SetWorkPageGIF
 
 
 def StartScanner(self):
+    self.ui.pushButton_start_scan.setEnabled(False)
     if StartScannerValidator(self):
+        self.ui.pushButton_start_scan.setEnabled(True)
         return
     Run_Scanner_Tasks(self)
 
@@ -25,11 +27,10 @@ def Run_Scanner_Tasks(self):
     self.net_threads = self.ui.horizontalSlider_network_threads.value()
     self.data_workers = self.ui.horizontalSlider_data_threads.value()
     self.vulners_key = self.ui.api_key.text().strip()
-    self.port_range = self.ui.lineEdit__port_range.text().strip()
     self.port_workers = self.ui.horizontalSlider_port_threads.value()
 
     # Create thread
-    self.scanner = Scanner(self.logger, self.net_threads, self.data_workers, self.vulners_key, self.port_range, self.port_workers)
+    self.scanner = Scanner(self.logger, self.net_threads, self.data_workers, self.vulners_key, self.port_workers)
 
     # Connect signals
     ConnectScannerSignals(self)
