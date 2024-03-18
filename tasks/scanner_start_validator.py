@@ -1,3 +1,5 @@
+import re
+
 from ui.animations import ShowErrMessage
 
 
@@ -27,12 +29,26 @@ def StartScannerValidator(self):
             return True
 
         if not self.validate_vulners_key:
-            ShowErrMessage(self, "Vulners.com key invalid or empty, fix it in settings. <a href='https://github.com/trottling/Bender/blob/main/VULNERS-API-KEY-HELP.md'>Click for help</a>")
+            ShowErrMessage(self,
+                           "Vulners.com key invalid or empty, fix it in settings. <a href='https://github.com/trottling/Bender/blob/main/VULNERS-API-KEY-HELP.md'>Click for help</a>")
             return True
 
         if not self.validate_loldrivers_status:
             ShowErrMessage(self, "Loldrivers.io Unavailable, try run scanner later")
             return True
+
+        self.ports_range = self.ui.api_key.text().split(',')
+        port_list = []
+        for port in self.ports_range:
+            if re.match(r'^\d+$', port):
+                port_list.append(int(port))
+            elif re.match(r'^\d+-\d+$', port):
+                p_start = int(port.split('-')[0])
+                p_end = int(port.split('-')[1])
+                p_range = list(range(p_start, p_end + 1))
+                port_list.extend(p_range)
+        if len(port_list) == 0:
+            self.ports_range = "22, 23, 80, 443"
 
         self.logger.debug("StartScannerValidator : All normal")
 
