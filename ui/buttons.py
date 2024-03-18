@@ -54,10 +54,8 @@ def Connect_Buttons(self):
 
     self.ui.qss_apply_pushButton.clicked.connect(lambda: ApplyQSSTheme(self))
 
-    self.ui.qss_comboBox.currentIndexChanged.connect(lambda:
-                                                     ChangeShowQSSInput(self))
-    self.ui.qss_comboBox.currentIndexChanged.connect(lambda:
-                                                     ChangeQSSDeleteBtn(self))
+    self.ui.qss_comboBox.currentIndexChanged.connect(lambda: ChangeShowQSSInput(self))
+    self.ui.qss_comboBox.currentIndexChanged.connect(lambda: ChangeQSSDeleteBtn(self))
 
     self.ui.qss_file_pushButton.clicked.connect(lambda: OpenQSSFile(self))
 
@@ -82,8 +80,7 @@ def Connect_Buttons(self):
 
     self.ui.save_log_pushButton_2.clicked.connect(lambda: SaveDebugLog(self))
 
-    self.ui.errors_exit.clicked.connect(lambda: (self.logger.debug(
-        "errors_exit : ******** EXIT ********"), sys.exit(-1)))
+    self.ui.errors_exit.clicked.connect(lambda: (self.logger.debug("errors_exit : ******** EXIT ********"), sys.exit(-1)))
 
     self.ui.cve_info_back_button.clicked.connect(lambda: (StackedWidgetChangePage(self, 2), ClearCVEInfoPage(self)))
 
@@ -202,8 +199,7 @@ def ApplyCustomQSSTheme(self):
 
 def SaveDebugLog(self):
     try:
-        log_file = QFileDialog.getSaveFileName(self, caption='Save log file (.log)', directory="./",
-                                               filter=".log")
+        log_file = QFileDialog.getSaveFileName(self, caption='Save log file (.log)', directory="./", filter=".log")
     except Exception as e:
         self.logger.error(f"SaveDebugLog : {e}")
         return
