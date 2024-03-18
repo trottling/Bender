@@ -29,7 +29,7 @@ def Run_Scanner_Tasks(self):
     self.port_workers = self.ui.horizontalSlider_port_threads.value()
 
     # Create thread
-    self.scanner = Scanner(self.logger, self.net_threads, self.data_workers, self.vulners_key)
+    self.scanner = Scanner(self.logger, self.net_threads, self.data_workers, self.vulners_key, self.port_range, self.port_workers)
 
     # Connect signals
     ConnectScannerSignals(self)
