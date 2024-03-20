@@ -11,7 +11,7 @@
   <img alt="page" src="https://raw.githubusercontent.com/trottling/Bender/main/media/bender.png" width="200"/>
 </div>
 
-**Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python 3.12**
+**Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python 3.12**(earlier versions are also supported)
 > **NOTE**
 >  
 > This application is designed for scan ONLY YOUR PC. The author is not responsible for illegal actions in which Bender was used.
