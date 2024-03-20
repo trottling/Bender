@@ -32,7 +32,7 @@ class Scanner(QThread):
     UpdateWorkPageStat_signal = pyqtSignal(str)
 
     def __init__(self, logger, net_threads, data_workers, vulners_key, port_workers):
-        super().__init__()
+        super().__init__(parent=None)
 
         self.logger = logger
         self.net_threads = net_threads

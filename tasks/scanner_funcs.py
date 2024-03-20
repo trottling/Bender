@@ -12,13 +12,10 @@ import httpx
 import psutil
 import vulners
 import wmi
-from PyQt6.QtCore import QUrl
 from getmac import get_mac_address
 from portscan import PortScan
 from windows_tools import windows_firewall, bitness, bitlocker, logical_disks, updates
 from windows_tools.installed_software import get_installed_software
-
-from ui.animations import UpdateWorkPageStat
 
 
 def GetWinIcon(self):
@@ -643,14 +640,3 @@ def CheckKB(self):
 
     self.stat_signal.emit("good")
     self.ReportKB_signal.emit(self.kb_report)
-
-
-def LoadShodanReport(self):
-    try:
-        ip = httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')
-        self.ui.WebWidget.load(QUrl(f"https://www.shodan.io/host/{ip}"))
-        self.logger.debug("LoadShodanReport : loaded")
-        UpdateWorkPageStat(self, "good")
-    except Exception as e:
-        self.logger.error(f"LoadShodanReport : {e}")
-        UpdateWorkPageStat(self, "bad")

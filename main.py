@@ -7,7 +7,7 @@ from on_start.check_instance import Check_Instance
 from on_start.setup_logger import Setup_logger
 from ui.user_interface import User_UI
 
-app_version = "2.0.0"
+app_version = "2.1.0"
 
 # Check Instance
 Check_Instance()

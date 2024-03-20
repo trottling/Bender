@@ -1,5 +1,4 @@
 from tasks.scanner import Scanner
-from tasks.scanner_funcs import LoadShodanReport
 from tasks.scanner_signals import ConnectScannerSignals
 from tasks.scanner_start_validator import StartScannerValidator
 from ui.animations import StackedWidgetChangePage, SetWorkPageGIF
@@ -38,6 +37,3 @@ def Run_Scanner_Tasks(self):
     # Run scanner thread
     self.scanner.start()
     self.logger.debug("Run_Scanner_Tasks : Thread started")
-
-    # Run other funcs
-    LoadShodanReport(self)

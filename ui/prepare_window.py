@@ -2,6 +2,7 @@ import os
 import sys
 
 import darkdetect
+import httpx
 #
 # !!! Required by QT Designer WebView widget !!!
 # from PyQt6 import QtWebEngineWidgets
@@ -9,9 +10,10 @@ import darkdetect
 # noinspection PyUnresolvedReferences
 from PyQt6 import QtWebEngineWidgets
 from PyQt6 import uic, QtGui
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QUrl
 from screeninfo import get_monitors
 
+from ui.animations import UpdateWorkPageStat
 from ui.tools import GetRelPath
 
 
@@ -76,5 +78,14 @@ def Prepare_Window(self):
     self.start_processing_labels = [self.ui.label_os_name_2, self.ui.label_os_ver_2, self.ui.label_os_status_2,
                                     self.ui.label_admin_result, self.ui.label_net_status_2, self.ui.label_vulners_api_2,
                                     self.ui.label_vulners_key_3, self.ui.label_loldrivers_2]
+
+    try:
+        ip = httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')
+        self.ui.WebWidget.load(QUrl(f"https://www.shodan.io/host/{ip}"))
+        self.logger.debug("LoadShodanReport : loaded")
+        UpdateWorkPageStat(self, "good")
+    except Exception as e:
+        self.logger.error(f"LoadShodanReport : {e}")
+        UpdateWorkPageStat(self, "bad")
 
     self.logger.debug(f"Prepare_Window : Window Prepared")
