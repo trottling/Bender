@@ -9,14 +9,17 @@ from ui.user_interface import User_UI
 
 app_version = "2.1.0"
 
-# Check Instance
-Check_Instance()
-# Check App folder
-appdir, file_handler = CheckAppDir()
-# Setup logger
-logger = Setup_logger(app_version, file_handler, appdir)
-
 if __name__ == '__main__':
+
+    # Check Instance
+    Check_Instance()
+
+    # Check App folder
+    appdir, file_handler = CheckAppDir()
+
+    # Setup logger
+    logger = Setup_logger(app_version, file_handler, appdir)
+
     # Run GUI
     app = QApplication(sys.argv)
     User_UI(app_version, logger, appdir)
