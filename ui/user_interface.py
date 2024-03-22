@@ -76,7 +76,7 @@ class User_UI(QMainWindow):
     # Window move
     #
 
-    def mousePressEvent(self, event):  # TODO Set to windows title insane all window
+    def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.MouseButton.LeftButton:
             self.window_offset = event.pos()
         else:
