@@ -31,14 +31,14 @@ class Scanner(QThread):
     ReportKB_signal = pyqtSignal(dict)
     UpdateWorkPageStat_signal = pyqtSignal(str)
 
-    def __init__(self, logger, net_threads, data_workers, vulners_key, port_workers):
+    def __init__(self, logger, net_threads, data_workers, port_workers, vulners_key):
         super().__init__(parent=None)
 
         self.logger = logger
         self.net_threads = net_threads
         self.data_workers = data_workers
-        self.vulners_key = vulners_key
         self.port_workers = port_workers
+        self.vulners_key = vulners_key
 
         # Hide console at calling
         self.si = subprocess.STARTUPINFO()

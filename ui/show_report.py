@@ -72,9 +72,11 @@ def ReportAppsFull(self, index, report):
 
         self.ui.label_shortname.setText(f"Shortname: {cve_info["shortName"].capitalize()}")
 
+        self.ui.plainTextEdit_references.clear()
         for ref in cve_info["references"]:
             self.ui.plainTextEdit_references.appendHtml(f"<a href='{ref['url']}'>{ref['url']}</a>")
 
+        self.ui.plainTextEdit_cvss_3.clear()
         if "cvssV3_1" in cve_info["cvss_metrics"]:
             for item in cve_info["cvss_metrics"]["cvssV3_1"]:
                 self.ui.plainTextEdit_cvss_3.appendPlainText(
@@ -220,12 +222,13 @@ def ReportKBFull(self, index, report):
 
         self.ui.label_published.setText(f"Published: {cve_info["datePublished"]}" if "datePublished" in cve_info and cve_info["datePublished"].strip != "" else "Published: No date")
         self.ui.cve_desc_plainTextEdit.setPlainText(cve_info["desc"].capitalize())
-
         self.ui.label_shortname.setText(f"Shortname: {cve_info["shortName"].capitalize()}")
 
+        self.ui.plainTextEdit_references.clear()
         for ref in cve_info["references"]:
             self.ui.plainTextEdit_references.appendHtml(f"<a href='{ref['url']}'>{ref['url']}</a>")
 
+        self.ui.plainTextEdit_cvss_3.clear()
         if "cvssV3_1" in cve_info["cvss_metrics"]:
             for item in cve_info["cvss_metrics"]["cvssV3_1"]:
                 self.ui.plainTextEdit_cvss_3.appendPlainText(f"{Split_Words(self, item)}: {cve_info["cvss_metrics"]["cvssV3_1"][item]}")

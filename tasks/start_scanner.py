@@ -25,11 +25,11 @@ def Run_Scanner_Tasks(self):
     # Get UI values
     self.net_threads = self.ui.horizontalSlider_network_threads.value()
     self.data_workers = self.ui.horizontalSlider_data_threads.value()
-    self.vulners_key = self.ui.api_key.text().strip()
     self.port_workers = self.ui.horizontalSlider_port_threads.value()
+    self.vulners_key = self.ui.api_key.text().strip()
 
     # Create thread
-    self.scanner = Scanner(self.logger, self.net_threads, self.data_workers, self.vulners_key, self.port_workers)
+    self.scanner = Scanner(self.logger, self.net_threads, self.data_workers, self.port_workers, self.vulners_key)
 
     # Connect signals
     ConnectScannerSignals(self)
