@@ -11,14 +11,14 @@
   <img alt="page" src="https://raw.githubusercontent.com/trottling/Bender/main/media/bender.png" width="200"/>
 </div>
 
-**Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python 3.12**
+**Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python 3.12** (earlier versions are also supported)
 > **NOTE**
 >  
 > This application is designed for scan ONLY YOUR PC. The author is not responsible for illegal actions in which Bender was used.
 > 
 > Bender is Free Open Source Software project, that does not conduct any commercial activities.
 >
-> Bender performs ONLY READING system files, folder or registry
+> Bender performs ONLY READING ONLY system files, folder or registry.
 
 ![START](https://raw.githubusercontent.com/trottling/Bender/main/media/start.png)
 
@@ -42,7 +42,8 @@
 ## How to install
 1. Download [latest build](https://github.com/trottling/Bender/releases/latest)
 2. Get Vulners.com API key, see [help page](https://github.com/trottling/Bender/blob/main/VULNERS-API-KEY-HELP.md)
-3. Add to antivirus exclusion if you get messages about Bender.exe, see [first TODO message](https://github.com/trottling/Bender#todo)
+3. Add to antivirus exclusion if you get messages about Bender.exe
+  > This happens because pyinstaller unzips files and the python interpreter in the temp folder, so antiviruses don't like such programs
 4. Run as Admin
 5. Done!
 
@@ -83,9 +84,7 @@
 - loldrivers.io
 
 ## TODO
-- Do something about the false antivirus message about Bender.exe
-> Thanks to detects on any build through pyinstaller because of schoolchildren writing RATs and Miners in Python
-- Add translate
+- Bug: Window may open a second time during scanning
 
 ## How can I help this project?
 - First, look at [TODO list](https://github.com/trottling/Bender/tree/main#todo)
@@ -99,9 +98,9 @@
 `cd Bender`
 3. Install requirements
 `pip install -r requirements.txt`
-4. Run
-`python main.py`
-5. Build
+- Run
+`python main.py`-
+- Build
 `build.bat`
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
