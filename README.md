@@ -99,7 +99,7 @@
 3. Install requirements
 `pip install -r requirements.txt`
 - Run
-`python main.py`-
+`python main.py`
 - Build
 `build.bat`
 
