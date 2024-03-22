@@ -2,6 +2,9 @@ from ui.buttons import HideQSSInput
 
 
 def Hide_Elements(self):
+
+    self.splash.ChangePbar(70, "Hide Elements")
+
     # Global
     self.ui.label_windows_title.hide()
     self.ui.app_icon.hide()

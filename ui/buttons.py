@@ -18,6 +18,9 @@ from ui.tools import Check_Vulners_Key_Request, GetRelPath
 
 
 def Connect_Buttons(self):
+
+    self.splash.ChangePbar(80, "Connecting buttons")
+
     #
     # Start page
     #

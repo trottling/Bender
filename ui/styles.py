@@ -6,6 +6,9 @@ from ui.tools import GetWindowsTheme, GetRelPath
 
 
 def Load_Styles(self):
+
+    self.splash.ChangePbar(95, "Loading styles")
+
     self.user_themes_path = f"{self.appdir}\\saved_qss\\"
     self.default_theme = GetWindowsTheme(self)
     self.theme_to_load = None

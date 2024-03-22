@@ -9,7 +9,6 @@ from ui.styles import Load_Styles
 
 
 def Start_App(self) -> None:
-
     # Anywhere shit
     Prepare_Window(self)
 

@@ -43,7 +43,8 @@ def GetRelPath(self, data_path, slash_replace=True):
         try:
             base_path = sys._MEIPASS
         except Exception as e:
-            self.logger.error(f"GetRelPath : {e}")
+            if hasattr(self, 'logger'):
+                self.logger.error(f"GetRelPath : {e}")
             return ""
 
     else:
@@ -53,8 +54,10 @@ def GetRelPath(self, data_path, slash_replace=True):
     # Instead of several calls to get the relative path of one element,
     # a single call will be made and the result
     # will be saved in dict for later use
+    #
+    # Only for User_UI class
 
-    if data_path in self.rel_path_dict:
+    if hasattr(self, 'rel_path_dict') and data_path in self.rel_path_dict:
         result = self.rel_path_dict[data_path]
         self.logger.debug(f"GetRelPath : ext : {result}")
         return result
@@ -64,7 +67,10 @@ def GetRelPath(self, data_path, slash_replace=True):
     if slash_replace:
         result = result.replace("\\", "/")
 
-    self.rel_path_dict[data_path] = result
-    self.logger.debug(f"GetRelPath : new : {result}")
+    if hasattr(self, 'rel_path_dict'):
+        self.rel_path_dict[data_path] = result
+
+    if hasattr(self, 'logger'):
+        self.logger.debug(f"GetRelPath : new : {result}")
 
     return str(result)

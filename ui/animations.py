@@ -15,8 +15,9 @@ def App_Open_Anim(self):
         self.ui.showMaximized()
         self.logger.debug("App_Open_Anim : showMaximized")
 
-    self.ui.setWindowOpacity(0)
+    self.ui.setWindowOpacity(0.0)
     self.ui.show()
+    self.splash.finish(self.ui)
     animation = QPropertyAnimation(self.ui, b'windowOpacity', self)
     animation.setDuration(250)
     animation.setStartValue(0.0)

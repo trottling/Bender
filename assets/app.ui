@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1713</width>
-    <height>873</height>
+    <width>1200</width>
+    <height>650</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -390,7 +390,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_start">
        <layout class="QGridLayout" name="gridLayout_2">
@@ -522,7 +522,7 @@
              <string notr="true">background-color: rgb(211, 52, 24);
 color: rgb(255, 255, 255);
 padding-left: 8px;
-padding-rigth: 8px;</string>
+padding-right: 8px;</string>
             </property>
             <property name="text">
              <string>Error Text</string>
@@ -2548,8 +2548,8 @@ padding-rigth: 8px;</string>
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>-1409</y>
-               <width>1692</width>
+               <y>0</y>
+               <width>1179</width>
                <height>3581</height>
               </rect>
              </property>

@@ -10,12 +10,13 @@ from ui.start_app import Start_App
 class User_UI(QMainWindow):
     _gripSize = 16  # Corner grips size
 
-    def __init__(self, app_version, logger, appdir) -> None:
+    def __init__(self, app_version, logger, appdir, splash) -> None:
         super().__init__()
 
         self.app_version = app_version
         self.logger = logger
         self.appdir = appdir
+        self.splash = splash
 
         self.ui = None
 

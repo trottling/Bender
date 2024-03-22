@@ -5,6 +5,8 @@ from ui.tools import GetRelPath
 
 
 def Load_Images_And_Icons(self):
+    self.splash.ChangePbar(90, "Loading images")
+
     #
     # Logo
     #

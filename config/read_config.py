@@ -2,6 +2,9 @@ from config.check_config import CheckConfigFile
 
 
 def Load_Settings(self):
+
+    self.splash.ChangePbar(60, "Loading settings")
+
     if CheckConfigFile(self):
         try:
             self.config.read(self.config_path)

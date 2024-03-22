@@ -144,20 +144,6 @@ QLCDNumber {
 	color: #37e6b4;
 	border-radius: 10px;
 }
-QProgressBar {
-	text-align: center;
-	color: rgb(240, 240, 240);
-	border-width: 1px; 
-	border-radius: 10px;
-	border-radius: 10px;
-	border-color: rgb(58, 58, 58);
-	border-style: inset;
-	background-color:#393743;
-}
-QProgressBar::chunk {
-	background-color: #0d4e87;
-	border-radius: 5px;
-}
 QMenuBar {
 	border-radius: 10px;
 	background-color: #393743;
