@@ -11,7 +11,7 @@ class SplashScreen(QSplashScreen):
         super(QSplashScreen, self).__init__()
         self.progressBar = None
 
-        uic.loadUi(GetRelPath(self, "assets/splash.ui"), self)
+        uic.loadUi(GetRelPath(self, "assets/ui/splash.ui"), self)
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
         self.setWindowTitle("Bender | Loading...")
         self.setPixmap(QPixmap(GetRelPath(self, "assets/images/splash.png")))

@@ -22,7 +22,7 @@ def Run_Scanner_Tasks(self):
     # Set loading gif to progress label
     SetWorkPageGIF(self)
 
-    # Get UI values
+    # Get ui values
     self.net_threads = self.ui.horizontalSlider_network_threads.value()
     self.data_workers = self.ui.horizontalSlider_data_threads.value()
     self.port_workers = self.ui.horizontalSlider_port_threads.value()

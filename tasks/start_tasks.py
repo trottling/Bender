@@ -16,12 +16,12 @@ def Run_Start_Tasks(self):
     #
     # Run task in other Thread -->
     # Task return list like [[func1, arg1], [func2, arg2]] -->
-    # Run funcs with args from list in UI thread
+    # Run funcs with args from list in ui thread
     #
 
     self.start_tasks_running = True
 
-    # This call will be in UI thread
+    # This call will be in ui thread
     self.vulners_key = self.ui.api_key.text().strip()
 
     self.done_start_tasks_list = []
