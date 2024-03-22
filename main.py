@@ -8,7 +8,7 @@ from on_start.setup_logger import Setup_logger
 from ui.splash import SplashScreen
 from ui.user_interface import User_UI
 
-app_version = "2.1.0"
+app_version = "2.2.0"
 
 if __name__ == '__main__':
     # Check Instance
