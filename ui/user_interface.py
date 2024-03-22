@@ -33,6 +33,7 @@ class User_UI(QMainWindow):
         self.rel_path_dict = {}
         self.net_threads = 0
         self.data_workers = 0
+        self.port_workers = 0
         self.vulners_key = None
 
         # Validating vars
@@ -67,6 +68,8 @@ class User_UI(QMainWindow):
         # will take precedence on mouse events, so we are adding them *after*;
         # alternatively, widget.raise_() can be used
         self.cornerGrips = [QtWidgets.QSizeGrip(self) for _ in range(4)]
+
+        # Run app
         Start_App(self)
 
     #
