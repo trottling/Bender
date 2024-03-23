@@ -5,6 +5,8 @@
 [![Downloads](https://img.shields.io/github/downloads/trottling/Bender/total)](https://github.com/trottling/Bender/releases/latest)
 [![Last release](https://img.shields.io/github/v/release/trottling/Bender)](https://github.com/trottling/Bender/releases/latest)
 
+EN | [RU](https://github.com/trottling/Bender/blob/main/.docs/RU/README.md)
+
 # Bender - Windows Vulnerability Scanner
 
 <div align="center">
@@ -14,24 +16,24 @@
 **Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python 3.12** (earlier versions are also supported)
 > **NOTE**
 >  
-> This application is designed for scan ONLY YOUR PC. The author is not responsible for illegal actions in which Bender was used.
+> This application is designed to scan ONLY YOUR PC. The author is not responsible for illegal actions in which Bender was used.
 > 
-> Bender is Free Open Source Software project, that does not conduct any commercial activities.
+> Bender is a Free Open Source Software project that does not conduct any commercial activities.
 >
 > Bender performs ONLY READING ONLY system files, folder or registry.
 
 ![START](https://raw.githubusercontent.com/trottling/Bender/main/media/start.png)
 
 ## Table of contents
-1. [Requirements](https://github.com/trottling/Bender?tab=readme-ov-file#requirements)
-2. [How to install](https://github.com/trottling/Bender?tab=readme-ov-file#how-to-install)
-3. [Features](https://github.com/trottling/Bender?tab=readme-ov-file#features)
-4. [Scan report example](https://github.com/trottling/Bender/tree/main#scan-report-example)
-5. [Tech](https://github.com/trottling/Bender?tab=readme-ov-file#tech)
-6. [Current supported vulnerability databases](https://github.com/trottling/Bender?tab=readme-ov-file#current-supported-vulnerability-databases-for-scanning)
-7. [TODO](https://github.com/trottling/Bender?tab=readme-ov-file#todo)
-8. [How can I help this project?](https://github.com/trottling/Bender?tab=readme-ov-file#how-can-i-help-this-project)
-9. [Run or Build from source](https://github.com/trottling/Bender/edit/main/README.md#run-or-build-from-source)
+1. [Requirements](#requirements)
+2. [How to install](#how-to-install)
+3. [Features](#features)
+4. [Scan report example](#scan-report-example)
+5. [Tech](#tech)
+6. [Current supported vulnerability databases](#current-used-vulnerability-databases)
+7. [TODO](#todo)
+8. [How can I help this project?](#how-can-i-help-this-project)
+9. [Run or Build from source](#run-or-build-from-source)
 
 ## Requirements
 - Windows 8, 8.1, 10 or 11 and newer*
@@ -87,9 +89,9 @@
 - Bug: Window may open a second time during scanning
 
 ## How can I help this project?
-- First, look at [TODO list](https://github.com/trottling/Bender/tree/main#todo)
+- First, look at [TODO list](#todo)
 - If you have ideas for tweaks, write me in the [Telegram](https://t.me/trottling) or open a [new issue](https://github.com/trottling/Bender/issues/new/choose)
-- Research FREE vulnerability databases with API, like vulners.com or vulmon.com (They doesn't have API docs)
+- Research-FREE vulnerability databases with API, like vulners.com or vulmon.com (They don't have API docs)
 
 ## Run or Build from source
 1. Clone or [Download](https://github.com/trottling/Bender/archive/refs/heads/main.zip) source code
