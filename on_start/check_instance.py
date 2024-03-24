@@ -16,3 +16,5 @@ def Check_Instance():
 
     if count > 1:
         sys.exit(-1)
+
+    # It's actually a crutch to fix the double start bug UwU
