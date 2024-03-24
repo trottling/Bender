@@ -11,8 +11,9 @@ def Check_Instance():
     name = os.path.basename(sys.argv[0])
     count = 0
 
-    if name in [process.Name for process in wmi.WMI().Win32_Process()]:
-        count = count + 1
+    for proc in [process.Name for process in wmi.WMI().Win32_Process()]:
+        if name in proc:
+            count += 1
 
-    if count > 1:
+    if count > 2:
         sys.exit(-1)
