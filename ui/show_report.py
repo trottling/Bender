@@ -245,6 +245,12 @@ def FillLocalPorts(self, ports):
         self.local_ports_list_model = QtGui.QStandardItemModel()
         self.ui.open_local_ports_list.setModel(self.local_ports_list_model)
 
+        if len(ports) == 0:
+            list_item = QtGui.QStandardItem()
+            list_item.setText("No Local ports found")
+            self.local_ports_list_model.appendRow(list_item)
+            return
+
         for item in ports:
             port = str(item[1])
             if port in port_dict:
@@ -263,6 +269,13 @@ def FillExtPorts(self, ports):
     try:
         self.ext_ports_list_model = QtGui.QStandardItemModel()
         self.ui.open_Externall_ports_list.setModel(self.ext_ports_list_model)
+
+        if len(ports) == 0:
+            list_item = QtGui.QStandardItem()
+            list_item.setText("No External ports found")
+            self.ext_ports_list_model.appendRow(list_item)
+            return
+
         for item in ports:
             port = str(item[1])
             if port in port_dict:
@@ -281,6 +294,14 @@ def FillKBList(self, data_inst, data_miss):
     try:
         self.All_kb_list_model = QtGui.QStandardItemModel()
         self.ui.all_kb_list.setModel(self.All_kb_list_model)
+
+        if len(data_miss) + len(data_inst) == 0:
+            list_item = QtGui.QStandardItem()
+            list_item.setText("No installed KB found")
+            list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\dot-grey.png")))
+            self.All_kb_list_model.appendRow(list_item)
+            return
+
         for item in data_inst:
             list_item = QtGui.QStandardItem()
             kb = item[str('kb')] if item[str('kb')] not in ("", None) else "No KB ID"
@@ -304,6 +325,13 @@ def FillAllAppsList(self, data):
     try:
         self.all_app_list_model = QtGui.QStandardItemModel()
         self.ui.Software_listView_all.setModel(self.all_app_list_model)
+
+        if len(data) == 0:
+            list_item = QtGui.QStandardItem()
+            list_item.setText("No installed apps found")
+            self.all_app_list_model.appendRow(list_item)
+            return
+
         for item in data:
             list_item = QtGui.QStandardItem()
             list_item.setText(f"{str(item['name']).capitalize()}\t{str(item['version'])}")
@@ -319,6 +347,13 @@ def FillDriversList(self, data):
     try:
         self.Drivers_list_model = QtGui.QStandardItemModel()
         self.ui.Drivers_listView_all.setModel(self.Drivers_list_model)
+
+        if len(data) == 0:
+            list_item = QtGui.QStandardItem()
+            list_item.setText("No installed drivers found")
+            self.Drivers_list_model.appendRow(list_item)
+            return
+
         for item in data:
             list_item = QtGui.QStandardItem()
             list_item.setText(str(item))
