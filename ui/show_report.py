@@ -106,7 +106,6 @@ def ReportDrivers(self, report):
         for item in report["driver_list"]:
             list_item = QtGui.QStandardItem()
             list_item.setText(f"  {item['shortName']}\t{str(item['version'])}\t{item["desc"]}")
-            print(f"  {item['shortName']}\t{str(item['version'])}\t{item["desc"]}")
             self.vunl_app_list_model.appendRow(list_item)
 
         self.ui.Drivers_listView_vuln.doubleClicked.connect(lambda index: ReportDriversFull(self, index, report))
@@ -142,8 +141,7 @@ def FormatDict(self, data, indent=0):
             elif list_lenght == 1:
                 formatted_value = f"{value[0] if isinstance(value[0], str) else str(value[0])}"
             else:
-                formatted_value = f"\n{" " * (indent + 8)}· " + f"\n{" " * (indent + 8)}· ".join(
-                    [f"{item}" if isinstance(item, str) else str(item) for item in value]) + "\n"
+                formatted_value = f"\n{" " * (indent + 8)}· " + f"\n{" " * (indent + 8)}· ".join([f"{item}" if isinstance(item, str) else str(item) for item in value]) + "\n"
         else:
             formatted_value = f"{value}" if isinstance(value, str) else str(value)
         formatted_data += " " * indent + formatted_key + " : " + formatted_value + "\n"
