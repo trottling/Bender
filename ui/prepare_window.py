@@ -92,6 +92,7 @@ def Prepare_Window(self):
     try:
         ip = httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')
         self.ui.WebWidget.load(QUrl(f"https://www.shodan.io/host/{ip}"))
+        self.ui.WebWidget.setContextMenuPolicy(Qt.ContextMenuPolicy.NoContextMenu)
         self.logger.debug("LoadShodanReport : loaded")
         UpdateWorkPageStat(self, "good")
     except Exception as e:
