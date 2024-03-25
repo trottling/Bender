@@ -1,6 +1,6 @@
-from tasks.scanner import Scanner
-from tasks.scanner_signals import ConnectScannerSignals
-from tasks.scanner_start_validator import StartScannerValidator
+from scanner.scanner import Scanner
+from scanner.scanner_signals import ConnectScannerSignals
+from scanner.scanner_start_validator import StartScannerValidator
 from ui.animations import StackedWidgetChangePage, SetWorkPageGIF
 
 
