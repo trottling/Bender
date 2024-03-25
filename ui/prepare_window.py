@@ -45,7 +45,7 @@ def Prepare_Window(self):
     self.logger.debug(f"Prepare_Window : Title seted")
 
     # Set version
-    self.ui.app_ver.setText(f'<html><head/><body><p align="right"><a href="https://github.com/trottling/Bender/releases/latest"><span style=" text-decoration: underline; color:#a9b7c6;">ver {self.app_version}</span></a></p></body></html>')
+    self.ui.app_ver.setText(f'<html><head/><body><p align="right"><a href="https://github.com/trottling/Bender/releases/tag/{self.app_version}"><span style=" text-decoration: underline; color:#a9b7c6;">ver {self.app_version}</span></a></p></body></html>')
     self.ui.python_version.setText(f"<html><head/><body><p align=\"right\"><span style=\" font-size:12pt;\">Python {sys.version}</span></p></body></html>")
     self.logger.debug(f"Prepare_Window : Versions seted")
 

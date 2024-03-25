@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
-    <height>650</height>
+    <width>1328</width>
+    <height>778</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -334,6 +334,9 @@
         </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;a href=&quot;https://github.com/trottling/Bender/releases/latest&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#a9b7c6;&quot;&gt;ver 0.0.0‎&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -2549,7 +2552,7 @@ padding-right: 8px;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1179</width>
+               <width>856</width>
                <height>3581</height>
               </rect>
              </property>
