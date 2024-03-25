@@ -86,7 +86,7 @@ EN | [RU](https://github.com/trottling/Bender/blob/main/.docs/RU/README.md)
 - loldrivers.io
 
 ## TODO
-- Bug: Window may open a second time during scanning
+- As long as it's empty
 
 ## How can I help this project?
 - First, look at [TODO list](#todo)
