@@ -192,7 +192,7 @@ def GetApps(self):
 
         self.logger.debug(f"GetApps : {len(self.soft_list)} soft")
 
-        # check for zero list length
+        # check for zero list lengths
         if len(self.soft_list) > 0:
             self.stat_signal.emit("good")
             return False
@@ -321,7 +321,7 @@ def CheckApps(self):
         self.stat_signal.emit("bad")
         return
 
-    # Fill all apps list
+    # Fill all app lists
     self.FillAllAppsList_signal.emit(self.soft_list)
 
     # Connect to Vulners api via his lib
@@ -329,7 +329,7 @@ def CheckApps(self):
         self.stat_signal.emit("bad")
         return
 
-    # Sending pieces of software list to Vulners api via his lib
+    # Sending pieces of a software list to Vulners api via his lib
     if SendAppsVulners(self):
         self.stat_signal.emit("bad")
         return
@@ -380,7 +380,7 @@ def GetDrivers(self):
 
         self.logger.debug(f"GetDrivers : {len(self.drivers_list)} drivers")
 
-        # check for zero list length
+        # check for zero list lengths
         if len(self.drivers_list) == 0:
             self.stat_signal.emit("bad")
             return True

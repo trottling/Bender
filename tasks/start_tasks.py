@@ -9,19 +9,18 @@ from PyQt6 import QtTest
 from PyQt6.QtWidgets import QMessageBox
 
 from ui.animations import ImageChangeAnim, TextChangeAnim, ShowErrMessage
-from ui.tools import GetRelPath
 
 
 def Run_Start_Tasks(self):
     #
-    # Run task in other Thread -->
+    # Run a task in another Thread -->
     # Task return list like [[func1, arg1], [func2, arg2]] -->
-    # Run funcs with args from list in ui thread
+    # Run funcs with args from a list in ui thread
     #
 
     self.start_tasks_running = True
 
-    # This call will be in ui thread
+    # This call will be in the ui thread
     self.vulners_key = self.ui.api_key.text().strip()
 
     self.done_start_tasks_list = []
@@ -37,7 +36,7 @@ def Run_Start_Tasks(self):
             QtTest.QTest.qWait(200)
 
         #
-        # First element in list is func, other is args
+        # First element in a list is func, other is args
         # Sleep for more pretty anim
         #
 
@@ -212,7 +211,7 @@ def CheckVulnersKey(self):
         result.append([ShowErrMessage, self, "Enter your Vulners.com key in setting and validate it. <a href='https://github.com/trottling/Bender/blob/main/VULNERS-API-KEY-HELP.md'>Click for help</a>"])
         return result
 
-    # Skip key check if key already validate in setting in one session time
+    # Skip key check if key already validates in setting in one session time
     if not self.validate_vulners_key:
         try:
             resp = httpx.post(url=f"https://vulners.com/api/v3/apiKey/valid/?keyID={self.vulners_key}")

@@ -103,7 +103,7 @@ def ElemHideAnim(self, elem, hide=True, dur=250):
 
 def ImageChangeAnim(self, elem, image):
     #
-    # Move opacity from 1 to 0 --> Change Image  -->  Move opacity from 0 to 1 | total 250 ms
+    # Move opacity from 1 to 0 --> Change Image --> Move opacity from 0 to 1 | total 250 ms
     # Part 1
     #
 
@@ -156,7 +156,7 @@ def ImageChangeAnimShow(self, elem, image):
 
 def TextChangeAnim(self, elem, text):
     #
-    # Move opacity from 1 to 0 --> Change text  -->  Move opacity from 0 to 1 | total 250 ms
+    # Move opacity from 1 to 0 --> Change text --> Move opacity from 0 to 1 | total 250 ms
     # Part 1
     #
 

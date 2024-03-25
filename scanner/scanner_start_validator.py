@@ -1,5 +1,3 @@
-import re
-
 from ui.animations import ShowErrMessage
 
 

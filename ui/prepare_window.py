@@ -54,7 +54,7 @@ def Prepare_Window(self):
     # Window settings
     self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
-    # Set geometry 3/4 primary screen size and move to primary screen center
+    # Set geometry 3/4 primary screen size and move to a primary screen center
     try:
 
         monitors_list = [monitor for monitor in get_monitors()]
