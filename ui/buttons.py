@@ -9,7 +9,7 @@ from PyQt6.QtGui import QMovie
 from PyQt6.QtWidgets import QFileDialog, QGraphicsOpacityEffect
 
 from config.write_config import Save_Settings
-from tasks.start_scanner import StartScanner
+from scanner.start_scanner import StartScanner
 from tasks.start_tasks import Run_Start_Tasks
 from ui.animations import App_Exit_Anim, StackedWidgetChangePage, ElemShowAnim, ElemHideAnim, TextChangeAnim, \
     ImageChangeAnim, ShowErrMessage
