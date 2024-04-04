@@ -47,7 +47,7 @@ RU | [EN](https://github.com/trottling/Bender/blob/main/README.md)
 ## Как установить
 
 1. Скачайте [последнюю сборку](https://github.com/trottling/Bender/releases/latest)
-2. Получите API-ключ Vulners.com, смотрите [страницу помощи](https://github.com/trottling/Bender/blob/main/VULNERS-API-KEY-HELP.md)
+2. Получите API-ключ Vulners.com, смотрите [страницу помощи](https://github.com/trottling/Bender/blob/main/.docs/RU/VULNERS-API-KEY-HELP.md)
 3. Добавьте в исключения антивируса, если вы получаете сообщения о Bender.exe
 > Это происходит потому, что pyinstaller распаковывает файлы и интерпретатор python в папку temp, поэтому антивирусы не любят такие программы.
 4. Запустите от имени администратора
@@ -60,7 +60,7 @@ RU | [EN](https://github.com/trottling/Bender/blob/main/README.md)
 - Сканирование установленных Windows KB на наличие CVE
 - Сканирование локальных и внешних портов
 - Сканирование общей системной информации
-- Сохранить отчет в виде изображения
+- Сохранение отчета в виде изображения
 
 ## Пример отчета о сканировании
 
@@ -90,7 +90,7 @@ RU | [EN](https://github.com/trottling/Bender/blob/main/README.md)
 
 ## TODO
 
-- Ошибка: окно может открыться второй раз во время сканирования
+- Пока здесь пусто
 
 ## Как я могу помочь этому проекту
 

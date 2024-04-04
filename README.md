@@ -13,7 +13,9 @@ EN | [RU](https://github.com/trottling/Bender/blob/main/.docs/RU/README.md)
   <img alt="page" src="https://raw.githubusercontent.com/trottling/Bender/main/media/bender.png" width="200"/>
 </div>
 
-**Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python 3.12** (earlier versions are also supported)
+**Simple and portable app for search vulnerabilities in Windows system with pretty UI, written in Python 3.12** (earlier versions are also supported)  
+
+**Many thanks to vulners.com for supporting the project!**
 > **NOTE**
 >  
 > This application is designed to scan ONLY YOUR PC. The author is not responsible for illegal actions in which Bender was used.
@@ -86,7 +88,7 @@ EN | [RU](https://github.com/trottling/Bender/blob/main/.docs/RU/README.md)
 - loldrivers.io
 
 ## TODO
-- Bug: Window may open a second time during scanning
+- As long as it's empty
 
 ## How can I help this project?
 - First, look at [TODO list](#todo)
