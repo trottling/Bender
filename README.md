@@ -67,7 +67,7 @@ EN | [RU](https://github.com/trottling/Bender/blob/main/.docs/RU/README.md)
 | Project Part          | Autor(s)        | Desc                                                         |
 |-----------------------|-----------------|--------------------------------------------------------------|
 | App idea              | my smoky head   | knight 80 😎 😎 😎                                           |
-| Pretty Icons          | icons8.com      | Curated graphics, design apps, and AI tools                  |
+| Pretty Icons          | icons8.com      | Curated graphics, design apps, and AI tools                  |
 | StyleSheets           | [GTRONICK/QSS]  | QT Style Sheets templates                                    |
 | CVE Info DB Api       | [mitre.org]     | Solving Problems for a Safer World                           |
 | Vulnerable drivers DB | [loldrivers.io] | curated list of all abused Windows drivers                   |
