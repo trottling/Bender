@@ -42,14 +42,14 @@ class SideGrip(QtWidgets.QWidget):
         height = max(window.minimumHeight(), window.height() + delta.y())
         window.resize(window.width(), height)
 
-    def mouse_press_event(self, event):
+    def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.MouseButton.LeftButton:
             self.mouse_pos = event.pos()
 
-    def mouse_move_event(self, event):
+    def mouseMoveEvent(self, event):
         if self.mouse_pos is not None:
             delta = event.pos() - self.mouse_pos
             self.resize_func(delta)
 
-    def mouse_release_event(self, event):
+    def mouseReleaseEvent(self, event):
         self.mouse_pos = None
