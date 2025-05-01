@@ -1,7 +1,7 @@
 from PyQt6 import uic, QtTest
 from PyQt6.QtCore import Qt, QPropertyAnimation, QEasingCurve
 from PyQt6.QtGui import QPixmap
-from PyQt6.QtWidgets import QSplashScreen, QGraphicsOpacityEffect
+from PyQt6.QtWidgets import QSplashScreen, QGraphicsOpacityEffect, QProgressBar, QLabel
 
 from ui.tools import get_rel_path
 
@@ -13,12 +13,13 @@ class SplashScreen(QSplashScreen):
         self.progress_bar = None
 
         uic.loadUi(get_rel_path(self, "assets/ui/splash.ui"), self)
+        self.progress_bar = self.findChild(QProgressBar, "progressBar")
+        self.info_label = self.findChild(QLabel, "info_label")
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
         self.setWindowTitle("Bender | Loading...")
         self.setPixmap(QPixmap(get_rel_path(self, "assets/images/splash.png")))
 
-        # Проверяем, что info_label и progress_bar существуют
-        if hasattr(self, 'info_label') and self.info_label is not None:
+        if self.info_label is not None:
             self.effect = QGraphicsOpacityEffect(self.info_label)
             self.effect.setOpacity(1.0)
             self.info_label.setGraphicsEffect(self.effect)
