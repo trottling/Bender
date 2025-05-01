@@ -23,7 +23,7 @@ from on_start.check_instance import check_instance
 from ui.splash import SplashScreen
 from ui.user_interface import UserUI
 
-app_version = "2.3.0"
+app_version = "2.2.3"
 
 if __name__ == '__main__':
     # Check Instance

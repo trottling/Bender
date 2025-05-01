@@ -7,7 +7,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1328</width>
+    <width>1329</width>
     <height>778</height>
    </rect>
   </property>
@@ -393,7 +393,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_start">
        <layout class="QGridLayout" name="gridLayout_2">
@@ -494,6 +494,22 @@
            </spacer>
           </item>
           <item>
+           <spacer name="verticalSpacer_66">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>45</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QLabel" name="alert_msg">
             <property name="sizePolicy">
              <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
@@ -546,6 +562,22 @@ padding-right: 8px;</string>
              <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
             </property>
            </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_67">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>45</height>
+             </size>
+            </property>
+           </spacer>
           </item>
           <item>
            <spacer name="horizontalSpacer_8">
@@ -930,6 +962,18 @@ padding-right: 8px;</string>
               </item>
               <item>
                <widget class="QLabel" name="label_os_name_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>170</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <pointsize>17</pointsize>
@@ -1012,6 +1056,18 @@ padding-right: 8px;</string>
               </item>
               <item>
                <widget class="QLabel" name="label_os_ver_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>170</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <pointsize>17</pointsize>
@@ -1094,6 +1150,18 @@ padding-right: 8px;</string>
               </item>
               <item>
                <widget class="QLabel" name="label_os_status_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>170</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <pointsize>17</pointsize>
@@ -1285,6 +1353,18 @@ padding-right: 8px;</string>
               </item>
               <item>
                <widget class="QLabel" name="label_admin_result">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>170</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <pointsize>17</pointsize>
@@ -1367,6 +1447,18 @@ padding-right: 8px;</string>
               </item>
               <item>
                <widget class="QLabel" name="label_net_status_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>170</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <pointsize>17</pointsize>
@@ -1564,6 +1656,18 @@ padding-right: 8px;</string>
               </item>
               <item>
                <widget class="QLabel" name="label_vulners_api_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>170</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <pointsize>17</pointsize>
@@ -1646,6 +1750,18 @@ padding-right: 8px;</string>
               </item>
               <item>
                <widget class="QLabel" name="label_vulners_key_3">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>170</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <pointsize>17</pointsize>
@@ -1728,6 +1844,18 @@ padding-right: 8px;</string>
               </item>
               <item>
                <widget class="QLabel" name="label_loldrivers_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>170</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <pointsize>17</pointsize>
@@ -2552,7 +2680,7 @@ padding-right: 8px;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>856</width>
+               <width>1308</width>
                <height>3581</height>
               </rect>
              </property>
@@ -6916,10 +7044,16 @@ processing threads</string>
                    <number>100</number>
                   </property>
                   <property name="maximum">
-                   <number>2047</number>
+                   <number>200</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>30</number>
+                  </property>
+                  <property name="pageStep">
+                   <number>25</number>
                   </property>
                   <property name="value">
-                   <number>500</number>
+                   <number>200</number>
                   </property>
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
@@ -6968,7 +7102,7 @@ processing threads</string>
                    </font>
                   </property>
                   <property name="text">
-                   <string>500</string>
+                   <string>200</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>

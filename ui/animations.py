@@ -1,7 +1,7 @@
 import sys
 
 from PyQt6 import QtTest, QtCore
-from PyQt6.QtCore import QPropertyAnimation, QEasingCurve, QTimer
+from PyQt6.QtCore import QPropertyAnimation, QEasingCurve, QTimer, QRect
 from PyQt6.QtGui import QPixmap, QMovie
 from PyQt6.QtWidgets import QGraphicsOpacityEffect
 from loguru import logger
@@ -40,24 +40,60 @@ def app_exit_anim(self):
     animation.start()
 
 
-def stacked_widget_change_page(self, page_to: int):
-    logger.debug(f"StackedWidgetAnimation : move to {page_to}")
-    current_widget = self.ui.stackedWidget.currentWidget()
+# Slide animation for QStackedWidget
+_slide_animations = []  # Global list to keep references
 
-    effect = QGraphicsOpacityEffect(current_widget)
-    effect.setOpacity(1.0)
-    current_widget.setGraphicsEffect(effect)
+def stacked_widget_change_page(stacked_widget, new_index, direction='left', duration=300):
+    current_index = stacked_widget.currentIndex()
+    if current_index == new_index:
+        return
 
-    anim = QPropertyAnimation(effect, b"opacity", self)
-    anim.setDuration(250)
-    anim.setStartValue(effect.opacity())
-    anim.setEndValue(0.0)
-    anim.setEasingCurve(QEasingCurve.Type.OutQuad)
+    current_widget = stacked_widget.widget(current_index)
+    next_widget = stacked_widget.widget(new_index)
+    width = stacked_widget.frameRect().width()
+    height = stacked_widget.frameRect().height()
 
-    anim.finished.connect(lambda: (self.ui.stackedWidget.setCurrentIndex(page_to), effect.setEnabled(False)))
+    # Direction offsets
+    if direction == 'left':
+        offset_x, offset_y = width, 0
+    elif direction == 'right':
+        offset_x, offset_y = -width, 0
+    elif direction == 'up':
+        offset_x, offset_y = 0, height
+    elif direction == 'down':
+        offset_x, offset_y = 0, -height
+    else:
+        offset_x, offset_y = width, 0  # default left
 
-    anim.start()
+    # Prepare next widget
+    next_widget.setGeometry(QRect(offset_x, offset_y, width, height))
+    next_widget.show()
 
+    # Animations
+    anim_current = QPropertyAnimation(current_widget, b"geometry")
+    anim_current.setDuration(duration)
+    anim_current.setStartValue(QRect(0, 0, width, height))
+    anim_current.setEndValue(QRect(-offset_x, -offset_y, width, height))
+    anim_current.setEasingCurve(QEasingCurve.Type.InOutQuad)
+
+    anim_next = QPropertyAnimation(next_widget, b"geometry")
+    anim_next.setDuration(duration)
+    anim_next.setStartValue(QRect(offset_x, offset_y, width, height))
+    anim_next.setEndValue(QRect(0, 0, width, height))
+    anim_next.setEasingCurve(QEasingCurve.Type.InOutQuad)
+
+    # Keep references
+    _slide_animations.append(anim_current)
+    _slide_animations.append(anim_next)
+
+    def on_finished():
+        stacked_widget.setCurrentIndex(new_index)
+        current_widget.hide()
+        _slide_animations.clear()
+
+    anim_next.finished.connect(on_finished)
+    anim_current.start()
+    anim_next.start()
 
 def elem_show_anim(self, elem, show=True, dur=250):
     logger.debug("ElemShowAnim : Show")

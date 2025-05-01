@@ -85,7 +85,7 @@ def report_apps_full(self, index, report):
         else:
             self.ui.plainTextEdit_cvss_3.setPlainText("No info")
 
-        stacked_widget_change_page(self, 5)
+        stacked_widget_change_page(self, 5, "left")
     except Exception as e:
         report_error(self, f"report_apps_full : {e}")
 
@@ -124,7 +124,7 @@ def report_drivers_full(self, index, report):
 
         self.ui.plainTextEdit_vuln.setPlainText(format_dict(self, driver_info))
 
-        stacked_widget_change_page(self, 7)
+        stacked_widget_change_page(self, 7, "left")
     except Exception as e:
         report_error(self, f"ShowCVEInfo_CCD : {e}")
 
@@ -232,7 +232,7 @@ def report_kb_full(self, index, report):
             for item in cve_info['cvss_metrics']['cvssV3_1']:
                 self.ui.plainTextEdit_cvss_3.appendPlainText(f"{split_words(self, item)}: {cve_info['cvss_metrics']['cvssV3_1'][item]}")
         else:
-            self.ui.plainTextEdit_cvss_3.setPlainText("No info")
+            self.ui.plainTextEdit_cvss_3.setPlainText("No info", "left")
 
         stacked_widget_change_page(self, 5)
     except Exception as e:

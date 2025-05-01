@@ -22,9 +22,9 @@ def connect_buttons(self):
     # Start page
     #
 
-    self.ui.setting_btn.clicked.connect(lambda: (stacked_widget_change_page(self, 3)))
+    self.ui.setting_btn.clicked.connect(lambda: (stacked_widget_change_page(self.ui.stackedWidget, 3, "left")))
 
-    self.ui.info_btn.clicked.connect(lambda: (stacked_widget_change_page(self, 6)))
+    self.ui.info_btn.clicked.connect(lambda: (stacked_widget_change_page(self.ui.stackedWidget, 6, "left")))
 
     self.ui.reload_btn.clicked.connect(lambda: (restart_start_task(self)))
 
@@ -42,16 +42,14 @@ def connect_buttons(self):
     #
 
     self.ui.setting_back_button.clicked.connect(
-        lambda: (save_settings(self), (stacked_widget_change_page(self, 0))))
+        lambda: (save_settings(self), (stacked_widget_change_page(self.ui.stackedWidget, 0, "right"))))
 
     # Save settings on change
     self.ui.horizontalSlider_network_threads.valueChanged.connect(lambda: save_on_change(self))
     self.ui.horizontalSlider_data_threads.valueChanged.connect(lambda: save_on_change(self))
     self.ui.horizontalSlider_port_threads.valueChanged.connect(lambda: save_on_change(self))
-    self.ui.qss_comboBox.currentIndexChanged.connect(lambda: save_on_change(self))
-    self.ui.check_key_pushButton.clicked.connect(lambda: save_on_change(self))
-
     self.ui.qss_comboBox.currentIndexChanged.connect(lambda: apply_qss_theme(self))
+    self.ui.check_key_pushButton.clicked.connect(lambda: save_on_change(self))
 
     self.ui.save_log_pushButton.clicked.connect(lambda: save_debug_log(self))
 
@@ -61,7 +59,7 @@ def connect_buttons(self):
     # Info page
     #
 
-    self.ui.info_back_button.clicked.connect(lambda: stacked_widget_change_page(self, 0))
+    self.ui.info_back_button.clicked.connect(lambda: stacked_widget_change_page(self.ui.stackedWidget, 0, "right"))
     self.ui.pushButton_repo.clicked.connect(lambda: webbrowser.open("https://github.com/trottling/Bender"))
 
     #
@@ -69,18 +67,20 @@ def connect_buttons(self):
     #
 
     self.ui.save_log_pushButton_2.clicked.connect(lambda: save_debug_log(self))
-
     self.ui.errors_exit.clicked.connect(lambda: (logger.debug("errors_exit : ******** EXIT ********"), sys.exit(-1)))
 
-    self.ui.cve_info_back_button.clicked.connect(lambda: (stacked_widget_change_page(self, 2), clear_cve_info_page(self)))
+    #
+    # CVE Info page
+    #
 
-    self.ui.next_work_btn.clicked.connect(lambda: stacked_widget_change_page(self, 2))
+    self.ui.cve_info_back_button.clicked.connect(lambda: (stacked_widget_change_page(self.ui.stackedWidget, 2,"right"), clear_cve_info_page(self)))
 
-    self.ui.vuln_info_back_button.clicked.connect(lambda: stacked_widget_change_page(self, 2))
+    self.ui.next_work_btn.clicked.connect(lambda: stacked_widget_change_page(self.ui.stackedWidget, 2,"up"))
+
+    self.ui.vuln_info_back_button.clicked.connect(lambda: stacked_widget_change_page(self.ui.stackedWidget, 2,"right"))
 
     self.ui.stackedWidget.currentChanged.connect(lambda: change_title(self))
 
-    # self.ui.save_report_btn.clicked.connect(lambda: SaveReport(self))
 
     #
     # Toolbar
