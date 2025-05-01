@@ -1,8 +1,4 @@
-import os.path
-from os import listdir
-from os.path import isfile, join
-
-from ui.tools import get_windows_theme, get_rel_path
+from ui.tools import get_rel_path, get_windows_theme
 
 
 def load_styles(self):

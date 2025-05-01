@@ -19,7 +19,7 @@ def run_scanner_tasks(self):
     # Run ThreadPoolExecutor --> Put result in result page
     #
 
-    # Set loading gif to progress label
+    # Set loading GIF to progress label
     set_work_page_gif(self)
 
     # Get ui values

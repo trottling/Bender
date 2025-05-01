@@ -214,7 +214,7 @@ def connect_vulners_soft(self):
 
 def cut_list_by_chunks(self, lst, chunk_max):
     # Делит список на чанки по chunk_max элементов
-    res = [lst[i:i+chunk_max] for i in range(0, len(lst), chunk_max)]
+    res = [lst[i:i + chunk_max] for i in range(0, len(lst), chunk_max)]
     logger.debug(f"CutListByChunks: {len(lst)} items / {chunk_max} chunk size --> {len(res)} chunks")
     return res
 
@@ -223,7 +223,7 @@ def send_apps_vulners(self):
     try:
         if len(self.soft_list) > 500:
             self.soft_list = self.soft_list[:500]
-        self.apps_report = self.vulners_api_soft.software_audit(os="", version="", packages=[{"software": software['name'], "version": software['version']} for software in self.soft_list])
+        self.apps_report = self.vulners_api_soft.software_audit(os="", version="", packages=[{ "software": software['name'], "version": software['version'] } for software in self.soft_list])
         self.stat_signal.emit("good")
         return False
     except Exception as e:
@@ -247,9 +247,9 @@ def process_apps_response(self):
                 "shortName": "",
                 "cvss_metrics": [],
                 "references": [],
-            }
+                }
             self.cve_list_apps.append(cve)
-        self.apps_report = {"cve_list": self.cve_list_apps}
+        self.apps_report = { "cve_list": self.cve_list_apps }
     except Exception as e:
         logger.error(f"ProcessAppsResponse: Failed to transorm to needed format: {e}")
         self.stat_signal.emit("bad")
@@ -395,7 +395,7 @@ def hash_drivers(self):
                 self.drivers_list_hashed.append([
                     hashlib.sha256(data).hexdigest(),
                     hashlib.sha1(data).hexdigest()
-                ])
+                    ])
         self.stat_signal.emit("good")
         return False
     except Exception as e:
@@ -436,7 +436,7 @@ def scan_drivers(self):
         return True
 
 
-def recursive_save_dict(self, source_dict, target_dict, prefix=""):
+def recursive_save_dict(self, source_dict, target_dict, prefix = ""):
     for key, value in source_dict.items():
         if isinstance(value, dict):
             recursive_save_dict(self, value, target_dict, prefix + key + ".")
@@ -504,7 +504,7 @@ def process_driver(self, drv_hash):
                     "desc": f"{company} : {desc} : {product} : {item_copyright}",
                     "imported_functions": imported_functions,
                     "hash": drhash
-                }
+                    }
                 recursive_save_dict(self, date, vuln_driver_data)
                 self.drivers_vuln_list.append(vuln_driver_data)
 
@@ -528,7 +528,7 @@ def check_drivers(self):
         self.stat_signal.emit("bad")
         return
 
-    self.drivers_report = {"driver_list": self.drivers_vuln_list}
+    self.drivers_report = { "driver_list": self.drivers_vuln_list }
     self.ReportDrivers_signal.emit(self.drivers_report)
     self.stat_signal.emit("good")
 
@@ -586,9 +586,9 @@ def process_kb_response(self):
                 "shortName": "",
                 "cvss_metrics": [],
                 "references": [],
-            }
+                }
             self.cve_list_kb.append(cve)
-        self.kb_report = {"cve_list": self.cve_list_kb}
+        self.kb_report = { "cve_list": self.cve_list_kb }
     except Exception as e:
         logger.error(f"ProcessKBResponse: Failed to transorm to needed format: {e}")
         self.stat_signal.emit("bad")
@@ -634,21 +634,3 @@ def check_kb(self):
 
     self.stat_signal.emit("good")
     self.ReportKB_signal.emit(self.kb_report)
-
-
-def check_instance():
-    import os, sys, wmi
-    exe_path = os.path.abspath(sys.argv[0]).lower()
-    count = 0
-    for process in wmi.WMI().Win32_Process():
-        try:
-            proc_path = (process.ExecutablePath or '').lower()
-            if proc_path == exe_path:
-                count += 1
-        except Exception as e:
-            logger.error(f"[Check_Instance] WMI process error: {e}")
-            continue
-    if count > 1:
-        logger.critical("[Check_Instance] Another instance detected. Exiting.")
-        sys.exit(-1)
-    logger.info("Instance check passed: no duplicate running.")

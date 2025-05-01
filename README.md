@@ -113,9 +113,9 @@ EN | [RU](https://github.com/trottling/Bender/blob/main/.docs/RU/README.md)
    [httpx]: <https://www.python-httpx.org/>
    [vulners]: <https://pypi.org/project/vulners/>
    [darkdetect]: <https://github.com/albertosottile/darkdetect>
-   [GTRONICK/QSS]: <github.com/GTRONICK/QSS>
-   [mitre.org]: <mitre.org>
-   [loldrivers.io]: <loldrivers.io>
+   [GTRONICK/QSS]: <https://github.com/GTRONICK/QSS>
+   [mitre.org]: <https://mitre.org>
+   [loldrivers.io]: <https://loldrivers.io>
    [cpuinfo]: <https://github.com/workhorsy/py-cpuinfo>
    [getmac]: <https://github.com/GhostofGoes/getmac>
    [PortScan]: <https://github.com/Aperocky/PortScan>

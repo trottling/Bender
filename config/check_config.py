@@ -15,7 +15,7 @@ def check_config_file(self):
             is_empty = True
     if not config_exists or is_empty:
         try:
-            with open(self.config_path, "w") as f:
+            with open(self.config_path, "w") as _:
                 pass
             logger.info(f"check_config_file: {self.config_path} created")
         except Exception as e:

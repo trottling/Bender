@@ -98,7 +98,7 @@ def connect_buttons(self):
 
 
 def apply_qss_theme(self):
-    # Fade out window
+    # Fade out a window
     fade_out = QPropertyAnimation(self.ui, b'windowOpacity', self)
     fade_out.setDuration(200)
     fade_out.setStartValue(1.0)
