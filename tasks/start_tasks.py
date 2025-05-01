@@ -1,42 +1,67 @@
-import concurrent.futures as cf
 import ctypes
 import platform
 import sys
 import webbrowser
 
 import httpx
-from PyQt6 import QtTest
+from PyQt6.QtCore import QThread, pyqtSignal
 from PyQt6.QtWidgets import QMessageBox
 from loguru import logger
 
-from ui.animations import image_change_anim, text_change_anim, show_err_message
+from ui.animations import image_change_anim, show_err_message, text_change_anim
+
+
+class CheckTask(QThread):
+    finished = pyqtSignal(int, list)
+    def __init__(self, func, text, idx, total, parent=None):
+        super().__init__(parent)
+        self.func = func
+        self.text = text
+        self.idx = idx
+        self.total = total
+    def run(self):
+        result = self.func()
+        self.finished.emit(self.idx, result)
 
 
 def run_start_tasks(self):
-    # Run a task in another Thread
-    # Task returns list like [[func1, arg1], [func2, arg2]]
-    # Run funcs with args from a list in ui thread
     self.start_tasks_running = True
     self.vulners_key = self.ui.api_key.text().strip()
-    self.done_start_tasks_list = []
-    self.start_tasks_list = [check_update, get_system_info, check_is_user_admin, get_network,
-                             check_vulners, check_vulners_key, check_loldrivers]
-    with cf.ThreadPoolExecutor(max_workers=len(self.start_tasks_list)) as self.st_pool:
-        [self.done_start_tasks_list.append(self.st_pool.submit(task, self)) for task in self.start_tasks_list]
-        # This workaround prevents UI freezes
-        while all([i.done() is not True for i in self.done_start_tasks_list]):
-            QtTest.QTest.qWait(200)
-        QtTest.QTest.qWait(500)
-        for task in self.done_start_tasks_list:
-            if task.result() is not None:
-                for func in task.result():
-                    try:
-                        QtTest.QTest.qWait(25)
-                        func[0](*[arg for arg in func[1:] if len(func) > 1])
-                    except Exception as e:
-                        logger.error(f"run_start_tasks: {e}")
-    QtTest.QTest.qWait(250)
-    self.start_tasks_running = False
+    checks = [
+        ("Checking for updates...", lambda: check_update(self)),
+        ("Getting system info...", lambda: get_system_info(self)),
+        ("Checking admin rights...", lambda: check_is_user_admin(self)),
+        ("Checking network...", lambda: get_network(self)),
+        ("Checking Vulners API...", lambda: check_vulners(self)),
+        ("Checking Vulners key...", lambda: check_vulners_key(self)),
+        ("Checking LoLDrivers DB...", lambda: check_loldrivers(self)),
+    ]
+    total = len(checks)
+    self._start_threads = []
+    self._start_tasks_finished = 0
+
+    def on_check_finished(check_idx, result):
+        self._start_tasks_finished += 1
+        check_text, _ = checks[check_idx - 1]
+        if result is not None:
+            if not isinstance(result, list):
+                result = [result]
+            for action in result:
+                try:
+                    if isinstance(action, list) and len(action) > 0 and callable(action[0]):
+                        action[0](*[arg for arg in action[1:]])
+                    else:
+                        self.logger.error(f"run_start_tasks: action is not a valid callable list: {action}")
+                except Exception as e:
+                    self.logger.error(f"run_start_tasks: {e}")
+        if self._start_tasks_finished == total:
+            self.start_tasks_running = False
+
+    for idx, (check_text, func) in enumerate(checks, 1):
+        thread = CheckTask(func, check_text, idx, total)
+        thread.finished.connect(on_check_finished)
+        self._start_threads.append(thread)
+        thread.start()
 
 
 def check_update(self):
@@ -72,7 +97,7 @@ def check_update(self):
 
 
 def ask_update(self, text):
-    if QMessageBox.question(self, "Update aviable", text) == QMessageBox.StandardButton.Yes:
+    if QMessageBox.question(self, "Update available", text) == QMessageBox.StandardButton.Yes:
         webbrowser.open("https://github.com/trottling/Bender/releases/latest")
 
 
@@ -180,7 +205,7 @@ def check_vulners(self):
 
     if self.validate_vulners_status:
         result.append([image_change_anim, self, self.ui.image_vulners_api, r"assets\images\server.png"])
-        result.append([text_change_anim, self, self.ui.label_vulners_api_2, "Aviable"])
+        result.append([text_change_anim, self, self.ui.label_vulners_api_2, "Available"])
     else:
         result.append([image_change_anim, self, self.ui.image_vulners_api, r"assets\images\fail.png"])
         result.append([text_change_anim, self, self.ui.label_vulners_api_2, "Unavailable"])
@@ -249,9 +274,10 @@ def check_loldrivers(self):
 
     if self.validate_loldrivers_status:
         result.append([image_change_anim, self, self.ui.image_loldrivers, r"assets\images\db.png"])
-        result.append([text_change_anim, self, self.ui.label_loldrivers_2, "Aviable"])
+        result.append([text_change_anim, self, self.ui.label_loldrivers_2, "Available"])
     else:
         result.append([image_change_anim, self, self.ui.image_loldrivers, r"assets\images\fail.png"])
         result.append([text_change_anim, self, self.ui.label_loldrivers_2, "Unavailable"])
 
     return result
+
