@@ -1,7 +1,4 @@
-from loguru import logger
 import ctypes
-import platform
-import sys
 
 
 def check_admin(log=None):
