@@ -1,4 +1,3 @@
-from ui.buttons import hide_qss_input
 
 
 def hide_elements(self):
@@ -12,9 +11,6 @@ def hide_elements(self):
     # Start page
     self.ui.alert_msg.hide()
 
-    # Settings page
-    self.ui.delete_qss_pushButton.hide()
-
     # Work progress page
     self.ui.next_work_btn.hide()
 
@@ -23,7 +19,5 @@ def hide_elements(self):
     self.ui.app_name_2.hide()
     self.ui.app_desc_2.hide()
     self.ui.app_link_label.hide()
-
-    hide_qss_input(self)
 
     self.logger.debug("hide_elements : Elements Hided")

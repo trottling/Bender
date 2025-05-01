@@ -54,9 +54,6 @@ def connect_buttons(self):
     self.ui.horizontalSlider_port_threads.valueChanged.connect(lambda: save_on_change(self))
 
     self.ui.qss_comboBox.currentIndexChanged.connect(lambda: apply_qss_theme(self))
-    self.ui.qss_comboBox.currentIndexChanged.connect(lambda: change_qss_delete_btn(self))
-
-    self.ui.reset_qss_pushButton.clicked.connect(lambda: load_styles(self))
 
     self.ui.save_log_pushButton.clicked.connect(lambda: save_debug_log(self))
 
@@ -83,8 +80,6 @@ def connect_buttons(self):
 
     self.ui.vuln_info_back_button.clicked.connect(lambda: stacked_widget_change_page(self, 2))
 
-    self.ui.delete_qss_pushButton.clicked.connect(lambda: delete_qss_theme(self))
-
     self.ui.stackedWidget.currentChanged.connect(lambda: change_title(self))
 
     # self.ui.save_report_btn.clicked.connect(lambda: SaveReport(self))
@@ -103,17 +98,28 @@ def connect_buttons(self):
 
 
 def apply_qss_theme(self):
-    save_settings(self)
-    if self.ui.qss_comboBox.currentText() == 'Default (Light)' or self.ui.qss_comboBox.currentText() == 'Default (Dark)':
-        self.ui.setStyleSheet(open(get_rel_path(self, f"assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss"), mode="r").read())
-        logger.debug(f"AppleQSSTheme : assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss : Default Styles loaded")
+    # Fade out window
+    fade_out = QPropertyAnimation(self.ui, b'windowOpacity', self)
+    fade_out.setDuration(200)
+    fade_out.setStartValue(1.0)
+    fade_out.setEndValue(0.0)
 
-    elif self.ui.qss_comboBox.currentText() != "Custom":
-        try:
-            self.ui.setStyleSheet(open(get_rel_path(self, f"{self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()}"), mode="r").read())
-            logger.debug(f"AppleQSSTheme : {self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()} : User Styles loaded")
-        except Exception as e:
-            logger.error(f"AppleQSSTheme : {self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()} : User Styles not loaded : {e}")
+    def set_theme():
+        theme = self.ui.qss_comboBox.currentText()
+        qss_path = get_rel_path(self, f"assets\\qss\\Material{theme}.qss")
+        self.ui.setStyleSheet(open(qss_path, mode="r").read())
+        logger.debug(f"AppleQSSTheme : {qss_path} : Styles loaded")
+
+    def on_fade_out_finished():
+        set_theme()
+        fade_in = QPropertyAnimation(self.ui, b'windowOpacity', self)
+        fade_in.setDuration(200)
+        fade_in.setStartValue(0.0)
+        fade_in.setEndValue(1.0)
+        fade_in.start()
+
+    fade_out.finished.connect(on_fade_out_finished)
+    fade_out.start()
 
 
 def check_vulners_key(self):
@@ -130,27 +136,6 @@ def check_vulners_key(self):
     else:
         image_change_anim(self, self.ui.vulners_check_result, 'assets//images//fail.png')
         self.validate_vulners_key = False
-
-
-def delete_qss_theme(self):
-    theme_to_delete = self.ui.qss_comboBox.currentText()
-    logger.debug(f"DeleteQSSTheme : theme To Delete : {theme_to_delete}")
-    if theme_to_delete in ("Custom", "Default (Light)", "Default (Dark)"):
-        return
-    try:
-        os.remove(f"{self.user_themes_path}{theme_to_delete}")
-        self.ui.qss_comboBox.removeItem(self.ui.qss_comboBox.currentIndex())
-        self.ui.qss_comboBox.setCurrentText(self.default_theme)
-        apply_qss_theme(self)
-    except Exception as e:
-        logger.error(f"DeleteQSSTheme : {theme_to_delete} : {e}")
-
-
-def change_qss_delete_btn(self):
-    if self.ui.qss_comboBox.currentText() not in ("Custom", "Default (Light)", "Default (Dark)"):
-        elem_show_anim(self, self.ui.delete_qss_pushButton)
-    else:
-        elem_hide_anim(self, self.ui.delete_qss_pushButton)
 
 
 def change_title(self):

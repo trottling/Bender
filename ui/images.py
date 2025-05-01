@@ -72,13 +72,7 @@ def load_images_and_icons(self):
 
     # Settings
     self.ui.setting_back_button.setStyleSheet(".QPushButton {image: url('" + get_rel_path(self, 'assets//images//back.png') + "')}")
-    self.ui.lang_apply_pushButton.setStyleSheet(".QPushButton {image: url('" + get_rel_path(self, 'assets//images//apply.png') + "')}")
-    self.ui.qss_apply_pushButton.setStyleSheet(".QPushButton {image: url('" + get_rel_path(self, 'assets//images//apply.png') + "')}")
-    self.ui.reset_qss_pushButton.setStyleSheet(".QPushButton {image: url('" + get_rel_path(self, 'assets//images//reset.png') + "')}")
-    self.ui.qss_apply_file_pushButton.setStyleSheet(".QPushButton {image: url('" + get_rel_path(self, 'assets//images//add.png') + "')}")
-    self.ui.qss_file_pushButton.setStyleSheet(".QPushButton {image: url('" + get_rel_path(self, 'assets//images//qss-file.png') + "')}")
     self.ui.check_key_pushButton.setStyleSheet(".QPushButton {image: url('" + get_rel_path(self, 'assets//images//check.png') + "')}")
-    self.ui.delete_qss_pushButton.setStyleSheet(".QPushButton {image: url('" + get_rel_path(self, 'assets//images//delete.png') + "')}")
 
     # CVE info page
     self.ui.cve_info_back_button.setStyleSheet(".QPushButton {image: url('" + get_rel_path(self, 'assets//images//back.png') + "')}")
