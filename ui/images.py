@@ -36,7 +36,7 @@ def load_images_and_icons(self):
     self.ui.pushButton_app_exit.setStyleSheet(".QPushButton {image: url('" + get_rel_path(self, 'assets//images//exit.png') + "')}")
     self.ui.pushButton_app_size.setStyleSheet(".QPushButton {image: url('" + get_rel_path(self, 'assets//images//resize.png') + "')}")
     self.ui.pushButton_app_hide.setStyleSheet(".QPushButton {image: url('" + get_rel_path(self, 'assets//images//minimize.png') + "')}")
-    self.ui.app_icon.setStyleSheet(".QFrame {image: url('" + get_rel_path(self, 'assets//images//bender-small.png') + "')}")
+    self.ui.app_icon.setStyleSheet(".QFrame {border-image: url('" + get_rel_path(self, 'assets//images//bender-small.png') + "')}")
 
     #
     # Pages
