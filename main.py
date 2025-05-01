@@ -1,5 +1,6 @@
 import os
 import sys
+import ctypes
 
 from loguru import logger
 
@@ -20,12 +21,20 @@ from PyQt6.QtWidgets import QApplication
 
 from on_start.check_appdir import check_app_dir
 from on_start.check_instance import check_instance
+from on_start.setup_logger import check_admin
 from ui.splash import SplashScreen
 from ui.user_interface import UserUI
 
 app_version = "2.2.3"
 
 if __name__ == '__main__':
+    # Check admin rights and relaunch if needed
+    if not check_admin():
+        logger.warning('App is not running as administrator. Relaunching with admin rights...')
+        params = ' '.join([f'"{arg}"' for arg in sys.argv])
+        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, params, None, 1)
+        sys.exit(0)
+
     # Check Instance
     check_instance()
 
