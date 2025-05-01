@@ -3,21 +3,21 @@ from PyQt6.QtCore import Qt, QPropertyAnimation, QEasingCurve
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QSplashScreen, QGraphicsOpacityEffect
 
-from ui.tools import GetRelPath
+from ui.tools import get_rel_path
 
 
 class SplashScreen(QSplashScreen):
     def __init__(self, ):
         super(QSplashScreen, self).__init__()
         self.info_label = None
-        self.progressBar = None
+        self.progress_bar = None
 
-        uic.loadUi(GetRelPath(self, "assets/ui/splash.ui"), self)
+        uic.loadUi(get_rel_path(self, "assets/ui/splash.ui"), self)
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
         self.setWindowTitle("Bender | Loading...")
-        self.setPixmap(QPixmap(GetRelPath(self, "assets/images/splash.png")))
+        self.setPixmap(QPixmap(get_rel_path(self, "assets/images/splash.png")))
 
-        # Проверяем, что info_label и progressBar существуют
+        # Проверяем, что info_label и progress_bar существуют
         if hasattr(self, 'info_label') and self.info_label is not None:
             self.effect = QGraphicsOpacityEffect(self.info_label)
             self.effect.setOpacity(1.0)
@@ -26,22 +26,22 @@ class SplashScreen(QSplashScreen):
             self.effect = QGraphicsOpacityEffect()
             self.effect.setOpacity(1.0)
 
-    def ChangePbar(self, percent: int, text: str):
-        if self.progressBar is not None:
-            self.PercAnim(percent)
+    def change_pbar(self, percent: int, text: str):
+        if self.progress_bar is not None:
+            self.perc_anim(percent)
         if self.info_label is not None:
-            self.TextAnim(text)
+            self.text_anim(text)
         QtTest.QTest.qWait(150)
 
-    def PercAnim(self, percent: int):
-        if self.progressBar is not None:
-            animation = QPropertyAnimation(self.progressBar, b"value", self)
+    def perc_anim(self, percent: int):
+        if self.progress_bar is not None:
+            animation = QPropertyAnimation(self.progress_bar, b"value", self)
             animation.setDuration(200)
-            animation.setStartValue(self.progressBar.value())
+            animation.setStartValue(self.progress_bar.value())
             animation.setEndValue(percent)
             animation.start()
 
-    def TextAnim(self, text: str):
+    def text_anim(self, text: str):
         if self.info_label is None:
             return
         # Hide

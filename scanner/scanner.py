@@ -1,5 +1,4 @@
 from PyQt6.QtCore import QThread, pyqtSignal
-from loguru import logger
 
 from scanner.scanner_funcs import *
 
@@ -32,10 +31,10 @@ class Scanner(QThread):
     ReportKB_signal = pyqtSignal(dict)
     UpdateWorkPageStat_signal = pyqtSignal(str)
 
-    def __init__(self, logger, net_threads, data_workers, port_workers, vulners_key):
+    def __init__(self, log, net_threads, data_workers, port_workers, vulners_key):
         super().__init__(parent=None)
 
-        self.logger = logger
+        self.logger = log
         self.net_threads = net_threads
         self.data_workers = data_workers
         self.port_workers = port_workers
@@ -47,20 +46,20 @@ class Scanner(QThread):
         self.si.wShowWindow = subprocess.SW_HIDE
 
         self.kb_list = []
-        self.kb_scan_res = {}
-        self.kb_report = {}
+        self.kb_scan_res = { }
+        self.kb_report = { }
         self.drivers_vuln_list = []
         self.drivers_list = []
         self.drivers_list_hashed = []
         self.soft_list = []
-        self.apps_report = {}
+        self.apps_report = { }
         self.cve_list_kb = []
         self.scan_thread = None
-        self.scan_tasks_list = [CheckApps, CheckApps, CheckDrivers, CheckKB, GetLocalPorts,
-                                GetExtPorts, GetWinIcon, GetWinVersions, GetCpu,
-                                GetGpu, GetRam, GetRom, GetFirewall,
-                                GetMac, GetLocalIP, GetExtIP, GetBitness,
-                                GetBitlocker, GetVirtualization]
+        self.scan_tasks_list = [check_apps, check_apps, check_drivers, check_kb, get_local_ports,
+                                get_ext_ports, get_win_icon, get_win_versions, get_cpu,
+                                get_gpu, get_ram, get_rom, get_firewall,
+                                get_mac, get_local_ip, get_ext_ip, get_bitness,
+                                get_bitlocker, get_virtualization]
 
     def run(self):
         # Run funcs

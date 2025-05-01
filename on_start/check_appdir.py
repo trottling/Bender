@@ -3,7 +3,7 @@ from logging.handlers import RotatingFileHandler
 from loguru import logger
 
 
-def CheckAppDir():
+def check_app_dir():
     appdata_path = os.getenv('APPDATA')
     app_folder = os.path.join(appdata_path, "Windows-Vulnerability-Scanner")
 

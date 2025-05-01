@@ -6,15 +6,15 @@ from PyQt6.QtGui import QPixmap, QMovie
 from PyQt6.QtWidgets import QGraphicsOpacityEffect
 from loguru import logger
 
-from ui.tools import GetRelPath
+from ui.tools import get_rel_path
 
 
-def App_Open_Anim(self):
-    logger.debug(f"App_Open_Anim : Animation")
+def app_open_anim(self):
+    logger.debug(f"app_open_anim : Animation")
 
     if self.window_size_full:
         self.ui.showMaximized()
-        logger.debug("App_Open_Anim : showMaximized")
+        logger.debug("app_open_anim : showMaximized")
 
     self.ui.setWindowOpacity(0.0)
     self.ui.show()
@@ -26,10 +26,10 @@ def App_Open_Anim(self):
     animation.start()
 
     self.ui.stackedWidget.setCurrentIndex(0)
-    logger.debug(f"Load_UI : UI showed")
+    logger.debug(f"app_open_anim : UI showed")
 
 
-def App_Exit_Anim(self):
+def app_exit_anim(self):
     logger.debug(f"App_Close_Anim : Animation")
 
     animation = QPropertyAnimation(self.ui, b'windowOpacity', self)
@@ -40,7 +40,7 @@ def App_Exit_Anim(self):
     animation.start()
 
 
-def StackedWidgetChangePage(self, page_to: int):
+def stacked_widget_change_page(self, page_to: int):
     logger.debug(f"StackedWidgetAnimation : move to {page_to}")
     current_widget = self.ui.stackedWidget.currentWidget()
 
@@ -59,7 +59,7 @@ def StackedWidgetChangePage(self, page_to: int):
     anim.start()
 
 
-def ElemShowAnim(self, elem, show=True, dur=250):
+def elem_show_anim(self, elem, show=True, dur=250):
     logger.debug("ElemShowAnim : Show")
 
     elem.setGraphicsEffect(QGraphicsOpacityEffect())
@@ -80,7 +80,7 @@ def ElemShowAnim(self, elem, show=True, dur=250):
     anim.start()
 
 
-def ElemHideAnim(self, elem, hide=True, dur=250):
+def elem_hide_anim(self, elem, hide=True, dur=250):
     logger.debug("ElemHideAnim : Hide")
 
     elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(1.0))
@@ -102,7 +102,7 @@ def ElemHideAnim(self, elem, hide=True, dur=250):
     anim.start()
 
 
-def ImageChangeAnim(self, elem, image):
+def image_change_anim(self, elem, image):
     #
     # Move opacity from 1 to 0 --> Change Image --> Move opacity from 0 to 1 | total 250 ms
     # Part 1
@@ -122,18 +122,18 @@ def ImageChangeAnim(self, elem, image):
     anim.setEndValue(0.0)
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
 
-    anim.finished.connect(lambda: ImageChangeAnimShow(self, elem, image))
+    anim.finished.connect(lambda: image_change_anim_show(self, elem, image))
 
     anim.start()
 
 
-def ImageChangeAnimShow(self, elem, image):
+def image_change_anim_show(self, elem, image):
     #
     # Part 2
     #
 
     try:
-        pixmap = QPixmap(GetRelPath(self, image))
+        pixmap = QPixmap(get_rel_path(self, image))
         elem.setPixmap(pixmap)
     except Exception as e:
         logger.error(f"ImageChangeAnimShow : {e}")
@@ -155,7 +155,7 @@ def ImageChangeAnimShow(self, elem, image):
     logger.debug("ImageChangeAnimShow : Image Changed")
 
 
-def TextChangeAnim(self, elem, text):
+def text_change_anim(self, elem, text):
     #
     # Move opacity from 1 to 0 --> Change text --> Move opacity from 0 to 1 | total 250 ms
     # Part 1
@@ -175,12 +175,12 @@ def TextChangeAnim(self, elem, text):
     anim.setEndValue(0.0)
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
 
-    anim.finished.connect(lambda: TextChangeAnimShow(self, elem, text))
+    anim.finished.connect(lambda: text_change_anim_show(self, elem, text))
 
     anim.start()
 
 
-def TextChangeAnimShow(self, elem, text):
+def text_change_anim_show(self, elem, text):
     #
     # Part 2
     #
@@ -207,42 +207,42 @@ def TextChangeAnimShow(self, elem, text):
     logger.debug("TextChangeAnimShow : Text Changed")
 
 
-def ShowErrMessage(self, msg):
+def show_err_message(self, msg):
     if not self.ui.alert_msg.isVisible():
         self.ui.alert_msg.setText(str(msg))
         logger.debug(f"ShowErrMessage: {msg}")
-        ElemShowAnim(self, self.ui.alert_msg)
-        QTimer.singleShot(5000, lambda: ElemHideAnim(self, self.ui.alert_msg))
+        elem_show_anim(self, self.ui.alert_msg)
+        QTimer.singleShot(5000, lambda: elem_hide_anim(self, self.ui.alert_msg))
 
 
 # noinspection PyArgumentList
-def SetWorkPageGIF(self):
+def set_work_page_gif(self):
     QtTest.QTest.qWait(500)
-    gif = QMovie(GetRelPath(self, r"assets\gifs\loading.gif"))
+    gif = QMovie(get_rel_path(self, r"assets\gifs\loading.gif"))
     gif.setFormat(b"gif")
     gif.setScaledSize(QtCore.QSize(45, 45))
     self.ui.image_work_progress.setMovie(gif)
     gif.start()
-    ElemShowAnim(self, self.ui.image_work_progress, dur=200)
-    ElemShowAnim(self, self.ui.label_work_progress, dur=200)
+    elem_show_anim(self, self.ui.image_work_progress, dur=200)
+    elem_show_anim(self, self.ui.label_work_progress, dur=200)
     QtTest.QTest.qWait(500)
 
 
-def ChangeWorkElems(self):
-    TextChangeAnim(self, self.ui.label_work_progress, "Done")
+def change_work_elems(self):
+    text_change_anim(self, self.ui.label_work_progress, "Done")
     self.ui.image_work_progress.clear()
-    ImageChangeAnim(self, self.ui.image_work_progress, r"assets\images\bender-medium.png")
-    ElemHideAnim(self, self.ui.label_win_warn)
+    image_change_anim(self, self.ui.image_work_progress, r"assets\images\bender-medium.png")
+    elem_hide_anim(self, self.ui.label_win_warn)
 
     QtTest.QTest.qWait(1000)
 
-    ElemShowAnim(self, self.ui.next_work_btn)
+    elem_show_anim(self, self.ui.next_work_btn)
 
 
-def UpdateWorkPageStat(self, stat):
+def update_work_page_stat(self, stat):
     if stat == "good":
         self.res_good += 1
-        TextChangeAnim(self, self.ui.label_scan_successful_len, str(self.res_good))
+        text_change_anim(self, self.ui.label_scan_successful_len, str(self.res_good))
     if stat == "bad":
         self.res_bad += 1
-        TextChangeAnim(self, self.ui.label_scan_error_len, str(self.res_bad))
+        text_change_anim(self, self.ui.label_scan_error_len, str(self.res_bad))

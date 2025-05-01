@@ -19,7 +19,7 @@ from windows_tools.installed_software import get_installed_software
 from loguru import logger
 
 
-def GetWinIcon(self):
+def get_win_icon(self):
     try:
         win_icon = ""
         match platform.release():
@@ -38,7 +38,7 @@ def GetWinIcon(self):
         self.stat_signal.emit("bad")
 
 
-def GetWinVersions(self):
+def get_win_versions(self):
     try:
         self.label_System_name_setText_signal.emit(f"{platform.system()} {platform.release()}")
         self.label_System_ver_setText_signal.emit(platform.version())
@@ -48,7 +48,7 @@ def GetWinVersions(self):
         self.stat_signal.emit("bad")
 
 
-def GetCpu(self):
+def get_cpu(self):
     try:
         self.label_Hardware_cpu_setText_signal.emit(cpuinfo.get_cpu_info()['brand_raw'])
         self.stat_signal.emit("good")
@@ -57,7 +57,7 @@ def GetCpu(self):
         self.stat_signal.emit("bad")
 
 
-def GetGpu(self):
+def get_gpu(self):
     try:
         self.label_Hardware_gpu_setText_signal.emit(str(wmi.WMI().Win32_VideoController()[0].wmi_property('Name').value))
         self.stat_signal.emit("good")
@@ -66,7 +66,7 @@ def GetGpu(self):
         self.stat_signal.emit("bad")
 
 
-def GetRam(self):
+def get_ram(self):
     try:
         self.label_Hardware_ram_setText_signal.emit(f"{round(psutil.virtual_memory().total / 1073741824)} Gb RAM")
         self.stat_signal.emit("good")
@@ -75,7 +75,7 @@ def GetRam(self):
         self.stat_signal.emit("bad")
 
 
-def GetRom(self):
+def get_rom(self):
     try:
         space = 0.0
         for drive in logical_disks.get_logical_disks():
@@ -88,7 +88,7 @@ def GetRom(self):
         self.stat_signal.emit("bad")
 
 
-def GetFirewall(self):
+def get_firewall(self):
     try:
         if windows_firewall.is_firewall_active():
             fwlen = len(subprocess.run(["powershell", "Get-NetFirewallRule"], capture_output=True, text=True, startupinfo=self.si).stdout.split("\n\n"))
@@ -101,7 +101,7 @@ def GetFirewall(self):
         self.stat_signal.emit("bad")
 
 
-def GetMac(self):
+def get_mac(self):
     try:
         self.label_network_mac_setText_signal.emit(f"{str(get_mac_address())} - Mac adress")
         self.stat_signal.emit("good")
@@ -110,7 +110,7 @@ def GetMac(self):
         self.stat_signal.emit("bad")
 
 
-def GetLocalIP(self):
+def get_local_ip(self):
     try:
         self.label_Network_local_ip_setText_signal.emit(f"{socket.gethostbyname(socket.gethostname())} - Local IP")
         self.stat_signal.emit("good")
@@ -119,7 +119,7 @@ def GetLocalIP(self):
         self.stat_signal.emit("bad")
 
 
-def GetExtIP(self):
+def get_ext_ip(self):
     try:
         self.label_Network_ext_ip_setText_signal.emit(f"{httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')} - External IP")
         self.stat_signal.emit("good")
@@ -128,7 +128,7 @@ def GetExtIP(self):
         self.stat_signal.emit("bad")
 
 
-def GetBitness(self):
+def get_bitness(self):
     try:
         if bitness.is_64bit():
             self.frame_sys_bitness_setStyleSheet_signal.emit('assets//images//64-bit.png')
@@ -142,7 +142,7 @@ def GetBitness(self):
         self.stat_signal.emit("bad")
 
 
-def GetBitlocker(self):
+def get_bitlocker(self):
     try:
         drives_list = []
         if bitlocker.check_bitlocker_management_tools():
@@ -164,7 +164,7 @@ def GetBitlocker(self):
         self.stat_signal.emit("bad")
 
 
-def GetVirtualization(self):
+def get_virtualization(self):
     try:
         out = subprocess.run(args=["powershell", 'Get-ComputerInfo -property HyperVisorPresent'],
                              capture_output=True,
@@ -182,7 +182,7 @@ def GetVirtualization(self):
         self.stat_signal.emit("bad")
 
 
-def GetApps(self):
+def get_apps(self):
     try:
         for software in get_installed_software():
             if software['name'] != "" and software['version'] != "":
@@ -201,7 +201,7 @@ def GetApps(self):
         return True
 
 
-def ConnectVulnersSoft(self):
+def connect_vulners_soft(self):
     try:
         self.vulners_api_soft = vulners.VulnersApi(api_key=self.vulners_key)
         self.stat_signal.emit("good")
@@ -212,14 +212,14 @@ def ConnectVulnersSoft(self):
         return True
 
 
-def CutListByChunks(self, lst, chunk_max):
+def cut_list_by_chunks(self, lst, chunk_max):
     # Делит список на чанки по chunk_max элементов
     res = [lst[i:i+chunk_max] for i in range(0, len(lst), chunk_max)]
     logger.debug(f"CutListByChunks: {len(lst)} items / {chunk_max} chunk size --> {len(res)} chunks")
     return res
 
 
-def SendAppsVulners(self):
+def send_apps_vulners(self):
     try:
         if len(self.soft_list) > 500:
             self.soft_list = self.soft_list[:500]
@@ -232,7 +232,7 @@ def SendAppsVulners(self):
         return True
 
 
-def ProcessAppsResponse(self):
+def process_apps_response(self):
     self.cve_list_apps = []
 
     try:
@@ -261,7 +261,7 @@ def ProcessAppsResponse(self):
             with cf.ThreadPoolExecutor(max_workers=self.net_threads) as executor:
                 futures = []
                 for item in self.apps_report["cve_list"]:
-                    futures.append(executor.submit(GetCveInfo, self=self, item=item))
+                    futures.append(executor.submit(get_cve_info, self=self, item=item))
                 executor.shutdown(wait=True, cancel_futures=False)
         except Exception as e:
             logger.error(f"ProcessAppsResponse: Failed to Getting more info about CVEs: {e}")
@@ -272,7 +272,7 @@ def ProcessAppsResponse(self):
     return False
 
 
-def GetCveInfo(self, item):
+def get_cve_info(self, item):
     cve_id = item["cve"]
     logger.debug(f"GetCveInfo: Processing {cve_id}")
 
@@ -312,8 +312,8 @@ def GetCveInfo(self, item):
         item["references"] = "No references"
 
 
-def CheckApps(self):
-    if GetApps(self):
+def check_apps(self):
+    if get_apps(self):
         self.stat_signal.emit("bad")
         return
 
@@ -321,17 +321,17 @@ def CheckApps(self):
     self.FillAllAppsList_signal.emit(self.soft_list)
 
     # Connect to Vulners api via his lib
-    if ConnectVulnersSoft(self):
+    if connect_vulners_soft(self):
         self.stat_signal.emit("bad")
         return
 
     # Sending pieces of a software list to Vulners api via his lib
-    if SendAppsVulners(self):
+    if send_apps_vulners(self):
         self.stat_signal.emit("bad")
         return
 
     # Transorm to result format
-    if ProcessAppsResponse(self):
+    if process_apps_response(self):
         self.stat_signal.emit("bad")
         return
 
@@ -339,7 +339,7 @@ def CheckApps(self):
     self.stat_signal.emit("good")
 
 
-def GetLocalPorts(self):
+def get_local_ports(self):
     try:
         local_ip = socket.gethostbyname(socket.gethostname())
         self.LocalPorts = PortScan(ip_str=local_ip, port_str="1-1000",
@@ -354,7 +354,7 @@ def GetLocalPorts(self):
         self.stat_signal.emit("bad")
 
 
-def GetExtPorts(self):
+def get_ext_ports(self):
     try:
         ext_ip = httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')
         self.ExtPorts = PortScan(ip_str=ext_ip, port_str="1-1000",
@@ -368,7 +368,7 @@ def GetExtPorts(self):
         self.stat_signal.emit("bad")
 
 
-def GetDrivers(self):
+def get_drivers(self):
     try:
         for driver in [f for f in listdir(r"c:\windows\system32\drivers") if isfile(join(r"c:\windows\system32\drivers", f))]:
             self.drivers_list.append(driver)
@@ -385,7 +385,7 @@ def GetDrivers(self):
         return True
 
 
-def HashDrivers(self):
+def hash_drivers(self):
     try:
         for driver in self.drivers_list:
             drivers_path = r"c:\windows\system32\drivers"
@@ -404,7 +404,7 @@ def HashDrivers(self):
         return True
 
 
-def GetDriversDB(self):
+def get_drivers_db(self):
     try:
         self.driver_db = httpx.get("https://www.loldrivers.io/api/drivers.json", timeout=10).json()
         logger.info(f"GetDriversDB: received {len(self.driver_db)} drivers from database")
@@ -420,12 +420,12 @@ def GetDriversDB(self):
         return True
 
 
-def ScanDrivers(self):
+def scan_drivers(self):
     try:
         with cf.ThreadPoolExecutor(max_workers=self.data_workers) as executor:
             futures = []
             for drv_hash in self.drivers_list_hashed:
-                futures.append(executor.submit(ProcessDriver, self=self, drv_hash=drv_hash))
+                futures.append(executor.submit(process_driver, self=self, drv_hash=drv_hash))
             executor.shutdown(wait=True, cancel_futures=False)
 
         self.stat_signal.emit("good")
@@ -436,26 +436,26 @@ def ScanDrivers(self):
         return True
 
 
-def RecursiveSaveDict(self, source_dict, target_dict, prefix=""):
+def recursive_save_dict(self, source_dict, target_dict, prefix=""):
     for key, value in source_dict.items():
         if isinstance(value, dict):
-            RecursiveSaveDict(self, value, target_dict, prefix + key + ".")
+            recursive_save_dict(self, value, target_dict, prefix + key + ".")
         else:
             target_dict[prefix + key] = value
 
 
-def ProcessDriver(self, drv_hash):
+def process_driver(self, drv_hash):
     for date in self.driver_db:
         for item in date["KnownVulnerableSamples"]:
             if 'SHA256' in item and drv_hash[0] == item['SHA256'] or 'SHA1' in item and drv_hash[1] == item['SHA1']:
 
                 try:
-                    shortName = item["Filename"]
+                    short_name = item["Filename"]
                 except KeyError:
                     try:
-                        shortName = item["OriginalFilename"]
+                        short_name = item["OriginalFilename"]
                     except KeyError:
-                        shortName = "Unknown Short Name"
+                        short_name = "Unknown Short Name"
 
                 try:
                     version = item["FileVersion"]
@@ -463,34 +463,34 @@ def ProcessDriver(self, drv_hash):
                     version = "No File Version"
 
                 try:
-                    datePublished = item["CreationTimestamp"]
+                    date_published = item["CreationTimestamp"]
                 except KeyError:
-                    datePublished = "No Date Published"
+                    date_published = "No Date Published"
 
                 try:
-                    Company = item["Company"]
+                    company = item["company"]
                 except KeyError:
-                    Company = "No Company"
+                    company = "No company"
 
                 try:
-                    Desc = item["Description"]
+                    desc = item["Description"]
                 except KeyError:
-                    Desc = "No Description"
+                    desc = "No Description"
 
                 try:
-                    Product = item["Product"]
+                    product = item["product"]
                 except KeyError:
-                    Product = "No Product"
+                    product = "No product"
 
                 try:
-                    Copyright = item["Copyright"]
+                    item_copyright = item["copyright"]
                 except KeyError:
-                    Copyright = "No Copyright"
+                    item_copyright = "No copyright"
 
                 try:
-                    ImportedFunctions = item["ImportedFunctions"]
+                    imported_functions = item["imported_functions"]
                 except KeyError:
-                    ImportedFunctions = ["No Imported Functions"]
+                    imported_functions = ["No Imported Functions"]
 
                 try:
                     drhash = f"SHA256 : {item['SHA256']}"
@@ -498,33 +498,33 @@ def ProcessDriver(self, drv_hash):
                     drhash = f"SHA1 : {item['SHA1']}"
 
                 vuln_driver_data = {
-                    "shortName": shortName,
+                    "short_name": short_name,
                     "version": version,
-                    "datePublished": datePublished,
-                    "desc": f"{Company} : {Desc} : {Product} : {Copyright}",
-                    "ImportedFunctions": ImportedFunctions,
+                    "date_published": date_published,
+                    "desc": f"{company} : {desc} : {product} : {item_copyright}",
+                    "imported_functions": imported_functions,
                     "hash": drhash
                 }
-                RecursiveSaveDict(self, date, vuln_driver_data)
+                recursive_save_dict(self, date, vuln_driver_data)
                 self.drivers_vuln_list.append(vuln_driver_data)
 
 
-def CheckDrivers(self):
-    if GetDrivers(self):
+def check_drivers(self):
+    if get_drivers(self):
         self.stat_signal.emit("bad")
         return
 
     self.FillDriversList_signal.emit(self.drivers_list)
 
-    if HashDrivers(self):
+    if hash_drivers(self):
         self.stat_signal.emit("bad")
         return
 
-    if GetDriversDB(self):
+    if get_drivers_db(self):
         self.stat_signal.emit("bad")
         return
 
-    if ScanDrivers(self):
+    if scan_drivers(self):
         self.stat_signal.emit("bad")
         return
 
@@ -533,7 +533,7 @@ def CheckDrivers(self):
     self.stat_signal.emit("good")
 
 
-def ConnectVulnersKB(self):
+def connect_vulners_kb(self):
     try:
         self.vulners_api_kb = vulners.VulnersApi(api_key=self.vulners_key)
         self.stat_signal.emit("good")
@@ -544,7 +544,7 @@ def ConnectVulnersKB(self):
         return True
 
 
-def GetKB(self):
+def get_kb(self):
     try:
         self.kb_list = updates.get_windows_updates(filter_duplicates=True)
         logger.debug(f"GetKB: {len(self.kb_list)} KB")
@@ -560,7 +560,7 @@ def GetKB(self):
         return True
 
 
-def SendKBVulners(self):
+def send_kb_vulners(self):
     try:
         # List with deleted KBs without KB ID
         kb = [item['kb'] for item in self.kb_list if item['kb'] not in ("", None) and "KB" in item['kb']]
@@ -575,7 +575,7 @@ def SendKBVulners(self):
         return True
 
 
-def ProcessKBResponse(self):
+def process_kb_response(self):
     try:
         for item in self.kb_scan_res["cvelist"]:
             cve = {
@@ -600,7 +600,7 @@ def ProcessKBResponse(self):
             with cf.ThreadPoolExecutor(max_workers=self.net_threads) as executor:
                 futures = []
                 for item in self.kb_report["cve_list"]:
-                    futures.append(executor.submit(GetCveInfo, self, item))
+                    futures.append(executor.submit(get_cve_info, self, item))
                 executor.shutdown(wait=True, cancel_futures=False)
         except Exception as e:
             logger.error(f"ProcessKBResponse: Failed to Getting more info about CVEs: {e}")
@@ -611,24 +611,24 @@ def ProcessKBResponse(self):
     return False
 
 
-def CheckKB(self):
+def check_kb(self):
     # Another API connection call is needed to ensure that the API wrapper is received at the right time
 
-    if ConnectVulnersKB(self):
+    if connect_vulners_kb(self):
         self.stat_signal.emit("bad")
         return
 
-    if GetKB(self):
+    if get_kb(self):
         self.stat_signal.emit("bad")
         return
 
-    if SendKBVulners(self):
+    if send_kb_vulners(self):
         self.stat_signal.emit("bad")
         return
 
     self.FillKBList_signal.emit(self.kb_list, self.kb_scan_res)
 
-    if ProcessKBResponse(self):
+    if process_kb_response(self):
         self.stat_signal.emit("bad")
         return
 
@@ -636,8 +636,18 @@ def CheckKB(self):
     self.ReportKB_signal.emit(self.kb_report)
 
 
-def Check_Instance():
-    # ... existing code ...
+def check_instance():
+    import os, sys, wmi
+    exe_path = os.path.abspath(sys.argv[0]).lower()
+    count = 0
+    for process in wmi.WMI().Win32_Process():
+        try:
+            proc_path = (process.ExecutablePath or '').lower()
+            if proc_path == exe_path:
+                count += 1
+        except Exception as e:
+            logger.error(f"[Check_Instance] WMI process error: {e}")
+            continue
     if count > 1:
         logger.critical("[Check_Instance] Another instance detected. Exiting.")
         sys.exit(-1)

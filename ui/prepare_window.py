@@ -13,43 +13,43 @@ from PyQt6 import uic, QtGui
 from PyQt6.QtCore import Qt, QUrl
 from screeninfo import get_monitors
 
-from ui.animations import UpdateWorkPageStat
-from ui.tools import GetRelPath
+from ui.animations import update_work_page_stat
+from ui.tools import get_rel_path
 
 
-def Prepare_Window(self):
+def prepare_window(self):
     # Set environment flag for QTWEBENGINE
     if darkdetect.isDark():
         os.environ["QTWEBENGINE_CHROMIUM_FLAGS"] = "--blink-settings=darkMode=4,darkModeImagePolicy=2"
-    logger.debug("Prepare_Window: env flag set")
-    ui_path = GetRelPath(self, "assets/ui/app.ui")
+    logger.debug("prepare_window: env flag set")
+    ui_path = get_rel_path(self, "assets/ui/app.ui")
 
-    self.splash.ChangePbar(10, "Loading ui")
+    self.splash.change_pbar(10, "Loading ui")
 
     # Load ui file
-    logger.debug(f"Prepare_Window: Loading ui: {ui_path}")
-    logger.debug("Prepare_Window: NOTE: If ui not loaded in long time, check 'from PyQt6 import QtWebEngineWidgets' import")
+    logger.debug(f"prepare_window: Loading ui: {ui_path}")
+    logger.debug("prepare_window: NOTE: If ui not loaded in long time, check 'from PyQt6 import QtWebEngineWidgets' import")
     self.ui = uic.loadUi(ui_path, self)
-    logger.debug("Prepare_Window: ui loaded")
+    logger.debug("prepare_window: ui loaded")
 
-    self.splash.ChangePbar(20, "Installing icons")
+    self.splash.change_pbar(20, "Installing icons")
 
     # Set window icon
-    self.ui.setWindowIcon(QtGui.QIcon(GetRelPath(self, "assets//icons//bender.ico")))
-    logger.debug("Prepare_Window: Icon set")
+    self.ui.setWindowIcon(QtGui.QIcon(get_rel_path(self, "assets//icons//bender.ico")))
+    logger.debug("prepare_window: Icon set")
 
-    self.splash.ChangePbar(30, "Setting descriptions")
+    self.splash.change_pbar(30, "Setting descriptions")
 
     # Set window title
     self.ui.setWindowTitle("Windows Vulnerability Scanner")
-    logger.debug("Prepare_Window: Title set")
+    logger.debug("prepare_window: Title set")
 
     # Set version
     self.ui.app_ver.setText(f'<html><head/><body><p align="right"><a href="https://github.com/trottling/Bender/releases/tag/{self.app_version}"><span style=" text-decoration: underline; color:#a9b7c6;">ver {self.app_version}</span></a></p></body></html>')
     self.ui.python_version.setText(f"<html><head/><body><p align=\"right\"><span style=\" font-size:12pt;\">Python {sys.version}</span></p></body></html>")
-    logger.debug("Prepare_Window: Versions set")
+    logger.debug("prepare_window: Versions set")
 
-    self.splash.ChangePbar(40, "Preparing the window")
+    self.splash.change_pbar(40, "Preparing the window")
 
     # Set window flags
     self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
@@ -67,13 +67,13 @@ def Prepare_Window(self):
         self.screen_height_cut = h_cut if h_cut > 650 else 650
         self.ui.resize(self.screen_width_cut, self.screen_height_cut)
         self.ui.move(int((self.screen_width - self.ui.size().width()) / 2), int((self.screen_height - self.ui.size().height()) / 2))
-        logger.debug(f"Prepare_Window: Resized to {self.screen_width_cut} x {self.screen_height_cut} (Original {self.screen_width} x {self.screen_height})")
+        logger.debug(f"prepare_window: Resized to {self.screen_width_cut} x {self.screen_height_cut} (Original {self.screen_width} x {self.screen_height})")
     except Exception as e:
-        logger.error(f"Prepare_Window: Cannot set window size: {e}")
+        logger.error(f"prepare_window: Cannot set window size: {e}")
 
     # Make grips invisible
-    [self.cornerGrips[i].setStyleSheet(r"background-color: transparent;") for i in range(4)]
-    logger.debug("Prepare_Window: Grips set to transparent")
+    [self.corner_grips[i].setStyleSheet(r"background-color: transparent;") for i in range(4)]
+    logger.debug("prepare_window: Grips set to transparent")
 
     # Create start check elements lists
     self.start_processing_elems = [self.ui.image_os_name, self.ui.image_os_ver, self.ui.image_os_status,
@@ -84,16 +84,16 @@ def Prepare_Window(self):
                                     self.ui.label_admin_result, self.ui.label_net_status_2, self.ui.label_vulners_api_2,
                                     self.ui.label_vulners_key_3, self.ui.label_loldrivers_2]
 
-    self.splash.ChangePbar(50, "Loading Shodan info")
+    self.splash.change_pbar(50, "Loading Shodan info")
 
     try:
         ip = httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')
         self.ui.WebWidget.load(QUrl(f"https://www.shodan.io/host/{ip}"))
         self.ui.WebWidget.setContextMenuPolicy(Qt.ContextMenuPolicy.NoContextMenu)
-        logger.debug("Prepare_Window: Shodan report loaded")
-        UpdateWorkPageStat(self, "good")
+        logger.debug("prepare_window: Shodan report loaded")
+        update_work_page_stat(self, "good")
     except Exception as e:
-        logger.error(f"Prepare_Window: Failed to load Shodan report: {e}")
-        UpdateWorkPageStat(self, "bad")
+        logger.error(f"prepare_window: Failed to load Shodan report: {e}")
+        update_work_page_stat(self, "bad")
 
-    logger.debug("Prepare_Window: Window prepared")
+    logger.debug("prepare_window: Window prepared")

@@ -4,7 +4,7 @@ import wmi
 from loguru import logger
 
 
-def Check_Instance():
+def check_instance():
     # Check for double running
     exe_path = os.path.abspath(sys.argv[0]).lower()
     count = 0

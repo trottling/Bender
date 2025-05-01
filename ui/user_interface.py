@@ -4,11 +4,11 @@ from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
 from ui.side_grips import SideGrip
-from ui.start_app import Start_App
+from ui.start_app import start_app
 
 
-class User_UI(QMainWindow):
-    _gripSize = 16  # Corner grips size
+class UserUI(QMainWindow):
+    _grip_size = 16  # Corner grips size
 
     def __init__(self, app_version, logger, appdir, splash) -> None:
         super().__init__()
@@ -25,7 +25,7 @@ class User_UI(QMainWindow):
         self.check_thread = None
         self.config_path = self.appdir + "\\" + "config.ini"
         self.config = ConfigParser()
-        self.isSliderTimerStart = False
+        self.is_slider_timer_start = False
         self.start_tasks_running = False
         self.qss_input_showed = False
         self.result_list_model = None
@@ -58,7 +58,7 @@ class User_UI(QMainWindow):
         self.screen_height = 0
         self.screen_width_cut = 0
         self.screen_height_cut = 0
-        self.sideGrips = [
+        self.side_grips = [
             SideGrip(self, QtCore.Qt.Edge.LeftEdge),
             SideGrip(self, QtCore.Qt.Edge.TopEdge),
             SideGrip(self, QtCore.Qt.Edge.RightEdge),
@@ -67,10 +67,10 @@ class User_UI(QMainWindow):
         # corner grips should be "on top" of everything, otherwise the side grips
         # will take precedence on mouse events, so we are adding them *after*;
         # alternatively, widget.raise_() can be used
-        self.cornerGrips = [QtWidgets.QSizeGrip(self) for _ in range(4)]
+        self.corner_grips = [QtWidgets.QSizeGrip(self) for _ in range(4)]
 
         # Run app
-        Start_App(self)
+        start_app(self)
 
     #
     # Window move
@@ -97,41 +97,41 @@ class User_UI(QMainWindow):
     #
 
     @property
-    def gripSize(self):
-        return self._gripSize
+    def grip_size(self):
+        return self._grip_size
 
-    def setGripSize(self, size):
-        if size == self._gripSize:
+    def set_grip_size(self, size):
+        if size == self._grip_size:
             return
-        self._gripSize = max(2, size)
-        self.updateGrips()
+        self._grip_size = max(2, size)
+        self.update_grips()
 
-    def updateGrips(self):
-        self.setContentsMargins(*[self.gripSize] * 4)
+    def update_grips(self):
+        self.setContentsMargins(*[self.grip_size] * 4)
 
-        outRect = self.rect()
+        out_rect = self.rect()
         # an "inner" rect used for reference to set the geometries of size grips
-        inRect = outRect.adjusted(self.gripSize, self.gripSize,
-                                  -self.gripSize, -self.gripSize)
+        in_rect = out_rect.adjusted(self.grip_size, self.grip_size,
+                                  -self.grip_size, -self.grip_size)
 
         # top left
-        self.cornerGrips[0].setGeometry(QtCore.QRect(outRect.topLeft(), inRect.topLeft()))
+        self.corner_grips[0].setGeometry(QtCore.QRect(out_rect.topLeft(), in_rect.topLeft()))
         # top right
-        self.cornerGrips[1].setGeometry(QtCore.QRect(outRect.topRight(), inRect.topRight()).normalized())
+        self.corner_grips[1].setGeometry(QtCore.QRect(out_rect.topRight(), in_rect.topRight()).normalized())
         # bottom right
-        self.cornerGrips[2].setGeometry(QtCore.QRect(inRect.bottomRight(), outRect.bottomRight()))
+        self.corner_grips[2].setGeometry(QtCore.QRect(in_rect.bottomRight(), out_rect.bottomRight()))
         # bottom left
-        self.cornerGrips[3].setGeometry(QtCore.QRect(outRect.bottomLeft(), inRect.bottomLeft()).normalized())
+        self.corner_grips[3].setGeometry(QtCore.QRect(out_rect.bottomLeft(), in_rect.bottomLeft()).normalized())
 
         # left edge
-        self.sideGrips[0].setGeometry(0, inRect.top(), self.gripSize, inRect.height())
+        self.side_grips[0].setGeometry(0, in_rect.top(), self.grip_size, in_rect.height())
         # top edge
-        self.sideGrips[1].setGeometry(inRect.left(), 0, inRect.width(), self.gripSize)
+        self.side_grips[1].setGeometry(in_rect.left(), 0, in_rect.width(), self.grip_size)
         # right edge
-        self.sideGrips[2].setGeometry(inRect.left() + inRect.width(), inRect.top(), self.gripSize, inRect.height())
+        self.side_grips[2].setGeometry(in_rect.left() + in_rect.width(), in_rect.top(), self.grip_size, in_rect.height())
         # bottom edge
-        self.sideGrips[3].setGeometry(self.gripSize, inRect.top() + inRect.height(), inRect.width(), self.gripSize)
+        self.side_grips[3].setGeometry(self.grip_size, in_rect.top() + in_rect.height(), in_rect.width(), self.grip_size)
 
     def resizeEvent(self, event):
         QtWidgets.QMainWindow.resizeEvent(self, event)
-        self.updateGrips()
+        self.update_grips()

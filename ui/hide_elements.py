@@ -1,9 +1,9 @@
-from ui.buttons import HideQSSInput
+from ui.buttons import hide_qss_input
 
 
-def Hide_Elements(self):
+def hide_elements(self):
 
-    self.splash.ChangePbar(70, "Hide Elements")
+    self.splash.change_pbar(70, "Hide Elements")
 
     # Global
     self.ui.label_windows_title.hide()
@@ -24,6 +24,6 @@ def Hide_Elements(self):
     self.ui.app_desc_2.hide()
     self.ui.app_link_label.hide()
 
-    HideQSSInput(self)
+    hide_qss_input(self)
 
-    self.logger.debug("Hide_Elements : Elements Hided")
+    self.logger.debug("hide_elements : Elements Hided")

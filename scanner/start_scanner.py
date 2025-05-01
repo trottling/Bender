@@ -1,26 +1,26 @@
 from scanner.scanner import Scanner
-from scanner.scanner_signals import ConnectScannerSignals
-from scanner.scanner_start_validator import StartScannerValidator
-from ui.animations import StackedWidgetChangePage, SetWorkPageGIF
+from scanner.scanner_signals import connect_scanner_signals
+from scanner.scanner_start_validator import start_scanner_validator
+from ui.animations import stacked_widget_change_page, set_work_page_gif
 
 
-def StartScanner(self):
+def start_scanner(self):
     self.ui.pushButton_start_scan.setEnabled(False)
-    if StartScannerValidator(self):
+    if start_scanner_validator(self):
         self.ui.pushButton_start_scan.setEnabled(True)
         return
-    Run_Scanner_Tasks(self)
+    run_scanner_tasks(self)
 
 
-def Run_Scanner_Tasks(self):
-    StackedWidgetChangePage(self, 1)
+def run_scanner_tasks(self):
+    stacked_widget_change_page(self, 1)
 
     #
     # Run ThreadPoolExecutor --> Put result in result page
     #
 
     # Set loading gif to progress label
-    SetWorkPageGIF(self)
+    set_work_page_gif(self)
 
     # Get ui values
     self.net_threads = self.ui.horizontalSlider_network_threads.value()
@@ -32,8 +32,8 @@ def Run_Scanner_Tasks(self):
     self.scanner = Scanner(self.logger, self.net_threads, self.data_workers, self.port_workers, self.vulners_key)
 
     # Connect signals
-    ConnectScannerSignals(self)
+    connect_scanner_signals(self)
 
     # Run scanner thread
     self.scanner.start()
-    self.logger.debug("Run_Scanner_Tasks : Thread started")
+    self.logger.debug("run_scanner_tasks : Thread started")
