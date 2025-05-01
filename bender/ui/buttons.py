@@ -8,11 +8,11 @@ from PyQt6.QtGui import QMovie
 from PyQt6.QtWidgets import QFileDialog
 from loguru import logger
 
-from config.write_config import save_settings
-from scanner.start_scanner import start_scanner
-from tasks.start_tasks import run_start_tasks
-from ui.animations import app_exit_anim, elem_hide_anim, elem_show_anim, image_change_anim, show_err_message, stacked_widget_change_page, text_change_anim
-from ui.tools import check_vulners_key_request, get_rel_path
+from bender.core.config.write_config import save_settings
+from bender.core.scanner.start_scanner import start_scanner
+from bender.core.start_tasks import run_start_tasks
+from bender.ui.animations import app_exit_anim, elem_hide_anim, elem_show_anim, image_change_anim, show_err_message, stacked_widget_change_page, text_change_anim
+from bender.ui.tools import check_vulners_key_request, get_rel_path
 
 
 def connect_buttons(self):

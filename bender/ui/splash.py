@@ -3,7 +3,7 @@ from PyQt6.QtCore import Qt, QPropertyAnimation, QEasingCurve
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QSplashScreen, QGraphicsOpacityEffect, QProgressBar, QLabel
 
-from ui.tools import get_rel_path
+from bender.ui.tools import get_rel_path
 
 
 class SplashScreen(QSplashScreen):

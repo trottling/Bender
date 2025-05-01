@@ -1,9 +1,9 @@
 from loguru import logger
 
-from scanner.scanner import Scanner
-from scanner.scanner_signals import connect_scanner_signals
-from scanner.scanner_start_validator import start_scanner_validator
-from ui.animations import stacked_widget_change_page, set_work_page_gif
+from bender.core.scanner.scanner import Scanner
+from bender.core.scanner.scanner_signals import connect_scanner_signals
+from bender.core.scanner.scanner_start_validator import start_scanner_validator
+from bender.ui.animations import set_work_page_gif, stacked_widget_change_page
 
 
 def start_scanner(self):

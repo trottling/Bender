@@ -2,7 +2,7 @@ from PyQt6 import QtCore, QtGui
 from PyQt6.QtGui import QMovie, QPixmap
 from loguru import logger
 
-from ui.tools import get_rel_path
+from bender.ui.tools import get_rel_path
 
 
 def load_images_and_icons(self):

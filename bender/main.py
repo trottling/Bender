@@ -19,17 +19,17 @@ logger.info("Application version: 2.2.3")
 
 from PyQt6.QtWidgets import QApplication
 
-from on_start.check_appdir import check_app_dir
-from on_start.check_instance import check_instance
-from on_start.check_admin import check_admin
-from ui.splash import SplashScreen
-from ui.user_interface import UserUI
+from bender.core.on_run.check_appdir import check_app_dir
+from bender.core.on_run.check_instance import check_instance
+from bender.core.on_run.check_admin import check_admin
+from bender.ui.splash import SplashScreen
+from bender.ui.user_interface import UserUI
 
 app_version = "2.2.3"
 
 if __name__ == '__main__':
     # Check admin rights and relaunch if needed
-    if not check_admin():
+    if  check_admin():
         logger.warning('App is not running as administrator. Relaunching with admin rights...')
         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, ' '.join([f'"{arg}"' for arg in sys.argv]), None, 1)
         sys.exit(0)

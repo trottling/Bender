@@ -1,6 +1,6 @@
 from PyQt6.QtCore import QThread, pyqtSignal
 
-from scanner.scanner_funcs import *
+from bender.core.scanner.scanner_funcs import *
 
 
 class Scanner(QThread):

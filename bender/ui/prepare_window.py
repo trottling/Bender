@@ -13,8 +13,8 @@ from PyQt6 import uic, QtGui
 from PyQt6.QtCore import Qt, QUrl
 from screeninfo import get_monitors
 
-from ui.animations import update_work_page_stat
-from ui.tools import get_rel_path
+from bender.ui.animations import update_work_page_stat
+from bender.ui.tools import get_rel_path
 
 
 def prepare_window(self):

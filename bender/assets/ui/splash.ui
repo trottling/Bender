@@ -92,7 +92,7 @@ QProgressBar::chunk {
    <property name="font">
     <font>
      <family>Segoe UI Variable Small Semibol</family>
-     <pointsize>16</pointsize>
+     <pointsize>18</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
@@ -101,7 +101,7 @@ QProgressBar::chunk {
     <string notr="true">color: rgb(240, 240, 240);</string>
    </property>
    <property name="text">
-    <string> </string>
+    <string/>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

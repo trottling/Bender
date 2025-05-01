@@ -1,5 +1,6 @@
 from loguru import logger
-from ui.animations import show_err_message
+
+from bender.ui.animations import show_err_message
 
 
 def start_scanner_validator(self):

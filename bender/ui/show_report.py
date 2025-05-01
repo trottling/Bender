@@ -3,9 +3,9 @@ import re
 from PyQt6 import QtGui
 from loguru import logger
 
-from other.tcp_port_dict import port_dict
-from ui.animations import stacked_widget_change_page, update_work_page_stat
-from ui.tools import report_error, get_rel_path
+from bender.core.tcp_port_dict import port_dict
+from bender.ui.animations import stacked_widget_change_page, update_work_page_stat
+from bender.ui.tools import report_error, get_rel_path
 
 
 def report_apps(self, report):

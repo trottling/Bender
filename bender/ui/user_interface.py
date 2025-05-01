@@ -4,8 +4,8 @@ import os
 from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
-from ui.side_grips import SideGrip
-from ui.start_app import start_app
+from bender.ui.side_grips import SideGrip
+from bender.ui.start_app import start_app
 
 
 class UserUI(QMainWindow):

@@ -1,6 +1,5 @@
 from loguru import logger
-
-from ui.tools import get_rel_path, get_windows_theme
+from bender.ui.tools import get_rel_path, get_windows_theme
 
 
 def load_styles(self):

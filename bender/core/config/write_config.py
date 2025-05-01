@@ -1,6 +1,6 @@
 from loguru import logger
 
-from config.check_config import check_config_file
+from bender.core.config.check_config import check_config_file
 
 
 def save_settings(self):

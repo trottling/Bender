@@ -1,11 +1,11 @@
-from config.read_config import load_settings
-from tasks.start_tasks import run_start_tasks
-from ui.animations import app_open_anim
-from ui.buttons import connect_buttons
-from ui.hide_elements import hide_elements
-from ui.images import load_images_and_icons
-from ui.prepare_window import prepare_window
-from ui.styles import load_styles
+from bender.core.config.read_config import load_settings
+from bender.core.start_tasks import run_start_tasks
+from bender.ui.animations import app_open_anim
+from bender.ui.buttons import connect_buttons
+from bender.ui.hide_elements import hide_elements
+from bender.ui.images import load_images_and_icons
+from bender.ui.prepare_window import prepare_window
+from bender.ui.styles import load_styles
 
 
 def start_app(self) -> None:

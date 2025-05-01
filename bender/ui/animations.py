@@ -6,7 +6,7 @@ from PyQt6.QtGui import QPixmap, QMovie
 from PyQt6.QtWidgets import QGraphicsOpacityEffect
 from loguru import logger
 
-from ui.tools import get_rel_path
+from bender.ui.tools import get_rel_path
 
 
 def app_open_anim(self):
@@ -43,7 +43,7 @@ def app_exit_anim(self):
 # Slide animation for QStackedWidget
 _slide_animations = []  # Global list to keep references
 
-def stacked_widget_change_page(stacked_widget, new_index, direction='left', duration=300):
+def stacked_widget_change_page(stacked_widget, new_index, direction='left', duration=450):
     current_index = stacked_widget.currentIndex()
     if current_index == new_index:
         return
@@ -65,7 +65,7 @@ def stacked_widget_change_page(stacked_widget, new_index, direction='left', dura
     else:
         offset_x, offset_y = width, 0  # default left
 
-    # Prepare next widget
+    # Prepare the next widget
     next_widget.setGeometry(QRect(offset_x, offset_y, width, height))
     next_widget.show()
 

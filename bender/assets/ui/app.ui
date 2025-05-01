@@ -440,13 +440,13 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>418</width>
-              <height>0</height>
+              <width>420</width>
+              <height>60</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>26</pointsize>
+              <pointsize>28</pointsize>
               <weight>75</weight>
               <italic>false</italic>
               <bold>true</bold>

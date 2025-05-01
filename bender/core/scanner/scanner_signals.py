@@ -1,8 +1,6 @@
-from PyQt6.QtGui import QPixmap
-
-from ui.animations import change_work_elems, update_work_page_stat
-from ui.show_report import *
-from ui.tools import get_rel_path
+from bender.ui.animations import *
+from bender.ui.show_report import *
+from bender.ui.tools import get_rel_path
 
 
 def connect_scanner_signals(self):

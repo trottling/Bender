@@ -8,7 +8,7 @@ from PyQt6.QtCore import QThread, pyqtSignal
 from PyQt6.QtWidgets import QMessageBox
 from loguru import logger
 
-from ui.animations import image_change_anim, show_err_message, text_change_anim
+from bender.ui.animations import image_change_anim, show_err_message, text_change_anim, update_work_page_stat
 
 
 class CheckTask(QThread):
