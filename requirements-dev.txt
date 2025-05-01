@@ -1,0 +1,15 @@
+﻿darkdetect==0.8.0
+httpx~=0.28.1
+PyQt6~=6.9.0
+PyQt6-WebEngine==6.9.0
+screeninfo==0.8.1
+py-cpuinfo==9.0.0
+psutil~=7.0.0
+vulners~=2.3.6
+WMI==1.5.1
+getmac~=0.9.5
+portscan==1.1
+windows_tools==2.5.0
+loguru==0.7.3
+Nuitka==2.7
+pyinstaller==6.13.0
