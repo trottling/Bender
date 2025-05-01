@@ -1,6 +1,7 @@
 import re
 
 from PyQt6 import QtGui
+from loguru import logger
 
 from other.tcp_port_dict import port_dict
 from ui.animations import StackedWidgetChangePage, UpdateWorkPageStat
@@ -9,7 +10,7 @@ from ui.tools import Report_Error, GetRelPath
 
 def ReportApps(self, report):
     try:
-        self.logger.debug(f"ReportApps : {len(report["cve_list"])} CVEs in list")
+        logger.debug(f"ReportApps : {len(report["cve_list"])} CVEs in list")
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
         self.ui.Software_listView_vuln.setModel(self.vunl_app_list_model)
@@ -45,15 +46,15 @@ def ReportApps(self, report):
                         self.dot = "dot-dark-red.png"
                     else:
                         self.dot = "dot-grey.png"
-                self.logger.debug(f"ReportApps : Score {self.score_raw} --> {self.score if self.score else ""} --> {self.dot}")
+                logger.debug(f"ReportApps : Score {self.score_raw} --> {self.score if self.score else ""} --> {self.dot}")
                 list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\{self.dot}")))
             except Exception as e:
-                self.logger.error(f"ReportApps : Error setting dot : {e}")
+                logger.error(f"ReportApps : Error setting dot : {e}")
 
             self.vunl_app_list_model.appendRow(list_item)
 
         self.ui.Software_listView_vuln.doubleClicked.connect(lambda index: ReportAppsFull(self, index, report))
-        self.logger.debug("ReportApps : List maked")
+        logger.debug("ReportApps : List maked")
         UpdateWorkPageStat(self, "good")
     except Exception as e:
         Report_Error(self, f"ReportApps : {e}")
@@ -62,7 +63,7 @@ def ReportApps(self, report):
 def ReportAppsFull(self, index, report):
     try:
         item_index = index.row()
-        self.logger.debug(f"ReportAppsFull : item index {str(item_index).strip()} ")
+        logger.debug(f"ReportAppsFull : item index {str(item_index).strip()} ")
         cve_info = report["cve_list"][item_index]
 
         self.ui.label_cve_head.setText(f"{cve_info["cve"]} - {cve_info["package"].capitalize()} - {cve_info["version"]}")
@@ -91,7 +92,7 @@ def ReportAppsFull(self, index, report):
 
 def ReportDrivers(self, report):
     try:
-        self.logger.debug(f"ReportDrivers : {len(report["driver_list"])} drivers in list")
+        logger.debug(f"ReportDrivers : {len(report["driver_list"])} drivers in list")
 
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
@@ -109,7 +110,7 @@ def ReportDrivers(self, report):
             self.vunl_app_list_model.appendRow(list_item)
 
         self.ui.Drivers_listView_vuln.doubleClicked.connect(lambda index: ReportDriversFull(self, index, report))
-        self.logger.debug("ReportDrivers : List maked")
+        logger.debug("ReportDrivers : List maked")
     except Exception as e:
         Report_Error(self, f"ReportDrivers : {e}")
 
@@ -117,7 +118,7 @@ def ReportDrivers(self, report):
 def ReportDriversFull(self, index, report):
     try:
         item_index = index.row()
-        self.logger.debug(f"ShowCVEInfo_CIA : item index {str(item_index).strip()} ")
+        logger.debug(f"ShowCVEInfo_CIA : item index {str(item_index).strip()} ")
         driver_info = report["driver_list"][item_index]
         self.ui.label_vuln_head.setText(f"{driver_info["shortName"]} - {driver_info["version"]}")
 
@@ -145,7 +146,7 @@ def FormatDict(self, data, indent=0):
         else:
             formatted_value = f"{value}" if isinstance(value, str) else str(value)
         formatted_data += " " * indent + formatted_key + " : " + formatted_value + "\n"
-    self.logger.debug(f"FormatDict : Formated")
+    logger.debug(f"FormatDict : Formated")
     return formatted_data
 
 
@@ -153,13 +154,13 @@ def Split_Words(self, word, split_dot=False):
     result = re.sub(r"([a-z])([A-Z])", r"\1 \2", word).strip().capitalize()
     if split_dot:
         result = result.replace(".", " ")
-    self.logger.debug(f"Split_Words : {word} --> {result}")
+    logger.debug(f"Split_Words: {word} --> {result}")
     return result
 
 
 def ReportKB(self, report):
     try:
-        self.logger.debug(f"ReportKB : {len(report["cve_list"])} CVEs in list")
+        logger.debug(f"ReportKB : {len(report["cve_list"])} CVEs in list")
 
         # Setup list
         self.vunl_app_list_model = QtGui.QStandardItemModel()
@@ -196,15 +197,15 @@ def ReportKB(self, report):
                         self.dot = "dot-dark-red.png"
                     else:
                         self.dot = "dot-grey.png"
-                self.logger.debug(f"ReportKB : Score {self.score_raw} --> {self.score if self.score else ""} --> {self.dot}")
+                logger.debug(f"ReportKB : Score {self.score_raw} --> {self.score if self.score else ""} --> {self.dot}")
                 list_item.setIcon(QtGui.QIcon(GetRelPath(self, f"assets\\images\\{self.dot}")))
             except Exception as e:
-                self.logger.error(f"ReportKB : Error setting dot : {e}")
+                logger.error(f"ReportKB : Error setting dot : {e}")
 
             self.vunl_app_list_model.appendRow(list_item)
 
         self.ui.vuln_kb_list.doubleClicked.connect(lambda index: ReportKBFull(self, index, report))
-        self.logger.debug("ReportKB : List maked")
+        logger.debug("ReportKB : List maked")
         UpdateWorkPageStat(self, "good")
     except Exception as e:
         Report_Error(self, f"ReportKB : {e}")
@@ -213,7 +214,7 @@ def ReportKB(self, report):
 def ReportKBFull(self, index, report):
     try:
         item_index = index.row()
-        self.logger.debug(f"ReportKBFull : item index {str(item_index).strip()} ")
+        logger.debug(f"ReportKBFull : item index {str(item_index).strip()} ")
         cve_info = report["cve_list"][item_index]
 
         self.ui.label_cve_head.setText(cve_info["cve"])
@@ -259,7 +260,7 @@ def FillLocalPorts(self, ports):
                 self.local_ports_list_model.appendRow(list_item)
         UpdateWorkPageStat(self, "good")
     except Exception as e:
-        self.logger.error(f"FillLocalPorts : {e}")
+        logger.error(f"FillLocalPorts : {e}")
         UpdateWorkPageStat(self, "bad")
 
 
@@ -284,7 +285,7 @@ def FillExtPorts(self, ports):
                 self.ext_ports_list_model.appendRow(list_item)
         UpdateWorkPageStat(self, "good")
     except Exception as e:
-        self.logger.error(f"FillExtPorts : {e}")
+        logger.error(f"FillExtPorts : {e}")
         UpdateWorkPageStat(self, "bad")
 
 
@@ -315,7 +316,7 @@ def FillKBList(self, data_inst, data_miss):
 
         UpdateWorkPageStat(self, "good")
     except Exception as e:
-        self.logger.error(f"FillKBList : {e}")
+        logger.error(f"FillKBList : {e}")
         UpdateWorkPageStat(self, "bad")
 
 
@@ -337,7 +338,7 @@ def FillAllAppsList(self, data):
 
         UpdateWorkPageStat(self, "good")
     except Exception as e:
-        self.logger.error(f"FillAllAppsList : {e}")
+        logger.error(f"FillAllAppsList : {e}")
         UpdateWorkPageStat(self, "bad")
 
 
@@ -359,5 +360,5 @@ def FillDriversList(self, data):
 
         UpdateWorkPageStat(self, "good")
     except Exception as e:
-        self.logger.error(f"FillDriversList : {e}")
+        logger.error(f"FillDriversList : {e}")
         UpdateWorkPageStat(self, "bad")

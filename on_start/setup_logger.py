@@ -4,24 +4,25 @@ import platform
 import sys
 
 
-def Setup_logger(app_version, file_handler, appdir):
+def setup_logger(app_version, file_handler, appdir):
     logger.remove()
-    logger.add(sys.stdout, format="{time} {level} {message}", level="DEBUG")
+    log_format = "{time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {module}:{function}:{line} - {message}"
+    logger.add(sys.stdout, format=log_format, level="DEBUG")
     if file_handler is not None:
-        logger.add(file_handler.baseFilename, rotation="1 MB", retention=3, level="DEBUG", format="{time} {level} {message}")
+        logger.add(file_handler.baseFilename, rotation="20 MB", retention=3, level="DEBUG", format=log_format)
     logger.info(f"Log path :  {appdir}/debug_log.txt")
     logger.info(f"Python {sys.version}")
     logger.info(f"Application version: {app_version}")
-    logger.info(f"Run as Admin : {Check_Admin(logger)}")
+    logger.info(f"Run as Admin : {check_admin(logger)}")
     logger.info("OS Name: " + platform.system())
     logger.info("OS Release: " + platform.release())
     logger.info("OS Version: " + platform.version())
     return logger
 
 
-def Check_Admin(logger):
+def check_admin(log):
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
     except Exception as e:
-        logger.error(f"IsUserAdmin() : Admin check failed, assuming not an admin. : {e}")
+        log.error(f"IsUserAdmin() : Admin check failed, assuming not an admin. : {e}")
         return False

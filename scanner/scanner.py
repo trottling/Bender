@@ -1,4 +1,5 @@
 from PyQt6.QtCore import QThread, pyqtSignal
+from loguru import logger
 
 from scanner.scanner_funcs import *
 
@@ -70,5 +71,5 @@ class Scanner(QThread):
         self.stop()
 
     def stop(self):
-        self.logger.debug("ScanThread : Thread stoped")
+        logger.debug("ScanThread: Thread stopped")
         self.quit()

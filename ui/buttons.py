@@ -15,6 +15,7 @@ from ui.animations import App_Exit_Anim, StackedWidgetChangePage, ElemShowAnim, 
     ImageChangeAnim, ShowErrMessage
 from ui.styles import Load_Styles
 from ui.tools import Check_Vulners_Key_Request, GetRelPath
+from loguru import logger
 
 
 def Connect_Buttons(self):
@@ -81,7 +82,7 @@ def Connect_Buttons(self):
 
     self.ui.save_log_pushButton_2.clicked.connect(lambda: SaveDebugLog(self))
 
-    self.ui.errors_exit.clicked.connect(lambda: (self.logger.debug("errors_exit : ******** EXIT ********"), sys.exit(-1)))
+    self.ui.errors_exit.clicked.connect(lambda: (logger.debug("errors_exit : ******** EXIT ********"), sys.exit(-1)))
 
     self.ui.cve_info_back_button.clicked.connect(lambda: (StackedWidgetChangePage(self, 2), ClearCVEInfoPage(self)))
 
@@ -103,9 +104,9 @@ def Connect_Buttons(self):
 
     self.ui.pushButton_app_size.clicked.connect(lambda: Resize_Window(self))
 
-    self.ui.pushButton_app_hide.clicked.connect(lambda: (self.ui.showMinimized(), self.logger.debug("pushButton_app_hide : ******** Minimized ********")))
+    self.ui.pushButton_app_hide.clicked.connect(lambda: (self.ui.showMinimized(), logger.debug("pushButton_app_hide : ******** Minimized ********")))
 
-    self.logger.debug(f"Connect_Buttons : Buttons connected")
+    logger.debug(f"Connect_Buttons : Buttons connected")
 
 
 def ChangeShowQSSInput(self):
@@ -135,7 +136,7 @@ def HideQSSInput(self):
         anim.start()
         elem.setEnabled(False)
 
-    self.logger.debug("HideQSSInput : Hided")
+    logger.debug("HideQSSInput : Hided")
 
 
 def ShowQSSInput(self):
@@ -158,25 +159,25 @@ def ShowQSSInput(self):
         anim.start()
         elem.setEnabled(True)
 
-    self.logger.debug("ShowQSSInput : Showed")
+    logger.debug("ShowQSSInput : Showed")
 
 
 def OpenQSSFile(self):
-    self.logger.debug("OpenQSSFile : Open file")
+    logger.debug("OpenQSSFile : Open file")
     qss_file = None
     try:
         qss_file = QFileDialog.getOpenFileName(self, caption='Open file', directory='./', filter="QSS Style files (*.qss)")
     except Exception as e:
-        self.logger.debug(f"OpenQSSFile : {e}")
+        logger.debug(f"OpenQSSFile : {e}")
 
-    self.logger.debug(f"OpenQSSFile : File {qss_file}")
+    logger.debug(f"OpenQSSFile : File {qss_file}")
 
     if qss_file == "":
         return
 
     if os.path.isfile(str(qss_file[0])):
         self.ui.qss_lineEdit.setText(str(qss_file[0]))
-        self.logger.debug(f"OpenQSSFile : qss_lineEdit set Text {str(qss_file[0])}")
+        logger.debug(f"OpenQSSFile : qss_lineEdit set Text {str(qss_file[0])}")
 
 
 def ApplyCustomQSSTheme(self):
@@ -184,60 +185,56 @@ def ApplyCustomQSSTheme(self):
     if path.strip() == "":
         return
     Save_Settings(self)
-    self.logger.debug(f"ApplyCustomQSSTheme : Apply Styles {path}")
+    logger.debug(f"ApplyCustomQSSTheme : Apply Styles {path}")
 
     if not os.path.isfile(path):
         return
 
     self.ui.setStyleSheet(open(file=path, mode="r").read())
     self.ui.show()
-    self.logger.debug(f"ApplyCustomQSSTheme : {path} : Styles loaded")
+    logger.debug(f"ApplyCustomQSSTheme : {path} : Styles loaded")
     open(file=f"{self.appdir}\\saved_qss\\{Path(path).name}", mode="w").write(open(file=path, mode="r").read())
     self.ui.qss_comboBox.addItem(Path(path).name)
     self.ui.qss_comboBox.setCurrentText(Path(path).name)
-    self.logger.debug(f"ApplyCustomQSSTheme : {self.appdir}\\saved_qss\\{Path(path).name} : Theme saved")
+    logger.debug(f"ApplyCustomQSSTheme : {self.appdir}\\saved_qss\\{Path(path).name} : Theme saved")
 
 
 def SaveDebugLog(self):
     try:
         log_file = QFileDialog.getSaveFileName(self, caption='Save log file (.log)', directory="./", filter=".log")
     except Exception as e:
-        self.logger.error(f"SaveDebugLog : {e}")
+        logger.error(f"SaveDebugLog: {e}")
         return
-
     if log_file == "":
         return
-
     log_file = log_file[0] + log_file[1]
-
-    self.logger.debug(f"SaveDebugLog : Open file {log_file}")
-
+    logger.debug(f"SaveDebugLog: Open file {log_file}")
     try:
         open(log_file, "x").write(open(self.appdir + "/" + "debug_log.txt", "r").read())
     except Exception as e:
-        self.logger.error(f"SaveDebugLog : error {e}")
+        logger.error(f"SaveDebugLog: error {e}")
         return
-    self.logger.debug(f"SaveDebugLog : Log writed")
+    logger.debug(f"SaveDebugLog: Log written")
 
 
 def ApplyQSSTheme(self):
     Save_Settings(self)
     if self.ui.qss_comboBox.currentText() == 'Default (Light)' or self.ui.qss_comboBox.currentText() == 'Default (Dark)':
         self.ui.setStyleSheet(open(GetRelPath(self, f"assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss"), mode="r").read())
-        self.logger.debug(f"AppleQSSTheme : assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss : Default Styles loaded")
+        logger.debug(f"AppleQSSTheme : assets\\qss\\Material{'Light' if self.ui.qss_comboBox.currentText() == 'Default (Light)' else 'Dark'}.qss : Default Styles loaded")
 
     elif self.ui.qss_comboBox.currentText() != "Custom":
         try:
             self.ui.setStyleSheet(open(GetRelPath(self, f"{self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()}"), mode="r").read())
-            self.logger.debug(f"AppleQSSTheme : {self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()} : User Styles loaded")
+            logger.debug(f"AppleQSSTheme : {self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()} : User Styles loaded")
         except Exception as e:
-            self.logger.error(f"AppleQSSTheme : {self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()} : User Styles not loaded : {e}")
+            logger.error(f"AppleQSSTheme : {self.appdir}\\saved_qss\\{self.ui.qss_comboBox.currentText()} : User Styles not loaded : {e}")
 
 
 def Check_Vulners_Key(self):
     Save_Settings(self)
     if self.ui.api_key.text().strip() == "":
-        self.logger.debug("Check_Vulners_Key : api key empty")
+        logger.debug("Check_Vulners_Key : api key empty")
         webbrowser.open("https://github.com/trottling/Bender/blob/main/VULNERS-API-KEY-HELP.md")
         ImageChangeAnim(self, self.ui.vulners_check_result, 'assets//images//fail.png')
         self.validate_vulners_key = False
@@ -252,7 +249,7 @@ def Check_Vulners_Key(self):
 
 def DeleteQSSTheme(self):
     themeToDelete = self.ui.qss_comboBox.currentText()
-    self.logger.debug(f"DeleteQSSTheme : theme To Delete : {themeToDelete}")
+    logger.debug(f"DeleteQSSTheme : theme To Delete : {themeToDelete}")
     if themeToDelete in ("Custom", "Default (Light)", "Default (Dark)"):
         return
     try:
@@ -261,7 +258,7 @@ def DeleteQSSTheme(self):
         self.ui.qss_comboBox.setCurrentText(self.default_theme)
         ApplyQSSTheme(self)
     except Exception as e:
-        self.logger.error(f"DeleteQSSTheme : {themeToDelete} : {e}")
+        logger.error(f"DeleteQSSTheme : {themeToDelete} : {e}")
 
 
 def ChangeQSSDeleteBtn(self):
@@ -307,16 +304,12 @@ def SaveReport(self):
     try:
         report_file = QFileDialog.getSaveFileName(self, caption='Save log file (.txt)', directory="./", filter=".txt", initialFilter=".txt")
     except Exception as e:
-        self.logger.debug(f"SaveReport : {e}")
-
+        logger.debug(f"SaveReport: {e}")
     if report_file == "":
         return
-
     report_file = report_file[0] + report_file[1]
-
-    self.logger.debug(f"SaveReport : Open file {report_file}")
-
-    self.logger.debug(f"SaveReport : Report writed")
+    logger.debug(f"SaveReport: Open file {report_file}")
+    logger.debug(f"SaveReport: Report written")
 
 
 def Write_dict_recursive(self, f, d, indent=0):
@@ -332,16 +325,16 @@ def Write_dict_recursive(self, f, d, indent=0):
 def Resize_Window(self):
     if not self.window_size_full:
         self.ui.showMaximized()
-        self.logger.debug("Resize_Window : showMaximized")
+        logger.debug("Resize_Window : showMaximized")
         self.window_size_full = True
         Save_Settings(self)
     else:
         if self.screen_width_cut != 0 and self.screen_height_cut != 0:
             self.ui.resize(self.screen_width_cut, self.screen_height_cut)
-            self.logger.debug(f"Resize_Window : Resized {self.screen_width_cut} x {self.screen_height_cut}")
+            logger.debug(f"Resize_Window : Resized {self.screen_width_cut} x {self.screen_height_cut}")
         else:
             self.ui.resize(800, 600)
-            self.logger.debug(f"Resize_Window : Resized 800 x 600")
+            logger.debug(f"Resize_Window : Resized 800 x 600")
         self.ui.move(int((self.screen_width - self.ui.size().width()) / 2), int((self.screen_height - self.ui.size().height()) / 2))
         self.window_size_full = False
         Save_Settings(self)
@@ -374,7 +367,7 @@ def SaveScanResults(self):
     try:
         res_file = QFileDialog.getSaveFileName(self, caption='Save image (.png)', directory="./", filter=".png")
     except Exception as e:
-        self.logger.error(f"SaveScanResults : {e}")
+        logger.error(f"SaveScanResults : {e}")
         return
 
     if res_file == "" or None:
@@ -382,7 +375,7 @@ def SaveScanResults(self):
 
     res_file = res_file[0] + res_file[1]
 
-    self.logger.debug(f"SaveScanResults : Open file {res_file}")
+    logger.debug(f"SaveScanResults : Open file {res_file}")
 
     self.ui.pushButton_save_log.hide()
     self.ui.pushButton_save_report.hide()
@@ -394,9 +387,9 @@ def SaveScanResults(self):
     try:
         image = self.ui.scrollAreaWidgetContents.grab(self.ui.scrollAreaWidgetContents.rect())
         image.save(res_file)
-        self.logger.debug(f"SaveScanResults : Image writed")
+        logger.debug(f"SaveScanResults : Image writed")
     except Exception as e:
-        self.logger.error(f"SaveScanResults : error {e}")
+        logger.error(f"SaveScanResults : error {e}")
 
     self.ui.pushButton_save_log.show()
     self.ui.pushButton_save_report.show()

@@ -4,16 +4,17 @@ from PyQt6 import QtTest, QtCore
 from PyQt6.QtCore import QPropertyAnimation, QEasingCurve, QTimer
 from PyQt6.QtGui import QPixmap, QMovie
 from PyQt6.QtWidgets import QGraphicsOpacityEffect
+from loguru import logger
 
 from ui.tools import GetRelPath
 
 
 def App_Open_Anim(self):
-    self.logger.debug(f"App_Open_Anim : Animation")
+    logger.debug(f"App_Open_Anim : Animation")
 
     if self.window_size_full:
         self.ui.showMaximized()
-        self.logger.debug("App_Open_Anim : showMaximized")
+        logger.debug("App_Open_Anim : showMaximized")
 
     self.ui.setWindowOpacity(0.0)
     self.ui.show()
@@ -25,14 +26,14 @@ def App_Open_Anim(self):
     animation.start()
 
     self.ui.stackedWidget.setCurrentIndex(0)
-    self.logger.debug(f"Load_UI : UI showed")
+    logger.debug(f"Load_UI : UI showed")
 
 
 def App_Exit_Anim(self):
-    self.logger.debug(f"App_Close_Anim : Animation")
+    logger.debug(f"App_Close_Anim : Animation")
 
     animation = QPropertyAnimation(self.ui, b'windowOpacity', self)
-    animation.finished.connect(lambda: (self.logger.debug("App_Exit_Anim : ******* EXIT *******"), sys.exit(0)))
+    animation.finished.connect(lambda: (logger.debug("App_Exit_Anim : ******* EXIT *******"), sys.exit(0)))
     animation.setDuration(250)
     animation.setStartValue(1.0)
     animation.setEndValue(0.0)
@@ -40,7 +41,7 @@ def App_Exit_Anim(self):
 
 
 def StackedWidgetChangePage(self, page_to: int):
-    self.logger.debug(f"StackedWidgetAnimation : move to {page_to}")
+    logger.debug(f"StackedWidgetAnimation : move to {page_to}")
     current_widget = self.ui.stackedWidget.currentWidget()
 
     effect = QGraphicsOpacityEffect(current_widget)
@@ -59,7 +60,7 @@ def StackedWidgetChangePage(self, page_to: int):
 
 
 def ElemShowAnim(self, elem, show=True, dur=250):
-    self.logger.debug("ElemShowAnim : Show")
+    logger.debug("ElemShowAnim : Show")
 
     elem.setGraphicsEffect(QGraphicsOpacityEffect())
     if show:
@@ -80,7 +81,7 @@ def ElemShowAnim(self, elem, show=True, dur=250):
 
 
 def ElemHideAnim(self, elem, hide=True, dur=250):
-    self.logger.debug("ElemHideAnim : Hide")
+    logger.debug("ElemHideAnim : Hide")
 
     elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(1.0))
 
@@ -107,7 +108,7 @@ def ImageChangeAnim(self, elem, image):
     # Part 1
     #
 
-    self.logger.debug("ImageChangeAnim : Change Image")
+    logger.debug("ImageChangeAnim : Change Image")
 
     elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(1.0))
 
@@ -135,7 +136,7 @@ def ImageChangeAnimShow(self, elem, image):
         pixmap = QPixmap(GetRelPath(self, image))
         elem.setPixmap(pixmap)
     except Exception as e:
-        self.logger.error(f"ImageChangeAnimShow : {e}")
+        logger.error(f"ImageChangeAnimShow : {e}")
         return
 
     elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(0.0))
@@ -151,7 +152,7 @@ def ImageChangeAnimShow(self, elem, image):
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
     anim.finished.connect(lambda: effect.setEnabled(False))
     anim.start()
-    self.logger.debug("ImageChangeAnimShow : Image Changed")
+    logger.debug("ImageChangeAnimShow : Image Changed")
 
 
 def TextChangeAnim(self, elem, text):
@@ -160,7 +161,7 @@ def TextChangeAnim(self, elem, text):
     # Part 1
     #
 
-    self.logger.debug("TextChangeAnim : Change Text")
+    logger.debug("TextChangeAnim : Change Text")
 
     elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(1.0))
 
@@ -187,7 +188,7 @@ def TextChangeAnimShow(self, elem, text):
     try:
         elem.setText(text)
     except Exception as e:
-        self.logger.error(f"ImageChangeAnimShow : {e}")
+        logger.error(f"ImageChangeAnimShow : {e}")
         return
 
     elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(0.0))
@@ -203,13 +204,13 @@ def TextChangeAnimShow(self, elem, text):
     anim.setEasingCurve(QEasingCurve.Type.OutQuad)
     anim.finished.connect(lambda: effect.setEnabled(False))
     anim.start()
-    self.logger.debug("TextChangeAnimShow : Text Changed")
+    logger.debug("TextChangeAnimShow : Text Changed")
 
 
 def ShowErrMessage(self, msg):
     if not self.ui.alert_msg.isVisible():
         self.ui.alert_msg.setText(str(msg))
-        self.logger.debug(f"ShowErrMessage : {msg}")
+        logger.debug(f"ShowErrMessage: {msg}")
         ElemShowAnim(self, self.ui.alert_msg)
         QTimer.singleShot(5000, lambda: ElemHideAnim(self, self.ui.alert_msg))
 

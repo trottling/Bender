@@ -7,39 +7,25 @@ import webbrowser
 import httpx
 from PyQt6 import QtTest
 from PyQt6.QtWidgets import QMessageBox
+from loguru import logger
 
 from ui.animations import ImageChangeAnim, TextChangeAnim, ShowErrMessage
 
 
 def Run_Start_Tasks(self):
-    #
-    # Run a task in another Thread -->
-    # Task return list like [[func1, arg1], [func2, arg2]] -->
+    # Run a task in another Thread
+    # Task returns list like [[func1, arg1], [func2, arg2]]
     # Run funcs with args from a list in ui thread
-    #
-
     self.start_tasks_running = True
-
-    # This call will be in the ui thread
     self.vulners_key = self.ui.api_key.text().strip()
-
     self.done_start_tasks_list = []
     self.start_tasks_list = [CheckUpdate, GetSystemInfo, CheckIsUserAdmin, GetNetwork,
                              CheckVulners, CheckVulnersKey, CheckLoldrivers]
-
     with cf.ThreadPoolExecutor(max_workers=len(self.start_tasks_list)) as self.st_pool:
-
         [self.done_start_tasks_list.append(self.st_pool.submit(task, self)) for task in self.start_tasks_list]
-
-        # Even though it's a crutch, it fucking really works and takes away the ui freezes
+        # This workaround prevents UI freezes
         while all([i.done() is not True for i in self.done_start_tasks_list]):
             QtTest.QTest.qWait(200)
-
-        #
-        # First element in a list is func, other is args
-        # Sleep for more pretty anim
-        #
-
         QtTest.QTest.qWait(500)
         for task in self.done_start_tasks_list:
             if task.result() is not None:
@@ -48,8 +34,7 @@ def Run_Start_Tasks(self):
                         QtTest.QTest.qWait(25)
                         func[0](*[arg for arg in func[1:] if len(func) > 1])
                     except Exception as e:
-                        self.logger.error(f"Run_Start_Tasks : {e}")
-
+                        logger.error(f"Run_Start_Tasks: {e}")
     QtTest.QTest.qWait(250)
     self.start_tasks_running = False
 
@@ -59,12 +44,12 @@ def CheckUpdate(self):
     try:
         self.resp = httpx.get("https://api.github.com/repos/trottling/Bender/releases/latest", timeout=10)
     except Exception as e:
-        self.logger.error(f"CheckUpdate : request error : {e}")
+        logger.error(f"CheckUpdate : request error : {e}")
         result.append([ImageChangeAnim, self, self.ui.image_version, r"assets\images\fail.png"])
         return result
 
     if self.resp.status_code != 200:
-        self.logger.error(f"CheckUpdate : Status code : {self.resp.status_code}")
+        logger.error(f"CheckUpdate : Status code : {self.resp.status_code}")
         result.append([ImageChangeAnim, self, self.ui.image_version, r"assets\images\fail.png"])
         return result
 
@@ -81,7 +66,7 @@ def CheckUpdate(self):
         return result
 
     except Exception as e:
-        self.logger.error(f"CheckUpdate : parse error : {e}")
+        logger.error(f"CheckUpdate : parse error : {e}")
         result.append([ImageChangeAnim, self, self.ui.image_version, r"assets\images\fail.png"])
         return result
 
@@ -137,7 +122,7 @@ def GetSystemInfo(self):
 
         return result
     except Exception as e:
-        self.logger.error(f"GetSystemInfo : {e}")
+        logger.error(f"GetSystemInfo : {e}")
 
 
 def CheckIsUserAdmin(self):
@@ -145,7 +130,7 @@ def CheckIsUserAdmin(self):
     try:
         self.validate_user_admin = ctypes.windll.shell32.IsUserAnAdmin()
     except Exception as e:
-        self.logger.error(f"IsUserAdmin() : Admin check failed, assuming not an admin. : {e}")
+        logger.error(f"IsUserAdmin() : Admin check failed, assuming not an admin. : {e}")
         self.validate_user_admin = True
 
     result.append([self.ui.image_as_admin.clear])
@@ -166,7 +151,7 @@ def GetNetwork(self):
         _ = httpx.get("https://www.google.com/", timeout=10)
         self.validate_net_status = True
     except Exception as e:
-        self.logger.error(f"GetNetwork : {e}")
+        logger.error(f"GetNetwork : {e}")
         self.validate_net_status = False
 
     result.append([self.ui.image_net_status.clear])
@@ -187,7 +172,7 @@ def CheckVulners(self):
         _ = httpx.get("https://vulners.com/", timeout=10)
         self.validate_vulners_status = True
     except Exception as e:
-        self.logger.error(f"CheckVulners : {e}")
+        logger.error(f"CheckVulners : {e}")
         self.validate_vulners_status = False
 
     result.append([self.ui.image_vulners_api.clear])
@@ -216,33 +201,33 @@ def CheckVulnersKey(self):
         try:
             resp = httpx.post(url=f"https://vulners.com/api/v3/apiKey/valid/?keyID={self.vulners_key}")
             if resp.status_code != 200:
-                self.logger.debug(f"CheckVulnersKey : resp.status_code {resp.status_code}")
+                logger.debug(f"CheckVulnersKey : resp.status_code {resp.status_code}")
                 self.validate_vulners_key = False
                 result.append([TextChangeAnim, self, self.ui.label_vulners_key_3, "Error"])
                 result.append([ImageChangeAnim, self, self.ui.image_vulners_key_check, r"assets\images\fail.png"])
 
             if resp.json()['data']['valid']:
-                self.logger.debug(f"CheckVulnersKey : key valid")
+                logger.debug(f"CheckVulnersKey : key valid")
                 self.validate_vulners_key = True
                 result.append([TextChangeAnim, self, self.ui.label_vulners_key_3, "Valid"])
                 result.append([ImageChangeAnim, self, self.ui.image_vulners_key_check, r"assets\images\key.png"])
                 result.append([ImageChangeAnim, self, self.ui.vulners_check_result, r"assets\images\apply.png"])
 
             else:
-                self.logger.debug(f"CheckVulnersKey : key invalid : {resp.json()}")
+                logger.debug(f"CheckVulnersKey : key invalid : {resp.json()}")
                 self.validate_vulners_key = False
                 result.append([TextChangeAnim, self, self.ui.label_vulners_key_3, "Invalid"])
                 result.append([ImageChangeAnim, self, self.ui.image_vulners_key_check, r"assets\images\fail.png"])
                 result.append([ImageChangeAnim, self, self.ui.vulners_check_result, r"assets\images\fail.png"])
 
         except Exception as e:
-            self.logger.error(f"CheckVulnersKey : {e}")
+            logger.error(f"CheckVulnersKey : {e}")
             self.validate_vulners_key = False
             result.append([TextChangeAnim, self, self.ui.label_vulners_key_3, "Error"])
             result.append([ImageChangeAnim, self, self.ui.image_vulners_key_check, r"assets\images\fail.png"])
 
     else:
-        self.logger.debug(f"CheckVulnersKey : key valid : checked in settings")
+        logger.debug(f"CheckVulnersKey : key valid : checked in settings")
         self.validate_vulners_key = True
         result.append([TextChangeAnim, self, self.ui.label_vulners_key_3, "Key valid"])
         result.append([ImageChangeAnim, self, self.ui.image_vulners_key_check, r"assets\images\key.png"])
@@ -256,7 +241,7 @@ def CheckLoldrivers(self):
         _ = httpx.get("https://www.loldrivers.io/api/", timeout=10)
         self.validate_loldrivers_status = True
     except Exception as e:
-        self.logger.error(f"CheckLoldrivers : {e}")
+        logger.error(f"CheckLoldrivers : {e}")
         self.validate_loldrivers_status = False
 
     result.append([self.ui.image_loldrivers.clear])

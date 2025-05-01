@@ -1,3 +1,4 @@
+from loguru import logger
 from ui.animations import ShowErrMessage
 
 
@@ -35,10 +36,10 @@ def StartScannerValidator(self):
             ShowErrMessage(self, "Loldrivers.io Unavailable, try run scanner later")
             return True
 
-        self.logger.debug("StartScannerValidator : All normal")
+        logger.debug("StartScannerValidator: All checks passed")
 
     except Exception as e:
-        self.logger.error(f"StartScannerValidator : {e}")
+        logger.error(f"StartScannerValidator: {e}")
         ShowErrMessage(self, str(e))
         return True
 
