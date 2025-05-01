@@ -12,7 +12,7 @@ def load_styles(self):
     if current_theme == "Light":
         qss_path = get_rel_path(self, "assets/qss/MaterialLight.qss")
         self.ui.setStyleSheet(open(qss_path, mode="r").read())
-        self.logger.info("load_styles: Light theme applied")
+        logger.info("load_styles: Light theme applied")
     elif current_theme == "Dark":
         qss_path = get_rel_path(self, "assets/qss/MaterialDark.qss")
         self.ui.setStyleSheet(open(qss_path, mode="r").read())

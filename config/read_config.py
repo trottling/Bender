@@ -10,8 +10,12 @@ def load_settings(self):
         try:
             self.config.read(self.config_path)
 
-            logger.debug(f"load_settings : app_theme : {self.config.get('main', "app_theme")}")
-            self.app_theme = self.config.get('main', "app_theme")
+            logger.debug(f"load_settings : app_theme : {self.config.get('main', 'app_theme')}")
+            self.app_theme = self.config.get('main', 'app_theme')
+            # Set theme in comboBox
+            index = self.ui.qss_comboBox.findText(self.app_theme)
+            if index != -1:
+                self.ui.qss_comboBox.setCurrentIndex(index)
 
             net_workers = int(self.config.get('main', "net_workers"))
             logger.debug(f"load_settings : net_workers : {net_workers}")
