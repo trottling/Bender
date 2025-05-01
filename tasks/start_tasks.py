@@ -51,9 +51,9 @@ def run_start_tasks(self):
                     if isinstance(action, list) and len(action) > 0 and callable(action[0]):
                         action[0](*[arg for arg in action[1:]])
                     else:
-                        self.logger.error(f"run_start_tasks: action is not a valid callable list: {action}")
+                        logger.error(f"run_start_tasks: action is not a valid callable list: {action}")
                 except Exception as e:
-                    self.logger.error(f"run_start_tasks: {e}")
+                    logger.error(f"run_start_tasks: {e}")
         if self._start_tasks_finished == total:
             self.start_tasks_running = False
 

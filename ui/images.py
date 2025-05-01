@@ -1,5 +1,6 @@
 from PyQt6 import QtCore, QtGui
 from PyQt6.QtGui import QMovie, QPixmap
+from loguru import logger
 
 from ui.tools import get_rel_path
 
@@ -15,7 +16,7 @@ def load_images_and_icons(self):
     self.ui.logo_3.setStyleSheet(".QFrame {border-image: url('" + get_rel_path(self, 'assets//images//bender.png') + "')}")
     self.ui.git_frame.setStyleSheet(".QFrame {border-image: url('" + get_rel_path(self, 'assets//images//github.png') + "')}")
 
-    self.logger.debug(f"load_images_and_icons : Logos seted")
+    logger.debug(f"load_images_and_icons : Logos seted")
 
     # Set start page system data icons to processing GIF
 
@@ -26,7 +27,7 @@ def load_images_and_icons(self):
         elem.setMovie(gif)
         gif.start()
 
-    self.logger.debug(f"load_images_and_icons : Loading GIF seted")
+    logger.debug(f"load_images_and_icons : Loading GIF seted")
 
     #
     # Buttons icons
@@ -80,4 +81,4 @@ def load_images_and_icons(self):
     # Vuln info page
     self.ui.vuln_info_back_button.setStyleSheet(".QPushButton {image: url('" + get_rel_path(self, 'assets//images//back.png') + "')}")
 
-    self.logger.debug(f"load_images_and_icons : Buttons icons seted")
+    logger.debug(f"load_images_and_icons : Buttons icons seted")

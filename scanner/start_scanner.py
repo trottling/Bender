@@ -1,3 +1,5 @@
+from loguru import logger
+
 from scanner.scanner import Scanner
 from scanner.scanner_signals import connect_scanner_signals
 from scanner.scanner_start_validator import start_scanner_validator
@@ -29,11 +31,11 @@ def run_scanner_tasks(self):
     self.vulners_key = self.ui.api_key.text().strip()
 
     # Create thread
-    self.scanner = Scanner(self.logger, self.net_threads, self.data_workers, self.port_workers, self.vulners_key)
+    self.scanner = Scanner(self.net_threads, self.data_workers, self.port_workers, self.vulners_key)
 
     # Connect signals
     connect_scanner_signals(self)
 
     # Run scanner thread
     self.scanner.start()
-    self.logger.debug("run_scanner_tasks : Thread started")
+    logger.debug("run_scanner_tasks : Thread started")

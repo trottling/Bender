@@ -1,4 +1,5 @@
 from configparser import ConfigParser
+import os
 
 from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
@@ -10,12 +11,11 @@ from ui.start_app import start_app
 class UserUI(QMainWindow):
     _grip_size = 16  # Corner grips size
 
-    def __init__(self, app_version, logger, appdir, splash) -> None:
+    def __init__(self, app_version, app_dir, splash) -> None:
         super().__init__()
 
         self.app_version = app_version
-        self.logger = logger
-        self.appdir = appdir
+        self.app_dir = app_dir
         self.splash = splash
 
         self.ui = None
@@ -23,7 +23,7 @@ class UserUI(QMainWindow):
         # UI vars
         self.app_theme = None
         self.check_thread = None
-        self.config_path = self.appdir + "\\" + "config.ini"
+        self.config_path = os.path.join(self.app_dir, "config.ini")
         self.config = ConfigParser()
         self.is_slider_timer_start = False
         self.start_tasks_running = False

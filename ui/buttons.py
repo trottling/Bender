@@ -1,24 +1,21 @@
 import os
 import sys
 import webbrowser
-from pathlib import Path
 
 from PyQt6 import QtCore, QtTest
-from PyQt6.QtCore import QTimer, QPropertyAnimation, QEasingCurve
+from PyQt6.QtCore import QPropertyAnimation, QTimer
 from PyQt6.QtGui import QMovie
-from PyQt6.QtWidgets import QFileDialog, QGraphicsOpacityEffect
+from PyQt6.QtWidgets import QFileDialog
+from loguru import logger
 
 from config.write_config import save_settings
 from scanner.start_scanner import start_scanner
 from tasks.start_tasks import run_start_tasks
-from ui.animations import app_exit_anim, stacked_widget_change_page, elem_show_anim, elem_hide_anim, text_change_anim,     image_change_anim, show_err_message
-from ui.styles import load_styles
+from ui.animations import app_exit_anim, elem_hide_anim, elem_show_anim, image_change_anim, show_err_message, stacked_widget_change_page, text_change_anim
 from ui.tools import check_vulners_key_request, get_rel_path
-from loguru import logger
 
 
 def connect_buttons(self):
-
     self.splash.change_pbar(80, "Connecting buttons")
 
     #
@@ -47,11 +44,12 @@ def connect_buttons(self):
     self.ui.setting_back_button.clicked.connect(
         lambda: (save_settings(self), (stacked_widget_change_page(self, 0))))
 
+    # Save settings on change
     self.ui.horizontalSlider_network_threads.valueChanged.connect(lambda: save_on_change(self))
-
     self.ui.horizontalSlider_data_threads.valueChanged.connect(lambda: save_on_change(self))
-
     self.ui.horizontalSlider_port_threads.valueChanged.connect(lambda: save_on_change(self))
+    self.ui.qss_comboBox.currentIndexChanged.connect(lambda: save_on_change(self))
+    self.ui.check_key_pushButton.clicked.connect(lambda: save_on_change(self))
 
     self.ui.qss_comboBox.currentIndexChanged.connect(lambda: apply_qss_theme(self))
 
@@ -123,7 +121,6 @@ def apply_qss_theme(self):
 
 
 def check_vulners_key(self):
-    save_settings(self)
     if self.ui.api_key.text().strip() == "":
         logger.debug("Check_Vulners_Key : api key empty")
         webbrowser.open("https://github.com/trottling/Bender/blob/main/VULNERS-API-KEY-HELP.md")
@@ -160,13 +157,13 @@ def save_on_change(self):
     self.ui.label_network_threads_value.setText(str(self.ui.horizontalSlider_network_threads.value()))
     self.ui.label_port_threads.setText(str(self.ui.horizontalSlider_port_threads.value()))
 
-    if not self.isSliderTimerStart:
-        self.isSliderTimerStart = True
+    if not self.is_slider_timer_start:
+        self.is_slider_timer_start = True
         QTimer.singleShot(2500, lambda: (save_settings(self), change_slider_lock(self)))
 
 
 def change_slider_lock(self):
-    self.isSliderTimerStart = False
+    self.is_slider_timer_start = False
 
 
 def save_report(self):
@@ -182,7 +179,7 @@ def save_report(self):
     logger.debug(f"SaveReport: Report written")
 
 
-def write_dict_recursive(self, f, d, indent=0):
+def write_dict_recursive(self, f, d, indent = 0):
     for key, value in d.items():
         if isinstance(value, dict):
             f.write("  " * indent + str(key) + ": \n")
@@ -267,3 +264,19 @@ def save_scan_results(self):
     self.ui.app_name_2.hide()
     self.ui.app_desc_2.hide()
     self.ui.app_link_label.hide()
+
+
+def save_debug_log(self):
+    file_path, _ = QFileDialog.getSaveFileName(self, 'Save log file', './', 'Text Files (*.txt);;All Files (*)')
+    if not file_path:
+        return
+    try:
+        log_file = logger._core.handlers[0]._sink._file.name if logger._core.handlers else None
+        if log_file and os.path.exists(log_file):
+            with open(log_file, 'r', encoding='utf-8') as src, open(file_path, 'w', encoding='utf-8') as dst:
+                dst.write(src.read())
+        else:
+            with open(file_path, 'w', encoding='utf-8') as dst:
+                dst.write('No log file found or logging to file is not enabled.')
+    except Exception as e:
+        logger.error(f"save_debug_log: {e}")

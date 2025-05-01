@@ -1,3 +1,4 @@
+from loguru import logger
 
 
 def hide_elements(self):
@@ -20,4 +21,4 @@ def hide_elements(self):
     self.ui.app_desc_2.hide()
     self.ui.app_link_label.hide()
 
-    self.logger.debug("hide_elements : Elements Hided")
+    logger.debug("hide_elements : Elements Hided")

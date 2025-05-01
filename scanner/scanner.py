@@ -31,10 +31,9 @@ class Scanner(QThread):
     ReportKB_signal = pyqtSignal(dict)
     UpdateWorkPageStat_signal = pyqtSignal(str)
 
-    def __init__(self, log, net_threads, data_workers, port_workers, vulners_key):
+    def __init__(self, net_threads, data_workers, port_workers, vulners_key):
         super().__init__(parent=None)
 
-        self.logger = log
         self.net_threads = net_threads
         self.data_workers = data_workers
         self.port_workers = port_workers
