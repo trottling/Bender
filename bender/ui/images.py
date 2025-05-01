@@ -6,7 +6,6 @@ from bender.ui.tools import get_rel_path
 
 
 def load_images_and_icons(self):
-    self.splash.change_pbar(90, "Loading images")
 
     #
     # Logo

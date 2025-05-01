@@ -43,13 +43,13 @@ class UserUI(QMainWindow):
         self.validate_user_admin = False
         self.validate_net_status = False
         self.validate_vulners_status = False
-        self.validate_vulners_key = False
         self.validate_loldrivers_status = False
 
         # Scanner vars
         self.res_good = 0
         self.res_bad = 0
         self.scan_th = None
+        self.port_dict = {}
 
         # Window actions
         self.window_size_full = False

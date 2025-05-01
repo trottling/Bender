@@ -2,9 +2,6 @@ from loguru import logger
 
 
 def hide_elements(self):
-
-    self.splash.change_pbar(70, "Hide Elements")
-
     # Global
     self.ui.label_windows_title.hide()
     self.ui.app_icon.hide()

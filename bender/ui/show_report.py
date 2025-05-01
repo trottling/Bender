@@ -3,7 +3,6 @@ import re
 from PyQt6 import QtGui
 from loguru import logger
 
-from bender.core.tcp_port_dict import port_dict
 from bender.ui.animations import stacked_widget_change_page, update_work_page_stat
 from bender.ui.tools import report_error, get_rel_path
 
@@ -85,7 +84,7 @@ def report_apps_full(self, index, report):
         else:
             self.ui.plainTextEdit_cvss_3.setPlainText("No info")
 
-        stacked_widget_change_page(self, 5, "left")
+        stacked_widget_change_page(self.ui.stackedWidget, 5, "left")
     except Exception as e:
         report_error(self, f"report_apps_full : {e}")
 
@@ -124,7 +123,7 @@ def report_drivers_full(self, index, report):
 
         self.ui.plainTextEdit_vuln.setPlainText(format_dict(self, driver_info))
 
-        stacked_widget_change_page(self, 7, "left")
+        stacked_widget_change_page(self.ui.stackedWidget, 7, "left")
     except Exception as e:
         report_error(self, f"ShowCVEInfo_CCD : {e}")
 
@@ -234,7 +233,7 @@ def report_kb_full(self, index, report):
         else:
             self.ui.plainTextEdit_cvss_3.setPlainText("No info", "left")
 
-        stacked_widget_change_page(self, 5)
+        stacked_widget_change_page(self.ui.stackedWidget, 5)
     except Exception as e:
         report_error(self, f"report_kb_full : {e}")
 
@@ -252,10 +251,10 @@ def fill_local_ports(self, ports):
 
         for item in ports:
             port = str(item[1])
-            if port in port_dict:
+            if port in self.port_dict:
                 list_item = QtGui.QStandardItem()
-                service = port_dict[port]["Service Name"] if port_dict[port]["Service Name"] != "" else "No Service Info"
-                desc = port_dict[port]["Description"] if port_dict[port]["Description"] != "" else "No Description"
+                service = self.port_dict[port]["Service Name"] if self.port_dict[port]["Service Name"] != "" else "No Service Info"
+                desc = self.port_dict[port]["Description"] if self.port_dict[port]["Description"] != "" else "No Description"
                 list_item.setText(f"{port}\t{service}\t{desc}")
                 self.local_ports_list_model.appendRow(list_item)
         update_work_page_stat(self, "good")
@@ -277,10 +276,10 @@ def fill_ext_ports(self, ports):
 
         for item in ports:
             port = str(item[1])
-            if port in port_dict:
+            if port in self.port_dict:
                 list_item = QtGui.QStandardItem()
-                service = port_dict[port]["Service Name"] if port_dict[port]["Service Name"] != "" else "No Service Info"
-                desc = port_dict[port]["Description"] if port_dict[port]["Description"] != "" else "No Description"
+                service = self.port_dict[port]["Service Name"] if self.port_dict[port]["Service Name"] != "" else "No Service Info"
+                desc = self.port_dict[port]["Description"] if self.port_dict[port]["Description"] != "" else "No Description"
                 list_item.setText(f"{port}\t{service}\t{desc}")
                 self.ext_ports_list_model.appendRow(list_item)
         update_work_page_stat(self, "good")

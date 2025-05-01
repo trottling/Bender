@@ -24,21 +24,15 @@ def prepare_window(self):
     logger.debug("prepare_window: env flag set")
     ui_path = get_rel_path(self, "assets/ui/app.ui")
 
-    self.splash.change_pbar(10, "Loading ui")
-
     # Load ui file
     logger.debug(f"prepare_window: Loading ui: {ui_path}")
     logger.debug("prepare_window: NOTE: If ui not loaded in long time, check 'from PyQt6 import QtWebEngineWidgets' import")
     self.ui = uic.loadUi(ui_path, self)
     logger.debug("prepare_window: ui loaded")
 
-    self.splash.change_pbar(20, "Installing icons")
-
     # Set window icon
     self.ui.setWindowIcon(QtGui.QIcon(get_rel_path(self, "assets//icons//bender.ico")))
     logger.debug("prepare_window: Icon set")
-
-    self.splash.change_pbar(30, "Setting descriptions")
 
     # Set window title
     self.ui.setWindowTitle("Windows Vulnerability Scanner")
@@ -48,8 +42,6 @@ def prepare_window(self):
     self.ui.app_ver.setText(f'<html><head/><body><p align="right"><a href="https://github.com/trottling/Bender/releases/tag/{self.app_version}"><span style=" text-decoration: underline; color:#a9b7c6;">ver {self.app_version}</span></a></p></body></html>')
     self.ui.python_version.setText(f"<html><head/><body><p align=\"right\"><span style=\" font-size:12pt;\">Python {sys.version}</span></p></body></html>")
     logger.debug("prepare_window: Versions set")
-
-    self.splash.change_pbar(40, "Preparing the window")
 
     # Set window flags
     self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
@@ -83,8 +75,6 @@ def prepare_window(self):
     self.start_processing_labels = [self.ui.label_os_name_2, self.ui.label_os_ver_2, self.ui.label_os_status_2,
                                     self.ui.label_admin_result, self.ui.label_net_status_2, self.ui.label_vulners_api_2,
                                     self.ui.label_vulners_key_3, self.ui.label_loldrivers_2]
-
-    self.splash.change_pbar(50, "Loading Shodan info")
 
     try:
         ip = httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')

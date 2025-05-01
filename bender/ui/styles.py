@@ -3,7 +3,6 @@ from bender.ui.tools import get_rel_path, get_windows_theme
 
 
 def load_styles(self):
-    self.splash.change_pbar(95, "Loading styles")
     current_theme = self.ui.qss_comboBox.currentText()
     if current_theme == "" or current_theme is None:
         self.logger.warning("load_styles: Saved theme is empty")

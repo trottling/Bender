@@ -4,9 +4,6 @@ from bender.core.config.check_config import check_config_file
 
 
 def load_settings(self):
-
-    self.splash.change_pbar(60, "Loading settings")
-
     if check_config_file(self):
         try:
             self.config.read(self.config_path)

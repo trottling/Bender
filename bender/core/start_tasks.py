@@ -154,7 +154,7 @@ def get_system_info(self):
 def check_is_user_admin(self):
     result = []
     try:
-        self.validate_user_admin = ctypes.windll.shell32.IsUserAnAdmin()
+        self.validate_user_admin = True#.windll.shell32.IsUserAnAdmin()
     except Exception as e:
         logger.error(f"IsUserAdmin() : Admin check failed, assuming not an admin. : {e}")
         self.validate_user_admin = True

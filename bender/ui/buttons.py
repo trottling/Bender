@@ -16,7 +16,6 @@ from bender.ui.tools import check_vulners_key_request, get_rel_path
 
 
 def connect_buttons(self):
-    self.splash.change_pbar(80, "Connecting buttons")
 
     #
     # Start page

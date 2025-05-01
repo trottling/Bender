@@ -15,7 +15,7 @@ def start_scanner(self):
 
 
 def run_scanner_tasks(self):
-    stacked_widget_change_page(self, 1, "up")
+    stacked_widget_change_page(self.ui.stackedWidget, 1, "up")
 
     #
     # Run ThreadPoolExecutor --> Put result in result page
