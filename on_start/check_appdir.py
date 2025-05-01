@@ -1,32 +1,40 @@
 import os
 from logging.handlers import RotatingFileHandler
+from loguru import logger
 
 
 def CheckAppDir():
     appdata_path = os.getenv('APPDATA')
-    app_folder = os.path.join(appdata_path + "\\" + "Windows-Vulnerability-Scanner")
+    app_folder = os.path.join(appdata_path, "Windows-Vulnerability-Scanner")
 
-    if not os.path.exists(app_folder):
-        os.mkdir(app_folder)
+    try:
+        os.makedirs(app_folder, exist_ok=True)
+        logger.info(f"App folder checked/created: {app_folder}")
+    except Exception as e:
+        logger.error(f"[CheckAppDir] Failed to create app folder: {e}")
 
-    style_folder = app_folder + "\\" + "saved_qss"
+    style_folder = os.path.join(app_folder, "saved_qss")
+    try:
+        os.makedirs(style_folder, exist_ok=True)
+        logger.info(f"Style folder checked/created: {style_folder}")
+    except Exception as e:
+        logger.error(f"[CheckAppDir] Failed to create style folder: {e}")
 
-    if not os.path.exists(style_folder):
-        os.mkdir(style_folder)
+    log_file = os.path.join(app_folder, "debug_log.txt")
 
-    log_file = app_folder + "\\" + "debug_log.txt"
-
-    #
-    # If the log file doesn't exist, he will be created in check config func
-    #
-
+    # If the log file exists, remove it (will be recreated in check config func)
     if os.path.isfile(log_file):
         try:
             os.remove(log_file)
-        except PermissionError:
-            pass
+            logger.info(f"Old log file removed: {log_file}")
+        except PermissionError as e:
+            logger.error(f"[CheckAppDir] PermissionError when removing log file: {e}")
+        except Exception as e:
+            logger.error(f"[CheckAppDir] Error when removing log file: {e}")
     try:
-        file_handler = RotatingFileHandler(log_file, maxBytes=0)
+        file_handler = RotatingFileHandler(log_file, maxBytes=1024*1024, backupCount=3)
+        logger.debug(f"RotatingFileHandler created for: {log_file}")
         return app_folder, file_handler
-    except Exception:
+    except Exception as e:
+        logger.error(f"[CheckAppDir] Failed to create RotatingFileHandler: {e}")
         return app_folder, None

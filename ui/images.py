@@ -13,7 +13,7 @@ def Load_Images_And_Icons(self):
     self.ui.logo.setStyleSheet(".QFrame {border-image: url('" + GetRelPath(self, 'assets//images//bender.png') + "')}")
     self.ui.logo_2.setStyleSheet(".QFrame {border-image: url('" + GetRelPath(self, 'assets//images//bender.png') + "')}")
     self.ui.logo_3.setStyleSheet(".QFrame {border-image: url('" + GetRelPath(self, 'assets//images//bender.png') + "')}")
-    self.ui.git_frame.setStyleSheet(".QFrame {image: url('" + GetRelPath(self, 'assets//images//github.png') + "')}")
+    self.ui.git_frame.setStyleSheet(".QFrame {border-image: url('" + GetRelPath(self, 'assets//images//github.png') + "')}")
 
     self.logger.debug(f"Load_Images_And_Icons : Logos seted")
 

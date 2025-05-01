@@ -17,23 +17,33 @@ class SplashScreen(QSplashScreen):
         self.setWindowTitle("Bender | Loading...")
         self.setPixmap(QPixmap(GetRelPath(self, "assets/images/splash.png")))
 
-        self.effect = QGraphicsOpacityEffect(self.info_label)
-        self.effect.setOpacity(1.0)
-        self.info_label.setGraphicsEffect(self.effect)
+        # Проверяем, что info_label и progressBar существуют
+        if hasattr(self, 'info_label') and self.info_label is not None:
+            self.effect = QGraphicsOpacityEffect(self.info_label)
+            self.effect.setOpacity(1.0)
+            self.info_label.setGraphicsEffect(self.effect)
+        else:
+            self.effect = QGraphicsOpacityEffect()
+            self.effect.setOpacity(1.0)
 
     def ChangePbar(self, percent: int, text: str):
-        self.PercAnim(percent)
-        self.TextAnim(text)
+        if self.progressBar is not None:
+            self.PercAnim(percent)
+        if self.info_label is not None:
+            self.TextAnim(text)
         QtTest.QTest.qWait(150)
 
     def PercAnim(self, percent: int):
-        animation = QPropertyAnimation(self.progressBar, b"value", self)
-        animation.setDuration(200)
-        animation.setStartValue(self.progressBar.value())
-        animation.setEndValue(percent)
-        animation.start()
+        if self.progressBar is not None:
+            animation = QPropertyAnimation(self.progressBar, b"value", self)
+            animation.setDuration(200)
+            animation.setStartValue(self.progressBar.value())
+            animation.setEndValue(percent)
+            animation.start()
 
     def TextAnim(self, text: str):
+        if self.info_label is None:
+            return
         # Hide
         anim = QPropertyAnimation(self.effect, b"opacity", self)
         anim.setDuration(100)

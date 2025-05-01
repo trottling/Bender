@@ -16,6 +16,7 @@ from getmac import get_mac_address
 from portscan import PortScan
 from windows_tools import windows_firewall, bitness, bitlocker, logical_disks, updates
 from windows_tools.installed_software import get_installed_software
+from loguru import logger
 
 
 def GetWinIcon(self):
@@ -33,7 +34,7 @@ def GetWinIcon(self):
 
         self.stat_signal.emit("good")
     except Exception as e:
-        self.logger.error(f"GetWinIcon : {e}")
+        logger.error(f"GetWinIcon: {e}")
         self.stat_signal.emit("bad")
 
 
@@ -43,7 +44,7 @@ def GetWinVersions(self):
         self.label_System_ver_setText_signal.emit(platform.version())
         self.stat_signal.emit("good")
     except Exception as e:
-        self.logger.error(f"GetWinVersions : {e}")
+        logger.error(f"GetWinVersions: {e}")
         self.stat_signal.emit("bad")
 
 
@@ -52,7 +53,7 @@ def GetCpu(self):
         self.label_Hardware_cpu_setText_signal.emit(cpuinfo.get_cpu_info()['brand_raw'])
         self.stat_signal.emit("good")
     except Exception as e:
-        self.logger.error(f"GetCpu : {e}")
+        logger.error(f"GetCpu: {e}")
         self.stat_signal.emit("bad")
 
 
@@ -61,7 +62,7 @@ def GetGpu(self):
         self.label_Hardware_gpu_setText_signal.emit(str(wmi.WMI().Win32_VideoController()[0].wmi_property('Name').value))
         self.stat_signal.emit("good")
     except Exception as e:
-        self.logger.error(f"GetGpu : {e}")
+        logger.error(f"GetGpu: {e}")
         self.stat_signal.emit("bad")
 
 
@@ -70,7 +71,7 @@ def GetRam(self):
         self.label_Hardware_ram_setText_signal.emit(f"{round(psutil.virtual_memory().total / 1073741824)} Gb RAM")
         self.stat_signal.emit("good")
     except Exception as e:
-        self.logger.error(f"GetRam : {e}")
+        logger.error(f"GetRam: {e}")
         self.stat_signal.emit("bad")
 
 
@@ -83,7 +84,7 @@ def GetRom(self):
         self.label_Hardware_rom_setText_signal.emit(f"{space // (2 ** 30)} Gb ROM")
         self.stat_signal.emit("good")
     except Exception as e:
-        self.logger.error(f"GetRom : {e}")
+        logger.error(f"GetRom: {e}")
         self.stat_signal.emit("bad")
 
 
@@ -96,7 +97,7 @@ def GetFirewall(self):
             self.label_Network_rules_setText_signal.emit("Firewall Inactive")
             self.stat_signal.emit("good")
     except Exception as e:
-        self.logger.error(f"GetFirewall : {e}")
+        logger.error(f"GetFirewall: {e}")
         self.stat_signal.emit("bad")
 
 
@@ -105,7 +106,7 @@ def GetMac(self):
         self.label_network_mac_setText_signal.emit(f"{str(get_mac_address())} - Mac adress")
         self.stat_signal.emit("good")
     except Exception as e:
-        self.logger.error(f"GetMac : {e}")
+        logger.error(f"GetMac: {e}")
         self.stat_signal.emit("bad")
 
 
@@ -114,7 +115,7 @@ def GetLocalIP(self):
         self.label_Network_local_ip_setText_signal.emit(f"{socket.gethostbyname(socket.gethostname())} - Local IP")
         self.stat_signal.emit("good")
     except Exception as e:
-        self.logger.error(f"GetLocalIP : {e}")
+        logger.error(f"GetLocalIP: {e}")
         self.stat_signal.emit("bad")
 
 
@@ -123,7 +124,7 @@ def GetExtIP(self):
         self.label_Network_ext_ip_setText_signal.emit(f"{httpx.get(url="https://api.ipify.org", timeout=5).content.decode('utf8')} - External IP")
         self.stat_signal.emit("good")
     except Exception as e:
-        self.logger.error(f"GetExtIP : {e}")
+        logger.error(f"GetExtIP: {e}")
         self.stat_signal.emit("bad")
 
 
@@ -137,7 +138,7 @@ def GetBitness(self):
             self.label_sys_bitness_setText_signal.emit(f"32 Bit Bitness")
         self.stat_signal.emit("good")
     except Exception as e:
-        self.logger.error(f"GetBitness : {e}")
+        logger.error(f"GetBitness: {e}")
         self.stat_signal.emit("bad")
 
 
@@ -145,24 +146,21 @@ def GetBitlocker(self):
     try:
         drives_list = []
         if bitlocker.check_bitlocker_management_tools():
-
             for drive in logical_disks.get_logical_disks():
-
-                for line in subprocess.check_output(['manage-bde', '-status', drive], startupinfo=self.si).decode(encoding='utf-8', errors='ignore'):
-                    if 'AES' or 'XEX' in line:
+                for line in subprocess.check_output(['manage-bde', '-status', drive], startupinfo=self.si).decode(encoding='utf-8', errors='ignore').splitlines():
+                    if 'AES' in line or 'XEX' in line:
                         drives_list.append(drive)
                         break
             if len(drives_list) != 0:
-                # Remove ":" from drive name
                 text = ", ".join([i.replace(":", "") for i in list(set(drives_list))])
-                self.label_sys_bitlocker_setText_signal.emit(f"Bitlocker Enabled - {"Disks" if len(drives_list) > 1 else "Disk"} {text}")
+                self.label_sys_bitlocker_setText_signal.emit(f"Bitlocker Enabled - {'Disks' if len(drives_list) > 1 else 'Disk'} {text}")
             else:
                 self.label_sys_bitlocker_setText_signal.emit(f"Bitlocker Disabled")
         else:
             self.label_sys_bitlocker_setText_signal.emit(["self.ui.label_sys_bitlocker.setText", f"Bitlocker Tools not found"])
         self.stat_signal.emit("good")
     except Exception as e:
-        self.logger.error(f"GetBitlocker : {e}")
+        logger.error(f"GetBitlocker: {e}")
         self.stat_signal.emit("bad")
 
 
@@ -180,7 +178,7 @@ def GetVirtualization(self):
             self.label_sys_virt_setText_signal.emit(f"Unknown Virtualization")
         self.stat_signal.emit("good")
     except Exception as e:
-        self.logger.error(f"GetVirtualization : {e}")
+        logger.error(f"GetVirtualization: {e}")
         self.stat_signal.emit("bad")
 
 
@@ -189,19 +187,16 @@ def GetApps(self):
         for software in get_installed_software():
             if software['name'] != "" and software['version'] != "":
                 self.soft_list.append(software)
-
-        self.logger.debug(f"GetApps : {len(self.soft_list)} soft")
-
-        # check for zero list lengths
+        logger.info(f"GetApps: found {len(self.soft_list)} applications")
         if len(self.soft_list) > 0:
             self.stat_signal.emit("good")
             return False
         else:
+            logger.warning("GetApps: application list is empty")
             self.stat_signal.emit("bad")
             return True
-
     except Exception as e:
-        self.logger.error(f"GetApps : {e}")
+        logger.error(f"GetApps: {e}")
         self.stat_signal.emit("bad")
         return True
 
@@ -212,14 +207,15 @@ def ConnectVulnersSoft(self):
         self.stat_signal.emit("good")
         return False
     except Exception as e:
-        self.logger.error(f"ConnectVulnersSoft : {e}")
+        logger.error(f"ConnectVulnersSoft: {e}")
         self.stat_signal.emit("bad")
         return True
 
 
 def CutListByChunks(self, lst, chunk_max):
-    res = [lst[chunk_max * k:chunk_max * (k + 1)] for k in range(chunk_max)]
-    self.logger.debug(f"CutListByChunks : {len(lst)} items / {chunk_max} chunk size --> {len(res)} chunks")
+    # Делит список на чанки по chunk_max элементов
+    res = [lst[i:i+chunk_max] for i in range(0, len(lst), chunk_max)]
+    logger.debug(f"CutListByChunks: {len(lst)} items / {chunk_max} chunk size --> {len(res)} chunks")
     return res
 
 
@@ -231,7 +227,7 @@ def SendAppsVulners(self):
         self.stat_signal.emit("good")
         return False
     except Exception as e:
-        self.logger.error(f"SendAppsVulners : Failed to get vulners.com report : {e}")
+        logger.error(f"SendAppsVulners: Failed to get vulners.com report: {e}")
         self.stat_signal.emit("bad")
         return True
 
@@ -255,7 +251,7 @@ def ProcessAppsResponse(self):
             self.cve_list_apps.append(cve)
         self.apps_report = {"cve_list": self.cve_list_apps}
     except Exception as e:
-        self.logger.error(f"ProcessAppsResponse : Failed to transorm to needed format : {e}")
+        logger.error(f"ProcessAppsResponse: Failed to transorm to needed format: {e}")
         self.stat_signal.emit("bad")
         return True
 
@@ -268,7 +264,7 @@ def ProcessAppsResponse(self):
                     futures.append(executor.submit(GetCveInfo, self=self, item=item))
                 executor.shutdown(wait=True, cancel_futures=False)
         except Exception as e:
-            self.logger.error(f"ProcessAppsResponse : Failed to Getting more info about CVEs : {e}")
+            logger.error(f"ProcessAppsResponse: Failed to Getting more info about CVEs: {e}")
             self.stat_signal.emit("bad")
             return True
 
@@ -278,12 +274,12 @@ def ProcessAppsResponse(self):
 
 def GetCveInfo(self, item):
     cve_id = item["cve"]
-    self.logger.debug(f"GetCveInfo : Processing {cve_id}")
+    logger.debug(f"GetCveInfo: Processing {cve_id}")
 
     try:
         self.mitre_resp = httpx.get(f"https://cveawg.mitre.org/api/cve/{cve_id}", timeout=10).json()
     except Exception as e:
-        self.logger.error(f"GetCveInfo : {cve_id} : {e}")
+        logger.error(f"GetCveInfo: {cve_id}: {e}")
 
     try:
         item["desc"] = self.mitre_resp["containers"]["cna"]["descriptions"][0]["value"]
@@ -354,7 +350,7 @@ def GetLocalPorts(self):
 
         self.stat_signal.emit("good")
     except Exception as e:
-        self.logger.error(f"GetLocalPorts : {e}")
+        logger.error(f"GetLocalPorts: {e}")
         self.stat_signal.emit("bad")
 
 
@@ -368,27 +364,23 @@ def GetExtPorts(self):
         self.FillExtPorts_signal.emit(self.ExtPorts)
         self.stat_signal.emit("good")
     except Exception as e:
-        self.logger.error(f"GetExtPorts : {e}")
+        logger.error(f"GetExtPorts: {e}")
         self.stat_signal.emit("bad")
 
 
 def GetDrivers(self):
     try:
-        # getting drivers
         for driver in [f for f in listdir(r"c:\windows\system32\drivers") if isfile(join(r"c:\windows\system32\drivers", f))]:
             self.drivers_list.append(driver)
-
-        self.logger.debug(f"GetDrivers : {len(self.drivers_list)} drivers")
-
-        # check for zero list lengths
+        logger.info(f"GetDrivers: found {len(self.drivers_list)} drivers")
         if len(self.drivers_list) == 0:
+            logger.warning("GetDrivers: driver list is empty")
             self.stat_signal.emit("bad")
             return True
-
         self.stat_signal.emit("good")
         return False
     except Exception as e:
-        self.logger.error(f"GetDrivers : {e}")
+        logger.error(f"GetDrivers: {e}")
         self.stat_signal.emit("bad")
         return True
 
@@ -396,14 +388,18 @@ def GetDrivers(self):
 def HashDrivers(self):
     try:
         for driver in self.drivers_list:
-            # [sha256, sha1]
             drivers_path = r"c:\windows\system32\drivers"
-            with open(f"{drivers_path}\\{driver}", "rb") as f:
-                self.drivers_list_hashed.append([hashlib.sha256(f.read()).hexdigest(), hashlib.sha1(f.read()).hexdigest()])
+            file_path = f"{drivers_path}\\{driver}"
+            with open(file_path, "rb") as f:
+                data = f.read()
+                self.drivers_list_hashed.append([
+                    hashlib.sha256(data).hexdigest(),
+                    hashlib.sha1(data).hexdigest()
+                ])
         self.stat_signal.emit("good")
         return False
     except Exception as e:
-        self.logger.error(f"HashDrivers : {e}")
+        logger.error(f"HashDrivers: {e}")
         self.stat_signal.emit("bad")
         return True
 
@@ -411,17 +407,15 @@ def HashDrivers(self):
 def GetDriversDB(self):
     try:
         self.driver_db = httpx.get("https://www.loldrivers.io/api/drivers.json", timeout=10).json()
-        self.logger.debug(f"GetDriversDB : {len(self.driver_db)} drivers in database")
-
+        logger.info(f"GetDriversDB: received {len(self.driver_db)} drivers from database")
         if len(self.driver_db) == 0:
+            logger.warning("GetDriversDB: database is empty")
             self.stat_signal.emit("bad")
             return True
-
         self.stat_signal.emit("good")
         return False
-
     except Exception as e:
-        self.logger.error(f"GetDriversDB : {e}")
+        logger.error(f"GetDriversDB: {e}")
         self.stat_signal.emit("bad")
         return True
 
@@ -437,7 +431,7 @@ def ScanDrivers(self):
         self.stat_signal.emit("good")
         return False
     except Exception as e:
-        self.logger.error(f"ScanDrivers : {e}")
+        logger.error(f"ScanDrivers: {e}")
         self.stat_signal.emit("bad")
         return True
 
@@ -545,7 +539,7 @@ def ConnectVulnersKB(self):
         self.stat_signal.emit("good")
         return False
     except Exception as e:
-        self.logger.error(f"ConnectVulnersKB : {e}")
+        logger.error(f"ConnectVulnersKB: {e}")
         self.stat_signal.emit("bad")
         return True
 
@@ -553,7 +547,7 @@ def ConnectVulnersKB(self):
 def GetKB(self):
     try:
         self.kb_list = updates.get_windows_updates(filter_duplicates=True)
-        self.logger.debug(f"GetKB : {len(self.kb_list)} KB")
+        logger.debug(f"GetKB: {len(self.kb_list)} KB")
         if len(self.kb_list) == 0:
             self.stat_signal.emit("bad")
             return True
@@ -561,7 +555,7 @@ def GetKB(self):
         self.stat_signal.emit("good")
         return False
     except Exception as e:
-        self.logger.error(f"ConnectVulnersKB : {e}")
+        logger.error(f"ConnectVulnersKB: {e}")
         self.stat_signal.emit("bad")
         return True
 
@@ -576,7 +570,7 @@ def SendKBVulners(self):
         self.stat_signal.emit("good")
         return False
     except Exception as e:
-        self.logger.error(f"SendKBVulners : {e}")
+        logger.error(f"SendKBVulners: {e}")
         self.stat_signal.emit("bad")
         return True
 
@@ -596,7 +590,7 @@ def ProcessKBResponse(self):
             self.cve_list_kb.append(cve)
         self.kb_report = {"cve_list": self.cve_list_kb}
     except Exception as e:
-        self.logger.error(f"ProcessKBResponse : Failed to transorm to needed format : {e}")
+        logger.error(f"ProcessKBResponse: Failed to transorm to needed format: {e}")
         self.stat_signal.emit("bad")
         return True
 
@@ -609,7 +603,7 @@ def ProcessKBResponse(self):
                     futures.append(executor.submit(GetCveInfo, self, item))
                 executor.shutdown(wait=True, cancel_futures=False)
         except Exception as e:
-            self.logger.error(f"ProcessKBResponse : Failed to Getting more info about CVEs : {e}")
+            logger.error(f"ProcessKBResponse: Failed to Getting more info about CVEs: {e}")
             self.stat_signal.emit("bad")
             return True
 
@@ -640,3 +634,11 @@ def CheckKB(self):
 
     self.stat_signal.emit("good")
     self.ReportKB_signal.emit(self.kb_report)
+
+
+def Check_Instance():
+    # ... existing code ...
+    if count > 1:
+        logger.critical("[Check_Instance] Another instance detected. Exiting.")
+        sys.exit(-1)
+    logger.info("Instance check passed: no duplicate running.")

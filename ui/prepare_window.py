@@ -35,7 +35,7 @@ def Prepare_Window(self):
     self.splash.ChangePbar(20, "Installing icons")
 
     # Icon
-    self.ui.setWindowIcon(QtGui.QIcon(GetRelPath(self, "assets//icons//bender.ico.ui")))
+    self.ui.setWindowIcon(QtGui.QIcon(GetRelPath(self, "assets//icons//bender.ico")))
     self.logger.debug(f"Prepare_Window : Icon seted")
 
     self.splash.ChangePbar(30, "Setting descriptions")
