@@ -1,4 +1,3 @@
-import ctypes
 import platform
 import sys
 import webbrowser
@@ -8,41 +7,38 @@ from PyQt6.QtCore import QThread, pyqtSignal
 from PyQt6.QtWidgets import QMessageBox
 from loguru import logger
 
-from bender.ui.animations import image_change_anim, show_err_message, text_change_anim, update_work_page_stat
+from bender.ui.animations import image_change_anim, show_err_message, text_change_anim
 
 
 class CheckTask(QThread):
-    finished = pyqtSignal(int, list)
-    def __init__(self, func, text, idx, total, parent=None):
+    finished = pyqtSignal(list)
+    def __init__(self, func, idx, total, parent=None):
         super().__init__(parent)
         self.func = func
-        self.text = text
         self.idx = idx
         self.total = total
     def run(self):
-        result = self.func()
-        self.finished.emit(self.idx, result)
+        self.finished.emit(self.func())
 
 
 def run_start_tasks(self):
     self.start_tasks_running = True
     self.vulners_key = self.ui.api_key.text().strip()
     checks = [
-        ("Checking for updates...", lambda: check_update(self)),
-        ("Getting system info...", lambda: get_system_info(self)),
-        ("Checking admin rights...", lambda: check_is_user_admin(self)),
-        ("Checking network...", lambda: get_network(self)),
-        ("Checking Vulners API...", lambda: check_vulners(self)),
-        ("Checking Vulners key...", lambda: check_vulners_key(self)),
-        ("Checking LoLDrivers DB...", lambda: check_loldrivers(self)),
+        lambda: check_update(self),
+        lambda: get_system_info(self),
+        lambda: check_is_user_admin(self),
+        lambda: get_network(self),
+        lambda: check_vulners(self),
+        lambda: check_vulners_key(self),
+        lambda: check_loldrivers(self)
     ]
     total = len(checks)
     self._start_threads = []
     self._start_tasks_finished = 0
 
-    def on_check_finished(check_idx, result):
+    def on_check_finished(result):
         self._start_tasks_finished += 1
-        check_text, _ = checks[check_idx - 1]
         if result is not None:
             if not isinstance(result, list):
                 result = [result]
@@ -57,8 +53,8 @@ def run_start_tasks(self):
         if self._start_tasks_finished == total:
             self.start_tasks_running = False
 
-    for idx, (check_text, func) in enumerate(checks, 1):
-        thread = CheckTask(func, check_text, idx, total)
+    for idx,  func in enumerate(checks, 1):
+        thread = CheckTask(func, idx, total)
         thread.finished.connect(on_check_finished)
         self._start_threads.append(thread)
         thread.start()

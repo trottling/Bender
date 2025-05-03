@@ -3,8 +3,8 @@ import re
 from PyQt6 import QtGui
 from loguru import logger
 
-from bender.ui.animations import stacked_widget_change_page, update_work_page_stat
-from bender.ui.tools import report_error, get_rel_path
+from bender.ui.animations import stacked_widget_change_page
+from bender.ui.tools import get_rel_path, report_error
 
 
 def report_apps(self, report):
@@ -54,7 +54,7 @@ def report_apps(self, report):
 
         self.ui.Software_listView_vuln.doubleClicked.connect(lambda index: report_apps_full(self, index, report))
         logger.debug("report_apps : List maked")
-        update_work_page_stat(self, "good")
+        
     except Exception as e:
         report_error(self, f"report_apps : {e}")
 
@@ -205,7 +205,7 @@ def report_kb(self, report):
 
         self.ui.vuln_kb_list.doubleClicked.connect(lambda index: report_kb_full(self, index, report))
         logger.debug("report_kb : List maked")
-        update_work_page_stat(self, "good")
+        
     except Exception as e:
         report_error(self, f"report_kb : {e}")
 
@@ -257,10 +257,10 @@ def fill_local_ports(self, ports):
                 desc = self.port_dict[port]["Description"] if self.port_dict[port]["Description"] != "" else "No Description"
                 list_item.setText(f"{port}\t{service}\t{desc}")
                 self.local_ports_list_model.appendRow(list_item)
-        update_work_page_stat(self, "good")
+        
     except Exception as e:
         logger.error(f"fill_local_ports : {e}")
-        update_work_page_stat(self, "bad")
+        
 
 
 def fill_ext_ports(self, ports):
@@ -282,10 +282,10 @@ def fill_ext_ports(self, ports):
                 desc = self.port_dict[port]["Description"] if self.port_dict[port]["Description"] != "" else "No Description"
                 list_item.setText(f"{port}\t{service}\t{desc}")
                 self.ext_ports_list_model.appendRow(list_item)
-        update_work_page_stat(self, "good")
+        
     except Exception as e:
         logger.error(f"fill_ext_ports : {e}")
-        update_work_page_stat(self, "bad")
+        
 
 
 def fill_kb_list(self, data_inst, data_miss):
@@ -313,10 +313,10 @@ def fill_kb_list(self, data_inst, data_miss):
             list_item.setIcon(QtGui.QIcon(get_rel_path(self, f"assets\\images\\dot-red.png")))
             self.All_kb_list_model.appendRow(list_item)
 
-        update_work_page_stat(self, "good")
+        
     except Exception as e:
         logger.error(f"fill_kb_list : {e}")
-        update_work_page_stat(self, "bad")
+        
 
 
 def fill_all_apps_list(self, data):
@@ -335,10 +335,10 @@ def fill_all_apps_list(self, data):
             list_item.setText(f"{str(item['name']).capitalize()}\t{str(item['version'])}")
             self.all_app_list_model.appendRow(list_item)
 
-        update_work_page_stat(self, "good")
+        
     except Exception as e:
         logger.error(f"fill_all_apps_list : {e}")
-        update_work_page_stat(self, "bad")
+        
 
 
 def fill_drivers_list(self, data):
@@ -357,7 +357,7 @@ def fill_drivers_list(self, data):
             list_item.setText(str(item))
             self.Drivers_list_model.appendRow(list_item)
 
-        update_work_page_stat(self, "good")
+        
     except Exception as e:
         logger.error(f"fill_drivers_list : {e}")
-        update_work_page_stat(self, "bad")
+        

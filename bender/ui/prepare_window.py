@@ -13,7 +13,6 @@ from PyQt6 import uic, QtGui
 from PyQt6.QtCore import Qt, QUrl
 from screeninfo import get_monitors
 
-from bender.ui.animations import update_work_page_stat
 from bender.ui.tools import get_rel_path
 
 
@@ -81,9 +80,7 @@ def prepare_window(self):
         self.ui.WebWidget.load(QUrl(f"https://www.shodan.io/host/{ip}"))
         self.ui.WebWidget.setContextMenuPolicy(Qt.ContextMenuPolicy.NoContextMenu)
         logger.debug("prepare_window: Shodan report loaded")
-        update_work_page_stat(self, "good")
     except Exception as e:
         logger.error(f"prepare_window: Failed to load Shodan report: {e}")
-        update_work_page_stat(self, "bad")
 
     logger.debug("prepare_window: Window prepared")

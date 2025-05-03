@@ -6,7 +6,7 @@ from bender.ui.hide_elements import hide_elements
 from bender.ui.images import load_images_and_icons
 from bender.ui.prepare_window import prepare_window
 from bender.ui.styles import load_styles
-from bender.core.ports_loader import get_ports_dict
+from bender.core.utils.ports_loader import get_ports_dict
 
 
 def start_app(self) -> None:

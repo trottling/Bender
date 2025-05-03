@@ -49,8 +49,6 @@ def load_images_and_icons(self):
 
     # Pbar page
     self.ui.next_work_btn.setStyleSheet(".QPushButton {image: url('" + get_rel_path(self, 'assets//images//next.png') + "')}")
-    self.ui.framel_scan_successful.setStyleSheet(".QFrame {image: url('" + get_rel_path(self, 'assets//images//apply.png') + "')}")
-    self.ui.frame_scan_error.setStyleSheet(".QFrame {image: url('" + get_rel_path(self, 'assets//images//fail.png') + "')}")
 
     # Work result page
     self.ui.frame_Hardware_cpu.setStyleSheet(".QFrame {image: url('" + get_rel_path(self, 'assets//images//pc_cpu.png') + "')}")

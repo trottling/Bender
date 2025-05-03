@@ -209,6 +209,7 @@ def resize_window(self):
 def restart_start_task(self):
     if self.start_tasks_running:
         show_err_message(self, "The operability test is already running")
+        return
     else:
         #
         # Total 175 ms
