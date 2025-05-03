@@ -5,6 +5,7 @@ from PyQt6.QtCore import QPropertyAnimation, QEasingCurve, QTimer, QRect
 from PyQt6.QtGui import QPixmap, QMovie
 from PyQt6.QtWidgets import QGraphicsOpacityEffect
 from loguru import logger
+from PyQt6.QtCore import QPropertyAnimation, QEasingCurve
 
 from bender.ui.tools import get_rel_path
 
@@ -43,7 +44,8 @@ def app_exit_anim(self):
 # Slide animation for QStackedWidget
 _slide_animations = []  # Global list to keep references
 
-def stacked_widget_change_page(stacked_widget, new_index, direction='left', duration=450):
+
+def stacked_widget_change_page(stacked_widget, new_index, direction = 'left', duration = 450):
     current_index = stacked_widget.currentIndex()
     if current_index == new_index:
         return
@@ -95,7 +97,8 @@ def stacked_widget_change_page(stacked_widget, new_index, direction='left', dura
     anim_current.start()
     anim_next.start()
 
-def elem_show_anim(self, elem, show=True, dur=250):
+
+def elem_show_anim(self, elem, show = True, dur = 250):
     logger.debug("ElemShowAnim : Show")
 
     elem.setGraphicsEffect(QGraphicsOpacityEffect())
@@ -116,7 +119,7 @@ def elem_show_anim(self, elem, show=True, dur=250):
     anim.start()
 
 
-def elem_hide_anim(self, elem, hide=True, dur=250):
+def elem_hide_anim(self, elem, hide = True, dur = 250):
     logger.debug("ElemHideAnim : Hide")
 
     elem.setGraphicsEffect(QGraphicsOpacityEffect().setOpacity(1.0))
@@ -242,6 +245,18 @@ def text_change_anim_show(self, elem, text):
     anim.start()
     logger.debug("TextChangeAnimShow : Text Changed")
 
+    if hasattr(elem, "verticalScrollBar"):
+        scrollbar = elem.verticalScrollBar()
+        start_value = scrollbar.value()
+        end_value = scrollbar.maximum()
+        if start_value != end_value:
+            scroll_anim = QPropertyAnimation(scrollbar, b"value", self)
+            scroll_anim.setDuration(175)
+            scroll_anim.setStartValue(start_value)
+            scroll_anim.setEndValue(end_value)
+            scroll_anim.setEasingCurve(QEasingCurve.Type.OutQuad)
+            scroll_anim.start()
+
 
 def show_err_message(self, msg):
     if not self.ui.alert_msg.isVisible():
@@ -275,10 +290,17 @@ def change_work_elems(self):
     elem_show_anim(self, self.ui.next_work_btn)
 
 
-def update_work_page_stat(self, stat):
-    if stat == "good":
-        self.res_good += 1
-        text_change_anim(self, self.ui.label_scan_successful_len, str(self.res_good))
-    if stat == "bad":
-        self.res_bad += 1
-        text_change_anim(self, self.ui.label_scan_error_len, str(self.res_bad))
+def textbrowser_append_anim(self, textbrowser, text, duration = 250, delay=300):
+    textbrowser.append(text)
+    scrollbar = textbrowser.verticalScrollBar()
+    start_value = scrollbar.value()
+    end_value = scrollbar.maximum()
+    if start_value != end_value:
+        def start_scroll_anim():
+            scroll_anim = QPropertyAnimation(scrollbar, b"value", self)
+            scroll_anim.setDuration(duration)
+            scroll_anim.setStartValue(start_value)
+            scroll_anim.setEndValue(end_value)
+            scroll_anim.setEasingCurve(QEasingCurve.Type.OutQuad)
+            scroll_anim.start()
+        QTimer.singleShot(delay, start_scroll_anim)

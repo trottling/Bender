@@ -26,7 +26,6 @@ class UserUI(QMainWindow):
         self.config_path = os.path.join(self.app_dir, "config.ini")
         self.config = ConfigParser()
         self.is_slider_timer_start = False
-        self.start_tasks_running = False
         self.qss_input_showed = False
         self.result_list_model = None
         self.update_msg_show = False
@@ -72,24 +71,26 @@ class UserUI(QMainWindow):
         # Run app
         start_app(self)
 
+        # --- Window move only by move bar ---
+        self._move_drag_active = False
+        self._move_drag_offset = None
+        # Попробуем повесить обработчики на label_windows_title и app_icon (оба входят в move bar)
+        for move_widget in [self.ui.label_windows_title, self.ui.app_icon]:
+            move_widget.mousePressEvent = self._move_bar_mouse_press
+            move_widget.mouseMoveEvent = self._move_bar_mouse_move
+            move_widget.mouseReleaseEvent = self._move_bar_mouse_release
+
     #
     # Window move
     #
 
     def mousePressEvent(self, event):
-        if event.button() == QtCore.Qt.MouseButton.LeftButton:
-            self.window_offset = event.pos()
-        else:
-            super().mousePressEvent(event)
+        super().mousePressEvent(event)
 
     def mouseMoveEvent(self, event):
-        if self.window_offset is not None and event.buttons() == QtCore.Qt.MouseButton.LeftButton:
-            self.move(self.pos() + event.pos() - self.window_offset)
-        else:
-            super().mouseMoveEvent(event)
+        super().mouseMoveEvent(event)
 
     def mouseReleaseEvent(self, event):
-        self.window_offset = None
         super().mouseReleaseEvent(event)
 
     #
@@ -135,3 +136,18 @@ class UserUI(QMainWindow):
     def resizeEvent(self, event):
         QtWidgets.QMainWindow.resizeEvent(self, event)
         self.update_grips()
+
+    # --- Window move only by move bar ---
+    def _move_bar_mouse_press(self, event):
+        if event.button() == QtCore.Qt.MouseButton.LeftButton:
+            self._move_drag_active = True
+            self._move_drag_offset = event.globalPosition().toPoint() - self.frameGeometry().topLeft()
+
+    def _move_bar_mouse_move(self, event):
+        if self._move_drag_active and event.buttons() == QtCore.Qt.MouseButton.LeftButton:
+            new_pos = event.globalPosition().toPoint() - self._move_drag_offset
+            self.move(new_pos)
+
+    def _move_bar_mouse_release(self, event):
+        self._move_drag_active = False
+        self._move_drag_offset = None
