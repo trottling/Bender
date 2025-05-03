@@ -74,8 +74,7 @@ class UserUI(QMainWindow):
         # --- Window move only by move bar ---
         self._move_drag_active = False
         self._move_drag_offset = None
-        # Попробуем повесить обработчики на label_windows_title и app_icon (оба входят в move bar)
-        for move_widget in [self.ui.label_windows_title, self.ui.app_icon]:
+        for move_widget in [self.ui.label_windows_title, self.ui.app_icon, self.ui.mv_bar_widget]:
             move_widget.mousePressEvent = self._move_bar_mouse_press
             move_widget.mouseMoveEvent = self._move_bar_mouse_move
             move_widget.mouseReleaseEvent = self._move_bar_mouse_release
