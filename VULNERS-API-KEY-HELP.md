@@ -1,4 +1,6 @@
-# Зачем Benderу нужен ключ API Vulners.com?
+## 🇬🇧  [English version](/.docs/EN/VULNERS-API-KEY-HELP.md)
+
+# Зачем Bender'у нужен ключ API Vulners.com?
 
 Bender использует **Vulners.com API** для получения информации об уязвимостях на основе отправленных списков приложений и KB обновлений.
 
