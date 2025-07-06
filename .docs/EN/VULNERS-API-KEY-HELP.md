@@ -1,3 +1,5 @@
+## 🇷🇺  [Русская версия](../../VULNERS-API-KEY-HELP.md)
+
 # Why does Bender need to Vulners.com API KEY?
 
 Bender uses **Vulners.com API** to get vulnerability information based on the send Windows Applications and KB Updates lists.  
