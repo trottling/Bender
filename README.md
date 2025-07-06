@@ -5,7 +5,7 @@
 [![Downloads](https://img.shields.io/github/downloads/trottling/Bender/total)](https://github.com/trottling/Bender/releases/latest)
 [![Last release](https://img.shields.io/github/v/release/trottling/Bender)](https://github.com/trottling/Bender/releases/latest)
 
-## 🇬🇧  [English docs](./../README.md)
+## 🇬🇧  [English docs](.docs/EN/README.md)
 
 # Bender - Cканер уязвимостей Windows
 
